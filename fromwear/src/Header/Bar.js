@@ -58,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '100%',
     },
   },
 }));
@@ -71,6 +71,10 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAlarmOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -173,14 +177,16 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <img src={logo} alt="logo" className ="logo"/>
+            <button className="logo_button" >
+            <img src={logo} alt="logo" className ="logo_img"/>
+            </button>
           </Typography>
           <Search style={{ backgroundColor: "#f2f2f2" , width: "65%"}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
             <StyledInputBase
-              style={{ color: "black", fontSize: "20px"}}
+              style={{ color: "black", fontSize: "20px",width: "100%"}}
               placeholder="#오늘의 #태그는 #청순한"
               inputProps={{ 'aria-label': 'search' }}
             />
@@ -195,11 +201,13 @@ export default function PrimarySearchAppBar() {
               style={{ color: "black" }}
               size="large"
               aria-label="show 17 new notifications"
+              onClick={handleAlarmOpen}
+
             >
               <Badge 
                 badgeContent={17} 
                 color="error">
-                <NotificationsIcon />
+                <NotificationsIcon style={{fontSize:30}}/>
               </Badge>
             </IconButton>
             <IconButton
@@ -211,7 +219,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle />
+              <AccountCircle style={{fontSize:35}}/>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

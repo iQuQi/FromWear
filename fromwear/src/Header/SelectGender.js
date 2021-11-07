@@ -15,15 +15,16 @@ export default function BasicSelect() {
   return (
     <Box sx={{ minWidth: "90px", height: "45px",marginRight: "10px" }}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">성별</InputLabel>
 
         <Select
-          style ={{height: "45px"}}
+          style ={{height: "40px"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
+          displayEmpty
           onChange={handleChange}
         >
+          <MenuItem value="">성별</MenuItem>
           <MenuItem value={10}>여자</MenuItem>
           <MenuItem value={20}>남자</MenuItem>
         </Select>

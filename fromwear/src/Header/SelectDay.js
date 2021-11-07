@@ -15,15 +15,16 @@ export default function BasicSelect() {
   return (
     <Box style={{ minWidth: "90px", height: "45px" ,marginRight: "10px"}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">기간</InputLabel>
 
         <Select
-          style ={{height: "45px" ,lineHeight: "45px"}}
+          style ={{height: "40px" }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
+          displayEmpty
           onChange={handleChange}
         >
+          <MenuItem value="">기간</MenuItem>
           <MenuItem value={10}>오늘</MenuItem>
           <MenuItem value={20}>일주일</MenuItem>
           <MenuItem value={30}>한달</MenuItem>
