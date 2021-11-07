@@ -59,7 +59,19 @@ a{
 
 /*header CSS*/
 .header_bar{
-    height: 70px;
+    position: absolute;
+    top: 0;
+    
     width: 100%;
 
+
+}
+
+.logo{
+    height: 50px;
+    width: auto;
+}
+
+.select{
+    margin: 5px;
 }
