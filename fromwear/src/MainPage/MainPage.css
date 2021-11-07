@@ -1,0 +1,39 @@
+#main_page{
+    width: 100%;
+    margin: auto;
+    overflow-y: auto;
+    background-color: white;
+}
+.banner{
+    margin: auto;
+    height: 335px;
+    width: 100%;
+    background-color: #F2F2F2;
+}
+.today_post{
+    width: 1080px;
+    overflow-y: auto; 
+    margin: auto;
+    padding: 10px;
+    background-color: white;
+
+    text-align: left;
+}
+.help_post{
+    width: 1080px;
+    overflow-y: auto; 
+    margin: auto;
+    padding: 10px;
+    background-color: white;
+
+    text-align: left;
+}
+.weekly_best{
+    width: 1080px;
+    overflow-y: auto; 
+    margin: auto;
+    padding: 10px;
+    background-color: white;
+
+    text-align: left;
+}
