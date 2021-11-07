@@ -1,0 +1,27 @@
+.one_comment {
+     margin: 10px 0;
+     padding-bottom: 5px;
+     border-bottom: 1px solid;
+}
+
+.writer_img {
+    vertical-align:middle;
+    display:inline-block;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.comment_user {
+    margin-left: 7px;
+    margin-bottom: 5px;
+    display:inline-block;
+    padding-bottom: 5px;
+}
+
+.comment_content {
+
+}

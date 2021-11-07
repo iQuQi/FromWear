@@ -1,9 +1,6 @@
-p {
+p,ul {
+    padding: 0;
     margin: 0;
-}
-
-div {
-    
 }
 
 .main_box {
@@ -65,9 +62,6 @@ div {
     padding: 10px 30px;
 }
 
-.comment_num {
-    margin-top: 15px;
-}
 
 .one_comment {
     margin: 10px 0;
