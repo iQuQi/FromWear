@@ -1,3 +1,4 @@
 //Install List
 
 npm install @material/image-list
+npm install @material-ui/icons
