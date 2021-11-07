@@ -12,6 +12,7 @@
 	width: 1080px;
 	height: 400px;
 	margin: 0 auto;
+	padding-top: 50px;
 }
 
 
@@ -23,7 +24,7 @@
 	color: #253861;
 	display: inline-block;
 	margin-right: 10px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .today_wear .img_list {
@@ -87,3 +88,8 @@
 	right: 30px;
 }
 
+
+.img_list_wrap {
+	width: 1080px;
+	margin: 0 auto;
+}
