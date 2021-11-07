@@ -67,7 +67,16 @@ a{
 
 }
 
-.logo{
+.logo_button{
+	border:0;
+	background-color: white;
+}
+
+.logo_button:hover{
+	cursor: pointer;
+}
+
+.logo_img{
     height: 50px;
     width: auto;
 }
