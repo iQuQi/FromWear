@@ -7,5 +7,5 @@
 변수 명 : snake case
 
 ## 실행방법
-npm install <br>
-npm start
+`npm install` <br>
+`npm start`
