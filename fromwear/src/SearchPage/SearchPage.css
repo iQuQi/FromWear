@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	min-width: 320px;
+	min-width: 1082px;
 	line-height: 1;
 	font-family : '나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif;
 
@@ -58,6 +58,31 @@ a{
 
 
 /*searchPage CSS*/
+.container{
+    width: 100%;  
+    background-color: white;
+      
+}
+
 .content{
-    
+    position:  relative;
+    top: 150px;
+    background-color: white;
+    height: auto;
+    width: 1082px;
+    margin: auto;
+}
+
+.tag_list{
+    position: absolute;
+    top: 64px;
+    width: 100%;
+    height: auto;
+    overflow: scroll;
+    background-color: white;
+    color: black;
+}
+
+.tag_button{
+    margin-right: 10px;
 }
