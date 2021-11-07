@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-<<<<<<< HEAD
-
-import TodayPostBoard from './PostBoard/TodayPostBoard';
-
+import './SearchPage/SearchPage.js'
 function App() {
   return (
-		<TodayPostBoard />
+    <div className="App">
+      <header className="App-header">
+         	<SearchPage/>
+      </header>
+    </div>
   );
 }
 
