@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import SearchPage from './SearchPage/SearchPage';
+import SearchPage from './SearchPage/SearchPage.jsx';
 
 function App() {
   return (
