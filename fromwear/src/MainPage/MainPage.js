@@ -7,7 +7,6 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import { borderRadius } from '@mui/system';
 
 import Stack from '@mui/material/Stack';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
@@ -53,13 +52,14 @@ class MainPage extends Component {
 				<img src = {BANNER} alt = 'Main Banner'/>
 			</div>
 
-			<div className = 'today_post'>
-				<h3 sx={{color: 'text.primary'}}>오늘의 착장</h3>
+			<div id = 'today_post' class = 'collection'>
+				<h3 className = 'title'>오늘의 착장</h3>
+				<a className = 'seemore' href=''>둘러보기</a>
 				
-				<ImageList cols={5} gap={8}>
+				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{itemData.map((item) => (
 						<ImageListItem key={item.img}>
-							<img style={{borderRadius:16 }}
+							<img style={{borderRadius:16}}
 								src={`${item.img}?w=248&fit=crop&auto=format`}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.user}
@@ -68,9 +68,9 @@ class MainPage extends Component {
 							<Stack direction="row" spacing={0} justifyContent="flex-end">
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p>&nbsp;</p>
-								<p>{item.user}</p>
+								<p style={{margin: '16px 0px'}}>{item.user}</p>
 								<p>&emsp;&emsp;&emsp;</p>
-								<p>{item.like}</p>
+								<p style={{margin: '16px 0px'}}>{item.like}</p>
 								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 							</Stack>				
 						</ImageListItem>
@@ -79,9 +79,10 @@ class MainPage extends Component {
 			
 			</div>
 
-			<div className = 'help_post'>
-				<h3 sx={{color: 'text.primary'}}>도움이 필요해</h3>
-				
+			<div id = 'help_post' class = 'collection'>
+				<h3 className = 'title'>도움이 필요해</h3>
+				<a className = 'seemore' href=''>둘러보기</a>
+
 				<ImageList cols={5} gap={8}>
 					{itemData.map((item) => (
 						<ImageListItem key={item.img}>
@@ -94,9 +95,9 @@ class MainPage extends Component {
 							<Stack direction="row" spacing={0} justifyContent="flex-end">
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p>&nbsp;</p>
-								<p>{item.user}</p>
+								<p style={{margin: '16px 0px'}}>{item.user}</p>
 								<p>&emsp;&emsp;&emsp;</p>
-								<p>{item.like}</p>
+								<p style={{margin: '16px 0px'}}>{item.like}</p>
 								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 							</Stack>				
 						</ImageListItem>
@@ -104,8 +105,9 @@ class MainPage extends Component {
 				</ImageList>
 			</div>
 
-			<div className = 'weekly_best'>
-				<h3 sx={{color: 'text.primary'}}>이번주 태그 랭킹</h3>
+			<div id = 'weekly_best' class = 'collection'>
+				<h3 className = 'title'>이번주 태그 랭킹</h3>
+				<a className = 'seemore' href=''>둘러보기</a>
 				
 				<ImageList cols={5} gap={8}>
 					{itemData.map((item) => (
@@ -119,9 +121,9 @@ class MainPage extends Component {
 							<Stack direction="row" spacing={0} justifyContent="flex-end">
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p>&nbsp;</p>
-								<p>{item.user}</p>
+								<p style={{margin: '16px 0px'}}>{item.user}</p>
 								<p>&emsp;&emsp;&emsp;</p>
-								<p>{item.like}</p>
+								<p style={{margin: '16px 0px'}}>{item.like}</p>
 								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 							</Stack>				
 						</ImageListItem>
