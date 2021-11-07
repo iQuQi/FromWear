@@ -34,7 +34,7 @@ class Comments extends Component {
         this.addTweet = this.addTweet.bind(this);
     }
     addTweet() {
-        let value = document.querySelector('#new-tweet-content').value;
+        let value = document.querySelector('.new_tweet_content').value;
         this.setState({tweets: [...this.state.tweets, {
             user_id: this.state.tweets.length +1,
             name: now_user_name,
@@ -46,17 +46,17 @@ class Comments extends Component {
             <div>
                 <div>
                     <div className="comment_num">댓글 {this.state.tweets.length}개</div>
-                    <ul id="tweets">
+                    <ul>
                         {
                             this.state.tweets.map(tweet => {
                                 return <SingleComment key={tweet.user_id} tweet={tweet} />
                             })
                         }
                     </ul>
-                    <div>작성자:now_user_name</div>
-                    <div id="writing-area">
-                        <textarea id="new-tweet-content"></textarea>
-                        <button id="submit-new-tweet" onClick={this.addTweet}>댓글 달기</button>
+                    <div className="now_comment_user">{now_user_name}</div>
+                    <div class="writing_area">
+                        <textarea class="new_tweet_content"></textarea>
+                        <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
                     </div>
                 </div>
             </div>

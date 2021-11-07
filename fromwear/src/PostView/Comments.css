@@ -1,3 +1,20 @@
 .comment_num {
     margin-top: 5px;
 }
+
+.now_comment_user {
+    font-weight: bold;
+}
+
+.writing_area {
+    margin: 5px 0;
+}
+
+.new_tweet_content {
+    width: 225px;
+}
+
+.new_tweet_submit_button {
+    background-color: #fff;
+    border: 1px solid #000;
+}

@@ -22,19 +22,24 @@ class Post extends Component{
 
         return (
             <div className="main_box">
-                <img src={img_a} className="post_img"/>
-                <div className="content_box">
-                    <div className="writer">
-                        <img src={writer_img} className="writer_img"/>
-                        <div className="writer_name">{writer_name}</div>
-                        <div className="writer_content">{content}</div>
+                <div>
+                    <img src={img_a} className="post_img"/>
+                    <div className="content_box">
+                        <div className="writer">
+                            <img src={writer_img} className="writer_img"/>
+                            <div className="writer_name">{writer_name}</div>
+                            <div className="writer_content">{content}</div>
+                        </div>
+                        <div className="comment">
+                            <Comments />
+                        </div>
+                        <ThumbUpOffAltIcon />
                     </div>
-                    <div className="comment">
-                        <Comments />
-                    </div>
-                    <ThumbUpOffAltIcon />
+                </div>
+                <div>
                 </div>
             </div>
+
         );
     }
 }
