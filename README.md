@@ -2,14 +2,6 @@
 ## 옷으로 시작하는 하루
 소프트웨어 스튜디오2 React+AWS 웹 풀스텍 개발 프로젝트
 
-## 코딩컨벤션
-파일 이름 : pascal case <br>
-변수 명 : snake case
-
-## 실행방법
-`npm install` <br>
-`npm start`
-
 ## Git 사용법 ⭐중요중요⭐
 - git branch : 현재 브랜치 확인<br>
 - git checkout A : A 브랜치로 이동 -> 이동하기 전 현재 브랜치를 push(or commit?) 해두고 가야 함<br>
@@ -26,4 +18,12 @@
     =====<br>
     내용2<br>
     를 찾은 후 내용1과 내용2 중 맞는 코드를 남기고 나머지 내용과 HEAD, ===를 지워주고 저장<br>
-   
+
+## 코딩컨벤션
+파일 이름 : pascal case <br>
+변수 명 : snake case
+
+## 실행방법
+`npm install` <br>
+`npm start`
+
