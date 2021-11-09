@@ -14,8 +14,8 @@
 - git branch : 현재 브랜치 확인<br>
 - git checkout A : A 브랜치로 이동 -> 이동하기 전 현재 브랜치를 push(or commit?) 해두고 가야 함<br>
 - git push origin A : 현재 브랜치의 업데이트 내용을 원격의 A 레포지터리에 push<br>
-- git pull origin A : 원격의 A 레포지터리에서 pull을 받아서 현재 브랜치와 자동 merge<br>
-- git merge A : 현재 브랜치로 A 레포지터리의 내용을 merge함 -> 즉 현재 브랜치만 변화가 생긱는 것<br>
+- git pull origin A : 원격의 A 브랜치에서 pull을 받아서 현재 브랜치와 자동 merge<br>
+- git merge A : 현재 브랜치로 A 브랜치의 내용을 merge함 -> 즉 현재 브랜치만 변화가 생긱는 것<br>
 - 평소: 구현할 기능의 브랜치에서 작업 -> 그 브랜치에 push <br>
 - merge: main으로 이동 -> git merge A -> git pull origin main<br>
 - 충돌 : <br>
