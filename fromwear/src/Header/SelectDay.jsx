@@ -13,11 +13,11 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box style={{ minWidth: "90px", height: "45px" ,marginRight: "10px"}}>
-      <FormControl fullWidth>
+    <Box style={{ minWidth: "90px", height: "45px" ,marginRight: "10px", float:"right"}}>
+      <FormControl variant ="standard" fullWidth>
 
         <Select
-          style ={{height: "40px" }}
+          style ={{height: "45px" }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}

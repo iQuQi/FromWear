@@ -9,7 +9,6 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -20,8 +19,6 @@ import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 
-
-import { fontFamily } from '@mui/system';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -65,31 +62,30 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
+  
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isAlarmOpen = Boolean(alarmAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    
   };
 
   const handleAlarmOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAlarmAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+  };
+  const handleAlarmClose = () => {
+    setAlarmAnchorEl(null);
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -108,62 +104,32 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>마이페이지</MenuItem>
+      <MenuItem onClick={handleMenuClose}>로그아웃</MenuItem>
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
+  const renderAlarm = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
+      anchorEl={alarmAnchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      id={mobileMenuId}
+      id={menuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      open={isAlarmOpen}
+      onClose={handleAlarmClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <MenuItem onClick={handleAlarmClose}>좋아요가 달렸습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>댓글이 달렸습니다</MenuItem>
     </Menu>
   );
+
 
   return (
     <Box sx={{ flexGrow: 1}}>
@@ -181,18 +147,21 @@ export default function PrimarySearchAppBar() {
             <img src={logo} alt="logo" className ="logo_img"/>
             </button>
           </Typography>
-          <Search style={{ backgroundColor: "#f2f2f2" , width: "65%"}}>
+
+          <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px"}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
             <StyledInputBase
-              style={{ color: "black", fontSize: "20px",width: "100%"}}
+              style={{ color: "black", fontSize: "20px",width: "80%"}}
               placeholder="#오늘의 #태그는 #청순한"
               inputProps={{ 'aria-label': 'search' }}
             />
+            <SelectGender/>
+            <SelectDay/>
           </Search>
-          <SelectGender className="select" />
-          <SelectDay className="select"/>
+
+        
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -222,21 +191,10 @@ export default function PrimarySearchAppBar() {
               <AccountCircle style={{fontSize:35}}/>
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+ 
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {renderAlarm}
       {renderMenu}
     </Box>
   );
