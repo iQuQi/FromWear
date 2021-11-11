@@ -6,7 +6,7 @@ import TodayPostBoard from './PostBoard/TodayPostBoard';
 
 function App() {
   return (
-	<TodayPostBoard />
+	<Header />
   );
 }
 
