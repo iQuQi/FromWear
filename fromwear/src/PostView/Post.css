@@ -4,6 +4,7 @@ p,ul {
 }
 
 .main_box {
+    width: 610px;
     margin: 0 auto;
     /*background-color: red;*/
     text-align: center;
@@ -83,4 +84,9 @@ p,ul {
 
 .comment_content_last {
     
+}
+
+.icons {
+    text-align: left;
+    line-height: 30px;
 }
