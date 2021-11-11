@@ -100,4 +100,9 @@ const TagData = [
    
 ];
 
+export const TagRankData=[
+"청순한","귀여운","섹시한"
+,"힙한","파자마룩"
+];
+
 export default TagData;
