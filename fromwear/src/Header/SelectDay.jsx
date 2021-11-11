@@ -13,19 +13,25 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: "90px", height: "45px",marginRight: "10px" }}>
-      <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">성별</InputLabel>
+    <Box style={{ minWidth: "90px", height: "45px" ,marginRight: "10px", float:"right"}}>
+      <FormControl variant ="standard" fullWidth>
 
         <Select
-          style ={{height: "45px"}}
+          style ={{height: "45px" }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
+          displayEmpty
           onChange={handleChange}
         >
-          <MenuItem value={10}>여자</MenuItem>
-          <MenuItem value={20}>남자</MenuItem>
+          <MenuItem value="">기간</MenuItem>
+          <MenuItem value={10}>오늘</MenuItem>
+          <MenuItem value={20}>일주일</MenuItem>
+          <MenuItem value={30}>한달</MenuItem>
+          <MenuItem value={40}>6개월</MenuItem>
+          <MenuItem value={50}>1년</MenuItem>
+
+
         </Select>
       </FormControl>
     </Box>
