@@ -1,3 +1,6 @@
+.icons_list {
+    display: inline-block;
+}
 
 .heart_filled {
     color: red;
@@ -9,6 +12,7 @@
 }
 
 .button {
+    display: inline-block;
     cursor: pointer;
     transition: transform 300ms ease;
 }

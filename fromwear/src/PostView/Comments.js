@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SingleComment from './SingleComment'
 import './Comments.css';
+import Thumb from './Thumb'
 
 let now_user_name = "최지민";
 

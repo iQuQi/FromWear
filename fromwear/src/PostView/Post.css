@@ -6,6 +6,7 @@ p,ul {
 .main_box {
     width: 610px;
     margin: 0 auto;
+    margin-top: 30px;
     /*background-color: red;*/
     text-align: center;
 }
@@ -87,6 +88,12 @@ p,ul {
 }
 
 .icons {
+    width: 300px;
     text-align: left;
     line-height: 30px;
+}
+
+.post_tag {
+    display: inline-block;
+    float: right;
 }

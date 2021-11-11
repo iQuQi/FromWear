@@ -41,7 +41,7 @@ class Like extends Component{
                     <HeartFilled className="button heart_filled" onClick={this.onClick}/>
                     : <HeartOutlined className="button heart_outlined" onClick={this.onClick}/>
                 }
-                 <div className="like_num">{this.state.notice}</div>
+                <div className="like_num">{this.state.notice}</div>
             </div>
         )
     }

@@ -10,7 +10,7 @@ let post_id = 111;
 let img = img_a
 let writer_name = "진영"
 let content = "오늘은 K-POP스타 녹화날! 오늘 의상 너무 맘에 드는데 주변에서 다들 말린다.... 이유가 뭘까요?? 지금 녹화가 1시간 밖에 안 남았어요ㅠ  이러고 가도 괜찮을까요? 의견 남겨주세요~~";
-let post_tag = ["#자켓", "#분위기", "#청"]
+let post_tag = ["#자켓", " #분위기", " #청"]
 
 class Post extends Component{
     /*
@@ -34,11 +34,11 @@ class Post extends Component{
                         <div className="comment">
                             <Comments />
                         </div>
-                        <ThumbUpOffAltIcon />
                     </div>
                 </div>
                 <div className="icons">
                     <Like />
+                    <div className="post_tag">{post_tag}</div>
                 </div>
 
             </div>
