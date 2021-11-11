@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -13,11 +12,11 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: "90px", height: "45px",marginRight: "10px" }}>
-      <FormControl fullWidth>
+    <Box sx={{ minWidth: "90px", height: "45px",marginRight: "10px" ,float:"right"}}>
+      <FormControl variant ="standard" fullWidth>
 
         <Select
-          style ={{height: "40px"}}
+          style ={{height: "45px"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}

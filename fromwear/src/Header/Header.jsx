@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Component} from 'react';
 import './Header.css'
 import PrimarySearchAppBar from './Bar'
-
+import MoveToTop from "./MoveToTop"
 
 
 class Header extends Component{
@@ -14,6 +14,8 @@ class Header extends Component{
 		return(
 			<div className="header_bar">		
 				<PrimarySearchAppBar/>
+			
+				<MoveToTop/>
 			</div>
 		)
 	}
