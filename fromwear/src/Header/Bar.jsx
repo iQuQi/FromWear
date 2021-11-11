@@ -125,8 +125,16 @@ export default function PrimarySearchAppBar() {
       open={isAlarmOpen}
       onClose={handleAlarmClose}
     >
-      <MenuItem onClick={handleAlarmClose}>좋아요가 달렸습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>댓글이 달렸습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>"지현"님이 게시글에 좋아요를 눌렀습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>연지님이 게시글에 좋아요를 눌렀습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>연지님이 게시글에 좋아요를 눌렀습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>지민님이 게시글에 댓글을 달았습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>지현님이 게시글에 좋아요를 눌렀습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>지현님이 유진님을 팔로우 하였습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>지민님이 유진님을 팔로우 하였습니다</MenuItem>
+      <MenuItem onClick={handleAlarmClose}>연지님이 유진님을 팔로우 하였습니다</MenuItem>
+
+
     </Menu>
   );
 
