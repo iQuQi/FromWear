@@ -60,7 +60,6 @@ a{
 .main_box {
     width: 610px;
     margin: 0 auto;
-    margin-top: 30px;
     /*background-color: red;*/
     text-align: center;
 }
@@ -150,4 +149,7 @@ a{
 .post_tag {
     display: inline-block;
     float: right;
+}
+
+.recommend_tag {
 }
