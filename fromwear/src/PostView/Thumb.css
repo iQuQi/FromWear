@@ -15,8 +15,6 @@
 
 .thumb_num {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
     font-size: 15px;
     vertical-align: middle;
 }
