@@ -1,12 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './Header/Header'
 
-import TodayPostBoard from './PostBoard/TodayPostBoard';
+import WeeklyTag from './WeeklyTagPage/WeeklyTagPage';
 
 function App() {
   return (
-	<TodayPostBoard />
+	<WeeklyTag />
   );
 }
 

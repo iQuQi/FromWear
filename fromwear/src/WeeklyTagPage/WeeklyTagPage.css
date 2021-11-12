@@ -57,21 +57,55 @@ a{
 
 
 
-/*header CSS*/
-.header_bar{
-    position: absolute;
-    top: 0;
-    
+#main_page{
     width: 100%;
-
-
+    margin: auto;
+    overflow-y: auto;
+    background-color: white;
 }
-
-.logo{
-    height: 50px;
-    width: auto;
+.banner{
+    margin: auto;
+    height: 700px;
+    width: 100%;
+    background-color: #F2F2F2;
 }
+.banner_text{
+    padding-top: 3%;
+    font-weight: bold;
+    text-align: center;
+    line-height: 3em;
+}
+.banner_bestpost{
+    margin: auto;
+    padding: 3%;
+    width: 87%;
+}
+.banner_bestpost_photo{
+    width: 100px;
+    height: 300px;
+}
+.collection{
+    position: relative;
+    width: 1080px;
+    overflow-y: auto; 
+    margin: auto;
+    padding: 10px;
+    background-color: white;
 
-.select{
-    margin: 5px;
+    text-align: left;
+}
+.title{
+    display: inline-block;
+    margin: 12px;
+}
+.seemore{
+    display: inline;
+    position: absolute;
+    right:0;
+    margin: 22px 20px 0px 16px;
+    
+
+    color: grey;
+    font-weight: 600;
+    font-size: 0.8em;
 }
