@@ -1,0 +1,19 @@
+.select_div {
+    float: right;
+    margin-right: 15px;
+}
+
+.select_yes {
+    transform: translateY(+28%);
+    cursor: pointer;
+    float: right;
+    color: black;
+    text-decoration: underline;
+}
+
+.select_no {
+    transform: translateY(+28%);
+    cursor: pointer;
+    color: gray;
+    text-decoration: underline;
+}

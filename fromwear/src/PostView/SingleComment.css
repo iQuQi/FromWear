@@ -1,6 +1,6 @@
 .one_comment {
-     margin: 10px 0;
-     padding-bottom: 5px;
+     margin: 20px 0;
+     padding-bottom: 20px;
      border-bottom: 1px solid;
 }
 
@@ -15,7 +15,8 @@
     border-radius: 50%;
 }
 
-.comment_user {
+.comment_user_name {
+    font-weight: bold;
     display:inline-block;
     margin-left: 7px;
     margin-bottom: 5px;
@@ -23,5 +24,6 @@
 }
 
 .comment_content {
+    line-height: 1.3;
 
 }

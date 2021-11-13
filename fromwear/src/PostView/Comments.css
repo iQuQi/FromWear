@@ -1,4 +1,5 @@
 .comment_num {
+    font-weight: bold;
     margin-top: 5px;
 }
 
@@ -7,14 +8,25 @@
 }
 
 .writing_area {
+    /*position: relative;
+    top: 130px;*/
+}
+
+.writing_content {
     margin: 5px 0;
 }
 
 .new_tweet_content {
-    width: 225px;
+    width: 320px;
+    height: 41px;
+    box-sizing: border-box;
 }
 
 .new_tweet_submit_button {
+    float: right;
+    height: 31px;
+    margin-top: 5px;
+    box-sizing: border-box;
     background-color: #fff;
     border: 1px solid #000;
 }

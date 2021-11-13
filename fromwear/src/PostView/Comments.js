@@ -29,6 +29,26 @@ class Comments extends Component {
                     user_id: 4,
                     name: "김유진",
                     content: "액세서리를 활용해보세요. 좀 심심하네요"
+                },
+                {
+                    user_id: 1,
+                    name: "최지민",
+                    content: "리본 넥타이를 꼭 해야 될까요?! 다른 넥타이를 착용해보는 걸 추천드려요!리본 넥타이를 꼭 해야 될까요?! 다른 넥타이를 착용해보는 걸 추천드려요!리본 넥타이를 꼭 해야 될까요?! 다른 넥타이를 착용해보는 걸 추천드려요!리본 넥타이를 꼭 해야 될까요?! 다른 넥타이를 착용해보는 걸 추천드려요!리본 넥타이를 꼭 해야 될까요?! 다른 넥타이를 착용해보는 걸 추천드려요!"
+                },
+                {
+                    user_id: 2,
+                    name: "이지현",
+                    content: "머리를 좀 단정하게 다듬으면 좋을 것 같아요"
+                },
+                {
+                    user_id: 3,
+                    name: "전연지",
+                    content: "셔츠 팔 부분이 좀 더 길었으면 좋겠어요~"
+                },
+                {
+                    user_id: 4,
+                    name: "김유진",
+                    content: "액세서리를 활용해보세요. 좀 심심하네요"
                 }
             ]
         }
@@ -54,10 +74,12 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    <div className="now_comment_user">{now_user_name}</div>
-                    <div class="writing_area">
-                        <textarea class="new_tweet_content"></textarea>
-                        <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
+                    <div className="writing_area">
+                        <div className="now_comment_user">{now_user_name}</div>
+                        <div class="writing_content">
+                            <textarea class="new_tweet_content"></textarea>
+                            <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
+                        </div>
                     </div>
                 </div>
             </div>

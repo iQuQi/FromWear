@@ -35,12 +35,12 @@ class Thumb extends Component{
     render() {
         return (
             <div className="thumb_div">
+                <div className="thumb_num">{this.state.notice}</div>
                 {
                     this.state.is_checked ?
                     <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>
                     : <ThumbUpAltIcon className="button thumb_off" onClick={this.onClick}/>
                 }
-                <div className="thumb_num">{this.state.notice}</div>
             </div>
             
         )
