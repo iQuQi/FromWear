@@ -1,12 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './Header/Header.jsx'
-
-import TodayPostBoard from './PostBoard/TodayPostBoard';
-
+import PostWritePage from './PostWritePage/PostWritePage';
 function App() {
   return (
-	<Header />
+	<PostWritePage />
   );
 }
 

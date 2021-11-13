@@ -13,23 +13,23 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box style={{ minWidth: "90px", height: "45px" ,marginRight: "10px", float:"right"}}>
+    <Box style={{ minWidth: "90px", height: "35px" ,marginRight: "10px", float:"right"}}>
       <FormControl variant ="standard" fullWidth>
 
         <Select
-          style ={{height: "45px" }}
+          style ={{height: "35px", fontSize:13}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
           displayEmpty
           onChange={handleChange}
         >
-          <MenuItem value="">기간</MenuItem>
-          <MenuItem value={10}>오늘</MenuItem>
-          <MenuItem value={20}>일주일</MenuItem>
-          <MenuItem value={30}>한달</MenuItem>
-          <MenuItem value={40}>6개월</MenuItem>
-          <MenuItem value={50}>1년</MenuItem>
+          <MenuItem  style={{fontSize:13 }} value="">기간</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={10}>오늘</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={20}>일주일</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={30}>한달</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={40}>6개월</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={50}>1년</MenuItem>
 
 
         </Select>

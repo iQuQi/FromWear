@@ -18,7 +18,7 @@ import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
-
+import alarm_data from './AlarmData';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -29,6 +29,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
+  height: 35,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
@@ -54,6 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
+    height:35,
     [theme.breakpoints.up('md')]: {
       width: '100%',
     },
@@ -82,7 +84,9 @@ export default function PrimarySearchAppBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleAlarmClose = () => {
+  const handleAlarmClose = e => {
+    let index=e.target.value;
+    alarm_data.splice(index,1);
     setAlarmAnchorEl(null);
   };
 
@@ -103,9 +107,10 @@ export default function PrimarySearchAppBar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+
     >
-      <MenuItem onClick={handleMenuClose}>마이페이지</MenuItem>
-      <MenuItem onClick={handleMenuClose}>로그아웃</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleMenuClose} >마이페이지</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
     </Menu>
   );
 
@@ -125,35 +130,32 @@ export default function PrimarySearchAppBar() {
       open={isAlarmOpen}
       onClose={handleAlarmClose}
     >
-      <MenuItem onClick={handleAlarmClose}>좋아요가 달렸습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>댓글이 달렸습니다</MenuItem>
+
+    {alarm_data.map((item,index)=>
+      <MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
+    )}
+
+
     </Menu>
   );
 
 
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar style={{ backgroundColor: "white",boxShadow: "0 0 0 0" }} position="static">
+
+    <div >
+      <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
-          <Typography
-            style={{ backgroundColor: "white" }}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <button className="logo_button" >
-            <img src={logo} alt="logo" className ="logo_img"/>
-            </button>
-          </Typography>
+           <a href=""><img src={logo} alt="logo" className ="logo_img"/></a>
+         
 
-          <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px"}}>
+          <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
+          borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
             <StyledInputBase
-              style={{ color: "black", fontSize: "20px",width: "80%"}}
+              style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
               placeholder="#오늘의 #태그는 #청순한"
               inputProps={{ 'aria-label': 'search' }}
             />
@@ -168,17 +170,19 @@ export default function PrimarySearchAppBar() {
 
             <IconButton
               style={{ color: "black" }}
-              size="large"
               aria-label="show 17 new notifications"
               onClick={handleAlarmOpen}
 
-            >
+            >                
+              <NotificationsIcon style={{fontSize:25,position:"relative",top:-10}}/>
               <Badge 
                 badgeContent={17} 
-                color="error">
-                <NotificationsIcon style={{fontSize:30}}/>
+                color="primary"
+                style={{position:"relative",top:-20}}
+                >
               </Badge>
             </IconButton>
+
             <IconButton
               style={{ color: "black" }}
               size="large"
@@ -188,7 +192,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle style={{fontSize:35}}/>
+              <AccountCircle style={{fontSize:25,position:"relative",top:-10}}/>
             </IconButton>
           </Box>
  
@@ -196,7 +200,7 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderAlarm}
       {renderMenu}
-    </Box>
+    </div>
   );
 }
 
