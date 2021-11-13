@@ -1,0 +1,127 @@
+@charset "utf-8";
+/*reset CSS*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ul, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	min-width: 1082px;
+	line-height: 1;
+	font-family : '나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif;
+
+}
+ul, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+textarea, input, button,select{
+	font:inherit;
+}
+
+a{
+	color: black;
+	text-decoration: none;
+}
+
+/*write CSS*/
+
+
+
+.blind{
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip: rect(0, 0 ,0, 0);
+	margin: -1px;
+	overflow: hidden;
+  }
+
+  .post_write_container{
+      position: fixed;
+      top:0;
+      padding: 80px 0 120px;
+      background-color:rgba(0, 0, 0 , 0.5);
+      width: 100%;
+      height: 900px;
+      z-index: 10000000;
+  }
+
+  .post_write_content{
+    width: 600px;
+    height: 400px;
+    background-color: white;
+    margin: auto;
+    border-radius: 30px;
+    padding: 40px;
+    position: relative;
+  }
+
+  .image_file_input{
+      position: relative;
+      text-align: center;
+      line-height: 400px;
+      width: 250px;
+      height: 400px;
+      background-color: #e3e3e3;
+      border-radius: 30px;
+
+  }
+
+  .img_file_form{
+    width: 250px;
+    height: 400px;
+    cursor: pointer;
+    color:#e3e3e3;
+
+    position: absolute;
+    top:0;left: 0;
+    
+  }
+
+
+  .post_text_input{
+    position: absolute;
+    top:40px; right: 40px;
+    width: 310px;
+    height: 400px;
+    background-color: #e3e3e3;
+    border-radius: 30px;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+
+  .text_form{
+    
+  }
