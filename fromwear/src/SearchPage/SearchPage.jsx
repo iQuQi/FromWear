@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 import RankTag from './RankTag';
 import  Typography  from '@mui/material/Typography';
+import PostWritePage from '../PostWritePage/PostWritePage';
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0];
@@ -65,7 +66,8 @@ class SearchPage extends Component{
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button} = this.state;
 		return(
-			<div className="container">		
+			<div className="search_page_container">		
+				<PostWritePage/>
                 <Header/>
 				<div className = "tag_div" >
 					<Stack direction="row">
@@ -99,7 +101,7 @@ class SearchPage extends Component{
 					</Stack>
 					
 				</div>
-				<div className="content">
+				<div className="search_page_content">
 						<SearchResult 
 						handle_img_on_click={this.handle_img_on_click} 
 						/>
