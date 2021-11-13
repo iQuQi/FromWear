@@ -88,7 +88,7 @@ class SearchPage extends Component{
 						<Button 
 							style={{width: 85, boxShadow:"0 0 0 0" ,height: 40,fontWeight: "bold", border: !is_tag_more?"0":"1px solid lightgray",
 							borderRadius:"30px",backgroundColor: !is_tag_more?"black":"white",color:!is_tag_more?"white":"black",fontSize:13,
-							position:"absolute", top:0, right:25,zIndex:1000}} 
+							position:"absolute", top:10, right:25,zIndex:1000}} 
 							variant="contained"
 							onClick={this.handle_tag_more_button}	
 						>

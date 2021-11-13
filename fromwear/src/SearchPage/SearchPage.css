@@ -83,8 +83,11 @@ a{
 }
 
 .tag_div{
+	padding-top: 10px;
+	border-top: 1px solid lightgray;
+
     position: absolute;
-    top: 75px;
+    top: 45px;
     width: 100%;
 	background-color: white;
 }
