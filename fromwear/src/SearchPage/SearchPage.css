@@ -75,7 +75,7 @@ a{
 
 .content{
     position:  relative;
-	top: 150px;
+	top: 130px;
     background-color: white;
     height: auto;
     width: 1082px;
@@ -90,6 +90,7 @@ a{
 }
 
 .tag_list{
+	margin: auto;
 	width: 100%;
 	position: relative;
 	overflow: hidden;
@@ -102,7 +103,7 @@ a{
 .tag_more_list_on{
 	padding: 10px;
 	margin-right: 15px;
-	width: 89%;
+	width: 86%;
 	min-width: 980px;
 	height: auto;
 	background-color: white;
@@ -114,9 +115,9 @@ a{
 }
 
 .tag_more_list_off{
-	width: 89%;
+	width: 86%;
 	min-width: 980px;
-	height: 50px;
+	height: 40px;
 	overflow: hidden;
 	background-color: white;
 	position: relative;
@@ -149,6 +150,7 @@ a{
 	border-radius:16px;
 
 }
+
 
 
 

@@ -77,7 +77,7 @@ class SearchPage extends Component{
 							target_button={target_tag_button}
 							handle_tag_button_click={this.handle_tag_button_click}
 							/>
-							<Typography style={{color: "black",fontSize:"22px",fontWeight: "bold",margin: "15px 0 5px"}}>오늘의 태그</Typography>
+							<Typography style={{color: "black",fontSize:"18px",fontWeight: "bold",margin: "15px 0 5px"}}>오늘의 태그</Typography>
 							<RankTag 
 								target_button={target_rank_tag_button}
 								handle_rank_tag_button_click={this.handle_rank_tag_button_click}
@@ -86,9 +86,9 @@ class SearchPage extends Component{
 							
 						</div>
 						<Button 
-							style={{width: 100, boxShadow:"0 0 0 0" ,height: 40,fontWeight: "bold", border: !is_tag_more?"0":"1px solid lightgray",
-							borderRadius:"30px",height:45, backgroundColor: !is_tag_more?"black":"white",color:!is_tag_more?"white":"black",fontSize:15,
-							position:"absolute", top:0, right:0,zIndex:1000}} 
+							style={{width: 85, boxShadow:"0 0 0 0" ,height: 40,fontWeight: "bold", border: !is_tag_more?"0":"1px solid lightgray",
+							borderRadius:"30px",backgroundColor: !is_tag_more?"black":"white",color:!is_tag_more?"white":"black",fontSize:13,
+							position:"absolute", top:0, right:25,zIndex:1000}} 
 							variant="contained"
 							onClick={this.handle_tag_more_button}	
 						>
