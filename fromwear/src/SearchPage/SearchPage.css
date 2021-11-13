@@ -176,4 +176,5 @@ a{
 
 .image_list_item:hover .dimmed_info_writer, .image_list_item:hover .dimmed_info_like{
 	display: block;
+	font-size: 13px;
 }
