@@ -12,20 +12,20 @@ export default function BasicSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: "90px", height: "45px",marginRight: "10px" ,float:"right"}}>
+    <Box sx={{ minWidth: "90px", height: "35px",marginRight: "10px" ,float:"right"}}>
       <FormControl variant ="standard" fullWidth>
 
         <Select
-          style ={{height: "45px"}}
+          style ={{height: "40px",fontSize:13}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
           displayEmpty
           onChange={handleChange}
         >
-          <MenuItem value="">성별</MenuItem>
-          <MenuItem value={10}>여자</MenuItem>
-          <MenuItem value={20}>남자</MenuItem>
+          <MenuItem style={{fontSize:13 }} value="">성별</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={10}>여자</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={20}>남자</MenuItem>
         </Select>
       </FormControl>
     </Box>
