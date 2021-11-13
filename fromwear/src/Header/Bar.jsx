@@ -18,7 +18,7 @@ import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
-
+import alarm_data from './AlarmData';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -82,7 +82,9 @@ export default function PrimarySearchAppBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleAlarmClose = () => {
+  const handleAlarmClose = e => {
+    let index=e.target.value;
+    alarm_data.splice(index,1);
     setAlarmAnchorEl(null);
   };
 
@@ -104,7 +106,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>마이페이지</MenuItem>
+      <MenuItem onClick={handleMenuClose} >마이페이지</MenuItem>
       <MenuItem onClick={handleMenuClose}>로그아웃</MenuItem>
     </Menu>
   );
@@ -125,14 +127,10 @@ export default function PrimarySearchAppBar() {
       open={isAlarmOpen}
       onClose={handleAlarmClose}
     >
-      <MenuItem onClick={handleAlarmClose}>"지현"님이 게시글에 좋아요를 눌렀습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>연지님이 게시글에 좋아요를 눌렀습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>연지님이 게시글에 좋아요를 눌렀습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>지민님이 게시글에 댓글을 달았습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>지현님이 게시글에 좋아요를 눌렀습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>지현님이 유진님을 팔로우 하였습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>지민님이 유진님을 팔로우 하였습니다</MenuItem>
-      <MenuItem onClick={handleAlarmClose}>연지님이 유진님을 팔로우 하였습니다</MenuItem>
+
+    {alarm_data.map((item,index)=>
+      <MenuItem onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
+    )}
 
 
     </Menu>
