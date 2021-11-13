@@ -67,20 +67,19 @@ a{
 
 }
 
-.logo_button{
-	border:0;
-	width:150px;
-	height: auto;
-	background-color: white;
-}
+
 
 .logo_button:hover{
 	cursor: pointer;
 }
 
 .logo_img{
-    height: auto;
-    width: 150px;
+	position: relative;
+	top:-10px;
+	width: 140px;
+	height: 30px;
+
+
 }
 
 .select{

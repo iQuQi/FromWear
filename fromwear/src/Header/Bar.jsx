@@ -107,9 +107,10 @@ export default function PrimarySearchAppBar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+
     >
-      <MenuItem onClick={handleMenuClose} >마이페이지</MenuItem>
-      <MenuItem onClick={handleMenuClose}>로그아웃</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleMenuClose} >마이페이지</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
     </Menu>
   );
 
@@ -131,7 +132,7 @@ export default function PrimarySearchAppBar() {
     >
 
     {alarm_data.map((item,index)=>
-      <MenuItem onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
     )}
 
 
@@ -144,19 +145,11 @@ export default function PrimarySearchAppBar() {
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45}} position="static">
         <Toolbar>
         
-          <Typography
-            style={{ backgroundColor: "white" }}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <button className="logo_button" >
-            <img src={logo} alt="logo" className ="logo_img"/>
-            </button>
-          </Typography>
+           <a href=""><img src={logo} alt="logo" className ="logo_img"/></a>
+         
 
-          <Search style={{ backgroundColor: "white" , width: "80%",minWidth:"1082px",borderBottom: "1px solid black",borderRadius: 0}}>
+          <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
+          borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
@@ -176,17 +169,19 @@ export default function PrimarySearchAppBar() {
 
             <IconButton
               style={{ color: "black" }}
-              size="small"
               aria-label="show 17 new notifications"
               onClick={handleAlarmOpen}
 
-            >
+            >                
+              <NotificationsIcon style={{fontSize:25,position:"relative",top:-10}}/>
               <Badge 
                 badgeContent={17} 
-                color="primary">
-                <NotificationsIcon style={{fontSize:25}}/>
+                color="primary"
+                style={{position:"relative",top:-20}}
+                >
               </Badge>
             </IconButton>
+
             <IconButton
               style={{ color: "black" }}
               size="large"
@@ -196,7 +191,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle style={{fontSize:25}}/>
+              <AccountCircle style={{fontSize:25,position:"relative",top:-10}}/>
             </IconButton>
           </Box>
  
