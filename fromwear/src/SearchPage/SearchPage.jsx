@@ -9,13 +9,17 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 import RankTag from './RankTag';
+import  Typography  from '@mui/material/Typography';
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0];
+
 class SearchPage extends Component{
 	constructor(){
 		super();
 		this.state={
 			target_tag_button: tag_clicked_list,
+			target_rank_tag_button: rank_tag_clicked_list,
 			is_tag_more: false
 		};
 	
@@ -34,6 +38,16 @@ class SearchPage extends Component{
 		})
 	}
 
+	handle_rank_tag_button_click=e=>{
+		console.log(e.target.value);
+		var button_index = e.target.value;
+		if(!rank_tag_clicked_list[button_index]) rank_tag_clicked_list[button_index]= 1;
+		else rank_tag_clicked_list[button_index]=0;
+		this.setState({
+			target_rank_tag_button: rank_tag_clicked_list
+		})
+	}
+
 	handle_tag_more_button=e=>{
 		const {is_tag_more} = this.state;
 		if(is_tag_more){
@@ -49,7 +63,7 @@ class SearchPage extends Component{
 	}
 
 	render(){
-		const {target_tag_button,is_tag_more} = this.state;
+		const {target_tag_button,is_tag_more,target_rank_tag_button} = this.state;
 		return(
 			<div className="container">		
                 <Header/>
@@ -63,18 +77,24 @@ class SearchPage extends Component{
 							target_button={target_tag_button}
 							handle_tag_button_click={this.handle_tag_button_click}
 							/>
+							<Typography style={{color: "black",fontSize:"22px",fontWeight: "bold",margin: "15px 0 5px"}}>오늘의 태그</Typography>
 							<RankTag 
+								target_button={target_rank_tag_button}
+								handle_rank_tag_button_click={this.handle_rank_tag_button_click}
 								is_tag_more={is_tag_more}
 							/>
+							
 						</div>
 						<Button 
-							style={{width: 100, boxShadow:"0 0 0 0" ,height: 40, float: "right",fontWeight: "bold",
-							borderRadius:"30px",height:45, backgroundColor: "black",color:"white",fontSize:15}} 
+							style={{width: 100, boxShadow:"0 0 0 0" ,height: 40,fontWeight: "bold", border: !is_tag_more?"0":"1px solid lightgray",
+							borderRadius:"30px",height:45, backgroundColor: !is_tag_more?"black":"white",color:!is_tag_more?"white":"black",fontSize:15,
+							position:"absolute", top:0, right:0,zIndex:1000}} 
 							variant="contained"
 							onClick={this.handle_tag_more_button}	
 						>
 							더보기
 						</Button>
+						
 						
 					</Stack>
 					

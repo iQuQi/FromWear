@@ -11,27 +11,13 @@ let TagList = ({target_button,handle_tag_button_click}) => {
             return(
                     <ul className="tag_list">
                     {tag_data.map((data,index) =>
-                    target_button[index]==0?
                         <li>
                         <Button key={data.name+index} 
-                            style={{minWidth: 100,height: 45,marginBottom:10,marginRight:10,fontSize: 15,float:"left", 
-                            color: "black", backgroundColor: "#d8c8b2", borderRadius: "30px",boxShadow:"0 0 0 0"}} 
+                            style={{minWidth: 95,height: 45,marginBottom:10,marginRight:10,fontSize: 15,float:"left", 
+                            color:  target_button[index]==0?"black":"white", backgroundColor: target_button[index]==0?"#d8c8b2":"#000000", borderRadius: "30px",boxShadow:"0 0 0 0"}} 
                             variant="contained"
                             onClick={handle_tag_button_click}
                             value={index} 
-                        >
-                            {data.name}
-                        </Button>
-                        </li>
-                    :
-                        <li>
-                        <Button key={data.name+index} 
-                            style={{minWidth: 100,height: 45,marginBottom:10,marginRight:10,fontSize: 15, float:"left", 
-                            color: "white", backgroundColor: "#000000", borderRadius: "30px",boxShadow:"0 0 0 0"}} 
-                            variant="contained"
-                            onClick={handle_tag_button_click}
-                            value={index} 
-
                         >
                             {data.name}
                         </Button>
