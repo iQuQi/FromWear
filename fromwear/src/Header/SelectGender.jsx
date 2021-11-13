@@ -16,7 +16,7 @@ export default function BasicSelect() {
       <FormControl variant ="standard" fullWidth>
 
         <Select
-          style ={{height: "40px",fontSize:13}}
+          style ={{height: "35px",fontSize:13}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
