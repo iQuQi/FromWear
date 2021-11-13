@@ -111,13 +111,15 @@ a{
 }
 
 .writer_content {
-    line-height: 1.3;
+    line-height: 1.4;
     
 }
 
 
 .comment {
+    position: relative;
     padding: 10px 30px;
+    padding-bottom: 30px;
 }
 
 

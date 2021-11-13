@@ -30,3 +30,7 @@
     background-color: #fff;
     border: 1px solid #000;
 }
+
+.comment_click {
+    cursor: pointer;
+}

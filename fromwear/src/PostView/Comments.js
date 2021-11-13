@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import SingleComment from './SingleComment'
 import './Comments.css';
-import Thumb from './Thumb'
+import Comment_check from './Comment_check'
 
 let now_user_name = "최지민";
 
+
 class Comments extends Component {
+
+
     constructor(props){
         super(props);
         this.state = {
@@ -25,6 +28,7 @@ class Comments extends Component {
                     name: "전연지",
                     content: "셔츠 팔 부분이 좀 더 길었으면 좋겠어요~"
                 },
+                /*
                 {
                     user_id: 4,
                     name: "김유진",
@@ -50,6 +54,8 @@ class Comments extends Component {
                     name: "김유진",
                     content: "액세서리를 활용해보세요. 좀 심심하네요"
                 }
+                */
+                
             ]
         }
         this.addTweet = this.addTweet.bind(this);
@@ -62,6 +68,7 @@ class Comments extends Component {
             content: value
         }]})
     }
+
     render() {
         return (
             <div>
@@ -74,13 +81,8 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    <div className="writing_area">
-                        <div className="now_comment_user">{now_user_name}</div>
-                        <div class="writing_content">
-                            <textarea class="new_tweet_content"></textarea>
-                            <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
-                        </div>
-                    </div>
+                    
+                    <Comment_check />
                 </div>
             </div>
         )
