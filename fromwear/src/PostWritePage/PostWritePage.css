@@ -56,6 +56,9 @@ a{
 }
 
 /*write CSS*/
+
+
+
 .blind{
 	position: absolute;
 	width: 1px;
@@ -63,4 +66,39 @@ a{
 	clip: rect(0, 0 ,0, 0);
 	margin: -1px;
 	overflow: hidden;
+  }
+
+  .post_write_container{
+      padding: 80px 0 120px;
+      background-color:rgba(0, 0, 0 , 0.5);
+      width: 100%;
+      height: auto;
+  }
+
+  .post_write_content{
+    width: 600px;
+    height: 400px;
+    background-color: white;
+    margin: auto;
+    border-radius: 30px;
+    padding: 40px;
+    position: relative;
+  }
+
+  .image_file_input{
+      width: 250px;
+      height: 400px;
+      background-color: gray;
+      border-radius: 30px;
+
+  }
+
+
+  .post_text_input{
+    position: absolute;
+    top:40px; right: 40px;
+    width: 330px;
+    height: 400px;
+    background-color: gray;
+    border-radius: 30px;
   }
