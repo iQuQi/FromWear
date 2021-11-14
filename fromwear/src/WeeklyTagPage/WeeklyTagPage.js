@@ -92,13 +92,16 @@ class WeeklyTagPage extends Component {
 				
 						<Stack direction="row" spacing={1} justifyContent="center" style={{width:'1200px', margin:'auto'}}>
 							{bestItem.map((item) => (
-								<ImageListItem key={item.img}>
+								<ImageListItem key={item.img} className='image_list_item'>
 									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
-										src={`${item.img}?w=248&fit=crop&auto=format`}
-										srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-										alt={item.user}
-										loading="lazy"
+											src={`${item.img}?w=248&fit=crop&auto=format`}
+											srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+											alt={item.user}
+											loading="lazy"
 									/>
+									
+									<span className='dimmed_layer'>	</span>
+
 									<Stack direction="row" spacing={0} justifyContent="center" style={{width:'250px'}}>
 										<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 										<p>&nbsp;</p>
@@ -120,13 +123,16 @@ class WeeklyTagPage extends Component {
 				
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{itemData.map((item) => (
-						<ImageListItem key={item.img}>
+						<ImageListItem key={item.img} className='image_list_item'>
 							<img style={{borderRadius:16}}
 								src={`${item.img}?w=248&fit=crop&auto=format`}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.user}
 								loading="lazy"
 							/>
+							
+							<span className='dimmed_layer'>	</span>
+
 							<Stack direction="row" spacing={0} justifyContent="flex-end">
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p>&nbsp;</p>
