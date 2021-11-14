@@ -65,7 +65,7 @@ a{
 }
 .banner{
     margin: auto;
-    height: 700px;
+    height: 40%;
     width: 100%;
     background-color: #F2F2F2;
 }
@@ -78,11 +78,7 @@ a{
 .banner_bestpost{
     margin: auto;
     padding: 3%;
-    width: 87%;
-}
-.banner_bestpost_photo{
-    width: 100px;
-    height: 300px;
+    width: 1200px;
 }
 .collection{
     position: relative;

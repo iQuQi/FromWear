@@ -2,6 +2,8 @@ import {Component} from 'react';
 import './WeeklyTagPage.css';
 import PROFILE from '../img/profile.png'
 
+import Header from '../Header/Header'
+
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -11,6 +13,14 @@ import Stack from '@mui/material/Stack';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+import wear1 from './image/wear1.png';
+import wear2 from './image/wear2.png';
+import wear3 from './image/wear3.png';
+import wear4 from './image/wear4.png';
+import { Container } from '@mui/material';
+
+
 class WeeklyTagPage extends Component {
 
     /*constructor() {
@@ -20,25 +30,25 @@ class WeeklyTagPage extends Component {
 	render(){
         const bestItem = [
             {
-                img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+                img: wear1,
                 user: 'Breakfast',
                 like: '1005',
-              },
-              {
-                img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+            },
+            {
+                img: wear2,
                 user: 'Breakfast',
                 like: '1005',
-              },
-              {
-                img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+            },
+            {
+                img: wear3,
                 user: 'Breakfast',
                 like: '1005',
-              },
-              {
-                img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+            },
+            {
+                img: wear4,
                 user: 'Breakfast',
                 like: '1005',
-              },
+            },
         ]
 
         const itemData = [
@@ -70,6 +80,7 @@ class WeeklyTagPage extends Component {
 		];
 
 		return <div id = 'main_page'>
+			<Header/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
                     <h1 style={{fontSize:'4em', lineHeight:'2em'}}>이번주 태그</h1>
@@ -78,27 +89,28 @@ class WeeklyTagPage extends Component {
                 </div>
 
                 <div className = 'banner_bestpost'>
-                    <ImageList cols={4} gap={8} style={{clear: 'left'}}>
-                        {bestItem.map((item) => (
-                            <ImageListItem key={item.img}>
-                                <img class='banner_bestpost_photo' style={{width:'80ox', height:'280px', borderRadius:16}}
-                                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                    alt={item.user}
-                                    loading="lazy"
-                                />
-                                <Stack direction="row" spacing={0} justifyContent="space-evenly">
-                                    <img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-                                    <p>&nbsp;</p>
-                                    <p style={{margin: '16px 0px'}}>{item.user}</p>
-                                    <p>&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-                                    <p>&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-                                    <p style={{margin: '16px 0px'}}>{item.like}</p>
-                                    <FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-                                </Stack>				
-                            </ImageListItem>
-                        ))}
-                    </ImageList>
+				
+						<Stack direction="row" spacing={1} justifyContent="center" style={{width:'1200px', margin:'auto'}}>
+							{bestItem.map((item) => (
+								<ImageListItem key={item.img}>
+									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
+										src={`${item.img}?w=248&fit=crop&auto=format`}
+										srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+										alt={item.user}
+										loading="lazy"
+									/>
+									<Stack direction="row" spacing={0} justifyContent="center" style={{width:'250px'}}>
+										<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+										<p>&nbsp;</p>
+										<p style={{margin: '16px 0px'}}>{item.user}</p>
+										<p>&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+										<p style={{margin: '16px 0px'}}>{item.like}</p>
+										<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+									</Stack>				
+								</ImageListItem>
+							))}
+						</Stack>
+				
                 </div>
 			</div>
 
