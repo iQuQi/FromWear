@@ -9,6 +9,7 @@
 }
 
 .today_wear {
+	text-align: left;
 	width: 1080px;
 	height: 400px;
 	margin: 0 auto;
