@@ -8,6 +8,7 @@ import Like from './Like'
 import Urgent from './Urgent';
 
 import SearchResult from './SearchResult';
+import Header from './Header/Header.jsx';
 
 
 let post_id = 111;
@@ -27,7 +28,8 @@ class Post extends Component{
     render(){
 
         return (
-            <div>
+            <div className="post_page">
+                <Header />
                 <div className="main_box">
                     <div>
                         <img src={img_a} className="post_img"/>

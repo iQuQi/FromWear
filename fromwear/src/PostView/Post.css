@@ -61,9 +61,12 @@ a{
     width: 850px;
     margin: 0 auto;
     /*background-color: red;*/
-    text-align: center;
 }
 
+.post_page {
+    margin: 0 auto;
+    position: relative;
+}
 
 .post_img { /*16:9 -> 320:180 -> 640:360*/
     width: 360px;
