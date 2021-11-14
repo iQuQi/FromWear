@@ -67,7 +67,6 @@ class SearchPage extends Component{
 		const {target_tag_button,is_tag_more,target_rank_tag_button} = this.state;
 		return(
 			<div className="search_page_container">	
-				<PostWritePage/>	
                 <Header/>
 				<div className = "tag_div" >
 					<Stack direction="row">
