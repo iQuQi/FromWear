@@ -3,6 +3,8 @@ import './MainPage.css';
 import BANNER from '../img/Main_banner.png'
 import PROFILE from '../img/profile.png'
 
+import Header from '../Header/Header'
+
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -48,8 +50,9 @@ class MainPage extends Component {
 		];
 
 		return <div id = 'main_page'>
+			<Header/>
 			<div className = 'banner'>
-				<img src = {BANNER} alt = 'Main Banner'/>
+				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
 			</div>
 
 			<div id = 'today_post' class = 'collection'>
