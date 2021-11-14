@@ -1,0 +1,102 @@
+
+
+type User @model {
+	id: ID!
+	name: String!
+	passwd : String!
+	profile_img: String!
+	introduce: String
+	gender: String!
+
+	adopted: Int!
+	follower_num:Int!
+	following_num:Int!
+
+	my_post_list:[Post] @connection(keyName:"postByUser",fields:["id"])
+	my_bookmark_post_list:[ID]
+	my_comment_list:[Comment] @connection(keyName:"commentByUser",fields:["id"])
+	my_tag_list:[String]
+
+	award_today: Int!
+	award_week: Int!
+}
+
+type follow @model 
+{
+	following_id: ID!
+	follower_id: ID!
+}
+
+type Comment @model 
+@key(name:"commentByPost",fields:["post_id"])
+@key(name:"commentByUser",fields:["user_id"]){
+	id:ID!
+	user_id: ID!
+	user: User @connection(fields:["user_id"])
+
+	content: String!
+
+	adopted: Boolean!
+	like: Int!
+
+	post_id: ID!
+	post: Post @connection(fields:["post_id"])
+
+}
+
+
+type Post @model
+@key(name:"postByUser",fields:["user_id"])
+{
+	id : ID!
+
+	like_user_num: Int!
+	urgent_user_num: Int!
+
+	comment_list:[Comment] @connection(keyName:"commentByPost",fields:["id"])
+	
+	img: String!
+	content:String!
+
+	user_id:ID!
+	user:User @connection(fields:["user_id"])
+
+	bookmark_user_list:[ID]
+
+	tag_list:[String!]
+
+	date: AWSDateTime!
+	board_type: Int!
+	click_num:Int!
+	blind: Boolean
+
+}
+
+
+
+
+
+type PostBoard @model{
+	board_type:Int!
+	best_post_list:[ID!] 
+}
+
+
+type TagList @model{
+	static_tag_list:[ID]
+	week_tag_list:[ID]
+}
+
+
+type UserTag @model{
+	user_id_list: [ID]
+	value: String!
+}
+
+type StyleTag @model{
+	id:ID!
+	value: String!
+	num: Int!
+	today_date: AWSDateTime!
+
+}
