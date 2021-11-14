@@ -6,3 +6,11 @@ npm install @material-ui/core
 npm install @mui/material
 npm install @emotion/react
 npm install @emotion/styled
+
+<지현>
+npm install @material/image-list
+npm install @mui/material
+npm install @emotion/react
+npm install @emotion/styled
+npm install @mui/icons-material
+

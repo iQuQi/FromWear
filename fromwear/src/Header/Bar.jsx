@@ -9,7 +9,6 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -19,9 +18,7 @@ import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
-
-
-import { fontFamily } from '@mui/system';
+import alarm_data from './AlarmData';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -32,6 +29,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
+  height: 35,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
@@ -57,35 +55,41 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
+    height:35,
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '100%',
     },
   },
 }));
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
+  
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isAlarmOpen = Boolean(alarmAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
+  const handleAlarmOpen = (event) => {
+    setAlarmAnchorEl(event.currentTarget);
   };
+
+
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+  };
+  const handleAlarmClose = e => {
+    let index=e.target.value;
+    alarm_data.splice(index,1);
+    setAlarmAnchorEl(null);
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -103,107 +107,89 @@ export default function PrimarySearchAppBar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      style={{zIndex:1400000}}
+
+
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleMenuClose} >마이페이지</MenuItem>
+      <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
+  const renderAlarm = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
+      anchorEl={alarmAnchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      id={mobileMenuId}
+      id={menuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      open={isAlarmOpen}
+      onClose={handleAlarmClose}
+      style={{zIndex:1400000}}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+    
+    {
+    alarm_data.map((item,index)=>
+      <MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
+    )
+    }
+    
+
+
     </Menu>
   );
 
+
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar style={{ backgroundColor: "white" }} position="static">
+    <div >
+      <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
-          <Typography
-            style={{ backgroundColor: "white" }}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <img src={logo} alt="logo" className ="logo"/>
-          </Typography>
-          <Search style={{ backgroundColor: "#f2f2f2" , width: "65%"}}>
+           <a href=""><img src={logo} alt="logo" className ="logo_img"/></a>
+         
+
+          <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
+          borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
             <StyledInputBase
-              style={{ color: "black", fontSize: "20px"}}
+              style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
               placeholder="#오늘의 #태그는 #청순한"
               inputProps={{ 'aria-label': 'search' }}
             />
+            <SelectGender/>
+            <SelectDay/>
           </Search>
-          <SelectGender className="select" />
-          <SelectDay className="select"/>
+
+        
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
             <IconButton
-              style={{ color: "black" }}
-              size="large"
+              style={{ color: "black", height:35 ,position:"relative",top:-10}}
               aria-label="show 17 new notifications"
-            >
+              onClick={handleAlarmOpen}
+
+            >                
+              <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
                 badgeContent={17} 
-                color="error">
-                <NotificationsIcon />
+                color="primary"
+                style={{position:"relative",top:-10}}
+                >
               </Badge>
             </IconButton>
+
             <IconButton
-              style={{ color: "black" }}
+              style={{ color: "black",height:35 ,position:"relative",top:-10}}
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -211,26 +197,15 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle />
+              <AccountCircle style={{fontSize:25}}/>
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+ 
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {alarm_data.length!=0?renderAlarm:""}
       {renderMenu}
-    </Box>
+    </div>
   );
 }
 
