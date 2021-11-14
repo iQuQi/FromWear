@@ -56,22 +56,21 @@ a{
 	text-decoration: none;
 }
 
+.whole_page {
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 64px;
+}
 
 .main_box {
     width: 1080px;
     margin: 0 auto;
     /*background-color: red;*/
-    margin-top: 10px;
 }
 
 .post_page {
     margin: 0 auto;
     position: relative;
-}
-
-.whole_page {
-    width: 1080px;
-    margin: 0 auto;
 }
 
 .post_img { /*16:9 -> 320:180 -> 640:360*/
