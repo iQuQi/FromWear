@@ -3,6 +3,7 @@
 }
 
 .today_background_wrap {
+	margin-top: 40px;
 	background-color: #F2F2F2;
 	height: 500px;
 }
