@@ -15,12 +15,7 @@ export default function BasicSelect() {
     <Box sx={{ minWidth: "90px", height: "35px",marginRight: "10px" ,float:"right"}}>
       <FormControl variant ="standard" fullWidth>
 
-        <Select
-<<<<<<< HEAD
-          style ={{height: "35px",fontSize:13,header:"center"}}
-=======
-          style ={{height: "35px",fontSize:13,textAlign:"center"}}
->>>>>>> main_page
+        <Select style ={{height: "35px",fontSize:13,textAlign:"center"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
