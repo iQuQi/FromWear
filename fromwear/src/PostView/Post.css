@@ -58,9 +58,10 @@ a{
 
 
 .main_box {
-    width: 850px;
+    width: 1080px;
     margin: 0 auto;
     /*background-color: red;*/
+    margin-top: 10px;
 }
 
 .post_page {
@@ -68,22 +69,30 @@ a{
     position: relative;
 }
 
+.whole_page {
+    width: 1080px;
+    margin: 0 auto;
+}
+
 .post_img { /*16:9 -> 320:180 -> 640:360*/
-    width: 360px;
-    height: 640px;
-    margin-right: 10px;
+    /*250:350 => 곱하기 1.8 => 450 : 630*/
+    width: 450px;
+    height: 630px;
+    margin-right: 15px;
     vertical-align: top;
     /*border: 3px solid #fff;*/
     border-radius: 20px;
     box-sizing: border-box;
 }
 
+
+
 .content_box {
     text-align: left;
     display: inline-block;
     background-color: #fff;
-    width: 480px;
-    height: 640px;
+    width: 615px;
+    height: 630px;
     box-sizing: border-box;
     border: 1px solid #000;
     border-radius: 20px;
@@ -149,7 +158,7 @@ a{
 }
 
 .icons {
-    width: 360px;
+    width: 450px;
     text-align: left;
     line-height: 30px;
 }

@@ -80,8 +80,9 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    
-                    <Comment_check />
+                    <div className="comment_check">
+                        <Comment_check />
+                    </div>
                 </div>
             </div>
         )

@@ -1,13 +1,13 @@
 //import logo from './logo.svg';
 import './App.css';
-import Post from './PostView/Post.js';
+import Post from './PostView/Post.jsx';
+
 
 function App() {
     return (
-    <body className="main">
-        <Post />
-    </body>
-
+      <div>
+          <Post />
+      </div>
   );
 }
 
