@@ -15,12 +15,17 @@
     border-radius: 50%;
 }
 
+.star_icon {
+    color: gray;
+}
+
 .best_pick {
-    border: 4px solid yellow;
+    border: 4px solid gray;
     border-radius: 50%;
 }
 
 .comment_user_name {
+    cursor: pointer;
     font-weight: bold;
     display:inline-block;
     margin-left: 7px;
