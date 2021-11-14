@@ -200,7 +200,7 @@ export default function PrimarySearchAppBar() {
  
         </Toolbar>
       </AppBar>
-      {alarm_data.length!=0?renderAlarm:"?"}
+      {alarm_data.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
   );
