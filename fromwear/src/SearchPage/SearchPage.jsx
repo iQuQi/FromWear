@@ -104,7 +104,9 @@ class SearchPage extends Component{
 						<SearchResult 
 						handle_img_on_click={this.handle_img_on_click} 
 						/>
-					</div>
+				</div>
+			
+				
 			</div>
 		)
 	}
