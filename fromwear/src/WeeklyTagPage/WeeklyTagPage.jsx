@@ -18,6 +18,13 @@ import wear1 from './image/wear1.png';
 import wear2 from './image/wear2.png';
 import wear3 from './image/wear3.png';
 import wear4 from './image/wear4.png';
+import wear5 from './image/wear5.png';
+import wear6 from './image/wear6.png';
+import wear7 from './image/wear7.png';
+import wear8 from './image/wear8.png';
+import wear9 from './image/wear9.png';
+import wear10 from './image/wear10.png';
+import wear11 from './image/wear11.png';
 import { Container } from '@mui/material';
 
 
@@ -53,30 +60,60 @@ class WeeklyTagPage extends Component {
 
         const itemData = [
 			{
-			  img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-			  user: 'Breakfast',
-			  like: '1005',
+			img: wear5,
+			user: 'Breakfast',
+			like: '1005',
 			},
 			{
-			  img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-			  user: 'Breakfast',
-			  like: '1005',
+				img: wear6,
+				user: 'Breakfast',
+				like: '1005',
 			},
 			{
-			  img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-			  user: 'Breakfast',
-			  like: '1005',
+				img:wear7,
+				user: 'Breakfast',
+				like: '1005',
 			},
 			{
-			  img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-			  user: 'Breakfast',
-			  like: '1005',
+				img: wear8,
+				user: 'Breakfast',
+				like: '1005',
 			},
 			{
-			  img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-			  user: 'Breakfast',
-			  like: '1005',
+				img: wear9,
+				user: 'Breakfast',
+				like: '1005',
 			},
+			{
+				img: wear10,
+				user: 'Breakfast',
+				like: '1005',
+			},
+			{
+				img: wear11,
+				user: 'Breakfast',
+				like: '1005',
+			},
+			{
+                img: wear1,
+                user: 'Breakfast',
+                like: '1005',
+            },
+            {
+                img: wear2,
+                user: 'Breakfast',
+                like: '1005',
+            },
+            {
+                img: wear3,
+                user: 'Breakfast',
+                like: '1005',
+            },
+            {
+                img: wear4,
+                user: 'Breakfast',
+                like: '1005',
+            },
 		];
 
 		return <div id = 'main_page'>
@@ -100,8 +137,10 @@ class WeeklyTagPage extends Component {
 											loading="lazy"
 									/>
 									
-									<span className='dimmed_layer'>	</span>
-
+									<a href='/post'> 
+										<span className='dimmed_layer'>	</span>
+									</a>
+									
 									<Stack direction="row" spacing={0} justifyContent="center" style={{width:'250px'}}>
 										<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 										<p>&nbsp;</p>
@@ -123,14 +162,16 @@ class WeeklyTagPage extends Component {
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{itemData.map((item) => (
 						<ImageListItem key={item.img} className='weekly_image_list_item'>
-							<img style={{borderRadius:16}}
+							<img style={{height:'322.55px', borderRadius:16}}
 								src={`${item.img}?w=248&fit=crop&auto=format`}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.user}
 								loading="lazy"
 							/>
 							
-							<span className='dimmed_layer'>	</span>
+							<a href='/post'> 
+								<span className='dimmed_layer'>	</span>
+							</a>
 
 							<Stack direction="row" spacing={0} justifyContent="flex-end">
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
