@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import WeeklyTag from './WeeklyTagPage/WeeklyTagPage';
+import WeeklyTag from './WeeklyTagPage/WeeklyTagPage.jsx';
 
 function App() {
   return (
