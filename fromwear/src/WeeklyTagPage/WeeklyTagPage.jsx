@@ -83,8 +83,8 @@ class WeeklyTagPage extends Component {
 			<Header/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
-                    <h1 style={{fontSize:'4em', lineHeight:'2em'}}>이번주 태그</h1>
-                    <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 #이번주태그 를 걸고 랭킹에 도전하자!</h1>
+                    <h1 style={{margin:'65px 0px 0px 0px', fontSize:'4em', lineHeight:'1.2em'}}>이번주 태그</h1>
+                    <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 <u>#이번주태그</u> 를 걸고 랭킹에 도전하자!</h1>
                     <h1 style={{fontSize:'1.8em', fontWeight:'bolder', color:'orange'}}>#빨간색 #원피스</h1>
                 </div>
 
@@ -92,7 +92,7 @@ class WeeklyTagPage extends Component {
 				
 						<Stack direction="row" spacing={1} justifyContent="center" style={{width:'1200px', margin:'auto'}}>
 							{bestItem.map((item) => (
-								<ImageListItem key={item.img} className='image_list_item'>
+								<ImageListItem key={item.img} className='weekly_image_list_item'>
 									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
 											src={`${item.img}?w=248&fit=crop&auto=format`}
 											srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -118,12 +118,11 @@ class WeeklyTagPage extends Component {
 			</div>
 
 			<div id = 'today_post' class = 'collection'>
-				<h3 className = 'title'>오늘의 착장</h3>
-				<a className = 'seemore' href=''>둘러보기</a>
+				<h3 className = 'title'>이번주 태그 랭킹</h3>
 				
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{itemData.map((item) => (
-						<ImageListItem key={item.img} className='image_list_item'>
+						<ImageListItem key={item.img} className='weekly_image_list_item'>
 							<img style={{borderRadius:16}}
 								src={`${item.img}?w=248&fit=crop&auto=format`}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}

@@ -94,7 +94,7 @@ a{
     display: inline-block;
     margin: 12px;
 }
-.image_list_item:hover .dimmed_layer{
+.weekly_image_list_item:hover .dimmed_layer{
 	position: absolute;
 	top: 0;
 	bottom: 34px;
@@ -103,7 +103,7 @@ a{
 
 	padding: 33% 0;
 	background-color: rgba(0, 0, 0, 0.3);
-	border-radius: 10px;
+	border-radius: 16px;
 
     color: white;
 	font-size: 15px;
