@@ -1,0 +1,46 @@
+.comment_num {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.now_comment_user {
+    font-weight: bold;
+}
+
+.writing_area {
+    /*position: relative;
+    top: 130px;*/
+}
+
+.writing_content {
+    margin: 5px 0;
+}
+
+.comment_ul {
+    height: 362px;
+    height: 330px;
+    overflow: scroll;
+}
+
+.new_tweet_content {
+    width: 320px;
+    height: 41px;
+    box-sizing: border-box;
+}
+
+.new_tweet_submit_button {
+    float: right;
+    height: 31px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.comment_click {
+    cursor: pointer;
+}
+
+.comment_check {
+    margin-top: 10px;
+}

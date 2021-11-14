@@ -1,0 +1,29 @@
+.icons_list {
+    display: inline-block;
+}
+
+.urgent_yes {
+    color: red;
+    font-size: 20px;
+}
+
+.urgent_not {
+    font-size: 20px;
+}
+
+.button {
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 300ms ease;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.urgent_num {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+}

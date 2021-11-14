@@ -1,0 +1,23 @@
+.thumb_div {
+    display:inline-block;
+    float: right;
+}
+.thumb_up {
+    vertical-align: middle;
+    color: #44546A;
+}
+
+.thumb_off {
+    vertical-align: middle;
+    color: #D9D9D9;
+}
+
+.button {
+}
+
+.thumb_num {
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: middle;
+}

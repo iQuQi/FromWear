@@ -1,0 +1,9 @@
+.comment_no {
+    font-weight: bold;
+    position: absolute;
+    bottom: 15px;
+}
+
+.writing_area {
+    margin-top: 5px;
+}

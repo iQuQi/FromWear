@@ -1,0 +1,41 @@
+.one_comment {
+     margin: 20px 0;
+     padding-bottom: 20px;
+     border-bottom: 1px solid;
+}
+
+
+.writer_img {
+    vertical-align:middle;
+    display:inline-block;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.star_icon {
+    color: gray;
+}
+
+.best_pick {
+    border: 4px solid gray;
+    border-radius: 50%;
+}
+
+.comment_user_name {
+    cursor: pointer;
+    font-weight: bold;
+    display:inline-block;
+    margin-left: 7px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.comment_content {
+    /*margin-top: 10px;*/
+    line-height: 1.4;
+
+}

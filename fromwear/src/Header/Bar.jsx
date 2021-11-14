@@ -147,6 +147,7 @@ export default function PrimarySearchAppBar() {
 
 
   return (
+
     <div >
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
@@ -174,22 +175,22 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
             <IconButton
-              style={{ color: "black", height:35 ,position:"relative",top:-10}}
+              style={{ color: "black" }}
               aria-label="show 17 new notifications"
               onClick={handleAlarmOpen}
 
             >                
-              <NotificationsIcon style={{fontSize:25}}/>
+              <NotificationsIcon style={{fontSize:25,position:"relative",top:-10}}/>
               <Badge 
                 badgeContent={17} 
                 color="primary"
-                style={{position:"relative",top:-10}}
+                style={{position:"relative",top:-20}}
                 >
               </Badge>
             </IconButton>
 
             <IconButton
-              style={{ color: "black",height:35 ,position:"relative",top:-10}}
+              style={{ color: "black" }}
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -197,7 +198,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle style={{fontSize:25}}/>
+              <AccountCircle style={{fontSize:25,position:"relative",top:-10}}/>
             </IconButton>
           </Box>
  
