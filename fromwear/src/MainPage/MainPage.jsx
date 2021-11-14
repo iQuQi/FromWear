@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import './MainPage.css';
-import BANNER from '../img/Main_banner.png'
-import PROFILE from '../img/profile.png'
+import BANNER from './img/Main_banner.png'
+import PROFILE from './img/profile.png'
 
 import Header from '../Header/Header'
 

@@ -1,5 +1,8 @@
 import './App.css';
-import MainPage from './MainPage/MainPage';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import MainPage from './MainPage/MainPage.jsx';
+
 
 function App() {
   return (
