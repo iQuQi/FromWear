@@ -1,8 +1,16 @@
-import TodayPostBoard from './PostBoard/TodayPostBoard.jsx';
+
+import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import MainPage from './MainPage/MainPage.jsx';
 
 function App() {
   return (
-        <TodayPostBoard />
+    <div className="App">
+      <header>
+      	<MainPage />
+			</header>
+    </div>
   );
 }
 
