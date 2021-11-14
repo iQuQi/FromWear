@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	min-width: 1082px;
+	min-width: 1080px;
 	line-height: 1;
 	font-family : '나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif;
 
@@ -78,7 +78,7 @@ a{
 	top: 130px;
     background-color: white;
     height: auto;
-    width: 1082px;
+    width: 1080px;
     margin: auto;
 }
 
@@ -153,8 +153,6 @@ a{
 	border-radius:16px;
 
 }
-
-
 
 
 .image_list_item:hover .dimmed_layer{
