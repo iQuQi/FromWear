@@ -130,10 +130,13 @@ export default function PrimarySearchAppBar() {
       open={isAlarmOpen}
       onClose={handleAlarmClose}
     >
-
-    {alarm_data.map((item,index)=>
+    
+    {
+    alarm_data.map((item,index)=>
       <MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
-    )}
+    )
+    }
+    
 
 
     </Menu>
@@ -198,7 +201,7 @@ export default function PrimarySearchAppBar() {
  
         </Toolbar>
       </AppBar>
-      {renderAlarm}
+      {alarm_data.length!=0?renderAlarm:"?"}
       {renderMenu}
     </div>
   );
