@@ -20,15 +20,19 @@ let SearchResult = ({handle_img_on_click})=>
 								loading="lazy"
 								onClick={handle_img_on_click}
 							    />	
-								<span className={"dimmed_layer"}>
-									<span className="dimmed_info_writer">
-										<img src={item.img} alt="프로필" 
-											style={{width:"30px",height:"30px",borderRadius:"50%", 
-											position: "relative",top:"8px", marginRight:"5px"}}/>
-										유진
+
+								<a href="/post">
+									<span className={"dimmed_layer"}>
+										<span className="dimmed_info_writer">
+											<img src={item.img} alt="프로필" 
+												style={{width:"30px",height:"30px",borderRadius:"50%", 
+												position: "relative",top:"8px", marginRight:"5px"}}/>
+											유진
+										</span>
+										<span className="dimmed_info_like">♥️ 1000</span>
 									</span>
-									<span className="dimmed_info_like">♥️ 1000</span>
-								</span>
+								</a>
+
 
                             	
 						</ImageListItem>
