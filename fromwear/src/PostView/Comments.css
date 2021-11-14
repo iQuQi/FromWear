@@ -1,6 +1,6 @@
 .comment_num {
     font-weight: bold;
-    margin-top: 5px;
+    margin: 5px 0;
 }
 
 .now_comment_user {
@@ -26,6 +26,7 @@
     width: 320px;
     height: 41px;
     box-sizing: border-box;
+    resize: none;
 }
 
 .new_tweet_submit_button {

@@ -60,11 +60,12 @@ a{
     width: 1080px;
     margin: 0 auto;
     margin-top: 64px;
+    margin-top: 114px;
 }
 
 .main_box {
-    width: 1080px;
-    margin: 0 auto;
+    width: 810px;
+    margin: 50px auto;
     /*background-color: red;*/
 }
 
@@ -73,25 +74,34 @@ a{
     position: relative;
 }
 
+.post_div {
+    position: relative;
+}
 .post_img { /*16:9 -> 320:180 -> 640:360*/
     /*250:350 => 곱하기 1.8 => 450 : 630*/
-    width: 450px;
-    height: 630px;
-    margin-right: 15px;
+    /*5:6 => 350:420*/
+    /*width: 400px;
+    height: 480px;*/
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    clip: rect( 0px, 400px, 480px, 0 );
+    margin-right: 10px;
     vertical-align: top;
     /*border: 3px solid #fff;*/
     border-radius: 20px;
     box-sizing: border-box;
 }
 
-
-
 .content_box {
+    position: absolute;
+    top: 0px;
+    right: 0px;
     text-align: left;
     display: inline-block;
     background-color: #fff;
-    width: 615px;
-    height: 630px;
+    width: 400px;
+    height: 480px;
     box-sizing: border-box;
     border: 1px solid #000;
     border-radius: 20px;
@@ -157,7 +167,7 @@ a{
 }
 
 .icons {
-    width: 450px;
+    width: 400px;
     text-align: left;
     line-height: 30px;
 }
@@ -184,4 +194,9 @@ a{
 .content{
     height: auto;
     margin: auto;
+}
+
+.main_post_tag_div {
+    margin-top : 520px;
+
 }

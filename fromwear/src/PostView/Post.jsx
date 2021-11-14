@@ -32,7 +32,7 @@ class Post extends Component{
                 <Header />
                 <div className="whole_page">
                     <div className="main_box">
-                        <div>
+                        <div className="post_div">
                             <img src={img_a} className="post_img"/>
                             <div className="content_box">
                                 <div className="writer">
@@ -53,6 +53,8 @@ class Post extends Component{
                             }
                             <div className="post_list">{post_list}</div>
                         </div>
+                    </div>
+                    <div className="main_post_tag_div">
                         <div className="recommend_tag">
                                 태그 맞춤 추천
                         </div>

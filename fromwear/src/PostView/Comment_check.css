@@ -2,6 +2,7 @@
     font-weight: bold;
     position: absolute;
     bottom: 15px;
+    cursor: pointer;
 }
 
 .writing_area {
