@@ -3,25 +3,16 @@
 }
 
 .today_background_wrap {
-<<<<<<< HEAD
-	background-color: #F2F2F2;
-	height: 500px;
-	padding: 100px auto;
-=======
 	margin-top: 40px;
 	background-color: #F2F2F2;
 	height: 500px;
->>>>>>> post_board_page
 }
 
 .today_wear {
 	width: 1080px;
 	height: 400px;
 	margin: 0 auto;
-<<<<<<< HEAD
-=======
 	padding-top: 50px;
->>>>>>> post_board_page
 }
 
 
@@ -33,11 +24,7 @@
 	color: #253861;
 	display: inline-block;
 	margin-right: 10px;
-<<<<<<< HEAD
-	margin-bottom: 5px;
-=======
 	margin-bottom: 10px;
->>>>>>> post_board_page
 }
 
 .today_wear .img_list {
@@ -75,16 +62,6 @@
 .rank_list .rank4 {
 	left:60px;
 }
-<<<<<<< HEAD
-.rank_list .rank2 {
-	left:30px;
-}
-
-.rank_list .rank5 {
-	right:60px;
-}
-.rank_list .rank3 {
-=======
 .rank_list .rank5 {
 	left:30px;
 }
@@ -93,7 +70,6 @@
 	right:60px;
 }
 .rank_list .rank2 {
->>>>>>> post_board_page
 	right:30px;
 }
 
@@ -112,8 +88,6 @@
 	right: 30px;
 }
 
-<<<<<<< HEAD
-=======
 .wrap_recommend {
 	width: 1080px;
 	margin: 0 auto;
@@ -148,4 +122,3 @@
     height: auto;
     margin: auto;
 }
->>>>>>> post_board_page
