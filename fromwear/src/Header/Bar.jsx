@@ -151,7 +151,7 @@ export default function PrimarySearchAppBar() {
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
-           <a href=""><img src={logo} alt="logo" className ="logo_img"/></a>
+           <a href="/"><img src={logo} alt="logo" className ="logo_img"/></a>
          
 
           <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
