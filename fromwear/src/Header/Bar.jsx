@@ -107,7 +107,7 @@ export default function PrimarySearchAppBar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-
+      style={{zIndex:1400000}}
     >
       <MenuItem style={{fontSize:13}} onClick={handleMenuClose} >마이페이지</MenuItem>
       <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
@@ -129,6 +129,8 @@ export default function PrimarySearchAppBar() {
       }}
       open={isAlarmOpen}
       onClose={handleAlarmClose}
+      style={{zIndex:1400000}}
+
     >
     
     {
