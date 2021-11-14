@@ -30,6 +30,5 @@ yarn-error.log*
 
 # .lock
 package-lock.json
-package.json
 yarn.lock
 ios/Podfile.lock
