@@ -2,7 +2,6 @@
 import './App.css';
 import Post from './PostView/Post.jsx';
 
-
 function App() {
     return (
       <div>
@@ -10,6 +9,5 @@ function App() {
       </div>
   );
 }
-
 
 export default App;

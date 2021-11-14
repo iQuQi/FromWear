@@ -8,7 +8,7 @@ import Like from './Like'
 import Urgent from './Urgent';
 
 import SearchResult from './SearchResult';
-import Header from './Header/Header'
+import Header from '../Header/Header'
 
 
 let post_id = 111;
