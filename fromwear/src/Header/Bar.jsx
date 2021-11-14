@@ -147,6 +147,7 @@ export default function PrimarySearchAppBar() {
 
 
   return (
+
     <div >
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>

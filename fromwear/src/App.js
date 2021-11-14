@@ -1,12 +1,15 @@
 //import logo from './logo.svg';
 import './App.css';
-import Post from './PostView/Post.jsx';
+import SearchPage from './SearchPage/SearchPage.jsx';
 
 function App() {
-    return (
-      <div>
-          <Post />
-      </div>
+  return (
+    <div className="App">
+      <header className="App-header">
+      	<SearchPage/>
+	    </header>
+    </div>
+
   );
 }
 
