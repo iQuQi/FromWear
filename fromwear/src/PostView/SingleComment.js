@@ -11,9 +11,6 @@ export default function SingleComment({tweet}){
     return (
         <div>
             <div className="one_comment">
-                <div className="star_icon">
-                    <StarIcon />
-                </div>
                 <img src={writer_img} className="writer_img best_pick" />
                 <div className="comment_user_name">{tweet.name}</div>
                 <Thumb />
