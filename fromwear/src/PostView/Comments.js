@@ -28,7 +28,7 @@ class Comments extends Component {
                     name: "전연지",
                     content: "셔츠 팔 부분이 좀 더 길었으면 좋겠어요~"
                 },
-                /*
+                
                 {
                     user_id: 4,
                     name: "김유진",
@@ -54,7 +54,6 @@ class Comments extends Component {
                     name: "김유진",
                     content: "액세서리를 활용해보세요. 좀 심심하네요"
                 }
-                */
                 
             ]
         }
@@ -74,7 +73,7 @@ class Comments extends Component {
             <div>
                 <div>
                     <div className="comment_num">댓글 {this.state.tweets.length}개</div>
-                    <ul>
+                    <ul className="comment_ul">
                         {
                             this.state.tweets.map(tweet => {
                                 return <SingleComment key={tweet.user_id} tweet={tweet} />

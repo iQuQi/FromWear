@@ -16,6 +16,11 @@
     margin: 5px 0;
 }
 
+.comment_ul {
+    height: 362px;
+    overflow: scroll;
+}
+
 .new_tweet_content {
     width: 320px;
     height: 41px;
