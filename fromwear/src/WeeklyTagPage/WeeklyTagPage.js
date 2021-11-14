@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import './WeeklyTagPage.css';
-import PROFILE from '../img/profile.png'
+import PROFILE from './img/profile.png'
 
 import Header from '../Header/Header'
 
