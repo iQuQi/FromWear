@@ -31,9 +31,16 @@ let TodayPostBoard = () => <section className="wrap">
 		</article>
 	</div>
 	<article className="wrap_recommend">
-		<div className="sort_font">
-             조회수순
-       </div>
+		<div className="sort_font select_sort">
+			<input type="radio" id="sort_like" name="sort" checked></input>
+			<label for="sort_like">좋아요순</label>
+			<input type="radio" id="sort_view" name="sort"></input>
+			<label for="sort_view">조회수순</label>
+			<input type="radio" id="sort_reply" name="sort"></input>
+			<label for="sort_reply">댓글순</label>
+			<input type="radio" id="sort_latest" name="sort"></input>
+			<label for="sort_latest">최신순</label>
+		</div>
 		<div className="tag_list">
 			<div className="container">
 				<div className="content">
