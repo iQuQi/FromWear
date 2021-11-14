@@ -98,7 +98,7 @@ a{
     width: 100%;
 	background-color: white;
 
-	z-index: 100000;
+	z-index: 1000;
 
 	border-bottom: 1px solid lightgray;
 }
@@ -121,8 +121,8 @@ a{
 	min-width: 980px;
 	height: auto;
 	background-color: white;
-	border: 1px solid lightgray;
 	position: relative;
+	border: 0px;
 	top: -12px;
 	left: -10px;
 	z-index: 1000;
@@ -162,6 +162,7 @@ a{
 
 .img_item{
 	border-radius:16px;
+	height:322.55px;
 
 }
 
