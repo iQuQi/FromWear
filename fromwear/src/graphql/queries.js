@@ -68,6 +68,7 @@ export const getUser = /* GraphQL */ `
           content
           user_id
           bookmark_user_list
+          like_user_list
           tag_list
           date
           board_type
@@ -90,6 +91,7 @@ export const getUser = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -254,6 +256,7 @@ export const syncComments = /* GraphQL */ `
         content
         adopted
         like
+        like_user_list
         post_id
         post {
           id
@@ -263,6 +266,7 @@ export const syncComments = /* GraphQL */ `
           content
           user_id
           bookmark_user_list
+          like_user_list
           tag_list
           date
           board_type
@@ -321,6 +325,7 @@ export const getComment = /* GraphQL */ `
       content
       adopted
       like
+      like_user_list
       post_id
       post {
         id
@@ -354,6 +359,7 @@ export const getComment = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list
+        like_user_list
         tag_list
         date
         board_type
@@ -406,6 +412,7 @@ export const listComments = /* GraphQL */ `
         content
         adopted
         like
+        like_user_list
         post_id
         post {
           id
@@ -415,6 +422,7 @@ export const listComments = /* GraphQL */ `
           content
           user_id
           bookmark_user_list
+          like_user_list
           tag_list
           date
           board_type
@@ -482,6 +490,7 @@ export const syncPosts = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list
+        like_user_list
         tag_list
         date
         board_type
@@ -511,6 +520,7 @@ export const getPost = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -553,6 +563,7 @@ export const getPost = /* GraphQL */ `
         updatedAt
       }
       bookmark_user_list
+      like_user_list
       tag_list
       date
       board_type
@@ -605,6 +616,7 @@ export const listPosts = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list
+        like_user_list
         tag_list
         date
         board_type
