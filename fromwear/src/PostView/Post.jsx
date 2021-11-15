@@ -33,7 +33,7 @@ class Post extends Component{
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <img src={img_a} className="post_img"/>
+                            <img className="post_img"/>
                             <div className="content_box">
                                 <div className="writer">
                                     <img src={writer_img} className="writer_img"/>
