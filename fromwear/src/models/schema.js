@@ -223,6 +223,14 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "like_user_list": {
+                    "name": "like_user_list",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "tag_list": {
                     "name": "tag_list",
                     "isArray": true,
@@ -337,6 +345,14 @@ export const schema = {
                     "type": "Int",
                     "isRequired": true,
                     "attributes": []
+                },
+                "like_user_list": {
+                    "name": "like_user_list",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "post": {
                     "name": "post",
@@ -659,5 +675,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "0694ff6fead0cf9ca364c8e0fbdb7cde"
+    "version": "455af9caa492c3b173edb8cda2b3881f"
 };
