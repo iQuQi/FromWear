@@ -239,13 +239,6 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "date": {
-                    "name": "date",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "board_type": {
                     "name": "board_type",
                     "isArray": false,
@@ -639,13 +632,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "today_date": {
-                    "name": "today_date",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -675,5 +661,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "455af9caa492c3b173edb8cda2b3881f"
+    "version": "46c03bcf501349e85d10b60323b10011"
 };

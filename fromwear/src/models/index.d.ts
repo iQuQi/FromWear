@@ -69,7 +69,6 @@ export declare class Post {
   readonly bookmark_user_list?: (string | null)[];
   readonly like_user_list?: (string | null)[];
   readonly tag_list?: string[];
-  readonly date: string;
   readonly board_type: number;
   readonly click_num: number;
   readonly blind?: boolean;
@@ -137,7 +136,6 @@ export declare class StyleTag {
   readonly id: string;
   readonly value: string;
   readonly num: number;
-  readonly today_date: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<StyleTag, StyleTagMetaData>);

@@ -24,7 +24,6 @@ export const onCreateUser = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
@@ -90,7 +89,6 @@ export const onUpdateUser = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
@@ -156,7 +154,6 @@ export const onDeleteUser = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
@@ -313,7 +310,6 @@ export const onCreateComment = /* GraphQL */ `
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
@@ -403,7 +399,6 @@ export const onUpdateComment = /* GraphQL */ `
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
@@ -493,7 +488,6 @@ export const onDeleteComment = /* GraphQL */ `
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
@@ -569,7 +563,6 @@ export const onCreatePost = /* GraphQL */ `
       bookmark_user_list
       like_user_list
       tag_list
-      date
       board_type
       click_num
       blind
@@ -639,7 +632,6 @@ export const onUpdatePost = /* GraphQL */ `
       bookmark_user_list
       like_user_list
       tag_list
-      date
       board_type
       click_num
       blind
@@ -709,7 +701,6 @@ export const onDeletePost = /* GraphQL */ `
       bookmark_user_list
       like_user_list
       tag_list
-      date
       board_type
       click_num
       blind
@@ -853,7 +844,6 @@ export const onCreateStyleTag = /* GraphQL */ `
       id
       value
       num
-      today_date
       _version
       _deleted
       _lastChangedAt
@@ -868,7 +858,6 @@ export const onUpdateStyleTag = /* GraphQL */ `
       id
       value
       num
-      today_date
       _version
       _deleted
       _lastChangedAt
@@ -883,7 +872,6 @@ export const onDeleteStyleTag = /* GraphQL */ `
       id
       value
       num
-      today_date
       _version
       _deleted
       _lastChangedAt

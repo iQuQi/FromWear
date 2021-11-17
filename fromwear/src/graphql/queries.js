@@ -70,7 +70,6 @@ export const getUser = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
@@ -268,7 +267,6 @@ export const syncComments = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
@@ -361,7 +359,6 @@ export const getComment = /* GraphQL */ `
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
@@ -424,7 +421,6 @@ export const listComments = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
@@ -492,7 +488,6 @@ export const syncPosts = /* GraphQL */ `
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
@@ -565,7 +560,6 @@ export const getPost = /* GraphQL */ `
       bookmark_user_list
       like_user_list
       tag_list
-      date
       board_type
       click_num
       blind
@@ -618,7 +612,6 @@ export const listPosts = /* GraphQL */ `
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
@@ -842,7 +835,6 @@ export const syncStyleTags = /* GraphQL */ `
         id
         value
         num
-        today_date
         _version
         _deleted
         _lastChangedAt
@@ -860,7 +852,6 @@ export const getStyleTag = /* GraphQL */ `
       id
       value
       num
-      today_date
       _version
       _deleted
       _lastChangedAt
@@ -880,7 +871,6 @@ export const listStyleTags = /* GraphQL */ `
         id
         value
         num
-        today_date
         _version
         _deleted
         _lastChangedAt
