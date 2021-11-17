@@ -760,6 +760,9 @@ export const createStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -774,6 +777,9 @@ export const updateStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -788,6 +794,9 @@ export const deleteStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

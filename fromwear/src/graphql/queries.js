@@ -115,6 +115,78 @@ export const listFollows = /* GraphQL */ `
         updatedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncComments = /* GraphQL */ `
+  query SyncComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncComments(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        user_id
+        user {
+          id
+          name
+          passwd
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_bookmark_post_list
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like
+        like_user_list
+        post_id
+        post {
+          id
+          like_user_num
+          urgent_user_num
+          img
+          content
+          user_id
+          bookmark_user_list
+          like_user_list
+          tag_list
+          board_type
+          click_num
+          blind
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -240,6 +312,15 @@ export const listComments = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        bookmark_user_list
+        like_user_list
+        tag_list
+        board_type
+        click_num
+        blind
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -431,6 +512,37 @@ export const listUserTags = /* GraphQL */ `
         id
         user_id_list
         value
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncStyleTags = /* GraphQL */ `
+  query SyncStyleTags(
+    $filter: ModelStyleTagFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncStyleTags(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        value
+        num
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -444,6 +556,9 @@ export const getStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -460,6 +575,9 @@ export const listStyleTags = /* GraphQL */ `
         id
         value
         num
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
