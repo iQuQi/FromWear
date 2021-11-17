@@ -1,18 +1,15 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import { borderRadius } from '@mui/system';
+import { ImageListItem } from '@mui/material';
+import API from '@aws-amplify/api';
+import {getUser} from '../graphql/queries.js';
 import './SearchPage.css'
-import Stack from '@mui/material/Stack';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
-import item_data from "./SearchData"
-
-let SearchResult = ({handle_img_on_click})=>
+import FavoriteIcon from '@mui/icons-material/Favorite';
+var user_name="",user_profile_img="";
+let SearchResult = ({handle_img_on_click,post_data})=>
 <ImageList cols={5} gap={10} >
-					{item_data.map((item,index) => (
-						<ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
+					{post_data.map((item,index) => {
+						return <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
                                 <img className="img_item" 
 								src={item.img}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -20,24 +17,41 @@ let SearchResult = ({handle_img_on_click})=>
 								loading="lazy"
 								onClick={handle_img_on_click}
 							    />	
+								{
+									API.graphql({
+										query: getUser,
+										variables:{id:item.user_id}
+									}).then(
+										(res)=>{
+											console.log(res);
+											//user_name=res.data.getUser.item.name;
+											//user_profile_img=res.data.getUser.item.profile_img;
+										}
+									).then(
+										()=>{
+											<a href="/post">
+												<span className={"dimmed_layer"}>
+													<span className="dimmed_info_writer">
+														<img src={user_profile_img} alt="프로필" 
+															style={{width:"30px",height:"30px",borderRadius:"50%", 
+															position: "relative",top:"8px", marginRight:"5px"}}/>
+														{user_name}
+													</span>
+													<span className="dimmed_info_like">
+														{item.like_user_num}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+													</span>
+												</span>
+											</a>
 
-								<a href="/post">
-									<span className={"dimmed_layer"}>
-										<span className="dimmed_info_writer">
-											<img src={item.img} alt="프로필" 
-												style={{width:"30px",height:"30px",borderRadius:"50%", 
-												position: "relative",top:"8px", marginRight:"5px"}}/>
-											유진
-										</span>
-										<span className="dimmed_info_like">♥️ 1000</span>
-									</span>
-								</a>
-
+										}
+									)
+								}
+								
 
                             	
 						</ImageListItem>
-                    )
-                    )}
+					})
+					}
 </ImageList>
 
 
