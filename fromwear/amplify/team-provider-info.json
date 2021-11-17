@@ -1,15 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-fromwear-dev-174201-authRole",
-      "UnauthRoleArn": "arn:aws:iam::013911552824:role/amplify-fromwear-dev-174201-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::013911552824:role/amplify-fromwear-dev-174201-authRole",
+      "AuthRoleName": "amplify-fromwear-dev-12112-authRole",
+      "UnauthRoleArn": "arn:aws:iam::013911552824:role/amplify-fromwear-dev-12112-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::013911552824:role/amplify-fromwear-dev-12112-authRole",
       "Region": "ap-northeast-2",
-      "DeploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-      "UnauthRoleName": "amplify-fromwear-dev-174201-unauthRole",
-      "StackName": "amplify-fromwear-dev-174201",
-      "StackId": "arn:aws:cloudformation:ap-northeast-2:013911552824:stack/amplify-fromwear-dev-174201/be9a9bc0-4526-11ec-ba2d-0224d33b9f6a",
-      "AmplifyAppId": "d30b7gvovhfaij"
+      "DeploymentBucketName": "amplify-fromwear-dev-12112-deployment",
+      "UnauthRoleName": "amplify-fromwear-dev-12112-unauthRole",
+      "StackName": "amplify-fromwear-dev-12112",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:013911552824:stack/amplify-fromwear-dev-12112/64660d80-47c2-11ec-aeca-0aa419ff9968",
+      "AmplifyAppId": "dq98gqaorkfwo"
     }
   }
 }
