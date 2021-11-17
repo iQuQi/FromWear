@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fromwear-dev-150047-authRole",
+      "UnauthRoleArn": "arn:aws:iam::966814404323:role/amplify-fromwear-dev-150047-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::966814404323:role/amplify-fromwear-dev-150047-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-fromwear-dev-150047-deployment",
+      "UnauthRoleName": "amplify-fromwear-dev-150047-unauthRole",
+      "StackName": "amplify-fromwear-dev-150047",
+      "StackId": "arn:aws:cloudformation:us-east-1:966814404323:stack/amplify-fromwear-dev-150047/66138da0-45d9-11ec-8b68-0a308968b459",
+      "AmplifyAppId": "d32y7xcgxdidf7"
+    }
+  }
+}
