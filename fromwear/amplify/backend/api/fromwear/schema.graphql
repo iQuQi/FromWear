@@ -1,7 +1,7 @@
 
 
 type User @model {
-	id: ID!
+	id: ID! 
 	name: String!
 	passwd : String!
 	profile_img: String!
@@ -23,7 +23,7 @@ type User @model {
 
 type follow @model 
 {
-	following_id: ID!
+	following_id: ID! 
 	follower_id: ID!
 }
 
@@ -35,9 +35,9 @@ type Comment @model
 	user: User @connection(fields:["user_id"])
 
 	content: String!
-
 	adopted: Boolean!
 	like: Int!
+	like_user_list:[ID]
 
 	post_id: ID!
 	post: Post @connection(fields:["post_id"])
@@ -62,17 +62,15 @@ type Post @model
 	user:User @connection(fields:["user_id"])
 
 	bookmark_user_list:[ID]
+	like_user_list:[ID]
 
 	tag_list:[String!]
 
-	date: AWSDateTime!
 	board_type: Int!
 	click_num:Int!
 	blind: Boolean
 
 }
-
-
 
 
 
@@ -82,7 +80,7 @@ type PostBoard @model{
 }
 
 
-type TagList @model{
+type TagList @model{ 
 	static_tag_list:[ID]
 	week_tag_list:[ID]
 }
@@ -93,10 +91,9 @@ type UserTag @model{
 	value: String!
 }
 
+
 type StyleTag @model{
-	id:ID!
+	id:ID! 
 	value: String!
 	num: Int!
-	today_date: AWSDateTime!
-
 }

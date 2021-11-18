@@ -22,6 +22,7 @@ export const onCreateUser = /* GraphQL */ `
           content
           user_id
           bookmark_user_list
+          like_user_list
           tag_list
           date
           board_type
@@ -44,6 +45,7 @@ export const onCreateUser = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -86,6 +88,7 @@ export const onUpdateUser = /* GraphQL */ `
           content
           user_id
           bookmark_user_list
+          like_user_list
           tag_list
           date
           board_type
@@ -108,6 +111,7 @@ export const onUpdateUser = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -150,6 +154,7 @@ export const onDeleteUser = /* GraphQL */ `
           content
           user_id
           bookmark_user_list
+          like_user_list
           tag_list
           date
           board_type
@@ -172,6 +177,7 @@ export const onDeleteUser = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -271,6 +277,7 @@ export const onCreateComment = /* GraphQL */ `
       content
       adopted
       like
+      like_user_list
       post_id
       post {
         id
@@ -304,6 +311,7 @@ export const onCreateComment = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list
+        like_user_list
         tag_list
         date
         board_type
@@ -359,6 +367,7 @@ export const onUpdateComment = /* GraphQL */ `
       content
       adopted
       like
+      like_user_list
       post_id
       post {
         id
@@ -392,6 +401,7 @@ export const onUpdateComment = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list
+        like_user_list
         tag_list
         date
         board_type
@@ -447,6 +457,7 @@ export const onDeleteComment = /* GraphQL */ `
       content
       adopted
       like
+      like_user_list
       post_id
       post {
         id
@@ -480,6 +491,7 @@ export const onDeleteComment = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list
+        like_user_list
         tag_list
         date
         board_type
@@ -512,6 +524,7 @@ export const onCreatePost = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -554,6 +567,7 @@ export const onCreatePost = /* GraphQL */ `
         updatedAt
       }
       bookmark_user_list
+      like_user_list
       tag_list
       date
       board_type
@@ -580,6 +594,7 @@ export const onUpdatePost = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -622,6 +637,7 @@ export const onUpdatePost = /* GraphQL */ `
         updatedAt
       }
       bookmark_user_list
+      like_user_list
       tag_list
       date
       board_type
@@ -648,6 +664,7 @@ export const onDeletePost = /* GraphQL */ `
           content
           adopted
           like
+          like_user_list
           post_id
           _version
           _deleted
@@ -690,6 +707,7 @@ export const onDeletePost = /* GraphQL */ `
         updatedAt
       }
       bookmark_user_list
+      like_user_list
       tag_list
       date
       board_type

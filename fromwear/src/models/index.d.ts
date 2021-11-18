@@ -67,6 +67,7 @@ export declare class Post {
   readonly content: string;
   readonly user?: User;
   readonly bookmark_user_list?: (string | null)[];
+  readonly like_user_list?: (string | null)[];
   readonly tag_list?: string[];
   readonly date: string;
   readonly board_type: number;
@@ -84,6 +85,7 @@ export declare class Comment {
   readonly content: string;
   readonly adopted: boolean;
   readonly like: number;
+  readonly like_user_list?: (string | null)[];
   readonly post?: Post;
   readonly createdAt?: string;
   readonly updatedAt?: string;

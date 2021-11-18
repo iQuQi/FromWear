@@ -11,7 +11,7 @@ export default function SingleComment({tweet}){
     return (
         <div>
             <div className="one_comment">
-                <img src={writer_img} className="writer_img best_pick" />
+                <img src={writer_img} className="writer_img" />
                 <div className="comment_user_name">{tweet.name}</div>
                 <Thumb />
                 {

@@ -17,13 +17,12 @@
 }
 
 .comment_ul {
-    height: 362px;
-    height: 330px;
+    height: 250px;
     overflow: scroll;
 }
 
 .new_tweet_content {
-    width: 320px;
+    width: 300px;
     height: 41px;
     box-sizing: border-box;
     resize: none;
