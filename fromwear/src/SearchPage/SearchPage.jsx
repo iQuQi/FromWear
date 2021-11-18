@@ -10,26 +10,32 @@ import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 import RankTag from './RankTag';
 import  Typography  from '@mui/material/Typography';
-import PostWritePage from '../PostWritePage/PostWritePage';
+import get_post_data, {post_items} from "./SearchData"
+import {get_rank_tag } from './TagData'; 
 
-var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0];
+
+var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
+var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
 
 class SearchPage extends Component{
 	constructor(){
 		super();
+
+
 		this.state={
 			target_tag_button: tag_clicked_list,
 			target_rank_tag_button: rank_tag_clicked_list,
-			is_tag_more: false
+			is_tag_more: false,
+			post_data: [],
+			rank_tag_data:[]
+
 		};
-	
 	}
 
 	handle_img_on_click=e=>{
 		console.log("img clicked");
-
 	}
+
 	handle_tag_button_click=e=>{
 		var button_index = e.target.value;
 		if(!tag_clicked_list[button_index]) tag_clicked_list[button_index]= 1;
@@ -63,8 +69,34 @@ class SearchPage extends Component{
 		}
 	}
 
+	handle_post_data=(new_post_data)=>{
+		
+		if(this.state.post_data.length==0){
+			this.setState({
+				post_data: new_post_data
+			})
+		}
+	}
+
+	handle_rank_tag_data=(new_rank_tag_data)=>{
+		if(this.state.rank_tag_data.length==0){
+			this.setState({
+				rank_tag_data: new_rank_tag_data
+			})
+		}
+	}
+
+	handle_user_info=()=>{
+		console.log("user info ");
+	}
+
 	render(){
-		const {target_tag_button,is_tag_more,target_rank_tag_button} = this.state;
+		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data} = this.state;
+
+		get_post_data(this.handle_post_data);
+		get_rank_tag(this.handle_rank_tag_data);
+		
+
 		return(
 			<div className="search_page_container">	
                 <Header/>
@@ -83,6 +115,7 @@ class SearchPage extends Component{
 								target_button={target_rank_tag_button}
 								handle_rank_tag_button_click={this.handle_rank_tag_button_click}
 								is_tag_more={is_tag_more}
+								rank_tag_data={rank_tag_data}
 							/>
 							
 						</div>
@@ -103,6 +136,8 @@ class SearchPage extends Component{
 				<div className="search_page_content">
 						<SearchResult 
 						handle_img_on_click={this.handle_img_on_click} 
+						post_data={post_data}
+						handle_user_info={this.handle_user_info}
 						/>
 				</div>
 			
