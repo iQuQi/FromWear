@@ -289,7 +289,8 @@ export const schema = {
                     "properties": {
                         "name": "postByUser",
                         "fields": [
-                            "user_id"
+                            "user_id",
+                            "id"
                         ]
                     }
                 }
@@ -389,7 +390,8 @@ export const schema = {
                     "properties": {
                         "name": "commentByPost",
                         "fields": [
-                            "post_id"
+                            "post_id",
+                            "id"
                         ]
                     }
                 },
@@ -398,7 +400,8 @@ export const schema = {
                     "properties": {
                         "name": "commentByUser",
                         "fields": [
-                            "user_id"
+                            "user_id",
+                            "id"
                         ]
                     }
                 }
@@ -661,5 +664,9 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
+<<<<<<< HEAD
     "version": "46c03bcf501349e85d10b60323b10011"
+=======
+    "version": "ad46248307cb144530bb6fa5634fecf8"
+>>>>>>> search_page
 };
