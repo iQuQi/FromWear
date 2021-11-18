@@ -15,8 +15,6 @@ import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
-import { urlSafeDecode } from '@aws-amplify/core';
-import { border } from '@mui/system';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
@@ -40,7 +38,7 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: "post1 아이디"}
         })
-        .then(res => console.log(res))
+        .then(res => console.log(res.data.getPost))
         /*
         .then(res => this.setState({
             now_post: res.data.getPost,
