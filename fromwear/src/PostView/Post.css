@@ -30,7 +30,7 @@
     /*border: 3px solid #fff;*/
     border-radius: 20px;
     box-sizing: border-box;
-    background-image: url("./Imgs/img.jpeg");
+    background-image: url();
     background-size: cover;
 }
 
@@ -61,6 +61,8 @@
     margin-bottom: 5px;
     border: 1px solid;
     border-radius: 50%;
+    background-image: url();
+    background-size: cover;
 }
 
 .writer_name {

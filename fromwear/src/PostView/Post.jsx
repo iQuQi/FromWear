@@ -15,35 +15,44 @@ import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
+import { urlSafeDecode } from '@aws-amplify/core';
 
+//이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
-let img = img_a
-let writer_name = "진영"
-let content = "오늘은 K-POP스타 녹화날! 오늘 의상 너무 맘에 드는데 주변에서 다들 말린다.... 이유가 뭘까요?? 지금 녹화가 1시간 밖에 안 남았어요ㅠ  이러고 가도 괜찮을까요? 의견 남겨주세요~~";
-let post_list = ["#자켓", " #분위기", " #청"]
-let post_type = 1; //0 : 오늘의 착장 1 : 도움이 필요해
+let user_id = "연지 id";
 
-
+ //board type 0 : 오늘의 착장 1 : 도움이 필요해
 
 class Post extends Component{
     constructor(){
         super();
 
         this.state = {
-            now_user_id: '1234',
-        };
+            now_post:Object,
+            now_writer:Object,
+            like_user_list: [],
+            tag_list: [],
+            like_click: true,
+            user_id,
+        }
 
         API.graphql({
             query: getPost, variables: {id: "post1 아이디"}
         })
-        .then(res => console.log(res))
+        .then(res => this.setState({
+            now_post: res.data.getPost,
+            now_writer: res.data.getPost.user,
+            like_user_list: res.data.getPost.like_user_list,
+            tag_list: res.data.getPost.tag_list,
+        }))
         .catch(e => console.log(e));
 
     }
 
 
     render(){
-        let {now_user_id} = this.state;
+        let {now_post, now_writer, like_user_list, like_click, tag_list, user_id} = this.state;
+        console.log(now_post);
 
         return (
             <div className="post_page">
@@ -51,12 +60,12 @@ class Post extends Component{
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <img className="post_img"/>
+                            <img src={now_post.img} className="post_img"/>
                             <div className="content_box">
                                 <div className="writer">
-                                    <img src={writer_img} className="writer_img"/>
-                                    <div className="writer_name">{now_user_id}</div>
-                                    <div className="writer_content">{content}</div>
+                                    <img src={now_writer.img} className="writer_img"/>
+                                    <div className="writer_name">{now_writer.name}</div>
+                                    <div className="writer_content">{now_post.content}</div>
                                 </div>
                                 <div className="comment">
                                     <Comments />
@@ -66,10 +75,16 @@ class Post extends Component{
                         <div className="icons">
                             <Bookmark />
                             {
-                                post_type == 0 ?
-                                <Like /> : <Urgent />
+                                (now_post.board_type == 0) ?
+                                <Like
+                                like_user_list={like_user_list}
+                                like_click={like_click}
+                                onClick={this.like_onclick}
+                                /> : <Urgent />
                             }
-                            <div className="post_list">{post_list}</div>
+                            <div className="post_list">
+                                {tag_list}
+                            </div>
                         </div>
                     </div>
                     <div className="main_post_tag_div">
