@@ -28,24 +28,37 @@ import wear11 from './image/wear11.png';
 import { Container } from '@mui/material';
 
 import {API} from 'aws-amplify';
-import {listStyleTags} from '../graphql/queries.js';
+import {listPosts} from '../graphql/queries.js';
 import {getUser} from '../graphql/queries.js';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 class WeeklyTagPage extends Component {
 
-    /*constructor() {
+    constructor() {
 		super();
-	}*/
-	componentDidMount(){
-		/*API.graphql({	query: listStyleTags  })
-		  .then(res => {
-			  console.log(res);
-			  let style_tags = res.data.listStyleTags.items;
-			  console.log(style_tags);
-		  });*/
 
-		//API.graphql({ query:getUser, variables: {id:"민현 id"}})
-		//.then(res => console.log(res));
+		this.state = {
+			postlist_0: [],
+			postlist_1: [],
+			postlist_2: []
+		};
+	}
+
+
+
+	componentDidMount(){
+		/*API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 0}}  }})
+		.then( res => {console.log( res )})
+		.then( res => {
+			console.log( res.data.listPosts.items);
+			this.setState({ postlist_0: res.data.listPosts.items });
+		})
+		.catch( e => console.log(e));
+		*/
+		//console.log(this.postlist_0);
+		API.graphql({ query: getUser, variables: { id: "민현 id"}})
+		.then( res => console.log(res))
+		.catch( e => console.log(e));
 	}
 	
 
