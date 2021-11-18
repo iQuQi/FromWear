@@ -30,7 +30,6 @@ import { Container } from '@mui/material';
 import {API} from 'aws-amplify';
 import {listPosts} from '../graphql/queries.js';
 import {getUser} from '../graphql/queries.js';
-import { ConsoleLogger } from '@aws-amplify/core';
 
 class WeeklyTagPage extends Component {
 
