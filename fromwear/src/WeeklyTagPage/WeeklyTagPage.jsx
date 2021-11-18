@@ -27,13 +27,28 @@ import wear10 from './image/wear10.png';
 import wear11 from './image/wear11.png';
 import { Container } from '@mui/material';
 
+import {API} from 'aws-amplify';
+import {listStyleTags} from '../graphql/queries.js';
+import {getUser} from '../graphql/queries.js';
 
 class WeeklyTagPage extends Component {
 
     /*constructor() {
 		super();
 	}*/
+	componentDidMount(){
+		/*API.graphql({	query: listStyleTags  })
+		  .then(res => {
+			  console.log(res);
+			  let style_tags = res.data.listStyleTags.items;
+			  console.log(style_tags);
+		  });*/
+
+		//API.graphql({ query:getUser, variables: {id:"민현 id"}})
+		//.then(res => console.log(res));
+	}
 	
+
 	render(){
         const bestItem = [
             {
