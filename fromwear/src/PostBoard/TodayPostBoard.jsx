@@ -22,6 +22,8 @@ import wear3 from './image/wear3.png';
 import wear4 from './image/wear4.png';
 import { Container } from '@mui/material';
 
+import { API } from 'aws-amplify';
+import { getPost } from '../graphql/queries.js';
 
 class TodayPostBoard extends Component { 
 
@@ -84,6 +86,10 @@ class TodayPostBoard extends Component {
 
 	return <section className="wrap">
 	<Header />
+	API.graphql({
+		query:getPost, variables:{id: "post1 아이디"}})
+	.then(res=>console.log(res))
+	.catch(e=>console.log(e));
 	<div className="today_background_wrap">
 		<article className="today_wear">
 			<h1 className="title">오늘의 착장</h1><p className="title_tag">#오늘의 #베스트드레서는 #나야나</p>
