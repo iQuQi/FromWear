@@ -9,6 +9,9 @@ import PostWritePage from './PostWritePage/PostWritePage.jsx';
 import SearchPage from './SearchPage/SearchPage.jsx';
 import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
 
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+Amplify.configure(config);
 
 
 function App() {

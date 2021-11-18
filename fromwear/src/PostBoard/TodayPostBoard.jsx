@@ -82,15 +82,14 @@ class TodayPostBoard extends Component {
 			  like: '1005',
 			},
 		];
-	}
-
-	render () {
-		return ( <section className="wrap">
+		
+		{ API.graphql({
+			query:getPost, variables:{id: "post1 아이디"}})
+		.then(res=>console.log(res))
+		.catch(e=>console.log(e)) };
+		return ( 
+		<section className="wrap">
 			<Header />
-			API.graphql({
-				query:getPost, variables:{id: "post1 아이디"}})
-			.then(res=>console.log(res))
-			.catch(e=>console.log(e));
 			<div className="today_background_wrap">
 				<article className="today_wear">
 					<h1 className="title">오늘의 착장</h1><p className="title_tag">#오늘의 #베스트드레서는 #나야나</p>
