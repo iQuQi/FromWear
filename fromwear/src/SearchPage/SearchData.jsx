@@ -8,6 +8,7 @@ let get_post_data =  (handle_post_data) =>{
       API.graphql({
         query: listPosts,
       }).then(res=>{
+        console.log(res);
         post_data = res.data.listPosts.items.filter(
           item=> item.board_type==0 || item.board_type==2
         );

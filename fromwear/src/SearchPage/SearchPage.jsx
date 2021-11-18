@@ -35,7 +35,7 @@ class SearchPage extends Component{
 	handle_img_on_click=e=>{
 		console.log("img clicked");
 	}
-	
+
 	handle_tag_button_click=e=>{
 		var button_index = e.target.value;
 		if(!tag_clicked_list[button_index]) tag_clicked_list[button_index]= 1;
@@ -86,6 +86,10 @@ class SearchPage extends Component{
 		}
 	}
 
+	handle_user_info=()=>{
+		console.log("user info ");
+	}
+
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data} = this.state;
 
@@ -133,6 +137,7 @@ class SearchPage extends Component{
 						<SearchResult 
 						handle_img_on_click={this.handle_img_on_click} 
 						post_data={post_data}
+						handle_user_info={this.handle_user_info}
 						/>
 				</div>
 			

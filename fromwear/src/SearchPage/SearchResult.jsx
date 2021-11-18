@@ -6,7 +6,23 @@ import {getUser} from '../graphql/queries.js';
 import './SearchPage.css'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 var user_name="",user_profile_img="";
-let SearchResult = ({handle_img_on_click,post_data})=>
+/*
+	{
+									API.graphql({
+										query: getUser,
+										variables:{id:item.user_id}
+									}).then(
+										(res)=>{
+											console.log(res);
+											//user_name=res.data.getUser.item.name;
+											//user_profile_img=res.data.getUser.item.profile_img;
+										}
+									).then((res)=>{
+										handle_user_info();
+									})
+								}
+*/
+let SearchResult = ({handle_img_on_click,post_data, handle_user_info})=>
 <ImageList cols={5} gap={10} >
 					{post_data.map((item,index) => {
 						return <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
@@ -17,38 +33,23 @@ let SearchResult = ({handle_img_on_click,post_data})=>
 								loading="lazy"
 								onClick={handle_img_on_click}
 							    />	
-								{
-									API.graphql({
-										query: getUser,
-										variables:{id:item.user_id}
-									}).then(
-										(res)=>{
-											console.log(res);
-											//user_name=res.data.getUser.item.name;
-											//user_profile_img=res.data.getUser.item.profile_img;
-										}
-									).then(
-										()=>{
-											<a href="/post">
-												<span className={"dimmed_layer"}>
-													<span className="dimmed_info_writer">
-														<img src={user_profile_img} alt="프로필" 
-															style={{width:"30px",height:"30px",borderRadius:"50%", 
-															position: "relative",top:"8px", marginRight:"5px"}}/>
-														{user_name}
-													</span>
-													<span className="dimmed_info_like">
-														{item.like_user_num}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
-													</span>
-												</span>
-											</a>
-
-										}
-									)
-								}
 								
-
-                            	
+							
+							
+									<a href="/post">
+										<span className={"dimmed_layer"}>
+											<span className="dimmed_info_writer">
+												<img src={user_profile_img} alt="프로필" 
+													style={{width:"30px",height:"30px",borderRadius:"50%", 
+													position: "relative",top:"8px", marginRight:"5px"}}/>
+												{user_name}
+											</span>
+											<span className="dimmed_info_like">
+												{item.like_user_num}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+											</span>
+										</span>
+									</a>
+								)
 						</ImageListItem>
 					})
 					}
