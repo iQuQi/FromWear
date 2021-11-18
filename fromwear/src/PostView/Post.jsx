@@ -16,6 +16,7 @@ import Header from '../Header/Header'
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
 import { urlSafeDecode } from '@aws-amplify/core';
+import { border } from '@mui/system';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
@@ -39,12 +40,15 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: "post1 아이디"}
         })
+        .then(res => console.log(res))
+        /*
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
             like_user_list: res.data.getPost.like_user_list,
             tag_list: res.data.getPost.tag_list,
         }))
+        */
         .catch(e => console.log(e));
 
     }
@@ -52,7 +56,8 @@ class Post extends Component{
 
     render(){
         let {now_post, now_writer, like_user_list, like_click, tag_list, user_id} = this.state;
-        console.log(now_post);
+
+
 
         return (
             <div className="post_page">
@@ -62,7 +67,7 @@ class Post extends Component{
                         <div className="post_div">
                             <img src={now_post.img} className="post_img"/>
                             <div className="content_box">
-                                <div className="writer">
+                                <div className="writer"> 
                                     <img src={now_writer.img} className="writer_img"/>
                                     <div className="writer_name">{now_writer.name}</div>
                                     <div className="writer_content">{now_post.content}</div>
@@ -75,12 +80,14 @@ class Post extends Component{
                         <div className="icons">
                             <Bookmark />
                             {
+                                /*
                                 (now_post.board_type == 0) ?
                                 <Like
                                 like_user_list={like_user_list}
                                 like_click={like_click}
                                 onClick={this.like_onclick}
-                                /> : <Urgent />
+                                /> : <Urgent />*/
+                                <Urgent />
                             }
                             <div className="post_list">
                                 {tag_list}

@@ -3286,11 +3286,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-<<<<<<< HEAD
-          "name" : "createdAt",
-=======
           "name" : "_version",
->>>>>>> 182c12a64608e2d930f59126e83f9947be2493d7
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -3298,20 +3294,13 @@
             "name" : null,
             "ofType" : {
               "kind" : "SCALAR",
-<<<<<<< HEAD
-              "name" : "AWSDateTime",
-=======
               "name" : "Int",
->>>>>>> 182c12a64608e2d930f59126e83f9947be2493d7
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-<<<<<<< HEAD
-          "name" : "updatedAt",
-=======
           "name" : "_deleted",
           "description" : null,
           "args" : [ ],
@@ -3324,7 +3313,6 @@
           "deprecationReason" : null
         }, {
           "name" : "_lastChangedAt",
->>>>>>> 182c12a64608e2d930f59126e83f9947be2493d7
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -6175,8 +6163,6 @@
             }
           },
           "defaultValue" : null
-<<<<<<< HEAD
-=======
         }, {
           "name" : "_version",
           "description" : null,
@@ -6186,7 +6172,6 @@
             "ofType" : null
           },
           "defaultValue" : null
->>>>>>> 182c12a64608e2d930f59126e83f9947be2493d7
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -6289,8 +6274,6 @@
             "ofType" : null
           },
           "defaultValue" : null
-<<<<<<< HEAD
-=======
         }, {
           "name" : "_version",
           "description" : null,
@@ -6300,7 +6283,6 @@
             "ofType" : null
           },
           "defaultValue" : null
->>>>>>> 182c12a64608e2d930f59126e83f9947be2493d7
         } ],
         "interfaces" : null,
         "enumValues" : null,
