@@ -22,6 +22,8 @@ let user_id = "연지 id";
 
  //board type 0 : 오늘의 착장 1 : 도움이 필요해
 
+
+
 class Post extends Component{
     constructor(){
         super();
@@ -38,15 +40,12 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: "post1 아이디"}
         })
-        .then(res => console.log(res.data.getPost))
-        /*
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
             like_user_list: res.data.getPost.like_user_list,
             tag_list: res.data.getPost.tag_list,
         }))
-        */
         .catch(e => console.log(e));
 
     }
@@ -56,17 +55,16 @@ class Post extends Component{
         let {now_post, now_writer, like_user_list, like_click, tag_list, user_id} = this.state;
 
 
-
         return (
             <div className="post_page">
                 <Header />
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <img src={now_post.img} className="post_img"/>
+                            <img className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}/>
                             <div className="content_box">
                                 <div className="writer"> 
-                                    <img src={now_writer.img} className="writer_img"/>
+                                    <img className="post_writer_img" style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}/>
                                     <div className="writer_name">{now_writer.name}</div>
                                     <div className="writer_content">{now_post.content}</div>
                                 </div>
@@ -78,14 +76,14 @@ class Post extends Component{
                         <div className="icons">
                             <Bookmark />
                             {
-                                /*
+                                
                                 (now_post.board_type == 0) ?
-                                <Like
+                                /*<Like
                                 like_user_list={like_user_list}
                                 like_click={like_click}
                                 onClick={this.like_onclick}
                                 /> : <Urgent />*/
-                                <Urgent />
+                                <Like /> : <Urgent />
                             }
                             <div className="post_list">
                                 {tag_list}
