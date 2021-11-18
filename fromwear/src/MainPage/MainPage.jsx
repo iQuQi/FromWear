@@ -15,11 +15,20 @@ import MoodBadIcon from '@mui/icons-material/MoodBad';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+import { API } from 'aws-amplify';
+import { listPosts } from '../graphql/queries';
+
 class MainPage extends Component {
 	/*constructor() {
 		super();
 	}*/
-	
+	componentDidMount(){
+		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 0}}  }})
+		.then( res => console.log(res))
+		.catch( e => console.log(e));
+	}
+
+
 	render(){
 		const itemData = [
 			{
@@ -55,7 +64,7 @@ class MainPage extends Component {
 				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
 			</div>
 
-			<div id = 'today_post' class = 'collection'>
+			<div id = 'today_post' className = 'collection'>
 				<h3 className = 'title'>오늘의 착장</h3>
 				<a className = 'seemore' href='/todayboard'>둘러보기</a>
 				
@@ -82,7 +91,7 @@ class MainPage extends Component {
 			
 			</div>
 
-			<div id = 'help_post' class = 'collection'>
+			<div id = 'help_post' className = 'collection'>
 				<h3 className = 'title'>도움이 필요해</h3>
 				<a className = 'seemore' href=''>둘러보기</a>
 
@@ -108,7 +117,7 @@ class MainPage extends Component {
 				</ImageList>
 			</div>
 
-			<div id = 'weekly_best' class = 'collection'>
+			<div id = 'weekly_best' className = 'collection'>
 				<h3 className = 'title'>이번주 태그 랭킹</h3>
 				<a className = 'seemore' href='/weeklytag'>둘러보기</a>
 				
