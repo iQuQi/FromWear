@@ -118,18 +118,20 @@ class TodayPostBoard extends Component {
 					<input type="radio" id="sort_latest" name="sort"></input>
 					<label for="sort_latest">최신순</label>
 				</div>
-				<div id = 'today_post' className = 'collection'>
+				<div id = 'today_post' class = 'collection'>
 					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 						{itemData.map((item) => (
-							<ImageListItem key={item.img} className='today_image_list_item'>
-								<img style={{borderRadius:16}}
+							<ImageListItem key={item.img} className='weekly_image_list_item'>
+								<img style={{height:'322.55px', borderRadius:16}}
 									src={`${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.user}
 									loading="lazy"
 								/>
 								
-								<span className='dimmed_layer'>	</span>
+								<a href='/post'> 
+									<span className='dimmed_layer'>	</span>
+								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="flex-end">
 									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
