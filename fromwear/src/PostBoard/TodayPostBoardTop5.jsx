@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import './CSS/TodayPostBoardTop5.css'
 
@@ -18,6 +19,14 @@ export default class TodayPostBoardTop5 extends Component {
                 "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
                 "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
             ],
+            user_name: ["name1", "name2", "name3", "name4", "name5"],
+            user_profile_img: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+            "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+            "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+            "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+            "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+            ],
+            like_user_num: ["500", "400", "300", "200", "100"],
         };
     }
 
@@ -33,7 +42,8 @@ export default class TodayPostBoardTop5 extends Component {
 
 
     render() {
-        let {post_top_list, post_top} = this.state;
+        let {post_top_list} = this.state;
+        let {post_top, user_name, user_profile_img, like_user_num} = this.state;
         console.log(post_top_list[0]);
         
 
@@ -44,7 +54,7 @@ export default class TodayPostBoardTop5 extends Component {
 			slidesToShow: 5,
 
             centerPadding: "0px",
-			speed: 500,
+			speed: 700,
 		};
 		return (
             <div className="today_background_wrap">
@@ -57,11 +67,37 @@ export default class TodayPostBoardTop5 extends Component {
                             {post_top.map((url, index) => (
                                     <div className="div_test">
                                         <img style={{backgroundImage: `URL(${url})`}}></img>
+                                        <a href="/post">
+                                            <span className={"dimmed_layer"}>
+                                                <span className="dimmed_info_writer">
+                                                    <img src={user_profile_img[index]} alt="프로필" 
+                                                        style={{width:"30px",height:"30px",borderRadius:"50%", 
+                                                        position: "relative",top:"10px", left:"5px", marginLeft:"5px"}}/>
+                                                    {user_name[index]}
+                                                </span>
+                                                <span className="dimmed_info_like">
+                                                    {like_user_num[index]}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
+                                                </span>
+                                            </span>
+									    </a>
                                     </div>
                             ))}
                             {post_top.map((url, index) => (
                                     <div className="div_test">
                                         <img style={{backgroundImage: `URL(${url})`}}></img>
+                                        <a href="/post">
+                                            <span className={"dimmed_layer"}>
+                                                <span className="dimmed_info_writer">
+                                                    <img src={user_profile_img[index]} alt="프로필" 
+                                                        style={{width:"30px",height:"30px",borderRadius:"50%", 
+                                                        position: "relative",top:"10px", left:"5px", marginLeft:"5px"}}/>
+                                                    {user_name[index]}
+                                                </span>
+                                                <span className="dimmed_info_like">
+                                                    {like_user_num[index]}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
+                                                </span>
+                                            </span>
+									    </a>
                                     </div>
                             ))}
                         </Slider>
