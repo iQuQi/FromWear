@@ -1,0 +1,91 @@
+.today_background_wrap {
+	margin-top: 40px;
+	background-color: #F2F2F2;
+	height: 500px;
+}
+
+.today_wear {
+	text-align: left;
+	width: 1080px;
+	height: 400px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+
+.today_wear .title {
+	font-size: 50px;
+}
+
+.today_wear .title, .title_tag {
+	color: #253861;
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.today_wear .img_list {
+	margin: 0 auto;
+}
+
+.rank_list {
+	line-height: 333px;
+}
+
+.rank_list img {
+	border-radius: 16px;
+	position: relative;
+	vertical-align: middle;
+	box-shadow: 5px 5px 10px grey;
+}
+
+.rank_list .rank1 {
+	width: 230px;
+	height: 306px;
+	z-index: 30;
+}
+
+.rank_list .rank4 {
+	width: 180px;
+	height: 240px;
+	z-index: 10;
+
+	left:60px;
+}
+.rank_list .rank5 {
+	width: 200px;
+	height: 266px;
+	z-index: 20;
+
+	left:30px;
+}
+
+.rank_list .rank3 {
+	width: 180px;
+	height: 240px;
+	z-index: 10;
+
+	right:60px;
+}
+.rank_list .rank2 {
+	width: 200px;
+	height: 266px;
+	z-index: 20;
+
+	right:30px;
+}
+
+.rank_list .arrow {
+	color: white;
+	font-size: large;
+	background-color: grey;
+	position: relative;
+	vertical-align: middle;
+}
+
+.rank_list .left {
+	left: 30px;
+}
+.rank_list .right {
+	right: 30px;
+}

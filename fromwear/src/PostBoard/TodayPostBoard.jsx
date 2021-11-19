@@ -2,9 +2,6 @@ import {Component} from 'react';
 import PROFILE from './img/profile.png'
 
 import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -12,6 +9,8 @@ import Stack from '@mui/material/Stack';
 
 
 import Header from '../Header/Header';
+import TodayPostBoardTop5 from './TodayPostBoardTop5';
+
 
 import './CSS/PostBoard.css';
 import './CSS/todayPostList.css';
@@ -27,11 +26,25 @@ import { getPost } from '../graphql/queries.js';
 
 class TodayPostBoard extends Component { 
 
-	/*constructor() {
+	constructor() {
 		super();
-	}*/
+
+		this.state = {
+			rank: "",
+		}
+	}
+
+
+
+	rankSet = (i) => {
+		this.setState({
+			rank: "rank" + i.toString(),
+		})
+	}
+
 	
 	render() {
+		let {rank, rankSet} = this.state;
         const bestItem = [
             {
                 img: wear1,
@@ -86,27 +99,12 @@ class TodayPostBoard extends Component {
 			query:getPost, variables:{id: "post1 아이디"}})
 		.then(res=>console.log(res))
 		.catch(e=>console.log(e)) };
+
+
 		return ( 
 		<section className="wrap">
 			<Header />
-			<div className="today_background_wrap">
-				<article className="today_wear">
-					<h1 className="title">오늘의 착장</h1><p className="title_tag">#오늘의 #베스트드레서는 #나야나</p>
-					<div className="rank_list">
-						<IconButton className="left arrow">
-							<ChevronLeftIcon />
-						</IconButton>
-						<img className="rank4 rank_form3" src={ require('./img/model_img.jpg').default } alt="model"></img>
-						<img className="rank5 rank_form2" src={ require('./img/model_img.jpg').default } alt="model"></img>
-						<img className="rank1 rank_form1" src={ require('./img/model_img.jpg').default } alt="model"></img>
-						<img className="rank2 rank_form2" src={ require('./img/model_img.jpg').default } alt="model"></img>
-						<img className="rank3 rank_form3" src={ require('./img/model_img.jpg').default } alt="model"></img>
-						<IconButton className="right arrow">
-							<ChevronRightIcon />
-						</IconButton>
-					</div>
-				</article>
-			</div>
+			<TodayPostBoardTop5 />
 			<article className="wrap_recommend">
 				<div className="sort_font select_sort">
 					<input type="radio" id="sort_like" name="sort" checked></input>
