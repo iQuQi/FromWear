@@ -17,7 +17,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import {API} from 'aws-amplify';
 import {listPosts} from '../graphql/queries.js';
-
+import {listTagLists, listStyleTags} from '../graphql/queries';
 
 class WeeklyTagPage extends Component {
 
@@ -28,21 +28,49 @@ class WeeklyTagPage extends Component {
 			postlist_0: [],
 			postlist_1: [],
 			postlist_2: [],
-			post: [],
-			user: []
+			weekly_tag_id: [],
+			weekly_tag: []
 		};
 	}
 
 
 
 	componentDidMount(){
+		
 		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 0}} }})
 		.then( res => {
-			this.setState({ postlist_0: res.data.listPosts.items });
+			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
 		})
 		.catch( e => console.log(e));
 
+		API.graphql({ query: listTagLists})
+		.then( res => {
+			this.setState({ weekly_tag_id: res.data.listTagLists.items[0].week_tag_list });
+			this.setState({ weekly_tag_id: this.state.weekly_tag_id.slice(1)})
+			console.log(this.state.weekly_tag_id)	
+		})
+		.then( res => {
+			for (let i = 0; i < 3; i++) {
+				this.getWeeklyTag(i);	
+			}	
+		})
+		.catch( e => console.log(e));
+		
+		
+		
 	}
+
+	getWeeklyTag = (i) => {
+		API.graphql({ query: listStyleTags, variables: { filter: {id: {eq: this.state.weekly_tag_id[i]}} }})
+		.then( res => {
+			this.setState({ weekly_tag: [...this.state.weekly_tag, res.data.listStyleTags.items[0].value] });
+			console.log(this.state.weekly_tag)
+		})
+		.catch( e => console.log(e));
+	};
+	
+	
+	
 	
 	
 
@@ -50,27 +78,27 @@ class WeeklyTagPage extends Component {
 		const posts = this.state.postlist_0;
 		const best_posts = posts.slice(0,4);
 		const ranking_posts = posts.slice(4);
-
+	
        
 		return <div id = 'main_page'>
 			<Header/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
-                    <h1 style={{margin:'65px 0px 0px 0px', fontSize:'4em', lineHeight:'1.2em'}}>이번주 태그</h1>
+                    <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그</h1>
                     <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 <u>#이번주태그</u> 를 걸고 랭킹에 도전하자!</h1>
-                    <h1 style={{fontSize:'1.8em', fontWeight:'bolder', color:'orange'}}>#빨간색 #원피스</h1>
+					<h1 style={{fontSize:'1.7em', fontWeight:'bolder', color:'#CC3D3D'}}>#{this.state.weekly_tag[0]} &nbsp;#{this.state.weekly_tag[1]}</h1>		
                 </div>
 
                 <div className = 'banner_bestpost'>
 				
 						<Stack direction="row" spacing={1} justifyContent="center" style={{width:'1200px', margin:'auto'}}>
-							{best_posts.map((item, index) => 
+							{best_posts.map((item) => 
 								
 								(<ImageListItem key={item.img} className='weekly_image_list_item'>
 									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
 											src={`${item.img}?w=248&fit=crop&auto=format`}
 											srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-											alt={item.user}
+											alt={item.id}
 											loading="lazy"
 									/>
 									
