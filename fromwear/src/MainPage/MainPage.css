@@ -94,3 +94,19 @@ a{
     font-weight: 600;
     font-size: 0.8em;
 }
+.weekly_image_list_item:hover .dimmed_layer{
+	position: absolute;
+	top: 0;
+	bottom: 34px;
+	right: 0;
+	left: 0;
+
+	padding: 33% 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 16px;
+
+    color: white;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}

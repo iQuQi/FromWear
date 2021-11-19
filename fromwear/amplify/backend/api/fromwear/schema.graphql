@@ -28,8 +28,8 @@ type follow @model
 }
 
 type Comment @model 
-@key(name:"commentByPost",fields:["post_id"])
-@key(name:"commentByUser",fields:["user_id"]){
+@key(name:"commentByPost",fields:["post_id","id"])
+@key(name:"commentByUser",fields:["user_id","id"]){
 	id:ID!
 	user_id: ID!
 	user: User @connection(fields:["user_id"])
@@ -46,7 +46,7 @@ type Comment @model
 
 
 type Post @model
-@key(name:"postByUser",fields:["user_id"])
+@key(name:"postByUser",fields:["user_id","id"])
 {
 	id : ID!
 

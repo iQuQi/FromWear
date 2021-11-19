@@ -1,52 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const syncUsers = /* GraphQL */ `
-  query SyncUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUsers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        passwd
-        profile_img
-        introduce
-        gender
-        adopted
-        follower_num
-        following_num
-        my_post_list {
-          nextToken
-          startedAt
-        }
-        my_bookmark_post_list
-        my_comment_list {
-          nextToken
-          startedAt
-        }
-        my_tag_list
-        award_today
-        award_week
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -70,18 +24,13 @@ export const getUser = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       my_bookmark_post_list
       my_comment_list {
@@ -93,21 +42,14 @@ export const getUser = /* GraphQL */ `
           like
           like_user_list
           post_id
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       my_tag_list
       award_today
       award_week
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -132,52 +74,18 @@ export const listUsers = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
-          startedAt
         }
         my_tag_list
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncFollows = /* GraphQL */ `
-  query SyncFollows(
-    $filter: ModelfollowFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFollows(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        following_id
-        follower_id
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -187,9 +95,6 @@ export const getFollow = /* GraphQL */ `
       id
       following_id
       follower_id
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -206,86 +111,11 @@ export const listFollows = /* GraphQL */ `
         id
         following_id
         follower_id
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncComments = /* GraphQL */ `
-  query SyncComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncComments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        user_id
-        user {
-          id
-          name
-          passwd
-          profile_img
-          introduce
-          gender
-          adopted
-          follower_num
-          following_num
-          my_bookmark_post_list
-          my_tag_list
-          award_today
-          award_week
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        content
-        adopted
-        like
-        like_user_list
-        post_id
-        post {
-          id
-          like_user_num
-          urgent_user_num
-          img
-          content
-          user_id
-          bookmark_user_list
-          like_user_list
-          tag_list
-          date
-          board_type
-          click_num
-          blind
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
+
     }
   }
 `;
@@ -306,19 +136,14 @@ export const getComment = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
-          startedAt
         }
         my_tag_list
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -333,7 +158,6 @@ export const getComment = /* GraphQL */ `
         urgent_user_num
         comment_list {
           nextToken
-          startedAt
         }
         img
         content
@@ -352,28 +176,18 @@ export const getComment = /* GraphQL */ `
           my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -403,9 +217,6 @@ export const listComments = /* GraphQL */ `
           my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
@@ -424,86 +235,16 @@ export const listComments = /* GraphQL */ `
           bookmark_user_list
           like_user_list
           tag_list
-          date
           board_type
           click_num
           blind
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncPosts = /* GraphQL */ `
-  query SyncPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPosts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        like_user_num
-        urgent_user_num
-        comment_list {
-          nextToken
-          startedAt
-        }
-        img
-        content
-        user_id
-        user {
-          id
-          name
-          passwd
-          profile_img
-          introduce
-          gender
-          adopted
-          follower_num
-          following_num
-          my_bookmark_post_list
-          my_tag_list
-          award_today
-          award_week
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        bookmark_user_list
-        like_user_list
-        tag_list
-        date
-        board_type
-        click_num
-        blind
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -522,14 +263,10 @@ export const getPost = /* GraphQL */ `
           like
           like_user_list
           post_id
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       img
       content
@@ -546,32 +283,23 @@ export const getPost = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
-          startedAt
         }
         my_tag_list
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       bookmark_user_list
       like_user_list
       tag_list
-      date
       board_type
       click_num
       blind
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -590,7 +318,6 @@ export const listPosts = /* GraphQL */ `
         urgent_user_num
         comment_list {
           nextToken
-          startedAt
         }
         img
         content
@@ -609,55 +336,19 @@ export const listPosts = /* GraphQL */ `
           my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         bookmark_user_list
         like_user_list
         tag_list
-        date
         board_type
         click_num
         blind
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncPostBoards = /* GraphQL */ `
-  query SyncPostBoards(
-    $filter: ModelPostBoardFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPostBoards(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        board_type
-        best_post_list
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -667,9 +358,6 @@ export const getPostBoard = /* GraphQL */ `
       id
       board_type
       best_post_list
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -686,42 +374,10 @@ export const listPostBoards = /* GraphQL */ `
         id
         board_type
         best_post_list
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncTagLists = /* GraphQL */ `
-  query SyncTagLists(
-    $filter: ModelTagListFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTagLists(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        static_tag_list
-        week_tag_list
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -731,9 +387,6 @@ export const getTagList = /* GraphQL */ `
       id
       static_tag_list
       week_tag_list
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -750,42 +403,10 @@ export const listTagLists = /* GraphQL */ `
         id
         static_tag_list
         week_tag_list
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUserTags = /* GraphQL */ `
-  query SyncUserTags(
-    $filter: ModelUserTagFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUserTags(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        user_id_list
-        value
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -795,9 +416,6 @@ export const getUserTag = /* GraphQL */ `
       id
       user_id_list
       value
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -814,43 +432,11 @@ export const listUserTags = /* GraphQL */ `
         id
         user_id_list
         value
-        _version
-        _deleted
-        _lastChangedAt
+
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncStyleTags = /* GraphQL */ `
-  query SyncStyleTags(
-    $filter: ModelStyleTagFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncStyleTags(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        value
-        num
-        today_date
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -860,10 +446,7 @@ export const getStyleTag = /* GraphQL */ `
       id
       value
       num
-      today_date
-      _version
-      _deleted
-      _lastChangedAt
+
       createdAt
       updatedAt
     }
@@ -880,15 +463,11 @@ export const listStyleTags = /* GraphQL */ `
         id
         value
         num
-        today_date
-        _version
-        _deleted
-        _lastChangedAt
+
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
