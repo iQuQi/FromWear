@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 
-
-import img_a from './Imgs/img.jpeg';
-import writer_img from './Imgs/pro1.jpeg';
 import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
@@ -14,10 +11,7 @@ import Header from '../Header/Header'
 
 
 import { API } from 'aws-amplify';
-import { getPost, listPosts } from '../graphql/queries';
-import { handleBreakpoints } from '@mui/system';
-import { ConsoleSqlOutlined, TrademarkCircleOutlined } from '@ant-design/icons';
-import { ConsoleLogger } from '@aws-amplify/core';
+import { getPost } from '../graphql/queries';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
@@ -40,7 +34,9 @@ class Post extends Component{
             bookmark_user_list: [],
             bookmark_click: false,
         }
+    }
 
+    componentDidMount(){
         API.graphql({
             query: getPost, variables: {id: post_id}
         })
@@ -83,6 +79,7 @@ class Post extends Component{
         }
     }
 
+
     handleLikeButton = () => {
         if(this.state.like_click == true){
             var index = this.state.like_user_list.indexOf(user_id)
@@ -99,8 +96,6 @@ class Post extends Component{
                 }
 
             });
-            //this.state.like_click = false;
-            //console.log(this.state.like_user_list);
         }
         else {
             this.state.like_user_list.push(user_id);
@@ -110,7 +105,6 @@ class Post extends Component{
                 }
 
             });
-            //console.log(this.state.like_user_list);
         }
         
     }
@@ -119,6 +113,9 @@ class Post extends Component{
     render(){
 
         let {now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
+
+        console.log(like_user_list);
+        
 
         return (
             <div className="post_page">
@@ -137,6 +134,7 @@ class Post extends Component{
                                     <Comments
                                     comment_list = {comment_list}
                                     board_type = {now_post.board_type}
+                                    user_id = {user_id}
                                     />
                                 </div>
                             </div>

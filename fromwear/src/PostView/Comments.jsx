@@ -7,7 +7,7 @@ let now_user_name = "최지민";
 
 
 let Comments = (props) => {
-    let {comment_list, board_type} = props;
+    let {comment_list, board_type, user_id} = props;
 
     let addTweet = () => {
         //let value = document.querySelector('.new_tweet_content').value;
