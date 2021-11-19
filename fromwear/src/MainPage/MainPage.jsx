@@ -63,97 +63,99 @@ class MainPage extends Component {
 				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
 			</div>
 
-			<div id = 'today_post' className = 'collection'>
-				<h3 className = 'title'>오늘의 착장</h3>
-				<a className = 'seemore' href='/todayboard'>둘러보기</a>
+			<div className='contents'>
+				<div id = 'today_post' className = 'collection'>
+					<h3 className = 'title'>오늘의 착장</h3>
+					<a className = 'seemore' href='/todayboard'>둘러보기</a>
+					
+					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
+						{best_post_0.map((item) => (
+							<ImageListItem key={item.img} className='weekly_image_list_item'ls
+							>
+								<img style={{borderRadius:16}}
+									src={`${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									alt={item.id}
+									loading="lazy"
+								/>
+
+								<a href='/post'> 
+									<span className='dimmed_layer'>	</span>
+								</a>
+
+								<Stack direction="row" spacing={0} justifyContent="space-between">
+									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+									<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
+									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+								</Stack>				
+							</ImageListItem>
+						))}
+					</ImageList>
 				
-				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
-					{best_post_0.map((item) => (
-						<ImageListItem key={item.img} className='weekly_image_list_item'>
-							<img style={{borderRadius:16}}
-								src={`${item.img}?w=248&fit=crop&auto=format`}
-								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-								alt={item.id}
-								loading="lazy"
-							/>
+				</div>
 
-							<a href='/post'> 
-								<span className='dimmed_layer'>	</span>
-							</a>
+				<div id = 'help_post' className = 'collection'>
+					<h3 className = 'title'>도움이 필요해</h3>
+					<a className = 'seemore' href=''>둘러보기</a>
 
-							<Stack direction="row" spacing={0} justifyContent="space-between">
-								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
-								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-							</Stack>				
-						</ImageListItem>
-					))}
-				</ImageList>
-			
+					<ImageList cols={5} gap={8}>
+						{best_post_1.map((item) => (
+							<ImageListItem key={item.img} className='weekly_image_list_item'>
+								<img style={{borderRadius:16 }}
+									src={`${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									alt={item.id}
+									loading="lazy"
+								/>
+
+								<a href='/post'> 
+									<span className='dimmed_layer'>	</span>
+								</a>
+
+								<Stack direction="row" spacing={0} justifyContent="space-between">
+									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+									<p style={{margin: '16px 0px'}}>{item.urgent_user_num}</p>
+									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+								</Stack>				
+							</ImageListItem>
+						))}
+					</ImageList>
+				</div>
+
+				<div id = 'weekly_best' className = 'collection'>
+					<h3 className = 'title'>이번주 태그 랭킹</h3>
+					<a className = 'seemore' href='/weeklytag'>둘러보기</a>
+					
+					<ImageList cols={5} gap={8}>
+						{best_post_2.map((item) => (
+							<ImageListItem key={item.img} className='weekly_image_list_item'>
+								<img style={{borderRadius:16 }}
+									src={`${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									alt={item.user}
+									loading="lazy"
+								/>
+
+								<a href='/post'> 
+									<span className='dimmed_layer'>	</span>
+								</a>
+
+								<Stack direction="row" spacing={0} justifyContent="space-between">
+									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+									<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
+									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+								</Stack>			
+							</ImageListItem>
+						))}
+					</ImageList>
+				</div>
 			</div>
-
-			<div id = 'help_post' className = 'collection'>
-				<h3 className = 'title'>도움이 필요해</h3>
-				<a className = 'seemore' href=''>둘러보기</a>
-
-				<ImageList cols={5} gap={8}>
-					{best_post_1.map((item) => (
-						<ImageListItem key={item.img} className='weekly_image_list_item'>
-							<img style={{borderRadius:16 }}
-								src={`${item.img}?w=248&fit=crop&auto=format`}
-								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-								alt={item.id}
-								loading="lazy"
-							/>
-
-							<a href='/post'> 
-								<span className='dimmed_layer'>	</span>
-							</a>
-
-							<Stack direction="row" spacing={0} justifyContent="space-between">
-								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.urgent_user_num}</p>
-								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-							</Stack>				
-						</ImageListItem>
-					))}
-				</ImageList>
-			</div>
-
-			<div id = 'weekly_best' className = 'collection'>
-				<h3 className = 'title'>이번주 태그 랭킹</h3>
-				<a className = 'seemore' href='/weeklytag'>둘러보기</a>
-				
-				<ImageList cols={5} gap={8}>
-					{best_post_2.map((item) => (
-						<ImageListItem key={item.img} className='weekly_image_list_item'>
-							<img style={{borderRadius:16 }}
-								src={`${item.img}?w=248&fit=crop&auto=format`}
-								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-								alt={item.user}
-								loading="lazy"
-							/>
-
-							<a href='/post'> 
-								<span className='dimmed_layer'>	</span>
-							</a>
-
-							<Stack direction="row" spacing={0} justifyContent="space-between">
-								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
-								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-							</Stack>			
-						</ImageListItem>
-					))}
-				</ImageList>
-			</div>
-			
 
 		</div>
 	}

@@ -69,6 +69,10 @@ a{
     width: 100%;
     background-color: #F2F2F2;
 }
+.contents{
+	overflow: auto;
+	margin-bottom: 120px;
+}
 .collection{
     position: relative;
     width: 1080px;
