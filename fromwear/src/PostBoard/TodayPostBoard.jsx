@@ -82,7 +82,6 @@ class TodayPostBoard extends Component {
 			  like: '1005',
 			},
 		];
-		
 		{ API.graphql({
 			query:getPost, variables:{id: "post1 아이디"}})
 		.then(res=>console.log(res))
