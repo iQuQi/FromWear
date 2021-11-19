@@ -24,6 +24,29 @@
 	margin-bottom: 10px;
 }
 
+.container {
+    margin: 0 auto;
+    padding: 0px 40px 40px 40px;
+    width: 400px;
+  }
+  img {
+      margin: 10px;
+      padding: 2%;
+      position: relative;
+      text-align: center;
+  }
+
+  .center .slick-center img {
+      opacity: 1;
+      -ms-transform: scale(1.08);
+      transform: scale(1.08);
+  }
+
+
+
+
+
+/*
 .today_wear .img_list {
 	margin: 0 auto;
 }
@@ -88,4 +111,4 @@
 }
 .rank_list .right {
 	right: 30px;
-}
+}*/
