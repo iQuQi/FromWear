@@ -37,7 +37,7 @@ class WeeklyTagPage extends Component {
 
 	componentDidMount(){
 		
-		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 0}} }})
+		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 2}} }})
 		.then( res => {
 			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
 		})
