@@ -6,6 +6,41 @@ import Comment_check from './Comment_check'
 let now_user_name = "최지민";
 
 
+let Comments = (props) => {
+    let {comment_list, board_type} = props;
+
+    let addTweet = () => {
+        //let value = document.querySelector('.new_tweet_content').value;
+        this.setState({comment_list: [...this.props.comment_list, {
+            user_id: this.props.comment_list.length +1,
+            name: now_user_name,
+            content: "1234"
+        }]})
+    }
+
+    return (
+        <div>
+            <div>
+                <div className="comment_num">댓글 {comment_list.length}개</div>
+                <ul className="comment_ul">
+                    {
+                        comment_list.map(comment_list => {
+                            return <SingleComment key={comment_list.user_id} comment={comment_list} board_type={board_type}/>
+                        })
+                    }
+                </ul>
+                <div className="comment_check">
+                    <Comment_check />
+                </div>
+            </div>
+        </div>
+    )
+
+}
+
+export default Comments;
+
+/*
 class Comments extends Component {
 
     constructor(props){
@@ -50,3 +85,4 @@ class Comments extends Component {
 }
 
 export default Comments;
+*/

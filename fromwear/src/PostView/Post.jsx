@@ -21,11 +21,9 @@ import { ConsoleLogger } from '@aws-amplify/core';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
-let user_id = "연지 id";
+let user_id = "연지 id"; //현재 유저
 
- //board type 0 : 오늘의 착장 1 : 도움이 필요해
-
-
+//board type 0 : 오늘의 착장 1 : 도움이 필요해
 
 class Post extends Component{
     constructor(){
@@ -137,7 +135,9 @@ class Post extends Component{
                                 </div>
                                 <div className="comment">
                                     <Comments
-                                    comment_list = {comment_list}/>
+                                    comment_list = {comment_list}
+                                    board_type = {now_post.board_type}
+                                    />
                                 </div>
                             </div>
                         </div>
