@@ -1,11 +1,30 @@
 import React, {Component} from 'react';
 import './Like.css'
 import {HeartOutlined, HeartFilled} from '@ant-design/icons';
-import { sizeHeight } from '@mui/system';
 
 
 let like_num = 50
 
+let Like =(prop) => {
+    let {like_user_list, like_click, handleLikeButton} = prop;
+
+    return (
+            <div className="icons_list">
+                {
+                    like_click ?
+                    <HeartFilled className="button heart_filled" onClick={handleLikeButton}/>
+                    : <HeartOutlined className="button heart_outlined" onClick={handleLikeButton}/>
+                }
+                <div className="like_num">{like_user_list.length}</div>
+            </div>
+        )
+        
+}
+
+export default Like;
+
+
+/*
 class Like extends Component {
     //let {like_user_list, like_click} = prop;
     
@@ -54,3 +73,5 @@ class Like extends Component {
 }
 
 export default Like;
+
+*/

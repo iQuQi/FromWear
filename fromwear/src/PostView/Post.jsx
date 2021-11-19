@@ -15,6 +15,8 @@ import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
+import { handleBreakpoints } from '@mui/system';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
@@ -35,25 +37,39 @@ class Post extends Component{
             tag_list: [],
             like_click: true,
             user_id,
+            comment_list: [],
         }
 
         API.graphql({
-            query: getPost, variables: {id: "post1 아이디"}
+            query: getPost, variables: {id: post_id}
         })
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
             like_user_list: res.data.getPost.like_user_list,
             tag_list: res.data.getPost.tag_list,
+            comment_list: res.data.getPost.comment_list.items
         }))
         .catch(e => console.log(e));
 
     }
 
+    handleLikeButton = () => {
+
+        console.log(this.like_click);
+
+        this.like_click ?
+        console.log("click1")
+        :
+        console.log("click2")
+
+    }
+
 
     render(){
-        let {now_post, now_writer, like_user_list, like_click, tag_list, user_id} = this.state;
 
+        
+        let {now_post, now_writer, like_user_list, like_click, tag_list, comment_list, user_id} = this.state;
 
         return (
             <div className="post_page">
@@ -69,7 +85,8 @@ class Post extends Component{
                                     <div className="writer_content">{now_post.content}</div>
                                 </div>
                                 <div className="comment">
-                                    <Comments />
+                                    <Comments
+                                    comment_list = {comment_list}/>
                                 </div>
                             </div>
                         </div>
@@ -78,12 +95,11 @@ class Post extends Component{
                             {
                                 
                                 (now_post.board_type == 0) ?
-                                /*<Like
+                                <Like
                                 like_user_list={like_user_list}
                                 like_click={like_click}
-                                onClick={this.like_onclick}
-                                /> : <Urgent />*/
-                                <Like /> : <Urgent />
+                                handleLikeButton={this.handleLikeButton}
+                                /> : <Urgent />
                             }
                             <div className="post_list">
                                 {tag_list}
