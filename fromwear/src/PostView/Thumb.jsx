@@ -2,7 +2,70 @@ import React, {Component} from 'react';
 import './Thumb.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
-let thumb_num = 100
+let now_id
+
+class Thumb extends Component{
+    constructor(props){
+        super();
+
+        this.state = {
+            is_checked: false,
+            thumb_num: props.comment.like, //기본 상태
+            comment: props.comment,
+            user_id: props.user_id,
+            thumb_like_list: props.comment.like_user_list,
+        };
+
+    }
+
+    onClick = () => {
+        if(this.state.is_checked == true){
+            let index = this.state.thumb_like_list.indexOf(this.state.user_id)
+            if(index > -1){
+                this.state.thumb_like_list.splice(index, 1);
+                this.setState((prev) => {
+                    return{
+                        is_checked: false,
+                        thumb_num: this.state.thumb_num -1,
+                    }
+                })
+            }
+            else {
+                console.log("error!! cannot find user_id in like_user_list");
+            }
+        }
+        else {
+            this.state.thumb_like_list.push(this.state.user_id);
+            this.setState((prev) => {
+                return {
+                    is_checked: true,
+                    thumb_num: this.state.thumb_num +1,
+                }
+            })
+        }
+        //console.log(this.state.thumb_like_list);
+
+    }
+
+
+    render() {
+        return (
+            <div className="thumb_div">
+                <div className="thumb_num">{this.state.thumb_num}</div>
+                {
+                    this.state.is_checked ?
+                    <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>
+                    : <ThumbUpAltIcon className="button thumb_off" onClick={this.onClick}/>
+                }
+            </div>
+            
+        )
+    }
+}
+
+export default Thumb;
+
+/*
 
 class Thumb extends Component{
 
@@ -48,3 +111,4 @@ class Thumb extends Component{
 }
 
 export default Thumb;
+*/

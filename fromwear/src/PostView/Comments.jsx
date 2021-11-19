@@ -25,7 +25,7 @@ let Comments = (props) => {
                 <ul className="comment_ul">
                     {
                         comment_list.map(comment_list => {
-                            return <SingleComment key={comment_list.user_id} comment={comment_list} board_type={board_type}/>
+                            return <SingleComment comment={comment_list} board_type={board_type} user_id={user_id}/>
                         })
                     }
                 </ul>

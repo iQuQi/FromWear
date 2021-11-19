@@ -14,7 +14,7 @@ import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let post_id = "post1 아이디";
+let post_id = "post2 아이디";
 let user_id = "연지 id"; //현재 유저
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
@@ -34,6 +34,8 @@ class Post extends Component{
             bookmark_user_list: [],
             bookmark_click: false,
         }
+
+        console.log(this.state.like_user_list);
     }
 
     componentDidMount(){
@@ -49,6 +51,7 @@ class Post extends Component{
             bookmark_user_list: res.data.getPost.bookmark_user_list,
         }))
         .catch(e => console.log(e));
+
         
     }
 
@@ -111,10 +114,8 @@ class Post extends Component{
 
 
     render(){
-
         let {now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
 
-        console.log(like_user_list);
         
 
         return (
