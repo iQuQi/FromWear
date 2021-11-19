@@ -3,8 +3,34 @@ import Slider from 'react-slick';
 
 import './CSS/TodayPostBoardTop5.css'
 
+import { API } from 'aws-amplify';
+import { listPosts } from '../graphql/queries.js';
+
 export default class TodayPostBoardTop5 extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            post_top_list:[],
+        };
+    }
+
+    componentDidMount() {
+		API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {eq: 0}} }})
+			.then(res => this.setState({
+                post_top_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
+            }))
+			.catch(e => console.log(e));
+	}
+
+
     render() {
+        let {post_top_list, top_1} = this.state;
+        console.log(post_top_list[0]);
+        
+
 		const settings = {
 			className: "center",
 			centerMode: true,
