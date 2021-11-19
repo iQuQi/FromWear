@@ -40,12 +40,12 @@ class Post extends Component{
             user_id,
             comment_list: [],
             bookmark_user_list: [],
+            bookmark_click: false,
         }
 
         API.graphql({
             query: getPost, variables: {id: post_id}
         })
-        .then(res => console.log(res))
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
@@ -56,11 +56,36 @@ class Post extends Component{
         }))
         .catch(e => console.log(e));
         
+    }
 
+    handleBookmarkButton = () => {
+        if(this.state.bookmark_click == true){
+            var index = this.state.bookmark_user_list.indexOf(user_id)
+            if(index > -1){
+                this.state.bookmark_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
+            }
+            else {
+                console.log("error!! cannot find user_id in bookmark_user_list");
+            }
+
+            this.setState((prev) => {
+                return {
+                    bookmark_click: false,
+                }
+
+            });
+        }
+        else {
+            this.state.bookmark_user_list.push(user_id);
+            this.setState((prev) => {
+                return {
+                    bookmark_click: true,
+                }
+            });
+        }
     }
 
     handleLikeButton = () => {
-
         if(this.state.like_click == true){
             var index = this.state.like_user_list.indexOf(user_id)
             if(index > -1){
@@ -87,7 +112,6 @@ class Post extends Component{
                 }
 
             });
-
             //console.log(this.state.like_user_list);
         }
         
@@ -96,8 +120,7 @@ class Post extends Component{
 
     render(){
 
-        
-        let {now_post, now_writer, like_user_list, like_click, tag_list, comment_list, user_id} = this.state;
+        let {now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
 
         return (
             <div className="post_page">
@@ -119,7 +142,11 @@ class Post extends Component{
                             </div>
                         </div>
                         <div className="icons">
-                            <Bookmark />
+                            <Bookmark 
+                            bookmark_user_list={bookmark_user_list}
+                            bookmark_click={bookmark_click}
+                            handleBookmarkButton={this.handleBookmarkButton}
+                            />
                             {
                                 
                                 (now_post.board_type == 0) ?
@@ -130,7 +157,9 @@ class Post extends Component{
                                 /> : <Urgent />
                             }
                             <div className="post_list">
-                                {tag_list}
+                                {"#" + tag_list[0] + " "}
+                                {"#" + tag_list[1] + " "}
+                                {"#" + tag_list[2]}
                             </div>
                         </div>
                     </div>
