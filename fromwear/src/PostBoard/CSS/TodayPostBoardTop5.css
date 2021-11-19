@@ -1,7 +1,7 @@
 .today_background_wrap {
 	margin-top: 40px;
 	background-color: #F2F2F2;
-	height: 500px;
+    height: 600px;
 }
 
 .today_wear {
@@ -24,91 +24,35 @@
 	margin-bottom: 10px;
 }
 
-.container {
+.today_wear .container{
     margin: 0 auto;
-    padding: 0px 40px 40px 40px;
-    width: 400px;
-  }
-  img {
-      margin: 10px;
-      padding: 2%;
-      position: relative;
-      text-align: center;
-  }
-
-  .center .slick-center img {
-      opacity: 1;
-      -ms-transform: scale(1.08);
-      transform: scale(1.08);
-  }
-
-
-
-
-
-/*
-.today_wear .img_list {
-	margin: 0 auto;
+    padding: 20px 0;
+    width: 1000px;
+}
+.today_wear .container .div_test {
+    margin-left: -30px;
 }
 
-.rank_list {
-	line-height: 333px;
+.today_wear img {
+    width:200px;
+    height:322.55px;
+    margin: 30px;
+    position: relative;
+    text-align: center;
+    background-size: cover;
+    background-position: center center;
+}
+.today_wear .slick-next:before,
+.today_wear .slick-prev:before {
+    color: #000;
 }
 
-.rank_list img {
-	border-radius: 16px;
-	position: relative;
-	vertical-align: middle;
-	box-shadow: 5px 5px 10px grey;
+.today_wear .center .slick-center img {
+    z-index: 10;
+    opacity: 1;
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
 }
-
-.rank_list .rank1 {
-	width: 230px;
-	height: 306px;
-	z-index: 30;
+.today_wear .center img {
+    transition: all .3s ease;
 }
-
-.rank_list .rank4 {
-	width: 180px;
-	height: 240px;
-	z-index: 10;
-
-	left:60px;
-}
-.rank_list .rank5 {
-	width: 200px;
-	height: 266px;
-	z-index: 20;
-
-	left:30px;
-}
-
-.rank_list .rank3 {
-	width: 180px;
-	height: 240px;
-	z-index: 10;
-
-	right:60px;
-}
-.rank_list .rank2 {
-	width: 200px;
-	height: 266px;
-	z-index: 20;
-
-	right:30px;
-}
-
-.rank_list .arrow {
-	color: white;
-	font-size: large;
-	background-color: grey;
-	position: relative;
-	vertical-align: middle;
-}
-
-.rank_list .left {
-	left: 30px;
-}
-.rank_list .right {
-	right: 30px;
-}*/
