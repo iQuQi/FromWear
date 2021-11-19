@@ -16,7 +16,8 @@ import Header from '../Header/Header'
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
 import { handleBreakpoints } from '@mui/system';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
+import { ConsoleSqlOutlined, TrademarkCircleOutlined } from '@ant-design/icons';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
@@ -35,34 +36,61 @@ class Post extends Component{
             now_writer:Object,
             like_user_list: [],
             tag_list: [],
-            like_click: true,
+            like_click: false,
             user_id,
             comment_list: [],
+            bookmark_user_list: [],
         }
 
         API.graphql({
             query: getPost, variables: {id: post_id}
         })
+        .then(res => console.log(res))
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
             like_user_list: res.data.getPost.like_user_list,
             tag_list: res.data.getPost.tag_list,
-            comment_list: res.data.getPost.comment_list.items
+            comment_list: res.data.getPost.comment_list.items,
+            bookmark_user_list: res.data.getPost.bookmark_user_list,
         }))
         .catch(e => console.log(e));
+        
 
     }
 
     handleLikeButton = () => {
 
-        console.log(this.like_click);
+        if(this.state.like_click == true){
+            var index = this.state.like_user_list.indexOf(user_id)
+            if(index > -1){
+                this.state.like_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
+            }
+            else {
+                console.log("error!! cannot find user_id in like_user_list");
+            }
 
-        this.like_click ?
-        console.log("click1")
-        :
-        console.log("click2")
+            this.setState((prev) => {
+                return {
+                    like_click: false,
+                }
 
+            });
+            //this.state.like_click = false;
+            //console.log(this.state.like_user_list);
+        }
+        else {
+            this.state.like_user_list.push(user_id);
+            this.setState((prev) => {
+                return {
+                    like_click: true,
+                }
+
+            });
+
+            //console.log(this.state.like_user_list);
+        }
+        
     }
 
 

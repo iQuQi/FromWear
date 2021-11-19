@@ -27,7 +27,7 @@ class Comments extends Component {
 
     render() {
         let {comment_list} = this.state;
-        console.log(this.props.comment_list);
+        //console.log(this.props.comment_list);
 
         return (
             <div>
