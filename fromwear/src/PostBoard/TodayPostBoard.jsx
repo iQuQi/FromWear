@@ -2,148 +2,21 @@ import {Component} from 'react';
 import PROFILE from './img/profile.png'
 
 import * as React from 'react';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import Stack from '@mui/material/Stack';
-
 
 import Header from '../Header/Header';
 import TodayPostBoardTop5 from './TodayPostBoardTop5';
-
+import TodayPostBoardPosts from './TodayPostBoardPosts';
 
 import './CSS/PostBoard.css';
-import './CSS/todayPostList.css';
-
-import wear1 from './image/wear1.png';
-import wear2 from './image/wear2.png';
-import wear3 from './image/wear3.png';
-import wear4 from './image/wear4.png';
-import { Container } from '@mui/material';
-
-import { API } from 'aws-amplify';
-import { getPost } from '../graphql/queries.js';
 
 class TodayPostBoard extends Component { 
 
-	constructor() {
-		super();
-
-		this.state = {
-			rank: "",
-		}
-	}
-
-
-
-	rankSet = (i) => {
-		this.setState({
-			rank: "rank" + i.toString(),
-		})
-	}
-
-	
 	render() {
-		let {rank, rankSet} = this.state;
-        const bestItem = [
-            {
-                img: wear1,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear2,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear3,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear4,
-                user: 'Breakfast',
-                like: '1005',
-            },
-        ];
-
-        const itemData = [
-			{
-			  img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-			  user: 'Breakfast',
-			  like: '1005',
-			},
-			{
-			  img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-			  user: 'Breakfast',
-			  like: '1005',
-			},
-			{
-			  img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-			  user: 'Breakfast',
-			  like: '1005',
-			},
-			{
-			  img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-			  user: 'Breakfast',
-			  like: '1005',
-			},
-			{
-			  img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-			  user: 'Breakfast',
-			  like: '1005',
-			},
-		];
-		{ API.graphql({
-			query:getPost, variables:{id: "post1 아이디"}})
-		.then(res=>console.log(res))
-		.catch(e=>console.log(e)) };
-
-
 		return ( 
 		<section className="wrap">
 			<Header />
 			<TodayPostBoardTop5 />
-			<article className="wrap_recommend">
-				<div className="sort_font select_sort">
-					<input type="radio" id="sort_like" name="sort" checked></input>
-					<label for="sort_like">좋아요순</label>
-					<input type="radio" id="sort_view" name="sort"></input>
-					<label for="sort_view">조회수순</label>
-					<input type="radio" id="sort_reply" name="sort"></input>
-					<label for="sort_reply">댓글순</label>
-					<input type="radio" id="sort_latest" name="sort"></input>
-					<label for="sort_latest">최신순</label>
-				</div>
-				<div id = 'today_post' class = 'collection'>
-					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
-						{itemData.map((item) => (
-							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{height:'322.55px', borderRadius:16}}
-									src={`${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-									alt={item.user}
-									loading="lazy"
-								/>
-								
-								<a href='/post'> 
-									<span className='dimmed_layer'>	</span>
-								</a>
-
-								<Stack direction="row" spacing={0} justifyContent="flex-end">
-									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-									<p>&nbsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.user}</p>
-									<p>&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.like}</p>
-									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-								</Stack>				
-							</ImageListItem>
-						))}
-					</ImageList>
-				</div>
-			</article>
+			<TodayPostBoardPosts />
 		</section> )
 	}
 }
