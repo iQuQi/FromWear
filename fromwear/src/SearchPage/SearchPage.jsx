@@ -11,9 +11,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import RankTag from './RankTag';
 import  Typography  from '@mui/material/Typography';
 import get_post_data, {post_items} from "./SearchData"
+import {updateStyleTag} from '../graphql/mutations.js'
 import {get_rank_tag } from './TagData'; 
+import moment from 'moment';
 
-
+import API from '@aws-amplify/api';
+import {getUser,getAppInfo,listStyleTags} from '../graphql/queries.js';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
 
@@ -27,9 +30,14 @@ class SearchPage extends Component{
 			target_rank_tag_button: rank_tag_clicked_list,
 			is_tag_more: false,
 			post_data: [],
-			rank_tag_data:[]
+			rank_tag_data:[],
 
 		};
+	}
+
+	componentWillMount(){
+	
+		
 	}
 
 	handle_img_on_click=e=>{
@@ -86,12 +94,9 @@ class SearchPage extends Component{
 		}
 	}
 
-	handle_user_info=()=>{
-		console.log("user info ");
-	}
-
 	render(){
-		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data} = this.state;
+		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
+		user_name,user_profile_img} = this.state;
 
 		get_post_data(this.handle_post_data);
 		get_rank_tag(this.handle_rank_tag_data);
@@ -138,6 +143,8 @@ class SearchPage extends Component{
 						handle_img_on_click={this.handle_img_on_click} 
 						post_data={post_data}
 						handle_user_info={this.handle_user_info}
+						user_name={user_name}
+						user_profile_img={user_profile_img}
 						/>
 				</div>
 			
