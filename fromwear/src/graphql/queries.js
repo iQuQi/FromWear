@@ -116,6 +116,7 @@ export const listFollows = /* GraphQL */ `
         updatedAt
       }
       nextToken
+
     }
   }
 `;
@@ -438,6 +439,7 @@ export const listUserTags = /* GraphQL */ `
         id
         user_id_list
         value
+
         createdAt
         updatedAt
       }
@@ -451,6 +453,7 @@ export const getStyleTag = /* GraphQL */ `
       id
       value
       num
+
       createdAt
       updatedAt
     }
@@ -467,6 +470,7 @@ export const listStyleTags = /* GraphQL */ `
         id
         value
         num
+
         createdAt
         updatedAt
       }

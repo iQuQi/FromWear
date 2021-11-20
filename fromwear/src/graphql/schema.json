@@ -3392,6 +3392,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+
           "name" : "createdAt",
           "description" : null,
           "args" : [ ],
@@ -3400,6 +3401,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "SCALAR",
+
               "name" : "AWSDateTime",
               "ofType" : null
             }
@@ -3407,6 +3409,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+
           "name" : "updatedAt",
           "description" : null,
           "args" : [ ],
@@ -6572,6 +6575,7 @@
             }
           },
           "defaultValue" : null
+
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -6674,6 +6678,7 @@
             "ofType" : null
           },
           "defaultValue" : null
+
         } ],
         "interfaces" : null,
         "enumValues" : null,
