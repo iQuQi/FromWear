@@ -16,6 +16,7 @@ let SearchResult = ({handle_img_on_click,post_data})=>
 								loading="lazy"
 								onClick={handle_img_on_click}
 							    />	
+									{link="/post/"+item.id}
 									<a href={link}>
 										<span className={"dimmed_layer"}>
 											<span className="dimmed_info_writer">
