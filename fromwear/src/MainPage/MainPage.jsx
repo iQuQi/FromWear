@@ -57,7 +57,6 @@ class MainPage extends Component {
 			<div className = 'banner'>
 				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
 			</div>
-			<Header/>
 			<div id = 'today_post' class = 'collection'>
 				<h3 className = 'title'>오늘의 착장</h3>
 				<a className = 'seemore' href='/todayboard'>둘러보기</a>
