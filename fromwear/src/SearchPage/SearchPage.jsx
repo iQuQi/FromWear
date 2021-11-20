@@ -11,10 +11,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import RankTag from './RankTag';
 import  Typography  from '@mui/material/Typography';
 import get_post_data, {post_items} from "./SearchData"
-import {updateStyleTag} from '../graphql/mutations.js'
 import {get_rank_tag } from './TagData'; 
 import moment from 'moment';
-
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
 import {getUser,getAppInfo,listStyleTags} from '../graphql/queries.js';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
@@ -31,6 +30,7 @@ class SearchPage extends Component{
 			is_tag_more: false,
 			post_data: [],
 			rank_tag_data:[],
+			current_next_post_page: 1
 
 		};
 	}
@@ -40,8 +40,10 @@ class SearchPage extends Component{
 		
 	}
 
-	handle_img_on_click=e=>{
-		console.log("img clicked");
+	handle_post_more_on_click=e=>{
+		this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+		})
 	}
 
 	handle_tag_button_click=e=>{
@@ -96,7 +98,7 @@ class SearchPage extends Component{
 
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
-		user_name,user_profile_img} = this.state;
+		user_name,user_profile_img,current_next_post_page} = this.state;
 
 		get_post_data(this.handle_post_data);
 		get_rank_tag(this.handle_rank_tag_data);
@@ -140,12 +142,20 @@ class SearchPage extends Component{
 				</div>
 				<div className="search_page_content">
 						<SearchResult 
-						handle_img_on_click={this.handle_img_on_click} 
 						post_data={post_data}
-						handle_user_info={this.handle_user_info}
-						user_name={user_name}
-						user_profile_img={user_profile_img}
+						current_next_post_page={current_next_post_page}
 						/>
+						<Button
+						variant="contained"
+						style={{
+							width: "100%",height: 50,
+							marginTop:20, backgroundColor:"black"
+
+						}}
+						onClick={this.handle_post_more_on_click}
+						>   
+							<ArrowDropDownIcon style={{fontSize:40}}/>
+						</Button>
 				</div>
 			
 				

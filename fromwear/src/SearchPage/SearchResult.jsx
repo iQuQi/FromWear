@@ -4,17 +4,18 @@ import { ImageListItem } from '@mui/material';
 
 import './SearchPage.css'
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { ConsoleLogger } from '@aws-amplify/core';
 let link;
-let SearchResult = ({handle_img_on_click,post_data})=>
+let SearchResult = ({post_data,current_next_post_page})=>
 <ImageList cols={5} gap={10} >
-					{post_data.map((item,index) => {
-						return <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
+					{post_data.map((item,index) => 
+						 index<(current_next_post_page*25)?
+						 <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
                                 <img className="img_item" 
 								src={item.img}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.img+index}
 								loading="lazy"
-								onClick={handle_img_on_click}
 							    />	
 									{link="/post/"+item.id}
 									<a href={link}>
@@ -32,8 +33,10 @@ let SearchResult = ({handle_img_on_click,post_data})=>
 									</a>
 								)
 						</ImageListItem>
-					})
-					}
+						:
+						console.log(index+": pass")
+					)
+				}
 </ImageList>
 
 
