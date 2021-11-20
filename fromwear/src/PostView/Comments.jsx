@@ -5,7 +5,6 @@ import './Comments.css';
 import { API } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
 import  { createComment } from '../graphql/mutations';
-import { ControlOutlined } from '@ant-design/icons';
 
 class Comments extends Component {
 
@@ -78,11 +77,15 @@ class Comments extends Component {
         .then(res => console.log(res))
         .catch(e => console.log(e));
 
-        console.log(this.state.comment_list);
-        this.props.set_comment_list(this.state.comment_list)
-
-        
+        //console.log(this.state.comment_list);
+        //this.props.set_comment_list(this.state.comment_list)
+/*
+        this.setState({
+            comment_list: this.state.comment_list.push(Object)
+        })
+        */
     }
+
 
     render(){
         let {comment_list, board_type, user_id, write_is_checked, writer_} = this.state;

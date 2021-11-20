@@ -3,9 +3,23 @@
     margin: 5px 0;
 }
 
-.now_comment_user {
-    font-weight: bold;
+.comment_ul {
+    height: 270px;
+    overflow: scroll;
 }
+
+
+.comment_click {
+    cursor: pointer;
+}
+
+
+/*comment*/
+
+.comment_check {
+    margin-top: 10px;
+}
+
 
 .writing_area {
     margin-top: 5px;
@@ -13,14 +27,16 @@
     top: 130px;*/
 }
 
+
+.now_comment_user {
+    font-weight: bold;
+}
+
+
 .writing_content {
     margin: 5px 0;
 }
 
-.comment_ul {
-    height: 270px;
-    overflow: scroll;
-}
 
 .new_tweet_content {
     width: 300px;
@@ -39,13 +55,6 @@
     cursor: pointer;
 }
 
-.comment_click {
-    cursor: pointer;
-}
-
-.comment_check {
-    margin-top: 10px;
-}
 
 .comment_no {
     font-weight: bold;

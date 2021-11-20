@@ -117,6 +117,7 @@ class Post extends Component{
         this.setState(prev => ({
           commenet_list: changed_comment_list,
         }));
+
       }
 
     set_like(list) {
