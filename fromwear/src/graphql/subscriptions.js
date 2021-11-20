@@ -23,6 +23,7 @@ export const onCreateUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -77,6 +78,7 @@ export const onUpdateUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -131,6 +133,7 @@ export const onDeleteUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -258,6 +261,7 @@ export const onCreateComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -332,6 +336,7 @@ export const onUpdateComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -406,6 +411,7 @@ export const onDeleteComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -466,6 +472,7 @@ export const onCreatePost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -523,6 +530,7 @@ export const onUpdatePost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -580,6 +588,7 @@ export const onDeletePost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -594,6 +603,7 @@ export const onCreatePostBoard = /* GraphQL */ `
     onCreatePostBoard {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -605,6 +615,7 @@ export const onUpdatePostBoard = /* GraphQL */ `
     onUpdatePostBoard {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -616,6 +627,7 @@ export const onDeletePostBoard = /* GraphQL */ `
     onDeletePostBoard {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -716,6 +728,36 @@ export const onDeleteStyleTag = /* GraphQL */ `
       id
       value
       num
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateAppInfo = /* GraphQL */ `
+  subscription OnCreateAppInfo {
+    onCreateAppInfo {
+      id
+      today
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAppInfo = /* GraphQL */ `
+  subscription OnUpdateAppInfo {
+    onUpdateAppInfo {
+      id
+      today
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAppInfo = /* GraphQL */ `
+  subscription OnDeleteAppInfo {
+    onDeleteAppInfo {
+      id
+      today
       createdAt
       updatedAt
     }

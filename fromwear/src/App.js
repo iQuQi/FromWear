@@ -19,7 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} exact/>
               <Route path="/todayboard" element={<TodayPostBoard/>} exact/>
-              <Route path="/post" element={<PostView />} exact/>
+              <Route path="/post/:postid" element={<PostView />} exact/>
               <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
               <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
