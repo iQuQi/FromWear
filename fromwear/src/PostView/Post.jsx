@@ -12,10 +12,11 @@ import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
+import { ControlOutlined } from '@ant-design/icons';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let post_id = "post2 아이디";
-let user_id = "연지 id"; //현재 유저
+let post_id = "post1 아이디";
+let user_id = "현민 id"; //현재 유저
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 
@@ -33,9 +34,8 @@ class Post extends Component{
             comment_list: [],
             bookmark_user_list: [],
             bookmark_click: false,
+            post_id,
         }
-
-        console.log(this.state.like_user_list);
     }
 
     componentDidMount(){
@@ -50,12 +50,13 @@ class Post extends Component{
             comment_list: res.data.getPost.comment_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list,
         }))
-        .catch(e => console.log(e));
-
-        
+        .then(res => this.set_like(this.state.like_user_list))
+        .then(res => this.set_bookmark(this.state.bookmark_user_list))
+        .catch(e => console.log(e));  
     }
 
     handleBookmarkButton = () => {
+
         if(this.state.bookmark_click == true){
             var index = this.state.bookmark_user_list.indexOf(user_id)
             if(index > -1){
@@ -112,11 +113,30 @@ class Post extends Component{
         
     }
 
+    set_comment_list = (changed_comment_list) => {
+        this.setState(prev => ({
+          commenet_list: changed_comment_list,
+        }));
+      }
+
+    set_like(list) {
+        var index = list.indexOf(user_id)
+        if(index > -1){
+            this.setState({like_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
+        }
+    }
+    
+    set_bookmark(list){
+        var index = list.indexOf(user_id)
+        if(index > -1){
+            this.setState({bookmark_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
+        }
+    }
 
     render(){
-        let {now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
-
+        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
         
+        console.log(comment_list);
 
         return (
             <div className="post_page">
@@ -136,6 +156,8 @@ class Post extends Component{
                                     comment_list = {comment_list}
                                     board_type = {now_post.board_type}
                                     user_id = {user_id}
+                                    post_id = {post_id}
+                                    set_comment_list = {this.set_comment_list}
                                     />
                                 </div>
                             </div>

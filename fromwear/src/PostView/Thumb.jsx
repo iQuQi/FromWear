@@ -2,27 +2,23 @@ import React, {Component} from 'react';
 import './Thumb.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
-let now_id
-
 class Thumb extends Component{
     constructor(props){
         super();
 
         this.state = {
-            is_checked: false,
-            thumb_num: props.comment.like, //기본 상태
-            comment: props.comment,
+            is_checked: props.is_checked,
+            thumb_num: props.comment_list.like, //기본 상태
+            comment_list: props.comment_list,
             user_id: props.user_id,
-            thumb_like_list: props.comment.like_user_list,
         };
-
     }
 
     onClick = () => {
         if(this.state.is_checked == true){
-            let index = this.state.thumb_like_list.indexOf(this.state.user_id)
+            let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
             if(index > -1){
-                this.state.thumb_like_list.splice(index, 1);
+                this.state.comment_list.like_user_list.splice(index, 1);
                 this.setState((prev) => {
                     return{
                         is_checked: false,
@@ -31,11 +27,11 @@ class Thumb extends Component{
                 })
             }
             else {
-                console.log("error!! cannot find user_id in like_user_list");
+                console.log("error!! cannot find user_id in list");
             }
         }
         else {
-            this.state.thumb_like_list.push(this.state.user_id);
+            this.state.comment_list.like_user_list.push(this.state.user_id);
             this.setState((prev) => {
                 return {
                     is_checked: true,
@@ -43,15 +39,17 @@ class Thumb extends Component{
                 }
             })
         }
-        //console.log(this.state.thumb_like_list);
 
     }
 
 
     render() {
+        //console.log(this.state.is_checked)
+        //console.log(this.state.comment_list.like_user_list)
+        
         return (
             <div className="thumb_div">
-                <div className="thumb_num">{this.state.thumb_num}</div>
+                <div className="thumb_num">{this.state.comment_list.like_user_list.length}</div>
                 {
                     this.state.is_checked ?
                     <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>

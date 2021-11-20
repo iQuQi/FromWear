@@ -8,6 +8,7 @@
 }
 
 .writing_area {
+    margin-top: 5px;
     /*position: relative;
     top: 130px;*/
 }
@@ -35,6 +36,7 @@
     box-sizing: border-box;
     background-color: #fff;
     border: 1px solid #000;
+    cursor: pointer;
 }
 
 .comment_click {
@@ -43,4 +45,9 @@
 
 .comment_check {
     margin-top: 10px;
+}
+
+.comment_no {
+    font-weight: bold;
+    cursor: pointer;
 }

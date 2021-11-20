@@ -15,42 +15,64 @@ class SingleComment extends Component {
         super();
 
         this.state={
-            comment: props.comment,
+            comment_list: props.comment_list,
             board_type: props.board_type,
             writer_user: Object,
             user_id: props.user_id,
+            is_checked:false,
         }
     }
+    /*
+    componentDidUpdate(props){
+        if(this.state.comment_list !== props.comment_list){
+            this.setState({comment_list: props.comment_list});
+          }
+    }*/
 
     componentDidMount(){
+
+        //console.log("여기0")
         API.graphql({
-            query: getUser, variables: {id: this.state.comment.user_id}
+            query: getUser, variables: {id: this.state.comment_list.user_id}
         })
         .then(res => this.setState({
             writer_user: res.data.getUser,
         }))
         .catch(e => console.log(e));
+
+        //console.log(this.state.comment_list.like_user_list)
+        //console.log("여기")
+        let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
+
+        //console.log("여기2", index)
+        if(index > -1){
+            this.setState({is_checked: true,})
+            //console.log("값이 바뀌어야함")
+            //console.log(this.state.is_checked)
+            //console.log("값이 바뀜")
+        }
     }
     
 
     render(){
-        let {comment, board_type, writer_user, user_id} = this.state;
+        let {comment_list, board_type, writer_user, user_id, is_checked} = this.state;
         //this.get_user(comment.user_id);
         
-        console.log(comment);
+        //console.log(comment);
         return (
             <div>
                 <div className="one_comment">
                     <img src={writer_user.profile_img} className="writer_img" /> 
                     <div className="comment_user_name">{writer_user.name}</div>
                     <Thumb 
-                    comment={comment}
-                    user_id={user_id}/>
+                    comment_list={comment_list}
+                    user_id={user_id}
+                    is_checked={is_checked}/>
                     {
                         (board_type==1)?
                         <Select_button /> : <div></div>
                     }
-                    <p className="comment_content">{comment.content}</p>
+                    <p className="comment_content">{comment_list.content}</p>
                 </div>
             </div>
         )
