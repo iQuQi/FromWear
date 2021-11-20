@@ -3,8 +3,8 @@ import SingleComment from './SingleComment'
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser } from '../graphql/queries';
-import  { createComment } from '../graphql/mutations';
+import { getUser} from '../graphql/queries';
+import  { createComment} from '../graphql/mutations';
 
 class Comments extends Component {
 

@@ -12,7 +12,6 @@ import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
-import { ControlOutlined } from '@ant-design/icons';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
 let post_id = "post1 아이디";
@@ -53,6 +52,7 @@ class Post extends Component{
         .then(res => this.set_like(this.state.like_user_list))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .catch(e => console.log(e));  
+
     }
 
     handleBookmarkButton = () => {
@@ -137,7 +137,9 @@ class Post extends Component{
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
         
-        console.log(comment_list);
+        //console.log(comment_list);
+        //console.log(now_post.blind)
+        
 
         return (
             <div className="post_page">
@@ -147,9 +149,19 @@ class Post extends Component{
                         <div className="post_div">
                             <img className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}/>
                             <div className="content_box">
-                                <div className="writer"> 
-                                    <img className="post_writer_img" style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}/>
-                                    <div className="writer_name">{now_writer.name}</div>
+                                <div className="writer">
+                                    {
+                                        now_post.blind?
+                                        <img className="post_writer_img" /> //익명일 경우 사진이 안뜨도록 (아님 특정 사진 url)
+                                        :
+                                        <img className="post_writer_img" style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}/>
+                                    }
+                                    {
+                                        now_post.blind?
+                                        <div className="writer_name">익명</div>
+                                        :
+                                        <div className="writer_name">{now_writer.name}</div>
+                                    }
                                     <div className="writer_content">{now_post.content}</div>
                                 </div>
                                 <div className="comment">
