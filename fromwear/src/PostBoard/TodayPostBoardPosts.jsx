@@ -16,6 +16,7 @@ export default class TodayPostBoardPosts extends Component {
 		this.state = {
             post_list : [
                 {
+                    id: "",
                     img: "",
                     like_user_num: "",
                     click_num: "",
@@ -62,7 +63,7 @@ export default class TodayPostBoardPosts extends Component {
 		}
 	}
 
-    componentWillMount() {
+    componentDidMount() {
 		API.graphql({ 
             query: listPosts, 
             variables: { filter: {board_type: {eq: 0}}}})
@@ -70,7 +71,8 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
             }))
 			.catch(e => console.log(e));
-	}
+        console.log(this.state.post_list.length);
+    }
 
 	handleSortLike = (e) => {
 		console.log("like");
@@ -81,6 +83,7 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
             }))
 			.catch(e => console.log(e));
+            console.log(this.state.post_list.length);
 	}
 
 	handleSortView = (e) => {
@@ -92,6 +95,7 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.click_num-a.click_num})
             }))
 			.catch(e => console.log(e));
+            console.log(this.state.post_list.length);
 	}
 
 	handleSortReply = (e) => {
@@ -103,6 +107,7 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.updatedAt-a.updatedAt})
             }))
 			.catch(e => console.log(e));
+            console.log(this.state.post_list.length);
 	}
 
 	handleSortLatest = (e) => {
@@ -122,19 +127,19 @@ export default class TodayPostBoardPosts extends Component {
         return (<article className="wrap_recommend">
             <form className="sort_font select_sort">
                 <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
-                <label for="sort_like">좋아요순</label>
+                <label htmlFor="sort_like">좋아요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
-                <label for="sort_view">조회수순</label>
+                <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
-                <label for="sort_reply">댓글순</label>
+                <label htmlFor="sort_reply">댓글순</label>
                 <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
-                <label for="sort_latest">최신순</label>
+                <label htmlFor="sort_latest">최신순</label>
             </form>
 
-            <div id = 'today_post' class = 'collection'>
+            <div id = 'today_post' className = 'collection'>
                 <ImageList cols={5} gap={8} style={{clear: 'left'}}>
                     {post_list.map((post) => (
-                        <ImageListItem key={post.img} className='today_image_list_item'>
+                        <ImageListItem key={post.id} className='today_image_list_item'>
                             <img style={{height:'322.55px', borderRadius:16}}
                                 src={`${post.img}?w=248&fit=crop&auto=format`}
                                 srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}

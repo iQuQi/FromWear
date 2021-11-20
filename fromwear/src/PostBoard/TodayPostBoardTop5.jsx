@@ -14,6 +14,7 @@ export default class TodayPostBoardTop5 extends Component {
         this.state = {
             post_top_list : [
                 {
+                    id: "",
                     img: "",
                     like_user_num: "",
                     user : {
@@ -25,7 +26,7 @@ export default class TodayPostBoardTop5 extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
 		API.graphql({ 
             query: listPosts, 
             variables: { filter: {board_type: {eq: 0}}}})
@@ -52,11 +53,11 @@ export default class TodayPostBoardTop5 extends Component {
                 <article className="today_wear">
                     <h1 className="title">오늘의 착장</h1><p className="title_tag">#오늘의 #베스트드레서는 #나야나</p>
                     <div className="container">
-                        <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+                        <link rel="stylesheet" type="text/css" charSet="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
                         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                         <Slider {...settings}>
-                            {post_top_list.map((post, index) => (
-                                    <div className="div_test">
+                            {post_top_list.map((post) => (
+                                    <div className="div_test" key={post.id + "_1"}>
                                         <img style={{backgroundImage: `URL(${post.img})`}}></img>
                                         <a href="/post">
                                             <span className={"dimmed_layer"}>
@@ -74,7 +75,7 @@ export default class TodayPostBoardTop5 extends Component {
                                     </div>
                             ))}
                             {post_top_list.map((post, index) => (
-                                    <div className="div_test">
+                                    <div className="div_test" key={post.id + "_2"}>
                                         <img style={{backgroundImage: `URL(${post.img})`}}></img>
                                         <a href="/post">
                                             <span className={"dimmed_layer"}>
