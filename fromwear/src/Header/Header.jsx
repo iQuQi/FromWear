@@ -5,11 +5,15 @@ import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
 
 
-let Header =({handle_inputbase_on_change})=>
+let Header =({handle_inputbase_on_change,handle_select_day,handle_select_gender,handle_inputbase_on_click})=>
 
 	
 			<div className="header_bar">		
-				<PrimarySearchAppBar handle_inputbase_on_change={handle_inputbase_on_change}/>
+				<PrimarySearchAppBar 
+				handle_inputbase_on_change={handle_inputbase_on_change}
+				handle_select_day={handle_select_day}
+				handle_select_gender={handle_select_gender}
+				handle_inputbase_on_click={handle_inputbase_on_click}/>
 				<MoveToTop/>
 			</div>
 		
