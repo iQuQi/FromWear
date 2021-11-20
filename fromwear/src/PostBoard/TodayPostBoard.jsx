@@ -1,5 +1,4 @@
 import {Component} from 'react';
-import PROFILE from './img/profile.png'
 
 import * as React from 'react';
 

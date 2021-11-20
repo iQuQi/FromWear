@@ -7,13 +7,26 @@ import Stack from '@mui/material/Stack';
 import './CSS/TodayPostBoardPosts.css';
 
 import { API } from 'aws-amplify';
-import { getPost } from '../graphql/queries.js';
+import { listPosts } from '../graphql/queries.js';
 
 export default class TodayPostBoardPosts extends Component {
     constructor() {
 		super();
 
 		this.state = {
+            post_list : [
+                {
+                    img: "",
+                    like_user_num: "",
+                    click_num: "",
+                    comment_list: [],
+                    updatedAt: "",
+                    user : {
+                        id: "",
+                        profile_img: "",
+                    },
+                },
+            ],
 			itemData: [
 				{
 				  img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
@@ -49,24 +62,62 @@ export default class TodayPostBoardPosts extends Component {
 		}
 	}
 
+    componentWillMount() {
+		API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {eq: 0}}}})
+			.then(res => this.setState({
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
+            }))
+			.catch(e => console.log(e));
+	}
+
 	handleSortLike = (e) => {
 		console.log("like");
+		API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {eq: 0}}}})
+			.then(res => this.setState({
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
+            }))
+			.catch(e => console.log(e));
 	}
 
 	handleSortView = (e) => {
 		console.log("view");
+		API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {eq: 0}}}})
+			.then(res => this.setState({
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.click_num-a.click_num})
+            }))
+			.catch(e => console.log(e));
 	}
 
 	handleSortReply = (e) => {
 		console.log("reply");
+		API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {eq: 0}}}})
+			.then(res => this.setState({
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.updatedAt-a.updatedAt})
+            }))
+			.catch(e => console.log(e));
 	}
 
 	handleSortLatest = (e) => {
 		console.log("Latest");
+		API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {eq: 0}}}})
+			.then(res => this.setState({
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.length-a.like_user_num.length})
+            }))
+			.catch(e => console.log(e));
 	}
 
     render() {
-		let {itemData} = this.state;
+		let {post_list} = this.state;
 
         return (<article className="wrap_recommend">
             <form className="sort_font select_sort">
@@ -79,14 +130,15 @@ export default class TodayPostBoardPosts extends Component {
                 <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
                 <label for="sort_latest">최신순</label>
             </form>
+
             <div id = 'today_post' class = 'collection'>
                 <ImageList cols={5} gap={8} style={{clear: 'left'}}>
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} className='today_image_list_item'>
+                    {post_list.map((post) => (
+                        <ImageListItem key={post.img} className='today_image_list_item'>
                             <img style={{height:'322.55px', borderRadius:16}}
-                                src={`${item.img}?w=248&fit=crop&auto=format`}
-                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                alt={item.user}
+                                src={`${post.img}?w=248&fit=crop&auto=format`}
+                                srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                alt={post.user.id}
                                 loading="lazy"
                             />
                             
@@ -94,13 +146,15 @@ export default class TodayPostBoardPosts extends Component {
                                 <span className='dimmed_layer'>	</span>
                             </a>
 
-                            <Stack direction="row" spacing={0} justifyContent="flex-end">
-                                <img src={item.profile_img} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-                                <p>&nbsp;</p>
-                                <p style={{margin: '16px 0px'}}>{item.user}</p>
-                                <p>&emsp;&emsp;&emsp;</p>
-                                <p style={{margin: '16px 0px'}}>{item.like}</p>
-                                <FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                            <Stack direction="row" spacing={0}>
+                                <div className="user_profile">
+                                    <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                    <p style={{margin: '16px 0px'}}>{post.user.id}</p>
+                                </div>
+                                <div className="user_like">
+                                    <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
+                                    <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                                </div>
                             </Stack>				
                         </ImageListItem>
                     ))}
