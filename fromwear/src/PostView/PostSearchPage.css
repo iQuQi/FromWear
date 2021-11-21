@@ -1,8 +1,7 @@
 @charset "utf-8";
 
-
 /*header CSS*/
-.header_bar{
+.post_header_bar{
     position: fixed;
     top: 0;
     min-width: 1082px;
@@ -12,24 +11,23 @@
 }
 
 
-
-.tag_div{
+.post_tag_div{
     position: absolute;
     top: 75px;
     width: 100%;
 	background-color: white;
 }
 
-.tag_list{
+.post_tag_list{
 	position: relative;
 	overflow: hidden;
 }
 
-.tag_list li{
+.post_tag_list li{
    float: left;
 }
 
-.tag_more_list_on{
+.post_tag_more_list_on{
 	padding: 10px;
 	margin-right: 15px;
 	width: 88%;
@@ -44,7 +42,7 @@
 	z-index: 1000;
 }
 
-.tag_more_list_off{
+.post_tag_more_list_off{
 	width: 90%;
 	min-width: 980px;
 	height: 50px;
@@ -53,27 +51,27 @@
 	position: relative;
 }
 
-.dimmed_info_writer{
+.post_dimmed_info_writer{
 	position: absolute;
 	bottom: 15px;
 	left: 10px;
 	display: none;
 }
-.dimmed_info_like{
+.post_dimmed_info_like{
 	position: absolute;
 	bottom: 20px;
 	right: 10px;
 	display: none;
 }
 
-.img_item{
+.post_img_item{
 	border-radius:16px;
 
 }
 
 
 
-.image_list_item:hover .dimmed_layer{
+.post_image_list_item:hover .dimmed_layer{
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -90,6 +88,6 @@
 	cursor: pointer;
 }
 
-.image_list_item:hover .dimmed_info_writer, .image_list_item:hover .dimmed_info_like{
+.post_image_list_item:hover .post_dimmed_info_writer, .post_image_list_item:hover .post_dimmed_info_like{
 	display: block;
 }

@@ -19,7 +19,6 @@ class SingleComment extends Component {
             board_type: props.board_type,
             writer_user: Object,
             user_id: props.user_id,
-            is_checked:false,
         }
     }
     /*
@@ -30,7 +29,6 @@ class SingleComment extends Component {
     }*/
 
     componentDidMount(){
-
         //console.log("여기0")
         API.graphql({
             query: getUser, variables: {id: this.state.comment_list.user_id}
@@ -42,20 +40,11 @@ class SingleComment extends Component {
 
         //console.log(this.state.comment_list.like_user_list)
         //console.log("여기")
-        let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
-
-        //console.log("여기2", index)
-        if(index > -1){
-            this.setState({is_checked: true,})
-            //console.log("값이 바뀌어야함")
-            //console.log(this.state.is_checked)
-            //console.log("값이 바뀜")
-        }
     }
     
 
     render(){
-        let {comment_list, board_type, writer_user, user_id, is_checked} = this.state;
+        let {comment_list, board_type, writer_user, user_id} = this.state;
         //this.get_user(comment.user_id);
         
         //console.log(comment);
@@ -66,8 +55,7 @@ class SingleComment extends Component {
                     <div className="comment_user_name">{writer_user.name}</div>
                     <Thumb 
                     comment_list={comment_list}
-                    user_id={user_id}
-                    is_checked={is_checked}/>
+                    user_id={user_id}/>
                     {
                         (board_type==1)?
                         <Select_button /> : <div></div>

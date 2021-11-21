@@ -6,15 +6,15 @@ import Bookmark from './Bookmark';
 import Like from './Like'
 import Urgent from './Urgent';
 
-import SearchResult from './SearchResult';
+import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let post_id = "post2 아이디";
-let user_id = "연지 id"; //현재 유저
+let post_id = "post1 아이디";
+let user_id = "현민 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 
 class Post extends Component{
@@ -60,11 +60,11 @@ class Post extends Component{
     setLikeAndUrgent = (board_type) => {
         if(board_type == 0){
             this.set_like(this.state.like_user_list)
-            console.log("오늘의 착장")
+            //console.log("오늘의 착장")
         }
         else if(board_type == 1){
             this.set_urgent(this.state.urgent_user_list)
-            console.log("도움이 필요해")
+            //console.log("도움이 필요해")
         }
     }
 
@@ -254,7 +254,7 @@ class Post extends Component{
                         <div className="tag_list">
                             <div className="container">
                                 <div className="content">
-                                    <SearchResult />
+                                    <PostSearchResult />
                                 </div> 
                             </div>
                         </div>
