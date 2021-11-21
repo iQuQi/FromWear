@@ -63,11 +63,13 @@ class Thumb extends Component{
 
     render() {
         //console.log(this.state.is_checked)
+        let {comment_list, is_checked} = this.state;
+        //console.log(comment_list)
         return (
             <div className="thumb_div">
-                <div className="thumb_num">{this.state.comment_list.like_user_list.length}</div>
+                <div className="thumb_num">{comment_list.like_user_list.length}</div>
                 {
-                    this.state.is_checked ?
+                    is_checked ?
                     <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>
                     : <ThumbUpAltIcon className="button thumb_off" onClick={this.onClick}/>
                 }

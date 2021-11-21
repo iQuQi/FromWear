@@ -33,7 +33,6 @@ class Post extends Component{
             urgent_click: false,
             tag_list: [],
             user_id,
-            comment_list: [],
             bookmark_user_list: [],
             bookmark_click: false,
             //post_id,
@@ -51,7 +50,6 @@ class Post extends Component{
             like_user_list: res.data.getPost.like_user_list,
             urgent_user_list: res.data.getPost.urgent_user_list,
             tag_list: res.data.getPost.tag_list,
-            comment_list: res.data.getPost.comment_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list,
         }))
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
@@ -157,12 +155,6 @@ class Post extends Component{
         
     }
 
-    set_comment_list = (changed_comment_list) => {
-        this.setState(prev => ({
-          commenet_list: changed_comment_list,
-        }));
-    }
-
     set_like(list) {
         var index = list.indexOf(user_id)
         if(index > -1){
@@ -185,7 +177,7 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
+        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
        
         return (
             <div className="post_page">
@@ -217,11 +209,9 @@ class Post extends Component{
                                 </div>
                                 <div className="comment">
                                     <Comments
-                                    comment_list = {comment_list}
                                     board_type = {now_post.board_type}
                                     user_id = {user_id}
                                     post_id = {post_id}
-                                    set_comment_list = {this.set_comment_list}
                                     post_writer = {now_writer}
                                     />
                                 </div>

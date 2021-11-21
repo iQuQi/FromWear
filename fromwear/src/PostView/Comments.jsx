@@ -3,8 +3,9 @@ import SingleComment from './SingleComment'
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser} from '../graphql/queries';
-import  { createComment, onCreatedComment } from '../graphql/mutations';
+import { getUser, getPost } from '../graphql/queries';
+import  { createComment } from '../graphql/mutations';
+import { onCreateComment } from '../graphql/subscriptions';
 
 class Comments extends Component {
 
@@ -13,7 +14,7 @@ class Comments extends Component {
 
         this.state = {
             post_id: props.post_id,
-            comment_list: props.comment_list,
+            comment_list: [],
             board_type: props.board_type,
             user_id: props.user_id,
             write_is_checked: false,
@@ -23,9 +24,6 @@ class Comments extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.comment_list !== prevProps.comment_list) {
-          this.setState({comment_list: this.props.comment_list,})
-        }
         if(this.props.board_type !== prevProps.board_type){
             this.setState({board_type: this.props.board_type});
         }
@@ -42,6 +40,27 @@ class Comments extends Component {
             writer_: res.data.getUser,
         }))
         .catch(e => console.log(e));
+
+        API.graphql({
+            query: getPost, variables: {id: this.state.post_id}
+        })
+        .then(res => {
+            this.setState({
+            comment_list: res.data.getPost.comment_list.items,
+            })
+            this.subscription = API.graphql({query: onCreateComment, variables: { post_id: this.state.post_id }})
+            .subscribe({
+                next: newCreatedComment => {
+                    if(newCreatedComment.post_id === this.state.post_id)
+                        return;
+                    let {comment_list} = this.state;
+                    this.setState({
+                        comment_list: [...comment_list, newCreatedComment.value.data.onCreateComment]
+                    });
+                }
+            });
+        })
+        .catch(e => console.log(e));
     }
 
     onClick = () => {
@@ -56,7 +75,6 @@ class Comments extends Component {
     
     }
     
-
     addTweet = () => {        
         /*
         this.setState({comment_list: [...this.props.comment_list, {
@@ -81,14 +99,6 @@ class Comments extends Component {
                     like_user_list: [],
                 } }
         })
-        /*
-        .subscribe({
-            next: newItem => {
-                console.log(newItem);
-            }
-
-        })
-        */
         .catch(e => console.log(e));
 
         //console.log(this.state.comment_list);
