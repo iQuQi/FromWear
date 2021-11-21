@@ -4,94 +4,110 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Stack from '@mui/material/Stack';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/Comment';
 
 import './CSS/TodayPostBoardPosts.css';
 
 import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
-
-export default class TodayPostBoardPosts extends Component {
-    constructor() {
-		super();
-
-		this.state = {
-            post_list : [
+/*
+post_list : [
                 {
                     id: "",
                     img: "",
                     like_user_num: "",
                     click_num: "",
-                    comment_list: [],
-                    updatedAt: "",
+                    comment_list:{
+                        items: "",
+                    },
+                    createdAt: "",
                     user : {
                         name: "",
                         profile_img: "",
                     },
                 },
             ],
+*/
+export default class TodayPostBoardPosts extends Component {
+    constructor() {
+		super();
+
+		this.state = {
+            post_state: 1,
+            post_list:[],
 		}
 	}
 
     componentDidMount() {
 		API.graphql({ 
             query: listPosts, 
-            variables: { filter: {board_type: {eq: 0}}}})
+            variables: { filter: {board_type: {ne: 1}}}})
 			.then(res => this.setState({
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
             }))
 			.catch(e => console.log(e));
-        console.log(this.state.post_list.length);
     }
 
 	handleSortLike = (e) => {
 		console.log("like");
 		API.graphql({ 
             query: listPosts, 
-            variables: { filter: {board_type: {eq: 0}}}})
+            variables: { filter: {board_type: {ne: 1}}}})
 			.then(res => this.setState({
+                post_state: 1,
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
             }))
 			.catch(e => console.log(e));
-            console.log(this.state.post_list.length);
 	}
 
 	handleSortView = (e) => {
 		console.log("view");
 		API.graphql({ 
             query: listPosts, 
-            variables: { filter: {board_type: {eq: 0}}}})
+            variables: { filter: {board_type: {ne: 1}}}})
 			.then(res => this.setState({
+                post_state: 2,
                 post_list: res.data.listPosts.items.sort(function(a,b){return b.click_num-a.click_num})
             }))
 			.catch(e => console.log(e));
-            console.log(this.state.post_list.length);
 	}
+
+    consolePrint = () => {
+        console.log(this.state.post_list[0].comment_list);
+        console.log(this.state.post_list[0].comment_list.items);
+    }
 
 	handleSortReply = (e) => {
 		console.log("reply");
 		API.graphql({ 
             query: listPosts, 
-            variables: { filter: {board_type: {eq: 0}}}})
-			.then(res => this.setState({
-                post_list: res.data.listPosts.items.sort(function(a,b){return b.updatedAt-a.updatedAt})
-            }))
+            variables: { filter: {board_type: {ne: 1}}}})
+			.then(res => {
+console.log(res.data.listPosts.items);
+                this.setState({
+                post_state: 3,
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
+            })
+        })
 			.catch(e => console.log(e));
-            console.log(this.state.post_list.length);
+        this.consolePrint();
 	}
 
 	handleSortLatest = (e) => {
 		console.log("Latest");
 		API.graphql({ 
             query: listPosts, 
-            variables: { filter: {board_type: {eq: 0}}}})
+            variables: { filter: {board_type: {ne: 1}}}})
 			.then(res => this.setState({
-                post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.length-a.like_user_num.length})
+                post_state: 4,
+                post_list: res.data.listPosts.items.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
             }))
 			.catch(e => console.log(e));
 	}
 
     render() {
-		let {post_list} = this.state;
+		let {post_state, post_list} = this.state;
 
         return (<article className="wrap_recommend">
             <form className="sort_font select_sort">
@@ -125,10 +141,24 @@ export default class TodayPostBoardPosts extends Component {
                                     <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
                                     <p style={{margin: '16px 0px'}}>{post.user.name}</p>
                                 </div>
-                                <div className="user_like">
-                                    <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
-                                    <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-                                </div>
+                                {(post_state == 1 || post_state == 4) && 
+                                    <div className="user_like">
+                                        <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
+                                        <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
+                                    </div>
+                                }
+                                {post_state == 2 && 
+                                    <div className="user_like">
+                                        <p style={{margin: '16px 0px'}}>{post.click_num}</p>
+                                        <VisibilityIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
+                                    </div>
+                                }
+                                {post_state == 3 && 
+                                    <div className="user_like">
+                                        <p style={{margin: '16px 0px'}}>{post.comment_list.items.length}</p>
+                                        <CommentIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
+                                    </div>
+                                }
                             </Stack>				
                         </ImageListItem>
                     ))}
