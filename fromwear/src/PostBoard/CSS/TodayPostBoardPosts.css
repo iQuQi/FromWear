@@ -1,3 +1,66 @@
+@charset "utf-8";
+/*reset CSS*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ul, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body{
+	min-width: 1082px;
+	line-height: 1;
+	font-family : '나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif;
+
+}
+ul, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+textarea, input, button,select{
+	font:inherit;
+}
+
+a{
+	color: black;
+	text-decoration: none;
+}
+
+
+
+
+
+
+
 .wrap_recommend {
 	width: 1080px;
 	margin: 0 auto;
@@ -5,13 +68,14 @@
 
 .sort_font {
     text-align: left;
-    margin-top: 30px;
-    margin-left: 0;
     font-weight: bold;
 }
 
 .select_sort {
-	padding: 0 10px;
+	padding-left: 10px;
+	float: left;
+	height: 50px;
+	line-height: 50px;
 }
 
 .select_sort input[type=radio] {
@@ -20,11 +84,22 @@
 
 
 .select_sort label {
-	margin-right: 10px;
+	margin-right: 15px;
 	color: grey;
 }
 .select_sort input[type=radio]:checked+label {
 	color: black;
+}
+
+.wrap_recommend .filter_layout {
+	width: 100px;
+	float: right;
+	margin-left: 10px;
+}
+.wrap_recommend .filter_layout::after {
+	clear: both;
+	content: '';
+	display: block; 
 }
 
 .wrap_recommend .collection{
@@ -32,9 +107,8 @@
     width: 1080px;
     overflow-y: auto; 
     margin: auto;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     background-color: white;
-
     text-align: left;
 }
 .wrap_recommend .today_image_list_item:hover .dimmed_layer{
