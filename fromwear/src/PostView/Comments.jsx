@@ -61,15 +61,16 @@ class Comments extends Component {
             });
         })
         .catch(e => console.log(e));
-/*
+        /*
         API.grapql({query: updateComment, variables:{input: {id: this.state.user_id,
         like: 5000,
         }}
         })
         .then(res => console.log(res))
         .catch(e => console.log(e))
-    }*/
+        */
     }
+    
     
     onClick = () => {
         this.state.write_is_checked?
