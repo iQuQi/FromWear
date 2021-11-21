@@ -18,7 +18,7 @@ export default class TodayPostBoardTop5 extends Component {
                     img: "",
                     like_user_num: "",
                     user : {
-                        id: "",
+                        name: "",
                         profile_img: "",
                     },
                 },
@@ -65,7 +65,7 @@ export default class TodayPostBoardTop5 extends Component {
                                                     <img src={post.user.profile_img} alt="프로필" 
                                                         style={{width:"30px",height:"30px",borderRadius:"50%", 
                                                         position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
-                                                    {post.user.id}
+                                                    {post.user.name}
                                                 </span>
                                                 <span className="dimmed_info_like">
                                                     {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
@@ -83,7 +83,7 @@ export default class TodayPostBoardTop5 extends Component {
                                                     <img src={post.user.profile_img} alt="프로필" 
                                                         style={{width:"30px",height:"30px",borderRadius:"50%", 
                                                         position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
-                                                    {post.user.id}
+                                                    {post.user.name}
                                                 </span>
                                                 <span className="dimmed_info_like">
                                                     {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>

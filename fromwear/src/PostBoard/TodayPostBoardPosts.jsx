@@ -1,8 +1,9 @@
 import {Component} from 'react';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Stack from '@mui/material/Stack';
+
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import './CSS/TodayPostBoardPosts.css';
 
@@ -23,43 +24,11 @@ export default class TodayPostBoardPosts extends Component {
                     comment_list: [],
                     updatedAt: "",
                     user : {
-                        id: "",
+                        name: "",
                         profile_img: "",
                     },
                 },
             ],
-			itemData: [
-				{
-				  img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-				  user: 'Breakfast',
-                  profile_img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-				  like: '1005',
-				},
-				{
-				  img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-				  user: 'Breakfast',
-                  profile_img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-				  like: '1005',
-				},
-				{
-				  img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-				  user: 'Breakfast',
-                  profile_img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-				  like: '1005',
-				},
-				{
-				  img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-				  user: 'Breakfast',
-                  profile_img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-				  like: '1005',
-				},
-				{
-				  img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-				  user: 'Breakfast',
-				  like: '1005',
-                  profile_img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-				},
-			],
 		}
 	}
 
@@ -143,7 +112,7 @@ export default class TodayPostBoardPosts extends Component {
                             <img style={{height:'322.55px', borderRadius:16}}
                                 src={`${post.img}?w=248&fit=crop&auto=format`}
                                 srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                alt={post.user.id}
+                                alt={post.user.name}
                                 loading="lazy"
                             />
                             
@@ -154,7 +123,7 @@ export default class TodayPostBoardPosts extends Component {
                             <Stack direction="row" spacing={0}>
                                 <div className="user_profile">
                                     <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
-                                    <p style={{margin: '16px 0px'}}>{post.user.id}</p>
+                                    <p style={{margin: '16px 0px'}}>{post.user.name}</p>
                                 </div>
                                 <div className="user_like">
                                     <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
