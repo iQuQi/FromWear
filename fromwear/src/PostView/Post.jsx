@@ -12,11 +12,13 @@ import Header from '../Header/Header'
 import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
 
-//이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let post_id = "post1 아이디";
-let user_id = "현민 id"; //현재 유저
-//board type 0 : 오늘의 착장 1 : 도움이 필요해
+import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
+
+//이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
+//let post_id = "post1 아이디";
+let user_id = "연지 id"; //현재 유저
+//board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
         super();
@@ -33,14 +35,15 @@ class Post extends Component{
             comment_list: [],
             bookmark_user_list: [],
             bookmark_click: false,
-            post_id,
-            //post_id: this.props.match.params.postid,
+            //post_id,
+            post_id: props.postid,
         }
+        console.log(this.state.post_id);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         API.graphql({
-            query: getPost, variables: {id: post_id}
+            query: getPost, variables: {id: this.state.post_id}
         })
         .then(res => this.setState({
             now_post: res.data.getPost,
@@ -54,6 +57,7 @@ class Post extends Component{
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .catch(e => console.log(e));  
+
 
     }
 
@@ -182,11 +186,7 @@ class Post extends Component{
 
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
-        
-        //console.log(comment_list);
-        //console.log(now_post.blind)
-        
-
+        console.log(comment_list)
         return (
             <div className="post_page">
                 <Header />
@@ -198,9 +198,9 @@ class Post extends Component{
                                 <div className="writer">
                                     {
                                         now_post.blind?
-                                        <img className="post_writer_img" /> //익명일 경우 사진이 안뜨도록 (아님 특정 사진 url)
+                                        <img className="post_writer_img" src={profile_skyblue}/>
                                         :
-                                        <img className="post_writer_img" style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}/>
+                                        <img className="post_writer_img" src={now_writer.profile_img}/> //style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}
                                     }
                                     {
                                         now_post.blind?
@@ -208,7 +208,7 @@ class Post extends Component{
                                         :
                                         <div className="writer_name">{now_writer.name}</div>
                                     }
-                                    <div className="writer_content">{now_post.content}</div>
+                                    <div className="writer_content">{now_post.content}{this.state.postid}</div>
                                 </div>
                                 <div className="comment">
                                     <Comments

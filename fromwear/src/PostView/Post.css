@@ -62,7 +62,7 @@
     border: 1px solid;
     border-radius: 50%;
     background-size: cover;
-    background-image: center center;
+    /*background-image: center center;*/
 }
 
 .writer_name {

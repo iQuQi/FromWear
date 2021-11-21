@@ -19,8 +19,8 @@ class Thumb extends Component{
 
     componentDidMount(){
         let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
-        console.log(this.state.comment_list.like_user_list)
-        console.log(index)
+        //console.log(this.state.comment_list.like_user_list)
+        //console.log(index)
         if(index > -1){
             //console.log("값이 바뀌어야함")
             this.setState(
