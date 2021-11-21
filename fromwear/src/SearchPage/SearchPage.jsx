@@ -134,6 +134,7 @@ class SearchPage extends Component{
 			current_input_tag: split_tags.slice(1,split_tags.length)
 		})
 
+		console.log(split_tags.slice(1,split_tags.length));
 		this.update_post_data(this.state.filter_day,this.state.filter_gender);
 
 	}
@@ -234,7 +235,7 @@ class SearchPage extends Component{
 			  })
 			  .sort(function(a,b){return b.like_user_num-a.like_user_num});
 	  
-			  console.log(result_post);
+			  //console.log(result_post);
 			  return handle_post_data(result_post);
 			})
 			.catch(e=>console.log(e))
@@ -259,10 +260,10 @@ class SearchPage extends Component{
 				handle_select_gender={this.handle_select_gender}
 				rank_1_tag={rank_1_tag}
 				/>
-				{is_search_bar_clicked?
+				
 				<div className="search_page_container">	
 				
-					<div className = {is_search_bar_clicked?"tag_div":"blind"} >
+					<div className = "tag_div" >
 						<Stack direction="row">
 							<Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", fontWeight: 300, color: "black"}}>
 								<CloseIcon onClick={this.handle_x_button_on_click}/>	
@@ -296,7 +297,7 @@ class SearchPage extends Component{
 						
 					</div>
 
-					{is_search_bar_clicked&&post_data.length!=0?
+					{post_data.length!=0?
 						
 						<div className={"search_page_content"}>
 							<SearchResult 
@@ -328,7 +329,7 @@ class SearchPage extends Component{
 					
 				
 					
-				</div>:<MainPage/>}
+				</div>
 			</div>
 		)
 	}
