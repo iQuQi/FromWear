@@ -68,7 +68,14 @@ class Select_button extends Component{
                     </div>
                     :
                     <div>
-
+                    {
+                        select_button_is_checked ?
+                        <div className="select_yes">
+                            채택된 댓글
+                        </div>
+                        :
+                        <div className="select_no"></div> //채택안됨
+                    }
                     </div>
 
                     

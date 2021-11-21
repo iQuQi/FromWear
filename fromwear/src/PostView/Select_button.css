@@ -9,6 +9,7 @@
     float: right;
     color: black;
     text-decoration: underline;
+    margin-top: 3.5px;
 }
 
 .select_no {
@@ -16,4 +17,5 @@
     cursor: pointer;
     text-decoration: underline;
     color: lightgray;
+    margin-top: 3.5px;
 }
