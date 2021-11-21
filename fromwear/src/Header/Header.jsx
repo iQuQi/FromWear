@@ -5,7 +5,7 @@ import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
 
 
-let Header =({handle_inputbase_on_change,handle_select_day,handle_select_gender,handle_inputbase_on_click,rank_1_tag})=>
+let Header =({handle_inputbase_on_change,handle_select_day,handle_select_gender})=>
 
 	
 			<div className="header_bar">		
@@ -13,8 +13,7 @@ let Header =({handle_inputbase_on_change,handle_select_day,handle_select_gender,
 				handle_inputbase_on_change={handle_inputbase_on_change}
 				handle_select_day={handle_select_day}
 				handle_select_gender={handle_select_gender}
-				handle_inputbase_on_click={handle_inputbase_on_click}
-				rank_1_tag={rank_1_tag}/>
+				/>
 				<MoveToTop/>
 			</div>
 		

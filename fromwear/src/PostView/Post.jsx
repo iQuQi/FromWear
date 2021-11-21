@@ -10,13 +10,16 @@ import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
-import { getPost } from '../graphql/queries';
+import { getComment, getPost } from '../graphql/queries';
 
-//이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let post_id = "post1 아이디";
-let user_id = "현민 id"; //현재 유저
+import profile_skyblue from './Imgs/profile_skyblue.jpg';
+//import pro1 from './Imgs/pro1.jpeg';
+//import img_pro from './Imgs/img.jpeg';
+
+
+//나중에 상위 컴포넌트한테 prop로 받아야하는 것
+let user_id = "민수 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
-
 class Post extends Component{
     constructor(props){
         super();
@@ -30,17 +33,16 @@ class Post extends Component{
             urgent_click: false,
             tag_list: [],
             user_id,
-            comment_list: [],
             bookmark_user_list: [],
             bookmark_click: false,
-            post_id,
-            //post_id: this.props.match.params.postid,
+            //post_id,
+            post_id: props.postid,
         }
     }
 
     componentDidMount(){
         API.graphql({
-            query: getPost, variables: {id: post_id}
+            query: getPost, variables: {id: this.state.post_id}
         })
         .then(res => this.setState({
             now_post: res.data.getPost,
@@ -48,12 +50,12 @@ class Post extends Component{
             like_user_list: res.data.getPost.like_user_list,
             urgent_user_list: res.data.getPost.urgent_user_list,
             tag_list: res.data.getPost.tag_list,
-            comment_list: res.data.getPost.comment_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list,
         }))
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .catch(e => console.log(e));  
+
 
     }
 
@@ -153,12 +155,6 @@ class Post extends Component{
         
     }
 
-    set_comment_list = (changed_comment_list) => {
-        this.setState(prev => ({
-          commenet_list: changed_comment_list,
-        }));
-    }
-
     set_like(list) {
         var index = list.indexOf(user_id)
         if(index > -1){
@@ -181,26 +177,29 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
-        
-        //console.log(comment_list);
-        //console.log(now_post.blind)
-        
-
+        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
+       
+        //console.log(like_user_list);
+        //console.log(like_user_list.length);
         return (
             <div className="post_page">
                 <Header />
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <img className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}/>
+                            <div className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}></div>
                             <div className="content_box">
                                 <div className="writer">
                                     {
                                         now_post.blind?
-                                        <img className="post_writer_img" /> //익명일 경우 사진이 안뜨도록 (아님 특정 사진 url)
+                                        <img className="post_writer_img" src={profile_skyblue} />
                                         :
-                                        <img className="post_writer_img" style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}/>
+                                        <img className="post_writer_img" src={now_writer.profile_img} />
+                                        //나중에 backgroundImg로 URL넘겨줄거면 div로 변경
+                                        //마찬가지로 바꿀 때 SingleComment의 53번째 line도 div로 변경
+                                        //div로 하면 src가 적용이 안됨 style에서 넘겨줘야할듯
+                                        //<img className="post_writer_img" src={now_writer.profile_img}/> //style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}
+                                        //style={{backgroundImage: 'URL('+now_post.img+')'}}
                                     }
                                     {
                                         now_post.blind?
@@ -208,15 +207,14 @@ class Post extends Component{
                                         :
                                         <div className="writer_name">{now_writer.name}</div>
                                     }
-                                    <div className="writer_content">{now_post.content}</div>
+                                    <div className="writer_content">{now_post.content}{this.state.postid}</div>
                                 </div>
                                 <div className="comment">
                                     <Comments
-                                    comment_list = {comment_list}
                                     board_type = {now_post.board_type}
                                     user_id = {user_id}
                                     post_id = {post_id}
-                                    set_comment_list = {this.set_comment_list}
+                                    post_writer = {now_writer}
                                     />
                                 </div>
                             </div>
@@ -229,7 +227,7 @@ class Post extends Component{
                             />
                             {
                                 
-                                (now_post.board_type == 0) ?
+                                (now_post.board_type == 0 || now_post.board_type == 2)  ?
                                 <Like
                                 like_user_list={like_user_list}
                                 like_click={like_click}

@@ -192,6 +192,7 @@ export default class TodayPostBoardPosts extends Component {
         let {genderVal, dayVal} = this.state;
 
         return (<article className="wrap_recommend">
+
             <form className="sort_font select_sort">
 
                 <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>

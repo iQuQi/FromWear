@@ -3,8 +3,9 @@ import SingleComment from './SingleComment'
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser} from '../graphql/queries';
-import  { createComment, onCreatedComment } from '../graphql/mutations';
+import { getUser, getPost } from '../graphql/queries';
+import  { createComment, updateComment } from '../graphql/mutations';
+import { onCreateComment } from '../graphql/subscriptions';
 
 class Comments extends Component {
 
@@ -13,21 +14,25 @@ class Comments extends Component {
 
         this.state = {
             post_id: props.post_id,
-            comment_list: props.comment_list,
+            comment_list: [],
             board_type: props.board_type,
             user_id: props.user_id,
             write_is_checked: false,
-            writer_: Object,
+            writer_: Object, //현재 댓글을 쓰는 사람
+            post_writer: props.post_writer, //현재 보고 있는 post를 쓴 사람
         }
     }
 
-    componentDidUpdate(props){
-        if(this.state.comment_list !== props.comment_list){
-            this.setState({comment_list: props.comment_list});
-          }
+    componentDidUpdate(prevProps) {
+        if(this.props.board_type !== prevProps.board_type){
+            this.setState({board_type: this.props.board_type});
+        }
+        if(this.props.post_writer !== prevProps.post_writer){
+            this.setState({post_writer: this.props.post_writer})
+        }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         API.graphql({
             query: getUser, variables: {id: this.state.user_id}
         })
@@ -35,8 +40,38 @@ class Comments extends Component {
             writer_: res.data.getUser,
         }))
         .catch(e => console.log(e));
-    }
 
+        API.graphql({
+            query: getPost, variables: {id: this.state.post_id}
+        })
+        .then(res => {
+            this.setState({
+            comment_list: res.data.getPost.comment_list.items,
+            })
+            this.subscription = API.graphql({query: onCreateComment, variables: { post_id: this.state.post_id }})
+            .subscribe({
+                next: newCreatedComment => {
+                    if(newCreatedComment.post_id === this.state.post_id)
+                        return;
+                    let {comment_list} = this.state;
+                    this.setState({
+                        comment_list: [...comment_list, newCreatedComment.value.data.onCreateComment]
+                    });
+                }
+            });
+        })
+        .catch(e => console.log(e));
+        /*
+        API.grapql({query: updateComment, variables:{input: {id: this.state.user_id,
+        like: 5000,
+        }}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
+        */
+    }
+    
+    
     onClick = () => {
         this.state.write_is_checked?
         this.setState({
@@ -48,7 +83,6 @@ class Comments extends Component {
         })
     
     }
-    
 
     addTweet = () => {        
         /*
@@ -74,14 +108,6 @@ class Comments extends Component {
                     like_user_list: [],
                 } }
         })
-        /*
-        .subscribe({
-            next: newItem => {
-                console.log(newItem);
-            }
-
-        })
-        */
         .catch(e => console.log(e));
 
         //console.log(this.state.comment_list);
@@ -95,7 +121,7 @@ class Comments extends Component {
 
 
     render(){
-        let {comment_list, board_type, user_id, write_is_checked, writer_} = this.state;
+        let {comment_list, board_type, user_id, write_is_checked, writer_, post_writer} = this.state;
         
         return (
             <div>
@@ -104,7 +130,7 @@ class Comments extends Component {
                     <ul className="comment_ul">
                         {
                             comment_list.map(comment_list => {
-                                return <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id}/>
+                                return <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id} post_writer={post_writer}/>
                             })
                         }
                     </ul>
@@ -131,50 +157,3 @@ class Comments extends Component {
 }
 
 export default Comments;
-
-/*
-class Comments extends Component {
-
-    constructor(props){
-        super(props);
-
-        this.state = {
-            comment_list: this.props.comment_list,
-        }
-        //this.comment_list = this.comment_list.bind(this);
-    }
-    addTweet() {
-        //let value = document.querySelector('.new_tweet_content').value;
-        this.setState({comment_list: [...this.props.comment_list, {
-            user_id: this.props.comment_list.length +1,
-            name: now_user_name,
-            content: "1234"
-        }]})
-    }
-
-    render() {
-        let {comment_list} = this.state;
-        //console.log(this.props.comment_list);
-
-        return (
-            <div>
-                <div>
-                    <div className="comment_num">댓글 {this.props.comment_list.length}개</div>
-                    <ul className="comment_ul">
-                        {
-                            this.state.comment_list.map(comment_list => {
-                                return <SingleComment key={comment_list.user_id} comment={comment_list} />
-                            })
-                        }
-                    </ul>
-                    <div className="comment_check">
-                        <Comment_check />
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
-export default Comments;
-*/

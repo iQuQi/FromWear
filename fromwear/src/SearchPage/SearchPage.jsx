@@ -14,9 +14,11 @@ import {get_rank_tag } from './RankTag';
 import moment from 'moment';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
-import {listPosts, listUsers} from '../graphql/queries.js';
-import { FastForwardOutlined } from '@ant-design/icons';
+import {getPost, listPosts, listUsers} from '../graphql/queries.js';
+import { ConsoleSqlOutlined, FastForwardOutlined } from '@ant-design/icons';
 import MainPage from "../MainPage/MainPage";
+import SelectDay from "../Header/SelectDay";
+import { static_tag_data } from './TagData';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
 
@@ -30,10 +32,13 @@ class SearchPage extends Component{
 			target_tag_button: tag_clicked_list,
 			target_rank_tag_button: rank_tag_clicked_list,
 			is_tag_more: false,
+
 			filter_gender: "",
 			filter_day:-1,
+
 			post_data: [],
 			rank_tag_data:[],
+
 			current_next_post_page: 1,
 			current_input_tag: [],
 			current_click_tag_num: 0,
@@ -42,10 +47,14 @@ class SearchPage extends Component{
 	}
 
 	componentWillMount(){
-		this.update_post_data("","");
+
+		this.update_post_data("","",this.state.current_input_tag);
 		get_rank_tag(this.handle_rank_tag_data);
 
 	}
+
+
+	
 
 	handle_post_more_on_click=e=>{
 		this.setState({
@@ -70,6 +79,11 @@ class SearchPage extends Component{
 		this.setState({
 			target_tag_button: tag_clicked_list,
 		})
+
+		console.log("cur input tag7:"+this.state.current_input_tag);
+
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,this.state.current_input_tag);
+
 	}
 
 	handle_rank_tag_button_click=(e,index)=>{
@@ -89,11 +103,13 @@ class SearchPage extends Component{
 		this.setState({
 			target_rank_tag_button: rank_tag_clicked_list,
 		})
+		console.log("cur input tag6:"+this.state.current_input_tag);
+
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,this.state.current_input_tag);
 	}
 
 	handle_tag_more_button=e=>{
-		const {is_tag_more} = this.state;
-		if(is_tag_more){
+		if(this.state.is_tag_more){
 		this.setState({
 			is_tag_more:false
 		})
@@ -130,9 +146,9 @@ class SearchPage extends Component{
 		this.setState({
 			current_input_tag: split_tags.slice(1,split_tags.length)
 		})
+		console.log("cur input tag5:"+this.state.current_input_tag);
 
-		console.log(split_tags.slice(1,split_tags.length));
-		this.update_post_data(this.state.filter_day,this.state.filter_gender);
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,split_tags.slice(1,split_tags.length));
 
 	}
 
@@ -152,8 +168,9 @@ class SearchPage extends Component{
 		this.setState({
 			filter_gender : gender
 		})
+		console.log("cur input tag4:"+this.state.current_input_tag);
 
-		this.update_post_data(this.state.filter_day,gender);
+		this.update_post_data(this.state.filter_day,gender,this.state.current_input_tag);
 
 	}
 
@@ -166,67 +183,137 @@ class SearchPage extends Component{
 		this.setState({
 			filter_day : day
 		})
-
-		this.update_post_data(day,this.state.filter_gender);
+		console.log("cur input tag1:"+this.state.current_input_tag);
+		this.update_post_data(day,this.state.filter_gender,this.state.current_input_tag);
 	}
 
-	update_post_data=(day,gender)=>{
-		const {current_input_tag,current_click_tag_num} = this.state;
 
-		this.get_post_data(this.handle_post_data,current_input_tag,tag_clicked_list,
-			rank_tag_clicked_list,current_click_tag_num,day,gender);
+
+	update_post_data=(day,gender,current_input_tag)=>{
+		console.log("cur input tag2:"+current_input_tag);
+
+		this.get_post_data(this.handle_post_data,
+			current_input_tag,
+			tag_clicked_list,
+			rank_tag_clicked_list,
+			day,gender);
 	}
 
-	get_post_data =  (handle_post_data,current_input_tag,tag_clicked_list,rank_tag_clicked_list,
-		current_click_tag_num,filter_day,filter_gender) =>{
-		  console.log("get post data");
+	get_post_data =  (handle_post_data,
+		current_input_tag,
+		tag_clicked_list,
+		rank_tag_clicked_list,
+		filter_day,filter_gender) =>{
+			console.log("cur input tag3:"+current_input_tag);
+
+			let same3=[],same2=[],same1=[];
+			let result_post=[];
+			let rmved =[];
+
 			API.graphql({
 			  query: listPosts,
 			  variables:{filter:{board_type:{ne:1}}}
 			}).then(res=>{
-			  let result_post= res.data.listPosts.items
-			  .filter((post)=>{
+			  res.data.listPosts.items
+			  .map((post)=>{
 				//날짜 필터링
-				let today = new Date();
+				let basis = new Date();
 				if(filter_day==10){//오늘
-				  today.setDate(today.getDate());
-				  if(new Date(post.createdAt)<today) return false;
+				  console.log("created:"+ new Date(post.createdAt));
+				  basis.setDate(basis.getDate());
+				  console.log("basis: " +basis);
+				  console.log(new Date(post.createdAt)<basis);
+
+				  if(new Date(post.createdAt)!=basis) return false;
 				}
 				else if(filter_day==20){//일주일
-				  today.setDate(today.getDate() - 7);
-				  if(new Date(post.createdAt)<today) return false;
+					basis.setDate(basis.getDate() - 7);
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==30){//한달
-				  today.setMonth(today.getMonth() - 1);
-				  if(new Date(post.createdAt)<today) return false;
+					console.log("created:"+ new Date(post.createdAt));
+
+					basis.setMonth(basis.getMonth() - 1);
+					console.log("basis: " +basis);
+					console.log(new Date(post.createdAt)<basis);
+
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==40){//6개월
-				  today.setMonth(today.getMonth() - 6);
-				  if(new Date(post.createdAt)<today) return false;
+					basis.setMonth(basis.getMonth() - 6);
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==50){//1년
-				  today.setFullYear(today.getFullYear() - 1);
-				  console.log(today);
-				  if(new Date(post.createdAt)<today) return false;
+					basis.setFullYear(basis.getFullYear() - 1);
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 		  
 				//성별 필터링
 				if(filter_gender!=""&&filter_gender!=post.user.gender) return false;
 				
-	  
-				
+				//입력 태그 중복 없애기
+				let dup=[];
+				//검색 태그에서 찾기
+				current_input_tag.map(find_tag=>{
+					dup.push(find_tag);
+				})
+				//고정 태그에서 찾기
+				static_tag_data.map((find_tag,index)=>{
+					if(tag_clicked_list[index])dup.push(find_tag.name);
+				})
+
+				//랭킹 태그에서 찾기
+				this.state.rank_tag_data.map((find_tag,index)=>{
+					if(rank_tag_clicked_list[index])dup.push(find_tag.value);
+				})
+				console.log("this is rmved bef:" + dup);
+
+				let dup_rmv= new Set(dup);
+				rmved = [...dup_rmv];
+
+				console.log("this is rmved aft:" + rmved);
+
 				//태그 필터링
 				//입력된 태그가 없다면 전체 보여주기
-				  if(current_click_tag_num+current_input_tag.length==0) return true;
-				  //post.tag_list.map((tag)=>{
-					 
-				  //})
-				  else return true;
+				if(rmved.length==0) {
+					result_post=[...result_post,post];
+					console.log("show all");
+					return true;
+				}
+				else{
+					console.log("not show all");
+					let same = 0;
+					post.tag_list.map((post_tag)=>{
+						console.log(post_tag);
+
+						rmved.map(tag=>{
+							if(post_tag==tag) same++;
+						})
+
+					})
+
+					console.log("same: "+ same);
+					if(same == 3) same3=[...same3,post]
+					else if(same==2) same2=[...same2,post]
+					else if(same==1) same1=[...same1,post]
+					return true;
+
+				}
 			   
 	  
 			  })
-			  .sort(function(a,b){return b.like_user_num-a.like_user_num});
-	  
+			  
+			  if(rmved.length===0) {
+				result_post=result_post.sort(function(a,b){return b.like_user_num-a.like_user_num});
+			  }
+			  else{
+				same3=same3.sort(function(a,b){return b.like_user_num-a.like_user_num});
+				same2=same2.sort(function(a,b){return b.like_user_num-a.like_user_num});
+				same1=same1.sort(function(a,b){return b.like_user_num-a.like_user_num});
+
+			  	result_post=[...same3,...same2,...same1];
+			  }
+
 			  console.log(result_post);
 			  return handle_post_data(result_post);
 			})
@@ -238,10 +325,6 @@ class SearchPage extends Component{
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
 		current_next_post_page} = this.state;
-
-
-		console.log("render");
-
 
 		return(
 			<div>
