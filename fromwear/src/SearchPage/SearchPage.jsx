@@ -14,7 +14,7 @@ import {get_rank_tag } from './RankTag';
 import moment from 'moment';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
-import {listPosts} from '../graphql/queries.js';
+import {listPosts, listUsers} from '../graphql/queries.js';
 import { FastForwardOutlined } from '@ant-design/icons';
 import MainPage from "../MainPage/MainPage";
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
@@ -44,7 +44,7 @@ class SearchPage extends Component{
 	componentWillMount(){
 		this.update_post_data("","");
 		get_rank_tag(this.handle_rank_tag_data);
-		
+
 	}
 
 	handle_post_more_on_click=e=>{
@@ -227,7 +227,7 @@ class SearchPage extends Component{
 			  })
 			  .sort(function(a,b){return b.like_user_num-a.like_user_num});
 	  
-			  //console.log(result_post);
+			  console.log(result_post);
 			  return handle_post_data(result_post);
 			})
 			.catch(e=>console.log(e))
