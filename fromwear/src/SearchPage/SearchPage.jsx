@@ -37,8 +37,8 @@ class SearchPage extends Component{
 			rank_tag_data:[],
 			current_next_post_page: 1,
 			current_input_tag: [],
-			current_click_tag_num: 0
-			
+			current_click_tag_num: 0,
+			rank_1_tag: ""
 
 		};
 	}
@@ -116,9 +116,11 @@ class SearchPage extends Component{
 	}
 
 	handle_rank_tag_data=(new_rank_tag_data)=>{
+
 		if(this.state.rank_tag_data.length==0){
 			this.setState({
-				rank_tag_data: new_rank_tag_data
+				rank_tag_data: new_rank_tag_data,
+				rank_1_tag: new_rank_tag_data[0].value
 			})
 		}
 	}
@@ -242,7 +244,7 @@ class SearchPage extends Component{
 
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
-		current_next_post_page,is_search_bar_clicked} = this.state;
+		current_next_post_page,is_search_bar_clicked,rank_1_tag} = this.state;
 
 
 		console.log("render");
@@ -255,6 +257,7 @@ class SearchPage extends Component{
 				handle_inputbase_on_click={this.handle_inputbase_on_click}
 				handle_select_day={this.handle_select_day}
 				handle_select_gender={this.handle_select_gender}
+				rank_1_tag={rank_1_tag}
 				/>
 				{is_search_bar_clicked?
 				<div className="search_page_container">	

@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
-  handle_select_gender,handle_inputbase_on_click}) {
+  handle_select_gender,handle_inputbase_on_click,rank_1_tag}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -162,7 +162,7 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             </SearchIconWrapper>
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
-              placeholder="#오늘의 #태그는 #청순한"
+              placeholder={"#오늘의 #태그는 #"+rank_1_tag}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
               onClick={handle_inputbase_on_click}

@@ -6,7 +6,7 @@ import './SearchPage.css'
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import {API, Auth} from 'aws-amplify';
-import {getTagList, getStyleTag,listTagLists,listStyleTags} from '../graphql/queries.js';
+import {listStyleTags} from '../graphql/queries.js';
 let RankTag = ({is_tag_more,handle_rank_tag_button_click,target_button,rank_tag_data})=>
     is_tag_more?
     <Stack>
