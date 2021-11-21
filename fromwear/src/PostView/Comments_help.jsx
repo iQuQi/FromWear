@@ -4,9 +4,9 @@ import './Comments.css';
 
 import { API } from 'aws-amplify';
 import { getUser} from '../graphql/queries';
-import  { createComment, onCreatedComment } from '../graphql/mutations';
+import  { createComment } from '../graphql/mutations';
 
-class Comments extends Component {
+class Comments_help extends Component {
 
     constructor(props){
         super();
@@ -50,15 +50,7 @@ class Comments extends Component {
     }
     
 
-    addTweet = () => {        
-        /*
-        this.setState({comment_list: [...this.props.comment_list, {
-            user_id: this.state.user_id,
-            name: this.state.writer_.name,
-            content: value,
-            like_user_list: [],
-        }]})
-        */
+    addTweet = () => {
 
         let value = document.querySelector('.new_tweet_content').value;
 
@@ -74,23 +66,8 @@ class Comments extends Component {
                     like_user_list: [],
                 } }
         })
-        /*
-        .subscribe({
-            next: newItem => {
-                console.log(newItem);
-            }
-
-        })
-        */
+        .then(res => console.log(res))
         .catch(e => console.log(e));
-
-        //console.log(this.state.comment_list);
-        //this.props.set_comment_list(this.state.comment_list)
-/*
-        this.setState({
-            comment_list: this.state.comment_list.push(Object)
-        })
-        */
     }
 
 
@@ -130,51 +107,4 @@ class Comments extends Component {
 
 }
 
-export default Comments;
-
-/*
-class Comments extends Component {
-
-    constructor(props){
-        super(props);
-
-        this.state = {
-            comment_list: this.props.comment_list,
-        }
-        //this.comment_list = this.comment_list.bind(this);
-    }
-    addTweet() {
-        //let value = document.querySelector('.new_tweet_content').value;
-        this.setState({comment_list: [...this.props.comment_list, {
-            user_id: this.props.comment_list.length +1,
-            name: now_user_name,
-            content: "1234"
-        }]})
-    }
-
-    render() {
-        let {comment_list} = this.state;
-        //console.log(this.props.comment_list);
-
-        return (
-            <div>
-                <div>
-                    <div className="comment_num">댓글 {this.props.comment_list.length}개</div>
-                    <ul className="comment_ul">
-                        {
-                            this.state.comment_list.map(comment_list => {
-                                return <SingleComment key={comment_list.user_id} comment={comment_list} />
-                            })
-                        }
-                    </ul>
-                    <div className="comment_check">
-                        <Comment_check />
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
-export default Comments;
-*/
+export default Comments_help;

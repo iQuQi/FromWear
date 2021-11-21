@@ -18,7 +18,15 @@ class Comment_check extends Component{
     }
 
 
-    
+    componentDidMount(){
+        API.graphql({
+            query: getUser, variables: {id: this.state.user_id}
+        })
+        .then(res => this.setState({
+            writer_: res.data.getUser,
+        }))
+        .catch(e => console.log(e));
+    }
     
 
     onClick = () => {
@@ -31,6 +39,16 @@ class Comment_check extends Component{
             is_checked:true,
         })
     
+    }
+
+    addTweet = () => {        
+        let value = document.querySelector('.new_tweet_content').value;
+        this.setState({comment_list: [...this.props.comment_list, {
+            user_id: this.state.user_id,
+            name: this.state.writer_.name,
+            content: value,
+        }]})
+        
     }
 
     render() {

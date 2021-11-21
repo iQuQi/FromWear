@@ -21,7 +21,7 @@ type User @model {
 	award_week: Int!
 }
 
-type follow @model 
+type Follow @model 
 {
 	following_id: ID! 
 	follower_id: ID!
@@ -63,6 +63,7 @@ type Post @model
 
 	bookmark_user_list:[ID]
 	like_user_list:[ID]
+	urgent_user_list:[ID]
 
 	tag_list:[String!]
 
@@ -76,6 +77,7 @@ type Post @model
 
 type PostBoard @model{
 	board_type:Int!
+	board_name: String
 	best_post_list:[ID!] 
 }
 
@@ -96,4 +98,8 @@ type StyleTag @model{
 	id:ID! 
 	value: String!
 	num: Int!
+}
+
+type AppInfo @model{
+	today: String
 }

@@ -12,8 +12,10 @@ import RankTag from './RankTag';
 import  Typography  from '@mui/material/Typography';
 import get_post_data, {post_items} from "./SearchData"
 import {get_rank_tag } from './TagData'; 
-
-
+import moment from 'moment';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import API from '@aws-amplify/api';
+import {getUser,getAppInfo,listStyleTags} from '../graphql/queries.js';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
 
@@ -27,31 +29,39 @@ class SearchPage extends Component{
 			target_rank_tag_button: rank_tag_clicked_list,
 			is_tag_more: false,
 			post_data: [],
-			rank_tag_data:[]
+			rank_tag_data:[],
+			current_next_post_page: 1,
+			current_input_tag: []
 
 		};
 	}
 
-	handle_img_on_click=e=>{
-		console.log("img clicked");
-	}
+	componentWillMount(){
 	
-	handle_tag_button_click=e=>{
-		var button_index = e.target.value;
-		if(!tag_clicked_list[button_index]) tag_clicked_list[button_index]= 1;
-		else tag_clicked_list[button_index]=0;
+		
+	}
+
+	handle_post_more_on_click=e=>{
 		this.setState({
-			target_tag_button: tag_clicked_list
+			current_next_post_page: this.state.current_next_post_page+1
 		})
 	}
 
-	handle_rank_tag_button_click=e=>{
-		console.log(e.target.value);
-		var button_index = e.target.value;
-		if(!rank_tag_clicked_list[button_index]) rank_tag_clicked_list[button_index]= 1;
-		else rank_tag_clicked_list[button_index]=0;
+	handle_tag_button_click=(e,index)=>{
+		if(!tag_clicked_list[index]) tag_clicked_list[index]= 1;
+		else tag_clicked_list[index]=0;
+
 		this.setState({
-			target_rank_tag_button: rank_tag_clicked_list
+			target_tag_button: tag_clicked_list,
+		})
+	}
+
+	handle_rank_tag_button_click=(e,index)=>{
+		if(!rank_tag_clicked_list[index]) rank_tag_clicked_list[index]= 1;
+		else rank_tag_clicked_list[index]=0;
+
+		this.setState({
+			target_rank_tag_button: rank_tag_clicked_list,
 		})
 	}
 
@@ -86,16 +96,27 @@ class SearchPage extends Component{
 		}
 	}
 
-	render(){
-		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data} = this.state;
+	handle_inputbase_on_change=e=>{
+		let split_tags = e.target.value.split('#');
+		
+		console.log(split_tags);
 
-		get_post_data(this.handle_post_data);
+		this.setState({
+			current_input_tag: split_tags
+		})
+	}
+
+	render(){
+		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
+		user_name,user_profile_img,current_next_post_page,current_checked_tag} = this.state;
+
+		get_post_data(this.handle_post_data,current_checked_tag);
 		get_rank_tag(this.handle_rank_tag_data);
 		
 
 		return(
 			<div className="search_page_container">	
-                <Header/>
+                <Header handle_inputbase_on_change={this.handle_inputbase_on_change}/>
 				<div className = "tag_div" >
 					<Stack direction="row">
 						<Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", fontWeight: 300, color: "black"}}>
@@ -131,9 +152,20 @@ class SearchPage extends Component{
 				</div>
 				<div className="search_page_content">
 						<SearchResult 
-						handle_img_on_click={this.handle_img_on_click} 
 						post_data={post_data}
+						current_next_post_page={current_next_post_page}
 						/>
+						<Button
+						variant="contained"
+						style={{
+							width: "100%",height: 50,
+							marginTop:20, backgroundColor:"black"
+
+						}}
+						onClick={this.handle_post_more_on_click}
+						>   
+							<ArrowDropDownIcon style={{fontSize:40}}/>
+						</Button>
 				</div>
 			
 				

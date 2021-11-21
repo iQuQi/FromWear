@@ -9,31 +9,32 @@ import Urgent from './Urgent';
 import SearchResult from './SearchResult';
 import Header from '../Header/Header'
 
-
 import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
 
 //이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let post_id = "post1 아이디";
-let user_id = "현민 id"; //현재 유저
-
+let post_id = "post2 아이디";
+let user_id = "연지 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 
 class Post extends Component{
-    constructor(){
+    constructor(props){
         super();
 
         this.state = {
             now_post:Object,
             now_writer:Object,
             like_user_list: [],
-            tag_list: [],
             like_click: false,
+            urgent_user_list: [],
+            urgent_click: false,
+            tag_list: [],
             user_id,
             comment_list: [],
             bookmark_user_list: [],
             bookmark_click: false,
             post_id,
+            //post_id: this.props.match.params.postid,
         }
     }
 
@@ -45,18 +46,29 @@ class Post extends Component{
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
             like_user_list: res.data.getPost.like_user_list,
+            urgent_user_list: res.data.getPost.urgent_user_list,
             tag_list: res.data.getPost.tag_list,
             comment_list: res.data.getPost.comment_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list,
         }))
-        .then(res => this.set_like(this.state.like_user_list))
+        .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .catch(e => console.log(e));  
 
     }
 
-    handleBookmarkButton = () => {
+    setLikeAndUrgent = (board_type) => {
+        if(board_type == 0){
+            this.set_like(this.state.like_user_list)
+            console.log("오늘의 착장")
+        }
+        else if(board_type == 1){
+            this.set_urgent(this.state.urgent_user_list)
+            console.log("도움이 필요해")
+        }
+    }
 
+    handleBookmarkButton = () => {
         if(this.state.bookmark_click == true){
             var index = this.state.bookmark_user_list.indexOf(user_id)
             if(index > -1){
@@ -93,7 +105,6 @@ class Post extends Component{
             else {
                 console.log("error!! cannot find user_id in like_user_list");
             }
-
             this.setState((prev) => {
                 return {
                     like_click: false,
@@ -113,12 +124,40 @@ class Post extends Component{
         
     }
 
+    handleUrgentButton = () => {
+        if(this.state.urgent_click == true){
+            var index = this.state.urgent_user_list.indexOf(user_id)
+            if(index > -1){
+                this.state.urgent_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
+            }
+            else {
+                console.log("error!! cannot find user_id in urgent_user_list");
+            }
+
+            this.setState((prev) => {
+                return {
+                    urgent_click: false,
+                }
+
+            });
+        }
+        else {
+            this.state.urgent_user_list.push(user_id);
+            this.setState((prev) => {
+                return {
+                    urgent_click: true,
+                }
+
+            });
+        }
+        
+    }
+
     set_comment_list = (changed_comment_list) => {
         this.setState(prev => ({
           commenet_list: changed_comment_list,
         }));
-
-      }
+    }
 
     set_like(list) {
         var index = list.indexOf(user_id)
@@ -127,6 +166,13 @@ class Post extends Component{
         }
     }
     
+    set_urgent(list) {
+        var index = list.indexOf(user_id)
+        if(index > -1){
+            this.setState({urgent_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
+        }
+    }
+
     set_bookmark(list){
         var index = list.indexOf(user_id)
         if(index > -1){
@@ -135,7 +181,7 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id} = this.state;
+        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
         
         //console.log(comment_list);
         //console.log(now_post.blind)
@@ -188,7 +234,11 @@ class Post extends Component{
                                 like_user_list={like_user_list}
                                 like_click={like_click}
                                 handleLikeButton={this.handleLikeButton}
-                                /> : <Urgent />
+                                /> : <Urgent
+                                urgent_user_list={urgent_user_list}
+                                urgent_click={urgent_click}
+                                handleUrgentButton={this.handleUrgentButton}
+                                />
                             }
                             <div className="post_list">
                                 {"#" + tag_list[0] + " "}

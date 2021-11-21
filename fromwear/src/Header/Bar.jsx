@@ -62,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({handle_inputbase_on_change}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -111,7 +111,7 @@ export default function PrimarySearchAppBar() {
 
 
     >
-      <MenuItem style={{fontSize:13}} onClick={handleMenuClose} >마이페이지</MenuItem>
+      <a href="/mypage"><MenuItem style={{fontSize:13}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
       <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
     </Menu>
   );
@@ -136,7 +136,7 @@ export default function PrimarySearchAppBar() {
     
     {
     alarm_data.map((item,index)=>
-      <MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem>
+      <a href=""><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
     )
     }
     
@@ -163,6 +163,7 @@ export default function PrimarySearchAppBar() {
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
               placeholder="#오늘의 #태그는 #청순한"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handle_inputbase_on_change}
             />
             <SelectGender/>
             <SelectDay/>
