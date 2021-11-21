@@ -81,7 +81,6 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
     consolePrint = () => {
-        console.log(this.state.post_list[0].comment_list);
         console.log(this.state.post_list[0].comment_list.items);
     }
 
@@ -91,13 +90,20 @@ export default class TodayPostBoardPosts extends Component {
             query: listPosts, 
             variables: { filter: {board_type: {ne: 1}}}})
 			.then(res => {
-console.log(res.data.listPosts.items);
                 this.setState({
                 post_state: 3,
-                post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
+                post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
             })
         })
 			.catch(e => console.log(e));
+
+        API.graphql({ 
+            query: listPosts, 
+            variables: { filter: {board_type: {ne: 1}}}})
+            .then(res => {
+                console.log(Object.values(res.data.listPosts.items[0])); 
+            })
+        .catch(e => console.log(e));
         this.consolePrint();
 	}
 
@@ -175,7 +181,7 @@ console.log(res.data.listPosts.items);
                                     <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
                                     <p style={{margin: '16px 0px'}}>{post.user.name}</p>
                                 </div>
-                                {(post_state == 1 || post_state == 4) && 
+                                {(post_state == 1 || post_state == 4 || post_state == 3 ) && 
                                     <div className="user_like">
                                         <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
                                         <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
@@ -187,12 +193,12 @@ console.log(res.data.listPosts.items);
                                         <VisibilityIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                     </div>
                                 }
-                                {post_state == 3 && 
+                                {/* {post_state == 3 && 
                                     <div className="user_like">
-                                        <p style={{margin: '16px 0px'}}>{post.comment_list.items.length}</p>
+                                        <p style={{margin: '16px 0px'}}>{post.comment_list.items}</p>
                                         <CommentIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                     </div>
-                                }
+                                } */}
                             </Stack>				
                         </ImageListItem>
                     ))}

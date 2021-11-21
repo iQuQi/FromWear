@@ -5,11 +5,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function BasicSelect({handle_select_day}) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    handle_select_day(event);
   };
 
   return (
@@ -24,12 +25,14 @@ export default function BasicSelect() {
           displayEmpty
           onChange={handleChange}
         >
-          <MenuItem  style={{fontSize:13 }} value="">기간</MenuItem>
+          <MenuItem style={{fontSize:13 }} value="">기간</MenuItem>
           <MenuItem style={{fontSize:13 }} value={10}>오늘</MenuItem>
           <MenuItem style={{fontSize:13 }} value={20}>일주일</MenuItem>
           <MenuItem style={{fontSize:13 }} value={30}>한달</MenuItem>
           <MenuItem style={{fontSize:13 }} value={40}>6개월</MenuItem>
           <MenuItem style={{fontSize:13 }} value={50}>1년</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={60}>전체</MenuItem>
+
 
 
         </Select>

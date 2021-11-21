@@ -9,6 +9,7 @@ import PostWritePage from './PostWritePage/PostWritePage.jsx';
 import SearchPage from './SearchPage/SearchPage.jsx';
 import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
 
+import MyPage from './MyPage/MyPage.jsx';
 import Amplify from 'aws-amplify';
 import config from './aws-exports';
 Amplify.configure(config);
@@ -22,10 +23,11 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} exact/>
               <Route path="/todayboard" element={<TodayPostBoard/>} exact/>
-              <Route path="/post" element={<PostView />} exact/>
+              <Route path="/post/:postid" element={<PostView />} exact/>
               <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
               <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
+              <Route path="/mypage" element={<MyPage/>} exact/>
             </Routes>
           </BrowserRouter>
       </div>

@@ -3,13 +3,13 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { borderRadius } from '@mui/system';
-import './SearchPage.css'
+import './PostSearchPage.css'
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import item_data from "./SearchData"
 
-let SearchResult = ({handle_img_on_click})=>
+let PostSearchResult = ({handle_img_on_click})=>
 <ImageList cols={5} gap={10} >
 					{item_data.map((item,index) => (
 						<ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
@@ -37,4 +37,4 @@ let SearchResult = ({handle_img_on_click})=>
 </ImageList>
 
 
-export default SearchResult;
+export default PostSearchResult;

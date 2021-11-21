@@ -1,43 +1,42 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import { borderRadius } from '@mui/system';
+import { ImageListItem } from '@mui/material';
+
 import './SearchPage.css'
-import Stack from '@mui/material/Stack';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
-import item_data from "./SearchData"
-
-let SearchResult = ({handle_img_on_click})=>
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { ConsoleLogger } from '@aws-amplify/core';
+let link;
+let SearchResult = ({post_data,current_next_post_page})=>
 <ImageList cols={5} gap={10} >
-					{item_data.map((item,index) => (
-						<ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
+					{post_data.map((item,index) => 
+						 index<(current_next_post_page*25)?
+						 <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
                                 <img className="img_item" 
 								src={item.img}
 								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.img+index}
 								loading="lazy"
-								onClick={handle_img_on_click}
 							    />	
-
-								<a href="/post">
-									<span className={"dimmed_layer"}>
-										<span className="dimmed_info_writer">
-											<img src={item.img} alt="프로필" 
-												style={{width:"30px",height:"30px",borderRadius:"50%", 
-												position: "relative",top:"8px", marginRight:"5px"}}/>
-											유진
+									{link="/post/"+item.id}
+									<a href={link}>
+										<span className={"dimmed_layer"}>
+											<span className="dimmed_info_writer">
+												<img src={item.user.profile_img} alt="프로필" 
+													style={{width:"30px",height:"30px",borderRadius:"50%", 
+													position: "relative",top:"8px", marginRight:"5px"}}/>
+												{item.user.name}
+											</span>
+											<span className="dimmed_info_like">
+												{item.like_user_num}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+											</span>
 										</span>
-										<span className="dimmed_info_like">♥️ 1000</span>
-									</span>
-								</a>
-
-
-                            	
+									</a>
+								)
 						</ImageListItem>
-                    )
-                    )}
+						:
+						console.log(index+": pass")
+					)
+				}
 </ImageList>
 
 
