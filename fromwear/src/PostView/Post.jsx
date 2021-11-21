@@ -10,7 +10,7 @@ import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
-import { getPost } from '../graphql/queries';
+import { getComment, getPost } from '../graphql/queries';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 //import pro1 from './Imgs/pro1.jpeg';
@@ -41,6 +41,12 @@ class Post extends Component{
     }
 
     componentWillMount(){
+
+        API.graphql({
+            query: getComment, variables: {id: "comment13_1_id"}
+        })
+        .then(res => console.log(res))
+
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })

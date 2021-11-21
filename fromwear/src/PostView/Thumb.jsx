@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import './Thumb.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
+import { API } from 'aws-amplify';
+import { updateAppInfo, updateComment } from '../graphql/mutations';
+
 class Thumb extends Component{
     constructor(props){
         super();
 
         this.state = {
             is_checked: false,
-            thumb_num: props.comment_list.like, //기본 상태
             comment_list: props.comment_list,
             user_id: props.user_id,
         };
@@ -30,6 +32,12 @@ class Thumb extends Component{
             //console.log("값이 바뀜")
         }
         //console.log(this.state.comment_list.like_user_list);
+
+            
+        API.grapql({
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
     }
 
     onClick = () => {
@@ -41,7 +49,6 @@ class Thumb extends Component{
                 this.setState((prev) => {
                     return{
                         is_checked: !prev.is_checked,
-                        thumb_num: this.state.thumb_num -1,
                     }
                 })
             }
@@ -54,7 +61,6 @@ class Thumb extends Component{
             this.setState((prev) => {
                 return {
                     is_checked: !prev.is_checked,
-                    thumb_num: this.state.thumb_num +1,
                 }
             })
         }
@@ -64,7 +70,7 @@ class Thumb extends Component{
     render() {
         //console.log(this.state.is_checked)
         let {comment_list, is_checked} = this.state;
-        //console.log(comment_list)
+        //console.log(comment_list.like_user_list)
         return (
             <div className="thumb_div">
                 <div className="thumb_num">{comment_list.like_user_list.length}</div>

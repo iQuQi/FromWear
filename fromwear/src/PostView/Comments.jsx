@@ -4,7 +4,7 @@ import './Comments.css';
 
 import { API } from 'aws-amplify';
 import { getUser, getPost } from '../graphql/queries';
-import  { createComment } from '../graphql/mutations';
+import  { createComment, updateComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 
 class Comments extends Component {
@@ -61,6 +61,13 @@ class Comments extends Component {
             });
         })
         .catch(e => console.log(e));
+
+        API.grapql({query: updateComment, variables:{input: {id: this.state.user_id,
+        like: 5000,
+        }}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
     }
 
     onClick = () => {
@@ -74,7 +81,7 @@ class Comments extends Component {
         })
     
     }
-    
+
     addTweet = () => {        
         /*
         this.setState({comment_list: [...this.props.comment_list, {
