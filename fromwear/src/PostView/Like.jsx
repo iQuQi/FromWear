@@ -5,19 +5,44 @@ import {HeartOutlined, HeartFilled} from '@ant-design/icons';
 
 let like_num = 50
 
-class Like extends Component{
+let Like =(props) => {
+    let {like_user_list, like_click, handleLikeButton} = props;
 
-    state = {
-        is_checked: false,
-        notice: like_num, //기본 상태
-    };
+    return (
+            <div className="icons_list">
+                {
+                    like_click ?
+                    <HeartFilled className="button heart_filled" onClick={handleLikeButton}/>
+                    : <HeartOutlined className="button heart_outlined" onClick={handleLikeButton}/>
+                }
+                <div className="like_num">{like_user_list.length}</div>
+            </div>
+        )
+        
+}
 
-    onClick = () => {
+export default Like;
+
+
+/*
+class Like extends Component {
+    //let {like_user_list, like_click} = prop;
+    
+    constructor(){
+        super();
+
+        this.state = {
+            is_checked: false,
+            notice: like_num, //기본 상태
+        };
+    }
+
+    onClick() {
         this.state.is_checked?
         this.not_like() : this.push_like()
     }
 
-    not_like(){ //좋아요 안누른 상태 (눌렀다 취소 상태)
+    not_like() { //좋아요 안누른 상태 (눌렀다 취소 상태)
         like_num = like_num - 1
         this.setState({
             is_checked: false,
@@ -25,26 +50,28 @@ class Like extends Component{
         })
     }
 
-    push_like(){ //좋아요 누른 상태
+    push_like() { //좋아요 누른 상태
         like_num = like_num + 1
         this.setState({
             is_checked: true,
             notice: like_num,
         })
     }
-
-    render() {
+    render(){
+        let {is_checked} = this.state;
         return (
             <div className="icons_list">
                 {
-                    this.state.is_checked ?
-                    <HeartFilled className="button heart_filled" onClick={this.onClick}/>
-                    : <HeartOutlined className="button heart_outlined" onClick={this.onClick}/>
+                    is_checked ?
+                    <HeartFilled className="button heart_filled"/>
+                    : <HeartOutlined className="button heart_outlined"/>
                 }
-                <div className="like_num">{this.state.notice}</div>
+                <div className="like_num">{like_num}</div>
             </div>
-        )
-    }
+            )
+        }
 }
 
 export default Like;
+
+*/

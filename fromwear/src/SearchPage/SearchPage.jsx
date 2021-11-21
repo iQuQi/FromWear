@@ -30,7 +30,6 @@ class SearchPage extends Component{
 			target_tag_button: tag_clicked_list,
 			target_rank_tag_button: rank_tag_clicked_list,
 			is_tag_more: false,
-			is_search_bar_clicked: false,
 			filter_gender: "",
 			filter_day:-1,
 			post_data: [],
@@ -139,15 +138,10 @@ class SearchPage extends Component{
 
 	}
 
-	handle_inputbase_on_click=e=>{
-		this.setState({
-			is_search_bar_clicked: true,
-		})
-	}
 
 	handle_x_button_on_click=e=>{
 		this.setState({
-			is_search_bar_clicked: false,
+			is_tag_more:false
 		})
 	}
 
@@ -255,10 +249,8 @@ class SearchPage extends Component{
 			<div>
 				<Header 
 				handle_inputbase_on_change={this.handle_inputbase_on_change}
-				handle_inputbase_on_click={this.handle_inputbase_on_click}
 				handle_select_day={this.handle_select_day}
 				handle_select_gender={this.handle_select_gender}
-				rank_1_tag={rank_1_tag}
 				/>
 				
 				<div className="search_page_container">	

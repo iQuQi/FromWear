@@ -8,7 +8,11 @@ import PostView from './PostView/Post.jsx';
 import PostWritePage from './PostWritePage/PostWritePage.jsx';
 import SearchPage from './SearchPage/SearchPage.jsx';
 import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
+
 import MyPage from './MyPage/MyPage.jsx';
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+Amplify.configure(config);
 
 
 function App() {

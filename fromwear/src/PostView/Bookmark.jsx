@@ -3,6 +3,25 @@ import './Bookmark.css';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
+let Bookmark =(prop) => {
+    let {bookmark_click, handleBookmarkButton} = prop;
+
+   
+    return (
+        <div className="icons_list">
+            {
+                bookmark_click ?
+                <BookmarkIcon className="button bookmark_filled" onClick={handleBookmarkButton}/>
+                : <BookmarkBorderIcon className="button bookmark_outlined" onClick={handleBookmarkButton}/>
+            }
+        </div>
+        )
+    
+}
+
+export default Bookmark;
+
+/*
 class Bookmark extends Component{
 
     state = {
@@ -34,3 +53,4 @@ class Bookmark extends Component{
 }
 
 export default Bookmark;
+*/

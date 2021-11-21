@@ -19,6 +19,7 @@ import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import alarm_data from './AlarmData';
+import { get_rank_tag } from '../SearchPage/RankTag';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -147,6 +148,9 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
   );
 
 
+ 
+
+
   return (
     <div >
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
@@ -160,13 +164,16 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
+            {console.log(window.location.href)}
+            <a href={window.location.href=="http://localhost:3000/search"?"#":"/search"}>
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
-              placeholder={"#오늘의 #태그는 #"+rank_1_tag}
+              placeholder={"#오늘의 #태그는 #"+""}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
-              onClick={handle_inputbase_on_click}
             />
+            </a>
+            
             <SelectGender handle_select_gender={handle_select_gender}/>
             <SelectDay handle_select_day={handle_select_day}/>
           </Search>
