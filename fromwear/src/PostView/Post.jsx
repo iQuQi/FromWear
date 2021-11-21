@@ -18,7 +18,7 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "연지 id"; //현재 유저
+let user_id = "현경 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
@@ -40,13 +40,7 @@ class Post extends Component{
         }
     }
 
-    componentWillMount(){
-
-        API.graphql({
-            query: getComment, variables: {id: "comment13_1_id"}
-        })
-        .then(res => console.log(res))
-
+    componentDidMount(){
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
@@ -185,6 +179,8 @@ class Post extends Component{
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
        
+        //console.log(like_user_list);
+        //console.log(like_user_list.length);
         return (
             <div className="post_page">
                 <Header />
@@ -231,7 +227,7 @@ class Post extends Component{
                             />
                             {
                                 
-                                (now_post.board_type == 0) ?
+                                (now_post.board_type == 0 || now_post.board_type == 2)  ?
                                 <Like
                                 like_user_list={like_user_list}
                                 like_click={like_click}

@@ -20,21 +20,23 @@ class Thumb extends Component{
     }
 
     componentDidMount(){
-        let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
-        //console.log(this.state.comment_list.like_user_list)
-        //console.log(index)
-        if(index > -1){
-            //console.log("값이 바뀌어야함")
-            this.setState(
-                {is_checked: true,}
-            )
-            //console.log(this.state.is_checked)
-            //console.log("값이 바뀜")
+        if(this.state.comment_list.like_user_list != null){
+            let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
+            //console.log(this.state.comment_list.like_user_list)
+            //console.log(index)
+            if(index > -1){
+                //console.log("값이 바뀌어야함")
+                this.setState(
+                    {is_checked: true,}
+                )
+                //console.log(this.state.is_checked)
+                //console.log("값이 바뀜")
+            }
         }
         //console.log(this.state.comment_list.like_user_list);
 
-            
-        /*API.grapql({
+/*            
+        API.grapql({
         })
         .then(res => console.log(res))
         .catch(e => console.log(e))*/
@@ -73,7 +75,12 @@ class Thumb extends Component{
         //console.log(comment_list.like_user_list)
         return (
             <div className="thumb_div">
-                <div className="thumb_num">{comment_list.like_user_list.length}</div>
+                {
+                    comment_list.like_user_list == null ?
+                    <div className="thumb_num">0</div>
+                    :<div className="thumb_num">{comment_list.like_user_list.length}</div>
+                
+                }
                 {
                     is_checked ?
                     <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>
