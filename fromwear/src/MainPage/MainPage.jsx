@@ -15,6 +15,9 @@ import MoodBadIcon from '@mui/icons-material/MoodBad';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+import { API } from 'aws-amplify';
+import { listPosts } from '.././graphql/queries';
+
 class MainPage extends Component {
 	constructor() {
 		super();
@@ -56,6 +59,7 @@ class MainPage extends Component {
 		
 
 		return <div id = 'main_page'>
+			<Header/>
 			<div className = 'banner'>
 				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
 			</div>
