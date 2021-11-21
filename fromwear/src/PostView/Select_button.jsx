@@ -1,6 +1,6 @@
-import { Select } from '@mui/material';
 import React, {Component} from 'react';
 import './Select_button.css';
+import Thumb from './Thumb';
 
 class Select_button extends Component{
 
@@ -13,6 +13,7 @@ class Select_button extends Component{
             comment_list: props.comment_list,
             post_writer: props.post_writer, //게시물을 쓴 사람
             board_type: props.board_type,
+            writer_user: props.writer_user,
         }
     }
     
@@ -35,6 +36,9 @@ class Select_button extends Component{
         if(this.props.post_writer !== prevProps.post_writer){
             this.setState({post_writer: this.props.post_writer})
         }
+        if (this.props.writer_user !== prevProps.writer_user) {
+          this.setState({writer_user: this.props.writer_user})
+        }
     }
 
 
@@ -49,37 +53,53 @@ class Select_button extends Component{
     
 
     render() {
-        let {select_button_is_checked, user_id, comment_list, post_writer, post_board} = this.state;
+        let {select_button_is_checked, user_id, comment_list, post_writer, post_board, writer_user} = this.state;
         return (
-            <div className="select_div">
+            <div>
                 {
-                    post_writer.id==user_id ?
-                    <div>
-                    {
-                        select_button_is_checked ?
-                        <div className="select_yes" onClick={this.onClick}>
-                            채택하기
-                        </div>
-                        :
-                        <div className="select_no" onClick={this.onClick}>
-                            채택하기
-                        </div>
-                    }
+                    select_button_is_checked ?
+                    <div className="selected_star_img">
+                        <img src={writer_user.profile_img} className="writer_img selected_img" /> 
                     </div>
-                    :
-                    <div>
-                    {
-                        select_button_is_checked ?
-                        <div className="select_yes">
-                            채택된 댓글
-                        </div>
-                        :
-                        <div className="select_no"></div> //채택안됨
-                    }
-                    </div>
-
-                    
+                    :<img src={writer_user.profile_img} className="writer_img" /> 
+                
                 }
+                {
+                    select_button_is_checked ?
+                    <div className="comment_user_name selected_name">{writer_user.name}</div>
+                    :<div className="comment_user_name ">{writer_user.name}</div>
+                }
+                <Thumb 
+                        comment_list={comment_list}
+                        user_id={user_id}/>
+                <div className="select_div">
+                    {
+                        post_writer.id==user_id ?
+                        <div>
+                        {
+                            select_button_is_checked ?
+                            <div className="select_yes" onClick={this.onClick}>
+                                채택하기
+                            </div>
+                            :
+                            <div className="select_no" onClick={this.onClick}>
+                                채택하기
+                            </div>
+                        }
+                        </div>
+                        :
+                        <div>
+                        {
+                            select_button_is_checked ?
+                            <div className="select_yes">
+                                채택된 댓글
+                            </div>
+                            :
+                            <div className="select_no"></div> //채택안됨
+                        }
+                        </div>
+                    }
+                </div>
             </div>
         )
     }

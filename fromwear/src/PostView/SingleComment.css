@@ -9,6 +9,7 @@
     width: 30px;
     height: 30px;
     margin-bottom: 5px;
+    margin-left: 3px;
     border: 1px solid;
     border-radius: 50%;
 }
@@ -26,7 +27,7 @@
     cursor: pointer;
     font-weight: bold;
     display:inline-block;
-    margin-left: 7px;
+    margin-left: 8px;
     margin-bottom: 5px;
     padding-bottom: 5px;
 }
@@ -34,5 +35,4 @@
 .comment_content {
     /*margin-top: 10px;*/
     line-height: 1.4;
-
 }

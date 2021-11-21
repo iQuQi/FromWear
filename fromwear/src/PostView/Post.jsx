@@ -18,7 +18,7 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "현경 id"; //현재 유저
+let user_id = "민수 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){

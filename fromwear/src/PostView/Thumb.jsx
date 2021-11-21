@@ -15,31 +15,17 @@ class Thumb extends Component{
             user_id: props.user_id,
         };
 
-        //console.log("constructor", this.state.is_checked)
-        //console.log(this.state.comment_list.like_user_list);
     }
 
     componentDidMount(){
         if(this.state.comment_list.like_user_list != null){
             let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
-            //console.log(this.state.comment_list.like_user_list)
-            //console.log(index)
             if(index > -1){
-                //console.log("값이 바뀌어야함")
                 this.setState(
                     {is_checked: true,}
                 )
-                //console.log(this.state.is_checked)
-                //console.log("값이 바뀜")
             }
         }
-        //console.log(this.state.comment_list.like_user_list);
-
-/*            
-        API.grapql({
-        })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))*/
     }
 
     onClick = () => {
@@ -70,9 +56,7 @@ class Thumb extends Component{
 
 
     render() {
-        //console.log(this.state.is_checked)
         let {comment_list, is_checked} = this.state;
-        //console.log(comment_list.like_user_list)
         return (
             <div className="thumb_div">
                 {

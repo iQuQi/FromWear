@@ -1,5 +1,0 @@
-{
-  "AppSyncApiName": "fromwear",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
-}

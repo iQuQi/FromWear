@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './SingleComment.css';
 import Thumb from './Thumb';
 import Select_button from './Select_button';
-import StarIcon from '@mui/icons-material/Star';
 
 import { API } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
@@ -59,21 +58,27 @@ class SingleComment extends Component {
         return (
             <div>
                 <div className="one_comment">
-                <img src={writer_user.profile_img} className="writer_img" /> 
-                    <div className="comment_user_name">{writer_user.name}</div>
-                    <Thumb 
-                    comment_list={comment_list}
-                    user_id={user_id}/>
                     {
-                        (board_type==1)?
-                        <Select_button
-                        comment_list={comment_list}
-                        user_id={user_id}
-                        post_writer={post_writer}
-                        board_type={board_type}
-                        /> : <div></div>
+                        (board_type == 1)?
+                        <div>
+                            <Select_button
+                                writer_user={writer_user}
+                                comment_list={comment_list}
+                                user_id={user_id}
+                                post_writer={post_writer}
+                                board_type={board_type}
+                            />
+                            <p className="comment_content">{comment_list.content}</p>
+                        </div>
+                        :<div>
+                            <img src={writer_user.profile_img} className="writer_img" /> 
+                            <div className="comment_user_name">{writer_user.name}</div>
+                            <Thumb 
+                            comment_list={comment_list}
+                            user_id={user_id}/>
+                            <p className="comment_content">{comment_list.content}</p>
+                        </div>
                     }
-                    <p className="comment_content">{comment_list.content}</p>
                 </div>
             </div>
         )
