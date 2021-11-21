@@ -29,7 +29,7 @@ class MainPage extends Component {
 		};
 	}
 
-	componentDidMount(){
+	componentWillMount(){
 		for (let i = 0; i < 3; i++) {
 			this.getPosts(i);	
 		}
@@ -39,7 +39,7 @@ class MainPage extends Component {
 		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: i}}  }})
 		.then( res => {
 			if(i==0) this.setState({ postlist_0: res.data.listPosts.items });
-			else if(i==1) this.setState({ postlist_1: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
+			else if(i==1) this.setState({ postlist_1: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}) });
 			else if(i==2) {
 				this.setState({ postlist_2: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
 				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_user_num-a.like_user_num})});
@@ -119,7 +119,7 @@ class MainPage extends Component {
 									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
 									<p style={{margin: '16px 0px'}}>{item.urgent_user_num}</p>
-									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+									<MoodBadIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 								</Stack>				
 							</ImageListItem>
 						))}
