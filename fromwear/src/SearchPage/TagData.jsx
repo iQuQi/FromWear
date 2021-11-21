@@ -117,11 +117,11 @@ export const static_tag_data = [
 },
 {
   id: "29",
-  name: "가을코드"
+  name: "가을코디"
 },
 {
   id: "30",
-  name: "겨울코드"
+  name: "겨울코디"
 },
 {
   id: "31",
