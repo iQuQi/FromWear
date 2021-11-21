@@ -45,6 +45,7 @@ export let get_rank_tag =(handle_rank_tag_data)=>{
     )
     .catch(e=>console.log(e))
 
+
 }
 
          

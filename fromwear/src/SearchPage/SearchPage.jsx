@@ -37,7 +37,6 @@ class SearchPage extends Component{
 			current_next_post_page: 1,
 			current_input_tag: [],
 			current_click_tag_num: 0,
-			rank_1_tag: ""
 
 		};
 	}
@@ -119,7 +118,6 @@ class SearchPage extends Component{
 		if(this.state.rank_tag_data.length==0){
 			this.setState({
 				rank_tag_data: new_rank_tag_data,
-				rank_1_tag: new_rank_tag_data[0].value
 			})
 		}
 	}
@@ -239,7 +237,7 @@ class SearchPage extends Component{
 
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
-		current_next_post_page,is_search_bar_clicked,rank_1_tag} = this.state;
+		current_next_post_page} = this.state;
 
 
 		console.log("render");
