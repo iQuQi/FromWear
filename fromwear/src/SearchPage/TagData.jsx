@@ -1,11 +1,7 @@
-import * as React from 'react';
-import {API, Auth} from 'aws-amplify';
-import {getTagList, getStyleTag,listTagLists,listStyleTags} from '../graphql/queries.js';
-import { ratingClasses } from '@mui/material';
 
 
 //최대 4글자
-export const static_tag_Data = [
+export const static_tag_data = [
  {
    id: "1",
    name: "캐주얼"
@@ -154,22 +150,4 @@ export const static_tag_Data = [
 ];
 
 
-
-export let get_rank_tag =(handle_rank_tag_data)=>{
-    var style_tags;
-    API.graphql({
-      query: listStyleTags,
-    })
-    .then(res=>{
-      style_tags = res.data.listStyleTags.items;
-      //a.sort(function (a, b) { return b - a }) - javascript sorting 방법
-      return style_tags.sort(function(a,b){return b.num-a.num});
-
-    })
-    .then((res)=>
-       handle_rank_tag_data(res.slice(0,10))
-    )
-    .catch(e=>console.log(e))
-
-}
 

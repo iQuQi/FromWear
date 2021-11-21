@@ -6,12 +6,17 @@
     margin: auto;
     overflow-y: auto;
     background-color: white;
+   
 }
 .banner{
     margin: auto;
     height: 415px;
     width: 100%;
     background-color: #F2F2F2;
+}
+.contents{
+	overflow: auto;
+	margin-bottom: 120px;
 }
 .collection{
     position: relative;
@@ -37,4 +42,20 @@
     color: grey;
     font-weight: 600;
     font-size: 0.8em;
+}
+.weekly_image_list_item:hover .dimmed_layer{
+	position: absolute;
+	top: 0;
+	bottom: 34px;
+	right: 0;
+	left: 0;
+
+	padding: 33% 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 16px;
+
+    color: white;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
 }

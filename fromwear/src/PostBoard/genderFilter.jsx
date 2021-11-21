@@ -7,21 +7,20 @@ import Select from '@mui/material/Select';
 export default function BasicSelect({handle_select_gender}) {
   const [age, setAge] = React.useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-    handle_select_gender(event);
+  const handleChange = (e) => {
+    setAge(e.target.value);
+    handle_select_gender(e);
   };
 
   return (
-    <Box sx={{ minWidth: "90px", height: "35px",marginRight: "10px" ,float:"right"}}>
+    <Box style={{ minWidth: "90px", height: "35px",marginRight: "10px",float:"right" }}>
       <FormControl variant ="standard" fullWidth>
 
-        <Select style ={{height: "35px",fontSize:13,textAlign:"center",zIndex:100000}}
+        <Select style ={{height: "35px",fontSize:13,textAlign:"center"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
           displayEmpty
-          disabled={window.location.href!=("http://localhost:3000/search"||"http://localhost:3000/search#")}
           onChange={handleChange}
         >
           <MenuItem style={{fontSize:13 }} value="">성별</MenuItem>

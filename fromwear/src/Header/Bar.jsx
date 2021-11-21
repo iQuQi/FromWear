@@ -19,7 +19,8 @@ import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import alarm_data from './AlarmData';
-
+import { get_rank_tag } from '../SearchPage/RankTag';
+let rank_1="";
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -62,7 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({handle_inputbase_on_change}) {
+export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
+  handle_select_gender}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -146,8 +148,14 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change}) {
   );
 
 
+  const handle_rank_data=(rank_data)=>{
+      rank_1=rank_data[0].value;
+  };
+
+
   return (
     <div >
+      {get_rank_tag(handle_rank_data)}
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
@@ -159,14 +167,17 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change}) {
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
+            <a href={window.location.href=="http://localhost:3000/search"?"#":"/search"}>
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
-              placeholder="#오늘의 #태그는 #청순한"
+              placeholder={"#오늘의 #태그는 #"+rank_1}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
             />
-            <SelectGender/>
-            <SelectDay/>
+            </a>
+            
+            <SelectGender handle_select_gender={handle_select_gender}/>
+            <SelectDay handle_select_day={handle_select_day}/>
           </Search>
 
         
@@ -212,7 +223,8 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change}) {
       {alarm_data.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
-  );
+  )
 }
+
 
 
