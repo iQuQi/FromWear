@@ -17,17 +17,24 @@ class Comments extends Component {
             board_type: props.board_type,
             user_id: props.user_id,
             write_is_checked: false,
-            writer_: Object,
+            writer_: Object, //현재 댓글을 쓰는 사람
+            post_writer: props.post_writer, //현재 보고 있는 post를 쓴 사람
         }
     }
 
-    componentDidUpdate(props){
-        if(this.state.comment_list !== props.comment_list){
-            this.setState({comment_list: props.comment_list});
-          }
+    componentDidUpdate(prevProps) {
+        if (this.props.comment_list !== prevProps.comment_list) {
+          this.setState({comment_list: this.props.comment_list,})
+        }
+        if(this.props.board_type !== prevProps.board_type){
+            this.setState({board_type: this.props.board_type});
+        }
+        if(this.props.post_writer !== prevProps.post_writer){
+            this.setState({post_writer: this.props.post_writer})
+        }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         API.graphql({
             query: getUser, variables: {id: this.state.user_id}
         })
@@ -95,7 +102,7 @@ class Comments extends Component {
 
 
     render(){
-        let {comment_list, board_type, user_id, write_is_checked, writer_} = this.state;
+        let {comment_list, board_type, user_id, write_is_checked, writer_, post_writer} = this.state;
         
         return (
             <div>
@@ -104,7 +111,7 @@ class Comments extends Component {
                     <ul className="comment_ul">
                         {
                             comment_list.map(comment_list => {
-                                return <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id}/>
+                                return <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id} post_writer={post_writer}/>
                             })
                         }
                     </ul>
@@ -131,50 +138,3 @@ class Comments extends Component {
 }
 
 export default Comments;
-
-/*
-class Comments extends Component {
-
-    constructor(props){
-        super(props);
-
-        this.state = {
-            comment_list: this.props.comment_list,
-        }
-        //this.comment_list = this.comment_list.bind(this);
-    }
-    addTweet() {
-        //let value = document.querySelector('.new_tweet_content').value;
-        this.setState({comment_list: [...this.props.comment_list, {
-            user_id: this.props.comment_list.length +1,
-            name: now_user_name,
-            content: "1234"
-        }]})
-    }
-
-    render() {
-        let {comment_list} = this.state;
-        //console.log(this.props.comment_list);
-
-        return (
-            <div>
-                <div>
-                    <div className="comment_num">댓글 {this.props.comment_list.length}개</div>
-                    <ul className="comment_ul">
-                        {
-                            this.state.comment_list.map(comment_list => {
-                                return <SingleComment key={comment_list.user_id} comment={comment_list} />
-                            })
-                        }
-                    </ul>
-                    <div className="comment_check">
-                        <Comment_check />
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
-export default Comments;
-*/

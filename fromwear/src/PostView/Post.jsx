@@ -13,11 +13,12 @@ import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
+//import pro1 from './Imgs/pro1.jpeg';
+//import img_pro from './Imgs/img.jpeg';
 
 
-//이 둘은 나중에 상위 컴포넌트한테 prop로 받아야하는 것
-//let post_id = "post1 아이디";
-let user_id = "연지 id"; //현재 유저
+//나중에 상위 컴포넌트한테 prop로 받아야하는 것
+let user_id = "연희 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
@@ -38,7 +39,6 @@ class Post extends Component{
             //post_id,
             post_id: props.postid,
         }
-        console.log(this.state.post_id);
     }
 
     componentWillMount(){
@@ -186,21 +186,26 @@ class Post extends Component{
 
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, comment_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
-        console.log(comment_list)
+       
         return (
             <div className="post_page">
                 <Header />
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <img className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}/>
+                            <div className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}></div>
                             <div className="content_box">
                                 <div className="writer">
                                     {
                                         now_post.blind?
-                                        <img className="post_writer_img" src={profile_skyblue}/>
+                                        <img className="post_writer_img" src={profile_skyblue} />
                                         :
-                                        <img className="post_writer_img" src={now_writer.profile_img}/> //style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}
+                                        <img className="post_writer_img" src={now_writer.profile_img} />
+                                        //나중에 backgroundImg로 URL넘겨줄거면 div로 변경
+                                        //마찬가지로 바꿀 때 SingleComment의 53번째 line도 div로 변경
+                                        //div로 하면 src가 적용이 안됨 style에서 넘겨줘야할듯
+                                        //<img className="post_writer_img" src={now_writer.profile_img}/> //style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}
+                                        //style={{backgroundImage: 'URL('+now_post.img+')'}}
                                     }
                                     {
                                         now_post.blind?
@@ -217,6 +222,7 @@ class Post extends Component{
                                     user_id = {user_id}
                                     post_id = {post_id}
                                     set_comment_list = {this.set_comment_list}
+                                    post_writer = {now_writer}
                                     />
                                 </div>
                             </div>
