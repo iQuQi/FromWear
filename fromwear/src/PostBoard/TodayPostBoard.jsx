@@ -11,6 +11,7 @@ import './CSS/PostBoard.css';
 class TodayPostBoard extends Component { 
 
 	render() {
+		
 		return ( 
 		<section className="wrap">
 			<Header />

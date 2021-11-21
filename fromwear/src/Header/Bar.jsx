@@ -20,6 +20,7 @@ import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import alarm_data from './AlarmData';
 import { get_rank_tag } from '../SearchPage/RankTag';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 let rank_1="";
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -150,6 +151,8 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
 
   const handle_rank_data=(rank_data)=>{
       rank_1=rank_data[0].value;
+      console.log("rank_1: "+rank_1)
+
   };
 
 
@@ -168,6 +171,7 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
             <a href={window.location.href=="http://localhost:3000/search"?"#":"/search"}>
+              {console.log("rank_1: "+rank_1)}
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
               placeholder={"#오늘의 #태그는 #"+rank_1}

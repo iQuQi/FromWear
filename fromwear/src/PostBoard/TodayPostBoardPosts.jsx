@@ -10,7 +10,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import dayFilter from './dayFilter';
 import genderFilter from './genderFilter';
 import './CSS/TodayPostBoardPosts.css';
-
+import Header from '../Header/Header';
 import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
 
@@ -146,6 +146,7 @@ export default class TodayPostBoardPosts extends Component {
 		let {post_state, post_list} = this.state;
 
         return (<article className="wrap_recommend">
+
             <form className="sort_font select_sort">
                 <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
                 <label htmlFor="sort_like">좋아요순</label>
