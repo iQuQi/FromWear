@@ -80,6 +80,7 @@
           "S3DeploymentBucket": "amplify-fromwear-dev-174201-deployment",
 
           "S3DeploymentRootKey": "amplify-appsync-files/d4995af0bbc112846f47d219090a390ab486aaa4",
+
           "env": "dev"
         }
       }

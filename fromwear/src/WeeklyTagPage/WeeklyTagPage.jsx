@@ -14,126 +14,91 @@ import MoodBadIcon from '@mui/icons-material/MoodBad';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-import wear1 from './image/wear1.png';
-import wear2 from './image/wear2.png';
-import wear3 from './image/wear3.png';
-import wear4 from './image/wear4.png';
-import wear5 from './image/wear5.png';
-import wear6 from './image/wear6.png';
-import wear7 from './image/wear7.png';
-import wear8 from './image/wear8.png';
-import wear9 from './image/wear9.png';
-import wear10 from './image/wear10.png';
-import wear11 from './image/wear11.png';
-import { Container } from '@mui/material';
 
+import {API} from 'aws-amplify';
+import {listPosts} from '../graphql/queries.js';
+import {listTagLists, listStyleTags} from '../graphql/queries';
 
 class WeeklyTagPage extends Component {
 
-    /*constructor() {
+    constructor() {
 		super();
-	}*/
+
+		this.state = {
+			postlist_0: [],
+			postlist_1: [],
+			postlist_2: [],
+			weekly_tag_id: [],
+			weekly_tag: []
+		};
+	}
+
+
+
+	componentDidMount(){
+		
+		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 2}} }})
+		.then( res => {
+			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
+		})
+		.catch( e => console.log(e));
+
+		API.graphql({ query: listTagLists})
+		.then( res => {
+			this.setState({ weekly_tag_id: res.data.listTagLists.items[0].week_tag_list });
+			this.setState({ weekly_tag_id: this.state.weekly_tag_id.slice(1)})
+			console.log(this.state.weekly_tag_id)	
+		})
+		.then( res => {
+			for (let i = 0; i < 3; i++) {
+				this.getWeeklyTag(i);	
+			}	
+		})
+		.catch( e => console.log(e));
+		
+		
+		
+	}
+
+	getWeeklyTag = (i) => {
+		API.graphql({ query: listStyleTags, variables: { filter: {id: {eq: this.state.weekly_tag_id[i]}} }})
+		.then( res => {
+			this.setState({ weekly_tag: [...this.state.weekly_tag, res.data.listStyleTags.items[0].value] });
+			console.log(this.state.weekly_tag)
+		})
+		.catch( e => console.log(e));
+	};
 	
+	
+	
+	
+	
+
 	render(){
-        const bestItem = [
-            {
-                img: wear1,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear2,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear3,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear4,
-                user: 'Breakfast',
-                like: '1005',
-            },
-        ]
-
-        const itemData = [
-			{
-			img: wear5,
-			user: 'Breakfast',
-			like: '1005',
-			},
-			{
-				img: wear6,
-				user: 'Breakfast',
-				like: '1005',
-			},
-			{
-				img:wear7,
-				user: 'Breakfast',
-				like: '1005',
-			},
-			{
-				img: wear8,
-				user: 'Breakfast',
-				like: '1005',
-			},
-			{
-				img: wear9,
-				user: 'Breakfast',
-				like: '1005',
-			},
-			{
-				img: wear10,
-				user: 'Breakfast',
-				like: '1005',
-			},
-			{
-				img: wear11,
-				user: 'Breakfast',
-				like: '1005',
-			},
-			{
-                img: wear1,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear2,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear3,
-                user: 'Breakfast',
-                like: '1005',
-            },
-            {
-                img: wear4,
-                user: 'Breakfast',
-                like: '1005',
-            },
-		];
-
+		const posts = this.state.postlist_0;
+		const best_posts = posts.slice(0,4);
+		const ranking_posts = posts.slice(4);
+	
+       
 		return <div id = 'main_page'>
 			<Header/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
-                    <h1 style={{margin:'65px 0px 0px 0px', fontSize:'4em', lineHeight:'1.2em'}}>이번주 태그</h1>
+                    <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그</h1>
                     <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 <u>#이번주태그</u> 를 걸고 랭킹에 도전하자!</h1>
-                    <h1 style={{fontSize:'1.8em', fontWeight:'bolder', color:'orange'}}>#빨간색 #원피스</h1>
+					<h1 style={{fontSize:'1.7em', fontWeight:'bolder', color:'#CC3D3D'}}>#{this.state.weekly_tag[0]} &nbsp;#{this.state.weekly_tag[1]}</h1>		
                 </div>
 
                 <div className = 'banner_bestpost'>
 				
 						<Stack direction="row" spacing={1} justifyContent="center" style={{width:'1200px', margin:'auto'}}>
-							{bestItem.map((item) => (
-								<ImageListItem key={item.img} className='weekly_image_list_item'>
+							{best_posts.map((item) => 
+								
+								(<ImageListItem key={item.img} className='weekly_image_list_item'>
 									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
 											src={`${item.img}?w=248&fit=crop&auto=format`}
 											srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-											alt={item.user}
+											alt={item.id}
 											loading="lazy"
 									/>
 									
@@ -141,16 +106,17 @@ class WeeklyTagPage extends Component {
 										<span className='dimmed_layer'>	</span>
 									</a>
 									
-									<Stack direction="row" spacing={0} justifyContent="center" style={{width:'250px'}}>
+									<Stack direction="row" spacing={0} justifyContent="space-between" style={{width:'250px'}}>
 										<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-										<p>&nbsp;</p>
-										<p style={{margin: '16px 0px'}}>{item.user}</p>
-										<p>&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-										<p style={{margin: '16px 0px'}}>{item.like}</p>
+										
+										<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+										<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+										<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
 										<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 									</Stack>				
-								</ImageListItem>
-							))}
+								</ImageListItem>)
+								
+								)}
 						</Stack>
 				
                 </div>
@@ -160,7 +126,7 @@ class WeeklyTagPage extends Component {
 				<h3 className = 'title'>이번주 태그 랭킹</h3>
 				
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
-					{itemData.map((item) => (
+					{ranking_posts.map((item) => (
 						<ImageListItem key={item.img} className='weekly_image_list_item'>
 							<img style={{height:'322.55px', borderRadius:16}}
 								src={`${item.img}?w=248&fit=crop&auto=format`}
@@ -173,12 +139,11 @@ class WeeklyTagPage extends Component {
 								<span className='dimmed_layer'>	</span>
 							</a>
 
-							<Stack direction="row" spacing={0} justifyContent="flex-end">
+							<Stack direction="row" spacing={0} justifyContent="space-between">
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-								<p>&nbsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.user}</p>
-								<p>&emsp;&emsp;&emsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.like}</p>
+								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+								<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
 								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 							</Stack>				
 						</ImageListItem>
