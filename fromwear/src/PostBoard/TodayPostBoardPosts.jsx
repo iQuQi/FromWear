@@ -7,10 +7,14 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 
+import dayFilter from './dayFilter';
+import genderFilter from './genderFilter';
 import './CSS/TodayPostBoardPosts.css';
 
 import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
+
+
 /*
 post_list : [
                 {
@@ -35,8 +39,11 @@ export default class TodayPostBoardPosts extends Component {
 
 		this.state = {
             post_state: 1,
+            filter_gender: "",
+            filter_day: "",
             post_list:[],
 		}
+
 	}
 
     componentDidMount() {
@@ -106,6 +113,29 @@ console.log(res.data.listPosts.items);
 			.catch(e => console.log(e));
 	}
 
+    handle_select_gender = (e) => {
+		let select = e.target.value;
+		let gender = "";
+		if(select == 10) gender="F";
+		else if(select==20) gender="M";
+	
+		this.setState({
+			filter_gender : gender
+		});
+	}
+
+	// handle_select_day = (e) => {
+	// 	let select = e.target.value;
+	// 	let day = -1;
+	// 	if(day<select) day=select;
+
+
+	// 	this.setState({
+	// 		filter_day : day
+	// 	});
+	// }
+
+
     render() {
 		let {post_state, post_list} = this.state;
 
@@ -119,7 +149,11 @@ console.log(res.data.listPosts.items);
                 <label htmlFor="sort_reply">댓글순</label>
                 <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
+
             </form>
+            <genderFilter />
+            {/* <genderFilter style={{width:100,height:100}} handle_select_gender={this.handle_select_gender}/> */}
+            {/* <dayFilter handle_select_day={this.handle_select_day}/> */}
 
             <div id = 'today_post' className = 'collection'>
                 <ImageList cols={5} gap={8} style={{clear: 'left'}}>
