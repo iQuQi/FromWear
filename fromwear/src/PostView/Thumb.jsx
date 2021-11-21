@@ -33,11 +33,11 @@ class Thumb extends Component{
         }
         //console.log(this.state.comment_list.like_user_list);
 
-            
+/*            
         API.grapql({
         })
         .then(res => console.log(res))
-        .catch(e => console.log(e))
+        .catch(e => console.log(e))*/
     }
 
     onClick = () => {
