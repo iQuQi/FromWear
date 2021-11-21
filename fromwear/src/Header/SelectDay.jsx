@@ -23,6 +23,7 @@ export default function BasicSelect({handle_select_day}) {
           id="demo-simple-select"
           value={age}
           displayEmpty
+          disabled={window.location.href!=("http://localhost:3000/search"||"http://localhost:3000/search#")}
           onChange={handleChange}
         >
           <MenuItem style={{fontSize:13 }} value="">기간</MenuItem>

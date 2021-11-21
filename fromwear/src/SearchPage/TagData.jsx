@@ -1,10 +1,7 @@
-import * as React from 'react';
-
-import { ratingClasses } from '@mui/material';
 
 
 //최대 4글자
-export const static_tag_Data = [
+export const static_tag_data = [
  {
    id: "1",
    name: "캐주얼"
