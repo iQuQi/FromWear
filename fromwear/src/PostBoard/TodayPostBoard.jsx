@@ -6,7 +6,6 @@ import Header from '../Header/Header';
 import TodayPostBoardTop5 from './TodayPostBoardTop5';
 import TodayPostBoardPosts from './TodayPostBoardPosts';
 
-
 import './CSS/PostBoard.css';
 
 class TodayPostBoard extends Component { 
@@ -16,7 +15,6 @@ class TodayPostBoard extends Component {
 		return ( 
 		<section className="wrap">
 			<Header />
-
 			<TodayPostBoardTop5 />
 			<TodayPostBoardPosts />
 		</section> )

@@ -26,7 +26,7 @@ export default class TodayPostBoardTop5 extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
 		API.graphql({ 
             query: listPosts, 
             variables: { filter: {board_type: {eq: 0}}}})
