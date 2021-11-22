@@ -8,7 +8,6 @@ import Header from '../Header/Header'
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 import Stack from '@mui/material/Stack';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
@@ -38,7 +37,10 @@ class MainPage extends Component {
 	getPosts = (i) => {
 		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: i}}  }})
 		.then( res => {
-			if(i==0) this.setState({ postlist_0: res.data.listPosts.items });
+			if(i==0) {
+				this.setState({ postlist_0: res.data.listPosts.items });
+				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_user_num-a.like_user_num})});
+			}
 			else if(i==1) this.setState({ postlist_1: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}) });
 			else if(i==2) {
 				this.setState({ postlist_2: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
@@ -51,8 +53,6 @@ class MainPage extends Component {
 
 	render(){
 
-		console.log(this.state.postlist_1);
-		
 		const best_post_0 = this.state.postlist_0.slice(0,5);
 		const best_post_1 = this.state.postlist_1.slice(0,5);
 		const best_post_2 = this.state.postlist_2.slice(0,5);
