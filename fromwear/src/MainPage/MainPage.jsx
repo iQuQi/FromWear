@@ -67,7 +67,7 @@ class MainPage extends Component {
 			<div className='contents'>
 				<div id = 'today_post' className = 'collection'>
 					<h3 className = 'title'>오늘의 착장</h3>
-					<a className = 'seemore' href='/todayboard'>둘러보기</a>
+					<a className = 'seemore' href='/postboard/0'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 						{best_post_0.map((item) => (
@@ -99,7 +99,7 @@ class MainPage extends Component {
 
 				<div id = 'help_post' className = 'collection'>
 					<h3 className = 'title'>도움이 필요해</h3>
-					<a className = 'seemore' href=''>둘러보기</a>
+					<a className = 'seemore' href='/postboard/1'>둘러보기</a>
 
 					<ImageList cols={5} gap={8}>
 						{best_post_1.map((item) => (
