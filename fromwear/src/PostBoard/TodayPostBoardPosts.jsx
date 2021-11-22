@@ -6,7 +6,8 @@ import Stack from '@mui/material/Stack';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import  Typography  from '@mui/material/Typography';
+import Typography  from '@mui/material/Typography';
+import FlagIcon from '@mui/icons-material/Flag';
 
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,6 +19,7 @@ import { Box } from '@mui/system';
 import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
 import { ThirtyFpsTwoTone } from '@mui/icons-material';
+import { integerPropType } from '@mui/utils';
 
 
 /*
@@ -39,7 +41,7 @@ post_list : [
             ],
 */
 export default class TodayPostBoardPosts extends Component {
-    constructor() {
+    constructor(props) {
 		super();
 
 		this.state = {
@@ -49,67 +51,126 @@ export default class TodayPostBoardPosts extends Component {
             dayVal: "",
             filter_day: -1,
             post_list:[],
+
+            post_type: props.post_type,
 		}
-        
 	}
 
     componentDidMount() {
+        console.log(this.state.post_type);
         this.handleFilteredData(1);
     }
 
     handleFilteredData = (sortVal) => {
-        API.graphql({ 
-            query: listPosts, 
-            variables: { filter: {board_type: {ne: 1}}}})
-			.then(res => {
-                let posts = res.data.listPosts.items.filter((post)=>{
-                    //날짜 필터링
-                    let today = new Date();
-                    if(this.state.filter_day==10){//오늘
-                        today.setDate(today.getDate());
-                        if(new Date(post.createdAt)<today) return false;
-                    }
-                    else if(this.state.filter_day==20){//일주일
-                        today.setDate(today.getDate() - 7);
-                        if(new Date(post.createdAt)<today) return false;
-                    }
-                    else if(this.state.filter_day==30){//한달
-                        today.setMonth(today.getMonth() - 1);
-                        if(new Date(post.createdAt)<today) return false;
-                    }
-                    else if(this.state.filter_day==40){//6개월
-                        today.setMonth(today.getMonth() - 6);
-                        if(new Date(post.createdAt)<today) return false;
-                    }
-                    else if(this.state.filter_day==50){//1년
-                        today.setFullYear(today.getFullYear() - 1);
-                        if(new Date(post.createdAt)<today) return false;
-                    }
 
-                    if(this.state.filter_gender!=""&&this.state.filter_gender!=post.user.gender) return false;
+        if(this.state.post_type == "0") {
+            API.graphql({ 
+                query: listPosts, 
+                variables : { filter: {board_type: {ne : 1}}}})
+                .then(res => {
+                    let posts = res.data.listPosts.items.filter((post)=>{
+                        //날짜 필터링
+                        let today = new Date();
+                        if(this.state.filter_day==10){//오늘
+                            today.setDate(today.getDate());
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==20){//일주일
+                            today.setDate(today.getDate() - 7);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==30){//한달
+                            today.setMonth(today.getMonth() - 1);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==40){//6개월
+                            today.setMonth(today.getMonth() - 6);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==50){//1년
+                            today.setFullYear(today.getFullYear() - 1);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
 
-                    return true;
-                })
-            if(sortVal == 1){
-                this.setState({
-                    post_state: sortVal,
-                    post_list : posts.sort(function(a,b){return b.like_user_num-a.like_user_num})
-                })
-            } 
-            else if(sortVal == 2) {
-                this.setState({
-                    post_state: sortVal,
-                    post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
-                })
-            }
-            else {
-                this.setState({
-                    post_state: sortVal,
-                    post_list : posts.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
-                })
-            }
-        })
-		.catch(e => console.log(e));
+                        if(this.state.filter_gender!=""&&this.state.filter_gender!=post.user.gender) return false;
+
+                        return true;
+                    })
+                if(sortVal == 1){
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.like_user_num-a.like_user_num})
+                    })
+                } 
+                else if(sortVal == 2) {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
+                    })
+                }
+                else {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
+                    })
+                }
+            })
+            .catch(e => console.log(e));
+        }
+        else {
+            API.graphql({ 
+                query: listPosts, 
+                variables : { filter: {board_type: {eq : 1}}}})
+                .then(res => {
+                    let posts = res.data.listPosts.items.filter((post)=>{
+                        //날짜 필터링
+                        let today = new Date();
+                        if(this.state.filter_day==10){//오늘
+                            today.setDate(today.getDate());
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==20){//일주일
+                            today.setDate(today.getDate() - 7);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==30){//한달
+                            today.setMonth(today.getMonth() - 1);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==40){//6개월
+                            today.setMonth(today.getMonth() - 6);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+                        else if(this.state.filter_day==50){//1년
+                            today.setFullYear(today.getFullYear() - 1);
+                            if(new Date(post.createdAt)<today) return false;
+                        }
+
+                        if(this.state.filter_gender!=""&&this.state.filter_gender!=post.user.gender) return false;
+
+                        return true;
+                    })
+                if(sortVal == 1){
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num})
+                    })
+                } 
+                else if(sortVal == 2) {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
+                    })
+                }
+                else {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
+                    })
+                }
+            })
+            .catch(e => console.log(e));
+        }
     }
 
 	handleSortLike = (e) => {
@@ -189,14 +250,17 @@ export default class TodayPostBoardPosts extends Component {
 
     render() {
 		let {post_state, post_list} = this.state;
-        let {genderVal, dayVal} = this.state;
+        let {genderVal, dayVal, post_type} = this.state;
 
         return (<article className="wrap_recommend">
 
             <form className="sort_font select_sort">
 
                 <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
-                <label htmlFor="sort_like">좋아요순</label>
+                {post_type == "0"
+                    ? <label htmlFor="sort_like">좋아요순</label>
+                    : <label htmlFor="sort_like">급해요순</label>
+                }
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 {/* <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
@@ -268,7 +332,10 @@ export default class TodayPostBoardPosts extends Component {
                                     {(post_state == 1 || post_state == 4) && 
                                         <div className="user_like">
                                             <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
-                                            <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
+                                            { post_type == "0"
+                                                ? <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
+                                                : <FlagIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                                            }
                                         </div>
                                     }
                                     {post_state == 2 && 
