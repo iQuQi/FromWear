@@ -59,7 +59,7 @@ export default class TodayPostBoardTop5 extends Component {
                             {post_top_list.map((post) => (
                                     <div className="div_test" key={post.id + "_1"}>
                                         <img style={{backgroundImage: `URL(${post.img})`}}></img>
-                                        <a href="/post">
+                                        <a href={"/post/" + post.id}>
                                             <span className={"dimmed_layer"}>
                                                 <span className="dimmed_info_writer">
                                                     <img src={post.user.profile_img} alt="프로필" 
@@ -77,7 +77,7 @@ export default class TodayPostBoardTop5 extends Component {
                             {post_top_list.map((post, index) => (
                                     <div className="div_test" key={post.id + "_2"}>
                                         <img style={{backgroundImage: `URL(${post.img})`}}></img>
-                                        <a href="/post">
+                                        <a href={"/post/" + post.id}>
                                             <span className={"dimmed_layer"}>
                                                 <span className="dimmed_info_writer">
                                                     <img src={post.user.profile_img} alt="프로필" 

@@ -256,7 +256,7 @@ export default class TodayPostBoardPosts extends Component {
                                     alt={post.user.name}
                                     loading="lazy"
                                 />
-                                <a href='/post'> 
+                                <a href={"/post/" + post.id}> 
                                     <span className='dimmed_layer'>	</span>
                                 </a>
 
