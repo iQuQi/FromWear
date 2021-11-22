@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FlagIcon from '@mui/icons-material/Flag';
 
 import './CSS/TodayPostBoardTop5.css'
 
@@ -32,7 +33,7 @@ export default class TodayPostBoardTop5 extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if(this.state.post_type == "0") {
             API.graphql({ 
                 query: listPosts, 
@@ -87,9 +88,14 @@ export default class TodayPostBoardTop5 extends Component {
                                                         position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
                                                     {post.user.name}
                                                 </span>
-                                                <span className="dimmed_info_like">
-                                                    {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
-                                                </span>
+                                                { post_type == "0" 
+                                                    ? <span className="dimmed_info_like">
+                                                        {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
+                                                    </span>
+                                                    : <span className="dimmed_info_like">
+                                                        {post.urgent_user_num}<FlagIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
+                                                    </span>
+                                                }
                                             </span>
 									    </a>
                                     </div>
@@ -105,9 +111,14 @@ export default class TodayPostBoardTop5 extends Component {
                                                         position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
                                                     {post.user.name}
                                                 </span>
-                                                <span className="dimmed_info_like">
-                                                    {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
-                                                </span>
+                                                { post_type == "0" 
+                                                    ? <span className="dimmed_info_like">
+                                                        {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
+                                                    </span>
+                                                    : <span className="dimmed_info_like">
+                                                        {post.urgent_user_num}<FlagIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
+                                                    </span>
+                                                }
                                             </span>
 									    </a>
                                     </div>

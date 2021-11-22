@@ -2,10 +2,10 @@ import {Component} from 'react';
 
 import * as React from 'react';
 
-import Header from '../Header/Header';
 import TodayPostBoardTop5 from './TodayPostBoardTop5';
 import TodayPostBoardPosts from './TodayPostBoardPosts';
 
+import Header from '../Header/Header';
 import './CSS/PostBoard.css';
 
 class TodayPostBoard extends Component { 
@@ -21,7 +21,7 @@ class TodayPostBoard extends Component {
 
 		return ( 
 			<section className="wrap">
-				<Header />
+            	<Header />
 				<TodayPostBoardTop5 post_type={post_type} />
 				<TodayPostBoardPosts post_type={post_type} />
 			</section> )
