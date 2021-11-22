@@ -111,7 +111,7 @@ class MainPage extends Component {
 									loading="lazy"
 								/>
 
-								<a href='/post'> 
+								<a href={'/post/'+item.id}> 
 									<span className='dimmed_layer'>	</span>
 								</a>
 
@@ -141,7 +141,7 @@ class MainPage extends Component {
 									loading="lazy"
 								/>
 
-								<a href='/post'> 
+								<a href={'/post/'+item.id}> 
 									<span className='dimmed_layer'>	</span>
 								</a>
 
