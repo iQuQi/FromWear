@@ -102,7 +102,7 @@ class WeeklyTagPage extends Component {
 											loading="lazy"
 									/>
 									
-									<a href='/post'> 
+									<a href={'/post/'+item.id}>  
 										<span className='dimmed_layer'>	</span>
 									</a>
 									
@@ -135,7 +135,7 @@ class WeeklyTagPage extends Component {
 								loading="lazy"
 							/>
 							
-							<a href='/post'> 
+							<a href={'/post/'+item.id}>  
 								<span className='dimmed_layer'>	</span>
 							</a>
 
