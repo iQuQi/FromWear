@@ -16,7 +16,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { API } from 'aws-amplify';
-import { listPosts } from '../graphql/queries';
+import { listPosts } from '.././graphql/queries';
 
 class MainPage extends Component {
 	constructor() {
@@ -47,6 +47,7 @@ class MainPage extends Component {
 		})
 		.catch( e => console.log(e));
 	}
+
 
 	render(){
 
@@ -110,7 +111,7 @@ class MainPage extends Component {
 									loading="lazy"
 								/>
 
-								<a href='/post'> 
+								<a href={'/post/'+item.id}> 
 									<span className='dimmed_layer'>	</span>
 								</a>
 
@@ -140,7 +141,7 @@ class MainPage extends Component {
 									loading="lazy"
 								/>
 
-								<a href='/post'> 
+								<a href={'/post/'+item.id}> 
 									<span className='dimmed_layer'>	</span>
 								</a>
 

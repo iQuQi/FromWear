@@ -4,11 +4,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function BasicSelect({handle_select_gender}) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    handle_select_gender(event);
   };
 
   return (
@@ -20,11 +21,14 @@ export default function BasicSelect() {
           id="demo-simple-select"
           value={age}
           displayEmpty
+          disabled={window.location.href!=("http://localhost:3000/search"||"http://localhost:3000/search#")}
           onChange={handleChange}
         >
           <MenuItem style={{fontSize:13 }} value="">성별</MenuItem>
           <MenuItem style={{fontSize:13 }} value={10}>여자</MenuItem>
           <MenuItem style={{fontSize:13 }} value={20}>남자</MenuItem>
+          <MenuItem style={{fontSize:13 }} value={30}>무관</MenuItem>
+
         </Select>
       </FormControl>
     </Box>

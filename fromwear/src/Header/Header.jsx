@@ -5,22 +5,21 @@ import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
 
 
-class Header extends Component{
-	constructor(){
-		super();
-	}
+let Header =({handle_inputbase_on_change,handle_select_day,handle_select_gender})=>
 
-	render(){
-		return(
+	
 			<div className="header_bar">		
-				<PrimarySearchAppBar/>
-			
+				<PrimarySearchAppBar 
+				handle_inputbase_on_change={handle_inputbase_on_change}
+				handle_select_day={handle_select_day}
+				handle_select_gender={handle_select_gender}
+				/>
 				<MoveToTop/>
 			</div>
-		)
-	}
+		
+	
 
 
-}
+
 
 export default Header;

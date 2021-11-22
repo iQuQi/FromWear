@@ -666,5 +666,4 @@ export const schema = {
     "nonModels": {},
 
     "version": "ad46248307cb144530bb6fa5634fecf8"
-
 };

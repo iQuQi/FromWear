@@ -3,23 +3,40 @@
     margin: 5px 0;
 }
 
+.comment_ul {
+    height: 260px;
+    overflow: scroll;
+}
+
+
+.comment_click {
+    cursor: pointer;
+}
+
+
+/*comment*/
+
+.comment_check {
+    margin-top: 10px;
+}
+
+
+.writing_area {
+    margin-top: 5px;
+    /*position: relative;
+    top: 130px;*/
+}
+
+
 .now_comment_user {
     font-weight: bold;
 }
 
-.writing_area {
-    /*position: relative;
-    top: 130px;*/
-}
 
 .writing_content {
     margin: 5px 0;
 }
 
-.comment_ul {
-    height: 250px;
-    overflow: scroll;
-}
 
 .new_tweet_content {
     width: 300px;
@@ -33,14 +50,14 @@
     height: 31px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: #000;
     border: 1px solid #000;
-}
-
-.comment_click {
     cursor: pointer;
+    color: #fff;
 }
 
-.comment_check {
-    margin-top: 10px;
+
+.comment_no {
+    font-weight: bold;
+    cursor: pointer;
 }

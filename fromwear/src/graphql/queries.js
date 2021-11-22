@@ -23,6 +23,7 @@ export const getUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -115,7 +116,6 @@ export const listFollows = /* GraphQL */ `
         updatedAt
       }
       nextToken
-
     }
   }
 `;
@@ -181,6 +181,7 @@ export const getComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -234,6 +235,7 @@ export const listComments = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -296,6 +298,7 @@ export const getPost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -341,6 +344,7 @@ export const listPosts = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -357,6 +361,7 @@ export const getPostBoard = /* GraphQL */ `
     getPostBoard(id: $id) {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -373,6 +378,7 @@ export const listPostBoards = /* GraphQL */ `
       items {
         id
         board_type
+        board_name
         best_post_list
         createdAt
         updatedAt
@@ -432,7 +438,6 @@ export const listUserTags = /* GraphQL */ `
         id
         user_id_list
         value
-
         createdAt
         updatedAt
       }
@@ -446,7 +451,6 @@ export const getStyleTag = /* GraphQL */ `
       id
       value
       num
-
       createdAt
       updatedAt
     }
@@ -463,7 +467,33 @@ export const listStyleTags = /* GraphQL */ `
         id
         value
         num
-
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getAppInfo = /* GraphQL */ `
+  query GetAppInfo($id: ID!) {
+    getAppInfo(id: $id) {
+      id
+      today
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAppInfos = /* GraphQL */ `
+  query ListAppInfos(
+    $filter: ModelAppInfoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAppInfos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        today
         createdAt
         updatedAt
       }

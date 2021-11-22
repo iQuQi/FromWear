@@ -26,6 +26,7 @@ export const createUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -83,6 +84,7 @@ export const updateUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -140,6 +142,7 @@ export const deleteUser = /* GraphQL */ `
           user_id
           bookmark_user_list
           like_user_list
+          urgent_user_list
           tag_list
           board_type
           click_num
@@ -279,6 +282,7 @@ export const createComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -356,6 +360,7 @@ export const updateComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -433,6 +438,7 @@ export const deleteComment = /* GraphQL */ `
         }
         bookmark_user_list
         like_user_list
+        urgent_user_list
         tag_list
         board_type
         click_num
@@ -496,6 +502,7 @@ export const createPost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -556,6 +563,7 @@ export const updatePost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -616,6 +624,7 @@ export const deletePost = /* GraphQL */ `
       }
       bookmark_user_list
       like_user_list
+      urgent_user_list
       tag_list
       board_type
       click_num
@@ -633,6 +642,7 @@ export const createPostBoard = /* GraphQL */ `
     createPostBoard(input: $input, condition: $condition) {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -647,6 +657,7 @@ export const updatePostBoard = /* GraphQL */ `
     updatePostBoard(input: $input, condition: $condition) {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -661,6 +672,7 @@ export const deletePostBoard = /* GraphQL */ `
     deletePostBoard(input: $input, condition: $condition) {
       id
       board_type
+      board_name
       best_post_list
       createdAt
       updatedAt
@@ -760,7 +772,6 @@ export const createStyleTag = /* GraphQL */ `
       id
       value
       num
-
       createdAt
       updatedAt
     }
@@ -775,7 +786,6 @@ export const updateStyleTag = /* GraphQL */ `
       id
       value
       num
-
       createdAt
       updatedAt
     }
@@ -790,7 +800,45 @@ export const deleteStyleTag = /* GraphQL */ `
       id
       value
       num
-
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAppInfo = /* GraphQL */ `
+  mutation CreateAppInfo(
+    $input: CreateAppInfoInput!
+    $condition: ModelAppInfoConditionInput
+  ) {
+    createAppInfo(input: $input, condition: $condition) {
+      id
+      today
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAppInfo = /* GraphQL */ `
+  mutation UpdateAppInfo(
+    $input: UpdateAppInfoInput!
+    $condition: ModelAppInfoConditionInput
+  ) {
+    updateAppInfo(input: $input, condition: $condition) {
+      id
+      today
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAppInfo = /* GraphQL */ `
+  mutation DeleteAppInfo(
+    $input: DeleteAppInfoInput!
+    $condition: ModelAppInfoConditionInput
+  ) {
+    deleteAppInfo(input: $input, condition: $condition) {
+      id
+      today
       createdAt
       updatedAt
     }

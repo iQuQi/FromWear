@@ -9,11 +9,29 @@
     float: right;
     color: black;
     text-decoration: underline;
+    margin-top: 3.5px;
 }
 
 .select_no {
     transform: translateY(+28%);
     cursor: pointer;
-    color: gray;
     text-decoration: underline;
+    color: lightgray;
+    margin-top: 3.5px;
+}
+
+.selected_star_img {
+    display: inline-block;
+    position: relative;
+}
+
+.selected_img {
+    border: 3px solid rgb(244, 213, 92);
+    box-sizing: unset;
+    position: relative;
+    left: -3px;
+}
+
+.selected_name {
+    margin-left: 1px;
 }
