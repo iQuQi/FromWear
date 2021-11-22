@@ -1,0 +1,54 @@
+.mypage_contents{
+	overflow: auto;
+	margin-bottom: 120px;
+}
+.mypage_collection{
+    position: relative;
+    width: 900px;
+    overflow-y: auto; 
+    margin: auto;
+    padding: 10px;
+    background-color: white;
+
+    text-align: left;
+}
+.title{
+    display: inline-block;
+    margin: 12px;
+}
+.seemore{
+    display: inline;
+    position: absolute;
+    right:0;
+    margin: 22px 20px 0px 16px;
+    
+
+    color: grey;
+    font-weight: 600;
+    font-size: 0.8em;
+}
+.mypage_image_list_item:hover .dimmed_layer{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+
+	padding: 33% 0;
+	background-color: rgba(0, 0, 0, 0.3);
+
+    color: white;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+.dimmed_info{
+    display: none;
+    position: absolute;
+    text-align: center;
+
+}
+.mypage_image_list_item:hover .dimmed_info{
+	display: block;
+   
+}
