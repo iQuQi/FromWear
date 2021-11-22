@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @charset "utf-8";
 /*reset CSS*/
 html, body, div, span, applet, object, iframe,
@@ -62,8 +61,6 @@ a{
 
 
 
-=======
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
 .wrap_recommend {
 	width: 1080px;
 	margin: 0 auto;
@@ -71,23 +68,14 @@ a{
 
 .sort_font {
     text-align: left;
-<<<<<<< HEAD
-=======
-    margin-top: 30px;
-    margin-left: 0;
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
     font-weight: bold;
 }
 
 .select_sort {
-<<<<<<< HEAD
 	padding-left: 10px;
 	float: left;
 	height: 50px;
 	line-height: 50px;
-=======
-	padding: 0 10px;
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
 }
 
 .select_sort input[type=radio] {
@@ -96,18 +84,13 @@ a{
 
 
 .select_sort label {
-<<<<<<< HEAD
 	margin-right: 15px;
-=======
-	margin-right: 10px;
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
 	color: grey;
 }
 .select_sort input[type=radio]:checked+label {
 	color: black;
 }
 
-<<<<<<< HEAD
 .wrap_recommend .filter_layout {
 	width: 100px;
 	float: right;
@@ -119,21 +102,13 @@ a{
 	display: block; 
 }
 
-=======
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
 .wrap_recommend .collection{
     position: relative;
     width: 1080px;
     overflow-y: auto; 
     margin: auto;
-<<<<<<< HEAD
     padding: 0 10px 10px 10px;
     background-color: white;
-=======
-    padding: 10px;
-    background-color: white;
-
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
     text-align: left;
 }
 .wrap_recommend .today_image_list_item:hover .dimmed_layer{
@@ -151,7 +126,6 @@ a{
 	font-size: 15px;
 	font-weight: 600;
 	cursor: pointer;
-<<<<<<< HEAD
 }
 
 .wrap_recommend .collection .user_profile,
@@ -161,6 +135,3 @@ a{
 .wrap_recommend .collection .user_like {
 	margin-left: auto;
 }
-=======
-}
->>>>>>> d43c9379aa3bbbc292ad82e8deae2bf14e12773b
