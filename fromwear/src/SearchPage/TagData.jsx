@@ -1,10 +1,7 @@
-import * as React from 'react';
-
-import { ratingClasses } from '@mui/material';
 
 
 //최대 4글자
-export const static_tag_Data = [
+export const static_tag_data = [
  {
    id: "1",
    name: "캐주얼"
@@ -120,11 +117,11 @@ export const static_tag_Data = [
 },
 {
   id: "29",
-  name: "가을코드"
+  name: "가을코디"
 },
 {
   id: "30",
-  name: "겨울코드"
+  name: "겨울코디"
 },
 {
   id: "31",

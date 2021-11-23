@@ -1,0 +1,96 @@
+.today_background_wrap {
+	margin-top: 40px;
+	background-color: #F2F2F2;
+    height: 600px;
+}
+
+.today_wear {
+	text-align: left;
+	width: 1080px;
+	height: 400px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+
+.today_wear .title {
+	font-size: 50px;
+}
+
+.today_wear .title, .title_tag {
+	color: #253861;
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.today_wear .container{
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 900px;
+}
+.today_wear .container .div_test {
+    margin-left: -30px;
+    position: relative;
+}
+
+.today_wear img {
+    width: 180px;
+    height:322.55px;
+    margin: 30px;
+    position: relative;
+    text-align: center;
+    background-size: cover;
+    background-position: center center;
+}
+.today_wear .slick-next:before,
+.today_wear .slick-prev:before {
+    color: #000;
+    font-size: 40px;
+}
+.today_wear .slick-prev:before{
+    margin-left: -20px;
+}
+
+.today_wear .center .slick-center img {
+    z-index: 10;
+    opacity: 1;
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
+}
+.today_wear .center img {
+    transition: all .3s ease;
+}
+
+.today_wear .slick-center:hover .dimmed_info_writer{
+	display: block;
+	font-size: 15px;
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+	
+}
+.today_wear .slick-center:hover .dimmed_info_like{
+	display: block;
+	font-size: 15px;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+}
+
+.today_wear  .slick-center:hover .div_test .dimmed_layer{
+    z-index: 30;
+	position: absolute;
+	top: 0;
+	bottom: -10px;
+	right: -75px;
+	left: -15px;
+
+	padding: 33% 0;
+	background-color: rgba(0, 0, 0, 0.5);
+
+    color: white;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}

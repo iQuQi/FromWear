@@ -23,9 +23,10 @@ export default function BasicSelect({handle_select_day}) {
           id="demo-simple-select"
           value={age}
           displayEmpty
+          disabled={window.location.href!=("http://localhost:3000/search"||"http://localhost:3000/search#")}
           onChange={handleChange}
         >
-          <MenuItem  style={{fontSize:13 }} value="">기간</MenuItem>
+          <MenuItem style={{fontSize:13 }} value="">기간</MenuItem>
           <MenuItem style={{fontSize:13 }} value={10}>오늘</MenuItem>
           <MenuItem style={{fontSize:13 }} value={20}>일주일</MenuItem>
           <MenuItem style={{fontSize:13 }} value={30}>한달</MenuItem>

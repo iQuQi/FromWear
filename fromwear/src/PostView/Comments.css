@@ -4,7 +4,7 @@
 }
 
 .comment_ul {
-    height: 270px;
+    height: 260px;
     overflow: scroll;
 }
 
@@ -50,9 +50,10 @@
     height: 31px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: #000;
     border: 1px solid #000;
     cursor: pointer;
+    color: #fff;
 }
 
 
