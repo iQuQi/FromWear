@@ -187,11 +187,7 @@ class SearchPage extends Component{
 		this.update_post_data(day,this.state.filter_gender,this.state.current_input_tag);
 	}
 
-	dup_count=()=>{
-		let dup=0;
-		
-		return 0;
-	}
+
 
 	update_post_data=(day,gender,current_input_tag)=>{
 		console.log("cur input tag2:"+current_input_tag);
@@ -212,7 +208,7 @@ class SearchPage extends Component{
 
 			let same3=[],same2=[],same1=[];
 			let result_post=[];
-			let rmved ;
+			let rmved =[];
 
 			API.graphql({
 			  query: listPosts,
@@ -221,27 +217,35 @@ class SearchPage extends Component{
 			  res.data.listPosts.items
 			  .map((post)=>{
 				//날짜 필터링
-				let today = new Date();
+				let basis = new Date();
 				if(filter_day==10){//오늘
-				  today.setDate(today.getDate());
-				  if(new Date(post.createdAt)<today) return false;
+				  console.log("created:"+ new Date(post.createdAt));
+				  basis.setDate(basis.getDate());
+				  console.log("basis: " +basis);
+				  console.log(new Date(post.createdAt)<basis);
+
+				  if(new Date(post.createdAt)!=basis) return false;
 				}
 				else if(filter_day==20){//일주일
-				  today.setDate(today.getDate() - 7);
-				  if(new Date(post.createdAt)<today) return false;
+					basis.setDate(basis.getDate() - 7);
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==30){//한달
-				  today.setMonth(today.getMonth() - 1);
-				  if(new Date(post.createdAt)<today) return false;
+					console.log("created:"+ new Date(post.createdAt));
+
+					basis.setMonth(basis.getMonth() - 1);
+					console.log("basis: " +basis);
+					console.log(new Date(post.createdAt)<basis);
+
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==40){//6개월
-				  today.setMonth(today.getMonth() - 6);
-				  if(new Date(post.createdAt)<today) return false;
+					basis.setMonth(basis.getMonth() - 6);
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==50){//1년
-				  today.setFullYear(today.getFullYear() - 1);
-				  console.log(today);
-				  if(new Date(post.createdAt)<today) return false;
+					basis.setFullYear(basis.getFullYear() - 1);
+				  if(new Date(post.createdAt)<basis) return false;
 				}
 		  
 				//성별 필터링
@@ -299,7 +303,7 @@ class SearchPage extends Component{
 	  
 			  })
 			  
-			  if(rmved.length==0) {
+			  if(rmved.length===0) {
 				result_post=result_post.sort(function(a,b){return b.like_user_num-a.like_user_num});
 			  }
 			  else{
