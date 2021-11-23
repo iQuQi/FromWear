@@ -48,41 +48,38 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
     componentWillMount() {
+        console.log(this.state.now_user_id);
 		API.graphql({ 
             query: listPosts, 
             variables: { filter: {user_id: {eq: this.state.now_user_id}}}})
-			.then(res => {
-                this.setState({
-                    post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
-                })
-                console.log(this.state.post_list);
-            })
-			.catch(e => console.log(e));
+        .then(res => {
+            this.setState({
+                post_list: res.data.listPosts.items
+            })    
+            this.handleSortView();        
+        })
+        .catch(e => console.log(e));
         
     }
 
 	handleSortLike = (e) => {
 		console.log("like");
-		API.graphql({ 
-            query: listPosts, 
-            variables: { filter: {board_type: {ne: 1}}}})
-			.then(res => this.setState({
-                post_state: 1,
-                post_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
-            }))
-			.catch(e => console.log(e));
+        
+		this.setState({
+            post_state: 1,
+            post_list: this.state.post_list.sort(function(a,b){return b.like_user_num-a.like_user_num})
+        })
+
+        console.log(this.state.post_list);
 	}
 
 	handleSortView = (e) => {
 		console.log("view");
-		API.graphql({ 
-            query: listPosts, 
-            variables: { filter: {board_type: {ne: 1}}}})
-			.then(res => this.setState({
-                post_state: 2,
-                post_list: res.data.listPosts.items.sort(function(a,b){return b.click_num-a.click_num})
-            }))
-			.catch(e => console.log(e));
+        console.log(this.state.post_list);
+		this.setState({
+            post_state: 2,
+            post_list: this.state.post_list.sort(function(a,b){return b.click_num-a.click_num})
+        });
 	}
 
     consolePrint = () => {
@@ -114,37 +111,11 @@ export default class TodayPostBoardPosts extends Component {
 
 	handleSortLatest = (e) => {
 		console.log("Latest");
-		API.graphql({ 
-            query: listPosts, 
-            variables: { filter: {board_type: {ne: 1}}}})
-			.then(res => this.setState({
-                post_state: 4,
-                post_list: res.data.listPosts.items.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
-            }))
-			.catch(e => console.log(e));
-	}
-
-    handle_select_gender = (e) => {
-		let select = e.target.value;
-		let gender = "";
-		if(select == 10) gender="F";
-		else if(select==20) gender="M";
-	
 		this.setState({
-			filter_gender : gender
-		});
+            post_state: 4,
+            post_list: this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
+        })
 	}
-
-	// handle_select_day = (e) => {
-	// 	let select = e.target.value;
-	// 	let day = -1;
-	// 	if(day<select) day=select;
-
-
-	// 	this.setState({
-	// 		filter_day : day
-	// 	});
-	// }
 
 
     render() {

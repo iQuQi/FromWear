@@ -1,10 +1,10 @@
-import {Component} from 'react';
+import { Component } from 'react';
 import './MyPage.css';
 import Header from '../Header/Header';
 
 
-import {API} from 'aws-amplify';
-import {listPosts} from '../graphql/queries.js';
+import { API } from 'aws-amplify';
+import { getUser } from '../graphql/queries.js';
 
 import MyPostBoard from './MyPostBoard';
 
@@ -13,28 +13,32 @@ class MyPage extends Component {
 		super();
 
 		this.state = {
-			postlist_0: [],
-			postlist_1: [],
-			postlist_2: [],
 			now_user_id: props.userid,
+			now_user: {},
 		};
 	}
 
-    componentDidMount(){
-		
-		API.graphql({ query: listPosts, variables: { filter: {user_id: {eq: this.state.now_user_id}} }})
+    componentWillMount(){
+		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
 		.then( res => {
-			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
+			this.get_now_user(res.data.getUser);
 		})
-		.catch( e => console.log(e));
+		.catch( e => console.log(e));	
     }
+
+	set_now_user = (user) => {
+		this.setState({ now_user: user });
+	}
+
 
     render(){
 
-        const best_post_0 = this.state.postlist_0.slice(0,5);
+        console.log(this.state.now_user);
 
-        return <div id = 'main_page'>
+        return <div id = 'my_page'>
 			<Header/>
+
+
 
 			<div className='mypage_contents'>
 				<div id = 'my_post' className = 'mypage_collection'>

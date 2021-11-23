@@ -9,7 +9,7 @@ import PostWritePage from './PostWritePage/PostWritePage.jsx';
 import SearchPage from './SearchPage/SearchPage.jsx';
 import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
 
-import MyPage from './MyPage/MyPage.jsx';
+import MyPagePath from './MyPage/MyPagePath.jsx';
 import Amplify from 'aws-amplify';
 import config from './aws-exports';
 Amplify.configure(config);
@@ -27,7 +27,7 @@ function App() {
               <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
               <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
-              <Route path="/mypage/:userid" element={<MyPage/>} exact/>
+              <Route path="/mypage/:userid" element={<MyPagePath/>} exact/>
             </Routes>
           </BrowserRouter>
       </div>
