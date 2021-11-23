@@ -24,7 +24,7 @@ class SingleComment extends Component {
   
     componentDidUpdate(prevProps) {
         if (this.props.comment_list !== prevProps.comment_list) {
-          this.setState({comment_list: this.props.comment_list,})
+            this.setState({comment_list: this.props.comment_list,})   
         }
         if(this.props.board_type !== prevProps.board_type){
             this.setState({board_type: this.props.board_type});
@@ -52,8 +52,8 @@ class SingleComment extends Component {
 
     render(){
         let {comment_list, board_type, writer_user, user_id, post_writer} = this.state;
-        console.log(comment_list.user_id);
-        console.log(writer_user)
+        //console.log(comment_list.user_id);
+        //console.log(writer_user)
         //console.log(comment_list)
         return (
             <div>

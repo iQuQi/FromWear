@@ -6,7 +6,7 @@ import {HeartOutlined, HeartFilled} from '@ant-design/icons';
 let Like =(props) => {
     let {like_user_list, like_click, handleLikeButton} = props;
 
-    console.log(like_user_list);
+    //console.log(like_user_list);
     return (
             <div className="icons_list">
                 {

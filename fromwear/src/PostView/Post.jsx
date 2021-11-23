@@ -10,7 +10,8 @@ import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
-import { getComment, getPost } from '../graphql/queries';
+import { getPost } from '../graphql/queries';
+import { updatePost } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 //import pro1 from './Imgs/pro1.jpeg';
@@ -18,7 +19,7 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "민수 id"; //현재 유저
+let user_id = "연희 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
@@ -95,6 +96,13 @@ class Post extends Component{
                 }
             });
         }
+
+        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
+            bookmark_user_list: this.state.bookmark_user_list,
+            }}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
     }
 
 
@@ -123,7 +131,14 @@ class Post extends Component{
 
             });
         }
-        
+
+        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
+            like_user_list: this.state.like_user_list,
+            like_user_num: this.state.like_user_list.length,
+            }}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
     }
 
     handleUrgentButton = () => {
@@ -152,6 +167,14 @@ class Post extends Component{
 
             });
         }
+
+        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
+            urgent_user_list: this.state.urgent_user_list,
+            urgent_user_num: this.state.urgent_user_list.length,
+            }}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
         
     }
 

@@ -28,8 +28,13 @@ class Thumb extends Component{
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.comment_list !== prevProps.comment_list) {
+          this.setState({comment_list: this.props.comment_list,})
+        }
+    }
+
     onClick = () => {
-        console.log(this.state.is_checked);
         if(this.state.is_checked == true){
             let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
             if(index > -1){
@@ -52,6 +57,15 @@ class Thumb extends Component{
                 }
             })
         }
+
+        API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
+            like_user_list: this.state.comment_list.like_user_list,
+            like: this.state.comment_list.like_user_list.length,
+                }}
+            })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
+
     }
 
 
