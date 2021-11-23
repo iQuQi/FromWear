@@ -27,7 +27,7 @@ function App() {
               <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
               <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
-              <Route path="/mypage" element={<MyPage/>} exact/>
+              <Route path="/mypage/:userid" element={<MyPage/>} exact/>
             </Routes>
           </BrowserRouter>
       </div>
