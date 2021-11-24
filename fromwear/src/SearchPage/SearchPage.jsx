@@ -216,6 +216,10 @@ class SearchPage extends Component{
 			}).then(res=>{
 			  res.data.listPosts.items
 			  .map((post)=>{
+
+				console.log(post);
+				if(post.comment_list.items!=undefined)post.comment_list.items.map((item)=>console.log(item.id));
+				else console.log(post.comment_list.items);
 				//날짜 필터링
 				let basis = new Date();
 				if(filter_day==10){//오늘
