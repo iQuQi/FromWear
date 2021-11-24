@@ -4,11 +4,11 @@ import ImageListItem from '@mui/material/ImageListItem';
 
 //post board
 import dayFilter from '../PostBoard/dayFilter';
-import genderFilter from '../PostBoard/genderFilter';
+
 import './MyPostBoard.css';
 import './MyPage.css';
 import { API } from 'aws-amplify';
-import { listPosts } from '../graphql/queries.js';
+import { listPosts, getPost } from '../graphql/queries.js';
 import { textAlign } from '@mui/system';
 
 //dimmed grid box
@@ -57,6 +57,15 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items
             })    
             this.handleSortView();        
+            console.log(res.data.listPosts.items[0].comment_list);
+        })
+        .catch(e => console.log(e));
+
+        API.graphql({ 
+            query: getPost, 
+            variables: { id: "post16 아이디" }})
+        .then(res => {    
+            console.log(res.data.getPost);
         })
         .catch(e => console.log(e));
         
@@ -69,13 +78,10 @@ export default class TodayPostBoardPosts extends Component {
             post_state: 1,
             post_list: this.state.post_list.sort(function(a,b){return b.like_user_num-a.like_user_num})
         })
-
-        console.log(this.state.post_list);
 	}
 
 	handleSortView = (e) => {
 		console.log("view");
-        console.log(this.state.post_list);
 		this.setState({
             post_state: 2,
             post_list: this.state.post_list.sort(function(a,b){return b.click_num-a.click_num})
@@ -92,9 +98,10 @@ export default class TodayPostBoardPosts extends Component {
             query: listPosts, 
             variables: { filter: {board_type: {ne: 1}}}})
 			.then(res => {
+                console.log(res.data.listPosts.items);
                 this.setState({
-                post_state: 3,
-                post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
+                    post_state: 3,
+                    post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
             })
         })
 			.catch(e => console.log(e));
@@ -134,9 +141,6 @@ export default class TodayPostBoardPosts extends Component {
                 <label htmlFor="sort_latest">최신순</label>
 
             </form>
-            <genderFilter />
-            {/* <genderFilter style={{width:100,height:100}} handle_select_gender={this.handle_select_gender}/> */}
-            {/* <dayFilter handle_select_day={this.handle_select_day}/> */}
             
             <div id = 'today_post' className = 'mypage_collection'>
                 <ImageList cols={3} gap={8} style={{clear: 'left'}}>
