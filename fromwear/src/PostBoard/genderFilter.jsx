@@ -16,7 +16,7 @@ export default function BasicSelect({handle_select_gender}) {
     <Box style={{ minWidth: "90px", height: "35px",marginRight: "10px",float:"right" }}>
       <FormControl variant ="standard" fullWidth>
 
-        <Select style ={{height: "35px",fontSize:13,textAlign:"center"}}
+        <Select style ={{width:"100px",height: "35px",fontSize:13,textAlign:"center"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}

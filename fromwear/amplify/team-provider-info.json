@@ -16,7 +16,7 @@
       "function": {
         "fromwear7157cfbaPostConfirmation": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/fromwear7157cfbaPostConfirmation-3437494e527063565269-build.zip"
+          "s3Key": "amplify-builds/fromwear7157cfbaPostConfirmation-6732563054372f74352b-build.zip"
         }
       },
       "auth": {

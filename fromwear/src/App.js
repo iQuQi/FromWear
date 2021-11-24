@@ -22,7 +22,8 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<MainPage />} exact/>
-              <Route path="/todayboard" element={<TodayPostBoard/>} exact/>
+              <Route path="/todayboard" element={<TodayPostBoard post_type="0"/>} exact/>
+              <Route path="/sosboard" element={<TodayPostBoard post_type="1"/>} exact/>
               <Route path="/post/:postid" element={<PostPath/>} exact/>
               <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
