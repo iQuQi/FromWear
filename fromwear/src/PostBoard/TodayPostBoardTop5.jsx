@@ -87,12 +87,13 @@ export default class TodayPostBoardTop5 extends Component {
                                         <img style={{backgroundImage: `URL(${post.img})`,
                                         borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
                                         <a href={"/post/" + post.id}>
-                                            <span className={"dimmed_layer"}>
+                                            <span className="dimmed_layer">
                                                 <span className="dimmed_info_writer">
                                                     <img src={post.user.profile_img} alt="프로필" 
                                                         style={{width:"30px",height:"30px",borderRadius:"50%px", 
-                                                        position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
-                                                    {post.user.name}
+                                                        position: "relative",top:0, left:0, marginLeft:"5px"}}/>
+                                                        {post.user.name}
+                                                    
                                                 </span>
                                                 { post_type == "0" 
                                                     ? <span className="dimmed_info_like">
