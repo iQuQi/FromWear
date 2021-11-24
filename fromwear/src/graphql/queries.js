@@ -76,12 +76,18 @@ export const listUsers = /* GraphQL */ `
         my_post_list {
           items {
             id
-            user_id
+            like_user_num
+            urgent_user_num
+            img
             content
-            adopted
-            like
+            user_id
+            bookmark_user_list
             like_user_list
-            post_id
+            urgent_user_list
+            tag_list
+            board_type
+            click_num
+            blind
             createdAt
             updatedAt
           }
@@ -159,12 +165,18 @@ export const getComment = /* GraphQL */ `
         my_post_list {
           items {
             id
-            user_id
+            like_user_num
+            urgent_user_num
+            img
             content
-            adopted
-            like
+            user_id
+            bookmark_user_list
             like_user_list
-            post_id
+            urgent_user_list
+            tag_list
+            board_type
+            click_num
+            blind
             createdAt
             updatedAt
           }
@@ -339,7 +351,23 @@ export const getPost = /* GraphQL */ `
         follower_num
         following_num
         my_post_list {
-         
+          items {
+            id
+            like_user_num
+            urgent_user_num
+            img
+            content
+            user_id
+            bookmark_user_list
+            like_user_list
+            urgent_user_list
+            tag_list
+            board_type
+            click_num
+            blind
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         my_bookmark_post_list

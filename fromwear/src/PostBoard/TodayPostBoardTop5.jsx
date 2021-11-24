@@ -7,6 +7,7 @@ import './CSS/TodayPostBoardTop5.css'
 
 import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 /*
 post_top_list : [
@@ -28,7 +29,6 @@ export default class TodayPostBoardTop5 extends Component {
         super(props);
         this.state = {
             post_top_list : [],
-            
             post_type: props.post_type,
         };
     }
@@ -54,6 +54,8 @@ export default class TodayPostBoardTop5 extends Component {
         }
 	}
 
+   
+
     render() {
         let {post_top_list, post_type} = this.state;
 
@@ -62,10 +64,11 @@ export default class TodayPostBoardTop5 extends Component {
 			centerMode: true,
 			infinite: true,
 			slidesToShow: 5,
-
+            beforeChange: this.handle_slider_index_before,
             centerPadding: "0px",
 			speed: 700,
 		};
+        console.log("render");
 		return (
             <div className="today_background_wrap">
                 <article className="today_wear">
@@ -77,14 +80,17 @@ export default class TodayPostBoardTop5 extends Component {
                         <link rel="stylesheet" type="text/css" charSet="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
                         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                         <Slider {...settings}>
-                            {post_top_list.map((post) => (
-                                    <div className="div_test" key={post.id + "_1"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`}}></img>
+                    
+                            {post_top_list.map((post,index) => (
+
+                                    <div className= {"div_test"} key={post.id + "_1"}>
+                                        <img style={{backgroundImage: `URL(${post.img})`,
+                                        borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
                                         <a href={"/post/" + post.id}>
                                             <span className={"dimmed_layer"}>
                                                 <span className="dimmed_info_writer">
                                                     <img src={post.user.profile_img} alt="프로필" 
-                                                        style={{width:"30px",height:"30px",borderRadius:"50%", 
+                                                        style={{width:"30px",height:"30px",borderRadius:"50%px", 
                                                         position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
                                                     {post.user.name}
                                                 </span>
@@ -101,8 +107,9 @@ export default class TodayPostBoardTop5 extends Component {
                                     </div>
                             ))}
                             {post_top_list.map((post, index) => (
-                                    <div className="div_test" key={post.id + "_2"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`}}></img>
+                                    <div className={"div_test"} key={post.id + "_2"}>
+                                        <img style={{backgroundImage: `URL(${post.img})`
+                                        ,borderRadius:"30px", boxShadow:  "0 8px 15px 0 gray "}}></img>
                                         <a href={"/post/" + post.id}>
                                             <span className={"dimmed_layer"}>
                                                 <span className="dimmed_info_writer">
@@ -124,6 +131,7 @@ export default class TodayPostBoardTop5 extends Component {
                                     </div>
                             ))}
                         </Slider>
+
                     </div>
                 </article>
             </div>
