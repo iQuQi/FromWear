@@ -114,12 +114,12 @@
 .today_wear  .slick-center:hover .div_test .dimmed_layer{
     z-index: 30;
 	position: absolute;
-	top: 28px;
-	bottom: 114px;
-	right: -48px;
-	left: 12px;
+	top: 13px;
+	bottom: 98px;
+	right: -57px;
+	left: 3px;
 
-	border-radius: 30px;
+	border-radius: 40px;
 	padding: 33% 0;
 	background-color: rgba(0, 0, 0, 0.5);
 
