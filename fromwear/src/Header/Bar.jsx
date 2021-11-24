@@ -170,7 +170,7 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
-            <a href={window.location.href=="http://localhost:3000/search"?"#":"/search"}>
+            <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
               {console.log("rank_1: "+rank_1)}
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
