@@ -30,14 +30,14 @@ let Profile = ({ user }) => {
             loading="lazy"
           />
         </Grid>
-        <Grid item xs={12} sm container style={{padding:'50px 16px 0px 100px'}}>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <h1 style={{textAlign:'left'}}>
+        <Grid item xs={4} sm container style={{padding:'50px 16px 0px 100px', textAlign:'left'}}>
+          <Grid item container direction="column" spacing={2} >
+            <Grid item style={{padding:'10px'}}>
+              <h1 >
                 {user.name}
               </h1>
             </Grid>
-            <Grid item xs> 
+            <Grid item dm={1} > 
               <ButtonBase onClick={CustomizedDialogs()} >
                 팔로잉 {user.following_num}
               </ButtonBase> &emsp;
@@ -50,14 +50,18 @@ let Profile = ({ user }) => {
               <ButtonBase onClick={CustomizedDialogs} >
                 게시글 {user.adopted}
               </ButtonBase> 
+              
+            </Grid>
+            <Grid item dm={3}>
               <Typography variant="body2" gutterBottom>
-                Full resolution 1920x1080 • JPEG
+                {user.introduce}
               </Typography>
             </Grid>
+            <Grid item>
               <Typography variant="body2" color="text.secondary">
                 ID: 1030114
               </Typography>
-            
+            </Grid>
             <Grid item>
               <Typography sx={{ cursor: 'pointer' }} variant="body2">
                 Remove

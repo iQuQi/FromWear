@@ -57,17 +57,11 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items
             })    
             this.handleSortView();        
-            console.log(res.data.listPosts.items[0].comment_list);
+            console.log(res.data.listPosts.items[0].comment_list.items.length);
         })
         .catch(e => console.log(e));
 
-        API.graphql({ 
-            query: getPost, 
-            variables: { id: "post16 아이디" }})
-        .then(res => {    
-            console.log(res.data.getPost);
-        })
-        .catch(e => console.log(e));
+        
         
     }
 
@@ -97,7 +91,7 @@ export default class TodayPostBoardPosts extends Component {
 	
         this.setState({
             post_state: 3,
-            post_list: this.state.post_list.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
+            post_list: this.state.post_list.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
         });
 
         
@@ -119,13 +113,13 @@ export default class TodayPostBoardPosts extends Component {
         return (<div>
 
             <form className="sort_font select_sort">
-                <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
+                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
                 <label htmlFor="sort_like">좋아요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
                 <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
+                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
 
             </form>
@@ -163,7 +157,7 @@ export default class TodayPostBoardPosts extends Component {
                                                 <Item><CommentIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                <Item>{post.comm}</Item>
+                                                <Item>{post.comment_list.items.length}</Item>
                                                 </Grid>
                                             </Grid>
                                         </Box>
