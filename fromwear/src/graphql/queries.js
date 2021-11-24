@@ -74,10 +74,32 @@ export const listUsers = /* GraphQL */ `
         follower_num
         following_num
         my_post_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         my_bookmark_post_list
         my_comment_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         my_tag_list
@@ -135,10 +157,32 @@ export const getComment = /* GraphQL */ `
         follower_num
         following_num
         my_post_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         my_bookmark_post_list
         my_comment_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         my_tag_list
@@ -157,6 +201,17 @@ export const getComment = /* GraphQL */ `
         like_user_num
         urgent_user_num
         comment_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         img
@@ -284,10 +339,22 @@ export const getPost = /* GraphQL */ `
         follower_num
         following_num
         my_post_list {
+         
           nextToken
         }
         my_bookmark_post_list
         my_comment_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         my_tag_list
@@ -320,6 +387,17 @@ export const listPosts = /* GraphQL */ `
         like_user_num
         urgent_user_num
         comment_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         img

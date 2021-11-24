@@ -10,7 +10,7 @@
 - git merge A : 현재 브랜치로 A 브랜치의 내용을 merge함 -> 즉 현재 브랜치만 변화가 생기는 것<br>
 - gitlab으로 push 하고 싶다면 git push gitlab A
 - 1️⃣평소: 구현할 기능의 브랜치에서 작업 -> 그 브랜치에 push <br>
-- 2️⃣merge : main으로 이동 -> git merge A -> git pull origin main<br>
+- 2️⃣merge : main으로 이동 -> git merge A -> git push origin main<br>
 - 3️⃣충돌 : <br>
   - CONFLICT가 났다고 알려주면 어떤 파일에서 문제가 생긴지 알아보자 <br>
   - 그 파일에서 <br>
