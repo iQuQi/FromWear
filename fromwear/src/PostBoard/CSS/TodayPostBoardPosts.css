@@ -8,11 +8,13 @@
 .wrap_recommend {
 	width: 1080px;
 	margin: 0 auto;
+	font-size: 13px;
 }
 
 .sort_font {
     text-align: left;
     font-weight: bold;
+	font-size: 15px;
 }
 
 .select_sort {
