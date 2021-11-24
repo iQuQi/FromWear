@@ -170,8 +170,9 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
+            {console.log(window.location.pathname)}
+
             <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
-              {console.log("rank_1: "+rank_1)}
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
