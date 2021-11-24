@@ -6,7 +6,6 @@ import Select_button from './Select_button';
 import { API } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
 
-
 class SingleComment extends Component {
 
     constructor(props){
@@ -48,6 +47,28 @@ class SingleComment extends Component {
         //console.log(this.state.comment_list.like_user_list)
         //console.log("여기")
     }
+/*
+    removeComment = e => {
+        console.log(e)
+        console.log(this.state.comment_list.id)
+        API.graphql({
+            query: deleteComment, variables: {input:{id: this.state.comment_list.id}}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e));
+        this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
+            .subscribe({
+                next: newCreatedComment => {
+                    if(newCreatedComment.post_id === this.state.post_id)
+                        return;
+                    let {comment_list} = this.state;
+                    this.setState({
+                        comment_list: [...comment_list, newCreatedComment.value.data.onCreateComment]
+                    });
+                }
+        });
+    }
+    */
     
 
     render(){
@@ -57,7 +78,7 @@ class SingleComment extends Component {
         //console.log(comment_list)
         return (
             <div>
-                <div className="one_comment">
+                <div>
                     {
                         (board_type == 1)?
                         <div>
@@ -71,12 +92,14 @@ class SingleComment extends Component {
                             <p className="comment_content">{comment_list.content}</p>
                         </div>
                         :<div>
-                            <img src={writer_user.profile_img} className="writer_img" /> 
-                            <div className="comment_user_name">{writer_user.name}</div>
-                            <Thumb 
-                            comment_list={comment_list}
-                            user_id={user_id}/>
-                            <p className="comment_content">{comment_list.content}</p>
+                                <div>
+                                    <img src={writer_user.profile_img} className="writer_img" /> 
+                                    <div className="comment_user_name">{writer_user.name}</div>
+                                    <Thumb 
+                                    comment_list={comment_list}
+                                    user_id={user_id}/>
+                                    <p className="comment_content">{comment_list.content}</p>
+                                </div>
                         </div>
                     }
                 </div>

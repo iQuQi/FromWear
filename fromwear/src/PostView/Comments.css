@@ -8,6 +8,12 @@
     overflow: scroll;
 }
 
+.one_comment_and_remove_button {
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+}
+
 
 .comment_click {
     cursor: pointer;
@@ -60,4 +66,17 @@
 .comment_no {
     font-weight: bold;
     cursor: pointer;
+}
+
+.remove_comment {
+    cursor: pointer;
+    position: relative;
+    left: 330px;
+    height: 21px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background-color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    color: #fff;
 }

@@ -4,8 +4,10 @@ import './Comments.css';
 
 import { API } from 'aws-amplify';
 import { getUser, getPost } from '../graphql/queries';
-import  { createComment, updateComment } from '../graphql/mutations';
+import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
+import  { deleteComment } from '../graphql/mutations';
+import { onDeleteComment } from '../graphql/subscriptions';
 
 class Comments extends Component {
 
@@ -46,11 +48,12 @@ class Comments extends Component {
         })
         .then(res => {
             this.setState({
-            comment_list: res.data.getPost.comment_list.items,
+            comment_list: res.data.getPost.comment_list.items
             })
             this.subscription = API.graphql({query: onCreateComment, variables: { post_id: this.state.post_id }})
             .subscribe({
                 next: newCreatedComment => {
+                    console.log(newCreatedComment)
                     if(newCreatedComment.post_id === this.state.post_id)
                         return;
                     let {comment_list} = this.state;
@@ -62,8 +65,15 @@ class Comments extends Component {
         })
         .catch(e => console.log(e));
         
+        /*this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
+        .subscribe({
+            next: deletedComment => {
+                console.log(deleteComment)
+
+                }
+        });*/
+        
     }
-    
     
     onClick = () => {
         this.state.write_is_checked?
@@ -113,9 +123,46 @@ class Comments extends Component {
     }
 
 
+    removeComment = (delete_id) => {
+        console.log(delete_id)
+        
+        API.graphql({
+            query: deleteComment, variables: {input:{id: delete_id}}
+        })
+        .then(res => {
+            console.log(res)
+            const index = this.state.comment_list.findIndex(function(item){return item.id == delete_id})
+            if(index > -1){
+                this.state.comment_list.splice(index, 1)
+            }
+            this.setState({
+                comment_list: this.state.comment_list
+            })
+        })
+        
+        /*.catch(e => console.log(e));
+        this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
+            .subscribe({
+                next: newCreatedComment => {
+                    if(newCreatedComment.post_id === this.state.post_id)
+                        return;
+                    console.log(newCreatedComment)
+                    let {comment_list} = this.state;
+                    this.setState({
+                        comment_list: [...comment_list]
+                    });
+                }
+        });*/
+    }
+    
+
     render(){
         let {comment_list, board_type, user_id, write_is_checked, writer_, post_writer} = this.state;
         
+        //comment_list sort
+        //console.log()
+        //console.log(writer_.name)
+        comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         return (
             <div>
                 <div>
@@ -123,7 +170,15 @@ class Comments extends Component {
                     <ul className="comment_ul">
                         {
                             comment_list.map(comment_list => {
-                                return <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id} post_writer={post_writer}/>
+                                return <div className="one_comment_and_remove_button">
+                                    <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id} post_writer={post_writer}/>
+                                    {
+                                        comment_list.user_id == user_id ?
+                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list.id)}>삭제</button>
+                                        :
+                                        <div></div>
+                                    }
+                                    </div>
                             })
                         }
                     </ul>
