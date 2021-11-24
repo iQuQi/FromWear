@@ -5,6 +5,11 @@
 .div_test{
 	padding-top: 30px;
 	height: 500px;
+
+}
+
+.div_test:focus-visible{
+	outline:none;
 }
 .today_background_wrap {
 	margin-top: 40px;

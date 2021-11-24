@@ -218,7 +218,10 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle style={{fontSize:25}}/>
+              <img 
+									style={{backgroundImage:"url(\"https://github.com/iQuQi/FromWear/blob/main/fromwear/src/SearchPage/image/wear10.png?raw=true\" )"
+                  ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
+                  position: "relative", marginRight:"5px"}}/>
 
             </IconButton>
           </Box>
