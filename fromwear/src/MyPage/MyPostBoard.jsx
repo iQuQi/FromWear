@@ -94,25 +94,13 @@ export default class TodayPostBoardPosts extends Component {
 
 	handleSortReply = (e) => {
 		console.log("reply");
-		API.graphql({ 
-            query: listPosts, 
-            variables: { filter: {board_type: {ne: 1}}}})
-			.then(res => {
-                console.log(res.data.listPosts.items);
-                this.setState({
-                    post_state: 3,
-                    post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
-            })
-        })
-			.catch(e => console.log(e));
+	
+        this.setState({
+            post_state: 3,
+            post_list: this.state.post_list.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
+        });
 
-        API.graphql({ 
-            query: listPosts, 
-            variables: { filter: {board_type: {ne: 1}}}})
-            .then(res => {
-                console.log(Object.values(res.data.listPosts.items[0])); 
-            })
-        .catch(e => console.log(e));
+        
         this.consolePrint();
 	}
 

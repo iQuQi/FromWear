@@ -320,6 +320,17 @@ export const listPosts = /* GraphQL */ `
         like_user_num
         urgent_user_num
         comment_list {
+          items {
+            id
+            user_id
+            content
+            adopted
+            like
+            like_user_list
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         img
