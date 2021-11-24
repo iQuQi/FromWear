@@ -61,7 +61,7 @@ class Post extends Component{
     }
 
     setLikeAndUrgent = (board_type) => {
-        if(board_type == 0){
+        if(board_type == 0 || board_type == 2){
             this.set_like(this.state.like_user_list)
             //console.log("오늘의 착장")
         }
@@ -123,6 +123,9 @@ class Post extends Component{
             });
         }
         else {
+            if(this.state.like_user_list === null){
+                this.state.like_user_list = []
+            }
             this.state.like_user_list.push(user_id);
             this.setState((prev) => {
                 return {
@@ -159,6 +162,9 @@ class Post extends Component{
             });
         }
         else {
+            if(this.state.urgent_user_list === null){
+                this.state.urgent_user_list = []
+            }
             this.state.urgent_user_list.push(user_id);
             this.setState((prev) => {
                 return {
@@ -202,7 +208,7 @@ class Post extends Component{
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
        
-        //console.log(like_user_list);
+        console.log(like_user_list);
         //console.log(like_user_list.length);
         return (
             <div className="post_page">
