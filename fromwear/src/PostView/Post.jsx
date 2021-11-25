@@ -10,16 +10,18 @@ import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
-import { getPost } from '../graphql/queries';
-import { updatePost, deletePost } from '../graphql/mutations';
+import { getPost, listComments } from '../graphql/queries';
+import { updatePost, deletePost, deleteComment } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
+import { touchRippleClasses } from '@mui/material';
 //import pro1 from './Imgs/pro1.jpeg';
 //import img_pro from './Imgs/img.jpeg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "유미 id"; //현재 유저
+let user_id = "현경 id"; //현재 유저
+
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
@@ -38,6 +40,8 @@ class Post extends Component{
             bookmark_click: false,
             //post_id,
             post_id: props.postid,
+            first_click: false,
+            delete_comment_list:[],
         }
     }
 
@@ -57,7 +61,19 @@ class Post extends Component{
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .catch(e => console.log(e));  
 
+    }
 
+
+
+    setClickNum = (input_click_num) => {
+        //console.log('현재 조회수', input_click_num)
+        this.state.first_click = true
+
+        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
+            click_num: input_click_num+1}}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e)) 
     }
 
     setLikeAndUrgent = (board_type) => {
@@ -205,22 +221,50 @@ class Post extends Component{
         }
     }
 
-    removePost = (delete_post_id) => {
-        console.log(delete_post_id)
+    removePost = () => {
+
+        console.log(this.state.post_id)
+        API.graphql({
+            query: getPost, variables: {id: this.state.post_id}
+        })
+        .then(res => console.log(res.data.getPost.comment_list))
         
+        /*.then(res => this.state.delete_comment_list = res.data.getPost.comment_list)
+        
+        console.log(this.state.delete_comment_list)
+*/
+
+        /*
         API.graphql({
             query: deletePost, variables: {input:{id: delete_post_id}}
         })
         .then(res => {
             console.log(res)
+        })*/
+
+        /*
+        API.graphql({
+            query: deleteComment, variables: {input:{post_id: delete_post_id}}
         })
+        .then(console.log("실행은 된거니??"))
+        .then(res => {
+            console.log(res)
+        })*/
     }
+
+    removeComment = () => {
+        console.log(this.state.delete_comment_list)
+    }
+
+
 
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
        
-        console.log(like_user_list);
-        //console.log(like_user_list.length);
+        if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
+            this.setClickNum(now_post.click_num);
+        }
+
         return (
             <div className="post_page">
                 <Header />
@@ -249,11 +293,11 @@ class Post extends Component{
                                     }
                                     {
                                         user_id == now_writer.id ?
-                                        <a href={'/'}>
-                                            <button className="remove_post" onClick={() => this.removePost(post_id)}>
+                                        //<a href={'/'}>
+                                            <button className="remove_post" onClick={this.removePost}>
                                                 삭제
                                             </button>
-                                        </a>
+                                        //</a>
                                         :
                                         <div></div>
                                     }
