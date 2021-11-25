@@ -75,6 +75,19 @@
     display:inline-block;
 }
 
+.remove_post {
+    cursor: pointer;
+    position: relative;
+    left: 262px;
+    height: 21px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background-color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    color: #fff;
+}
+
 .writer_content {
     line-height: 1.4;
     

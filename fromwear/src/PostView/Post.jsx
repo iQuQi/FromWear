@@ -11,7 +11,7 @@ import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
 import { getPost } from '../graphql/queries';
-import { updatePost } from '../graphql/mutations';
+import { updatePost, deletePost } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 //import pro1 from './Imgs/pro1.jpeg';
@@ -19,7 +19,7 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "연희 id"; //현재 유저
+let user_id = "유미 id"; //현재 유저
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
@@ -205,6 +205,17 @@ class Post extends Component{
         }
     }
 
+    removePost = (delete_post_id) => {
+        console.log(delete_post_id)
+        
+        API.graphql({
+            query: deletePost, variables: {input:{id: delete_post_id}}
+        })
+        .then(res => {
+            console.log(res)
+        })
+    }
+
     render(){
         let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
        
@@ -235,6 +246,16 @@ class Post extends Component{
                                         <div className="writer_name">익명</div>
                                         :
                                         <div className="writer_name">{now_writer.name}</div>
+                                    }
+                                    {
+                                        user_id == now_writer.id ?
+                                        <a href={'/'}>
+                                            <button className="remove_post" onClick={() => this.removePost(post_id)}>
+                                                삭제
+                                            </button>
+                                        </a>
+                                        :
+                                        <div></div>
                                     }
                                     <div className="writer_content">{now_post.content}{this.state.postid}</div>
                                 </div>

@@ -18,7 +18,7 @@ class Comments extends Component {
             post_id: props.post_id,
             comment_list: [],
             board_type: props.board_type,
-            user_id: props.user_id,
+            user_id: props.user_id, //현재 댓글을 쓰는 사람 = 현재 접속자 id
             write_is_checked: false,
             writer_: Object, //현재 댓글을 쓰는 사람
             post_writer: props.post_writer, //현재 보고 있는 post를 쓴 사람
@@ -87,16 +87,7 @@ class Comments extends Component {
     
     }
 
-    addTweet = () => {        
-        /*
-        this.setState({comment_list: [...this.props.comment_list, {
-            user_id: this.state.user_id,
-            name: this.state.writer_.name,
-            content: value,
-            like_user_list: [],
-        }]})
-        */
-
+    addTweet = () => {
         let value = document.querySelector('.new_tweet_content').value;
 
         API.graphql({
@@ -112,14 +103,8 @@ class Comments extends Component {
                 } }
         })
         .catch(e => console.log(e));
+        document.querySelector('.new_tweet_content').value = "";
 
-        //console.log(this.state.comment_list);
-        //this.props.set_comment_list(this.state.comment_list)
-/*
-        this.setState({
-            comment_list: this.state.comment_list.push(Object)
-        })
-        */
     }
 
 
