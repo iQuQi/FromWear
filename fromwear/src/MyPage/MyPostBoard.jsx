@@ -47,8 +47,7 @@ export default class TodayPostBoardPosts extends Component {
 
 	}
 
-    componentWillMount() {
-        console.log(this.state.now_user_id);
+    componentDidMount() {
 		API.graphql({ 
             query: listPosts, 
             variables: { filter: {user_id: {eq: this.state.now_user_id}}}})
@@ -57,7 +56,6 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: res.data.listPosts.items
             })    
             this.handleSortView();        
-            console.log(res.data.listPosts.items[0].comment_list.items.length);
         })
         .catch(e => console.log(e));
 

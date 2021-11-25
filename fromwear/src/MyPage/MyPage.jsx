@@ -24,7 +24,6 @@ class MyPage extends Component {
 		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
 		.then( res => {
 			this.set_now_user(res.data.getUser);
-			console.log(res.data);
 		})
 		.catch( e => console.log(e));	
     }
@@ -35,9 +34,6 @@ class MyPage extends Component {
 
 
     render(){
-
-        console.log(this.state.now_user);
-		
 
 		let {now_user, now_user_id} = this.state;
 		
