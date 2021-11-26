@@ -4,7 +4,7 @@
 }
 
 .comment_ul {
-    height: 260px;
+    height: 244px; /*270*/
     overflow: scroll;
 }
 

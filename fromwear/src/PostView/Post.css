@@ -90,6 +90,8 @@
 
 .writer_content {
     line-height: 1.4;
+    height: 51px;
+    overflow: scroll;
     
 }
 

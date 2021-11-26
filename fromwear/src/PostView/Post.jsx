@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+//import { Link } from 'react-router-dom';
 
 import './Post.css'
 import Comments from './Comments';
@@ -10,17 +11,16 @@ import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
-import { getPost, listComments } from '../graphql/queries';
+import { getPost } from '../graphql/queries';
 import { updatePost, deletePost, deleteComment } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
-import { touchRippleClasses } from '@mui/material';
 //import pro1 from './Imgs/pro1.jpeg';
 //import img_pro from './Imgs/img.jpeg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "현경 id"; //현재 유저
+let user_id = "현주 id"; //현재 유저
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
@@ -42,6 +42,7 @@ class Post extends Component{
             post_id: props.postid,
             first_click: false,
             delete_comment_list:[],
+            delete_is_checked:false,
         }
     }
 
@@ -221,48 +222,61 @@ class Post extends Component{
         }
     }
 
-    removePost = () => {
-
-        console.log(this.state.post_id)
+    removeCommentGet = () => {
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
-        .then(res => console.log(res.data.getPost.comment_list))
-        
-        /*.then(res => this.state.delete_comment_list = res.data.getPost.comment_list)
-        
-        console.log(this.state.delete_comment_list)
-*/
-
-        /*
-        API.graphql({
-            query: deletePost, variables: {input:{id: delete_post_id}}
-        })
-        .then(res => {
-            console.log(res)
-        })*/
-
-        /*
-        API.graphql({
-            query: deleteComment, variables: {input:{post_id: delete_post_id}}
-        })
-        .then(console.log("실행은 된거니??"))
-        .then(res => {
-            console.log(res)
-        })*/
-    }
-
-    removeComment = () => {
-        console.log(this.state.delete_comment_list)
+        .then(res => this.setState({
+            delete_is_checked: true,
+            delete_comment_list: res.data.getPost.comment_list
+        }))
     }
 
 
+
+    removeComment = (delete_comment_list) => {
+        
+        for (let i = 0; i < delete_comment_list.length; i++) {
+            console.log(delete_comment_list[i].id)
+            console.log(delete_comment_list[i].content)
+
+            API.graphql({
+                query: deleteComment, variables: {input:{id: delete_comment_list[i].id}}
+            })
+            .then(console.log("삭제삭제"))
+            .then(res => {
+                console.log(res)
+            })
+		}
+
+        this.removePost();
+    }
+
+    removePost = () => {
+        
+        
+        API.graphql({
+            query: deletePost, variables: {input:{id: this.state.post_id}}
+        })
+        .then(res => {
+            console.log(res)
+        });
+    }
+    
 
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
+        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list, delete_comment_list} = this.state;
        
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
+        }
+
+        if(this.state.delete_is_checked) {
+            console.log("삭제 실행");
+            
+            console.log(delete_comment_list.items[0].id)
+            this.removeComment(delete_comment_list.items)
+            
         }
 
         return (
@@ -294,10 +308,11 @@ class Post extends Component{
                                     {
                                         user_id == now_writer.id ?
                                         //<a href={'/'}>
-                                            <button className="remove_post" onClick={this.removePost}>
+                                            <button className="remove_post" onClick={this.removeCommentGet}>
                                                 삭제
                                             </button>
                                         //</a>
+                                        //onclick=" location.href = '/' "
                                         :
                                         <div></div>
                                     }
