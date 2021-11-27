@@ -24,8 +24,8 @@
   }
 
   .post_write_content{
-    width: 600px;
-    height: 400px;
+    width: 830px;
+    height: 480px;
     background-color: white;
     margin: auto;
     border-radius: 30px;
@@ -37,36 +37,111 @@
       position: relative;
       text-align: center;
       line-height: 400px;
-      width: 250px;
-      height: 400px;
+      width: 400px;
+      height: 480px;
       background-color: #e3e3e3;
       border-radius: 30px;
 
   }
 
   .img_file_form{
-    width: 250px;
-    height: 400px;
+    width: 400px;
+    height: 480px;
     cursor: pointer;
     color:#e3e3e3;
 
     position: absolute;
     top:0;left: 0;
+    display: none;
     
+  }
+
+  .click_img {
+    cursor: pointer;
+    width: 400px;
+    height: 480px;
+    padding: 10px;
+    border: 1px solid;
   }
 
 
   .post_text_input{
     position: absolute;
     top:40px; right: 40px;
-    width: 310px;
-    height: 400px;
+    width: 400px;
+    height: 480px;
     background-color: #e3e3e3;
     border-radius: 30px;
     padding: 30px;
     box-sizing: border-box;
   }
 
+  .upload_img {
+    width: 400px;
+    height: 480px;
+    border-radius: 30px;
+    border: 1px solid;
+    box-sizing: border-box;
+  }
+
+  .delete_img {
+
+    position: absolute;
+    top:40px; right: 40px;
+    width: 40px;
+    height: 40px;
+
+  }
+
   .text_form{
     
+  }
+
+  .content_write {
+    height: 100px; /*min-height: 250px;*/
+    margin: 10px 0 30px;
+    width: 100%;
+    border: 1px solid #000; /*#9b9b9b;*/
+    resize: none;
+  }
+
+  .tag_write {
+    margin-bottom: 30px;
+  }
+
+  .radio123 {
+    appearance: none;
+    background-color: #2f2f2f;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 30%;
+    margin: 10px;
+    border: none;
+  }
+
+  .radio input[type="radio"]{
+    display:none;
+  }
+  
+  .radio input[type="radio"] + span{
+    display:inline-block;
+    background:none;
+    border:1px solid;  
+    padding:0px 10px;
+    text-align:center;
+    height:35px;
+    line-height:33px;
+    cursor:pointer;
+    margin-right: 10px;
+  }
+  
+  .radio input[type="radio"]:checked + span{
+    border:1px solid #23a3a7;
+    background:#23a3a7;
+    color:#fff;
+  }
+
+  .select_blind {
+    margin: 10px 0 30px;
   }
