@@ -20,7 +20,7 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "현주 id"; //현재 유저
+let user_id = "현경 id"; //현재 유저
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
@@ -230,6 +230,7 @@ class Post extends Component{
             delete_is_checked: true,
             delete_comment_list: res.data.getPost.comment_list
         }))
+
     }
 
 
@@ -237,8 +238,8 @@ class Post extends Component{
     removeComment = (delete_comment_list) => {
         
         for (let i = 0; i < delete_comment_list.length; i++) {
-            console.log(delete_comment_list[i].id)
-            console.log(delete_comment_list[i].content)
+            console.log("id : ",delete_comment_list[i].id)
+            console.log("내용 : ",delete_comment_list[i].content)
 
             API.graphql({
                 query: deleteComment, variables: {input:{id: delete_comment_list[i].id}}
