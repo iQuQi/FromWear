@@ -9,7 +9,7 @@ import './MyPostBoard.css';
 import './MyPage.css';
 import { API } from 'aws-amplify';
 import { listPosts, getPost } from '../graphql/queries.js';
-import { textAlign } from '@mui/system';
+
 
 //dimmed grid box
 import { styled } from '@mui/material/styles';
