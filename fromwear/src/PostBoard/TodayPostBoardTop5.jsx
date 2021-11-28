@@ -34,23 +34,43 @@ export default class TodayPostBoardTop5 extends Component {
     }
 
     componentDidMount() {
+        let today = new Date();
+        today.setDate(today.getDate());
         if(this.state.post_type == "0") {
             API.graphql({ 
                 query: listPosts, 
-                variables: { filter: {board_type: {eq: 0}}}})
+                variables: { filter: {board_type: {eq: 0}, createdAt: {ge: today}}}})
                 .then(res => this.setState({
                     post_top_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}).slice(0, 5)
                 }))
                 .catch(e => console.log(e));
+            if(this.state.post_top_list.length < 5) {
+                API.graphql({ 
+                    query: listPosts, 
+                    variables: { filter: {board_type: {eq: 0}}}})
+                    .then(res => this.setState({
+                        post_top_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}).slice(0, 5)
+                    }))
+                    .catch(e => console.log(e));
+            }
         }
         else {
             API.graphql({ 
                 query: listPosts, 
-                variables: { filter: {board_type: {eq: 1}}}})
+                variables: { filter: {board_type: {eq: 1}, createdAt: {ge: today}}}})
                 .then(res => this.setState({
                     post_top_list: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}).slice(0, 5)
                 }))
                 .catch(e => console.log(e));
+            if(this.state.post_top_list.length < 5) {
+                API.graphql({ 
+                    query: listPosts, 
+                    variables: { filter: {board_type: {eq: 1}}}})
+                    .then(res => this.setState({
+                        post_top_list: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}).slice(0, 5)
+                    }))
+                    .catch(e => console.log(e));
+            }
         }
 	}
 
@@ -68,7 +88,7 @@ export default class TodayPostBoardTop5 extends Component {
             centerPadding: "0px",
 			speed: 700,
 		};
-        console.log("render");
+        
 		return (
             <div className="today_background_wrap">
                 <article className="today_wear">
