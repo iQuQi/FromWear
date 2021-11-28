@@ -17,7 +17,7 @@ import Slider from 'react-slick';
 import { API } from 'aws-amplify';
 import { listUsers } from '../graphql/queries.js';
 
-
+import ShowFollowers from './ShowFollowers.jsx';
 
 const btn = grey[500];
 
@@ -71,6 +71,7 @@ export default class Profile extends Component {
       user: props.user,
       tag_user_is_checked: false,
       tag_same_user_list: [],
+      dialog_is_checked: false,
     }
   }
 
@@ -141,12 +142,34 @@ export default class Profile extends Component {
     .catch(e=>console.log(e))  
   }
 
+  dialog_click = () => {
+    let {dialog_is_checked, user} = this.state;
+
+    if(dialog_is_checked){
+       
+      this.setState({
+        dialog_is_checked: false,
+      })
+    }
+    else{
+      this.setState({
+        dialog_is_checked: true,
+      })
+    }
+    
+  }
+
+  handleClose = () => {
+    this.setState({
+      dialog_is_checked: false,
+    })
+  }
 
   render(){
 
     console.log(this.state.tag_same_user_list);
     
-    let {user, tag_user_is_checked, tag_same_user_list} = this.state;
+    let {user, tag_user_is_checked, tag_same_user_list, dialog_is_checked} = this.state;
 
     let taglist = [];
     let postnum = 0;
@@ -194,8 +217,18 @@ export default class Profile extends Component {
                   </EditBtn>
                 </Grid>
                 <Grid item xs={12} style={{paddingTop:'0px', fontWeight:'border'}} > 
-                  <ButtonBase  style={{fontWeight:'border'}}>
+                  <ButtonBase onClick={this.dialog_click} style={{fontWeight:'border'}}>
                     팔로잉 {user.following_num}
+                    {
+                      dialog_is_checked? 
+                      <ShowFollowers 
+                        now_user = {user} 
+                        open = {dialog_is_checked}
+                        handleClose = {this.handleClose}
+                      />
+                      :
+                      <p></p>
+                    }
                   </ButtonBase> &emsp;
                   <ButtonBase  style={{fontWeight:'2em'}} >
                     팔로워 {user.follower_num}
