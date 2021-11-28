@@ -7,6 +7,7 @@ import './CSS/TodayPostBoardTop5.css'
 
 import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 /*
 post_top_list : [
@@ -28,31 +29,52 @@ export default class TodayPostBoardTop5 extends Component {
         super(props);
         this.state = {
             post_top_list : [],
-            
             post_type: props.post_type,
         };
     }
 
     componentDidMount() {
+        let today = new Date();
+        today.setDate(today.getDate());
         if(this.state.post_type == "0") {
             API.graphql({ 
                 query: listPosts, 
-                variables: { filter: {board_type: {eq: 0}}}})
+                variables: { filter: {board_type: {eq: 0}, createdAt: {ge: today}}}})
                 .then(res => this.setState({
                     post_top_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}).slice(0, 5)
                 }))
                 .catch(e => console.log(e));
+            if(this.state.post_top_list.length < 5) {
+                API.graphql({ 
+                    query: listPosts, 
+                    variables: { filter: {board_type: {eq: 0}}}})
+                    .then(res => this.setState({
+                        post_top_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}).slice(0, 5)
+                    }))
+                    .catch(e => console.log(e));
+            }
         }
         else {
             API.graphql({ 
                 query: listPosts, 
-                variables: { filter: {board_type: {eq: 1}}}})
+                variables: { filter: {board_type: {eq: 1}, createdAt: {ge: today}}}})
                 .then(res => this.setState({
                     post_top_list: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}).slice(0, 5)
                 }))
                 .catch(e => console.log(e));
+            if(this.state.post_top_list.length < 5) {
+                API.graphql({ 
+                    query: listPosts, 
+                    variables: { filter: {board_type: {eq: 1}}}})
+                    .then(res => this.setState({
+                        post_top_list: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}).slice(0, 5)
+                    }))
+                    .catch(e => console.log(e));
+            }
         }
 	}
+
+   
 
     render() {
         let {post_top_list, post_type} = this.state;
@@ -62,10 +84,11 @@ export default class TodayPostBoardTop5 extends Component {
 			centerMode: true,
 			infinite: true,
 			slidesToShow: 5,
-
+            beforeChange: this.handle_slider_index_before,
             centerPadding: "0px",
 			speed: 700,
 		};
+        
 		return (
             <div className="today_background_wrap">
                 <article className="today_wear">
@@ -77,16 +100,20 @@ export default class TodayPostBoardTop5 extends Component {
                         <link rel="stylesheet" type="text/css" charSet="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
                         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
                         <Slider {...settings}>
-                            {post_top_list.map((post) => (
-                                    <div className="div_test" key={post.id + "_1"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`}}></img>
+                    
+                            {post_top_list.map((post,index) => (
+
+                                    <div className= {"div_test"} key={post.id + "_1"}>
+                                        <img style={{backgroundImage: `URL(${post.img})`,
+                                        borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
                                         <a href={"/post/" + post.id}>
-                                            <span className={"dimmed_layer"}>
+                                            <span className="dimmed_layer">
                                                 <span className="dimmed_info_writer">
                                                     <img src={post.user.profile_img} alt="프로필" 
-                                                        style={{width:"30px",height:"30px",borderRadius:"50%", 
-                                                        position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
-                                                    {post.user.name}
+                                                        style={{width:"30px",height:"30px",borderRadius:"50%px", 
+                                                        position: "relative",top:0, left:0, marginLeft:"5px"}}/>
+                                                        {post.user.name}
+                                                    
                                                 </span>
                                                 { post_type == "0" 
                                                     ? <span className="dimmed_info_like">
@@ -101,8 +128,9 @@ export default class TodayPostBoardTop5 extends Component {
                                     </div>
                             ))}
                             {post_top_list.map((post, index) => (
-                                    <div className="div_test" key={post.id + "_2"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`}}></img>
+                                    <div className={"div_test"} key={post.id + "_2"}>
+                                        <img style={{backgroundImage: `URL(${post.img})`
+                                        ,borderRadius:"30px", boxShadow:  "0 8px 15px 0 gray "}}></img>
                                         <a href={"/post/" + post.id}>
                                             <span className={"dimmed_layer"}>
                                                 <span className="dimmed_info_writer">
@@ -124,6 +152,7 @@ export default class TodayPostBoardTop5 extends Component {
                                     </div>
                             ))}
                         </Slider>
+
                     </div>
                 </article>
             </div>

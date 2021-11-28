@@ -20,6 +20,7 @@ import { API } from 'aws-amplify';
 import { listPosts } from '../graphql/queries.js';
 import { ThirtyFpsTwoTone } from '@mui/icons-material';
 import { integerPropType } from '@mui/utils';
+import MoodBadIcon from '@mui/icons-material/MoodBad';
 
 
 /*
@@ -334,7 +335,7 @@ export default class TodayPostBoardPosts extends Component {
                                             <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
                                             { post_type == "0"
                                                 ? <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
-                                                : <FlagIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                                                : <MoodBadIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
                                             }
                                         </div>
                                     }

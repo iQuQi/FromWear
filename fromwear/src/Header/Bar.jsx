@@ -170,8 +170,9 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
-            <a href={window.location.href=="http://localhost:3000/search"?"#":"/search"}>
-              {console.log("rank_1: "+rank_1)}
+            {console.log(window.location.pathname)}
+
+            <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
               style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
@@ -217,7 +218,10 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle style={{fontSize:25}}/>
+              <img 
+									style={{backgroundImage:"url(\"https://github.com/iQuQi/FromWear/blob/main/fromwear/src/SearchPage/image/wear10.png?raw=true\" )"
+                  ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
+                  position: "relative", marginRight:"5px"}}/>
 
             </IconButton>
           </Box>
