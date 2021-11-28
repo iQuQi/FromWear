@@ -27,6 +27,7 @@ let PostWritePage = () => {
                             }
                             <input id="to_click_img" class="img_file_form" type="file" accept="image/*" onChange={saveFileImage} />
                             <label for="to_click_img" class="click_img">클릭해서 업로드</label>
+                            <button class="delete_img" onClick={() => deleteFileImage()} >삭제</button>
                         </div>
                         <div className="post_text_input">
                 

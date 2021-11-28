@@ -50,6 +50,9 @@ class Thumb extends Component{
             }
         }
         else {
+            if(this.state.comment_list.like_user_list == null){
+                this.state.comment_list.like_user_list = []
+            }
             this.state.comment_list.like_user_list.push(this.state.user_id);
             this.setState((prev) => {
                 return {

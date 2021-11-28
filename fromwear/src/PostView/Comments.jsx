@@ -46,6 +46,10 @@ class Comments extends Component {
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
+      
+        API.graphql({
+            query: getPost, variables: {id: this.state.post_id}
+        })
         .then(res => {
             this.setState({
             comment_list: res.data.getPost.comment_list.items
@@ -112,7 +116,7 @@ class Comments extends Component {
         console.log(delete_id)
         
         API.graphql({
-            query: deleteComment, variables: {input:{id: delete_id}}
+            query: deleteComment, variables: {input:{id: delete_id, _version: 1}}
         })
         .then(res => {
             console.log(res)
@@ -124,20 +128,6 @@ class Comments extends Component {
                 comment_list: this.state.comment_list
             })
         })
-        
-        /*.catch(e => console.log(e));
-        this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
-            .subscribe({
-                next: newCreatedComment => {
-                    if(newCreatedComment.post_id === this.state.post_id)
-                        return;
-                    console.log(newCreatedComment)
-                    let {comment_list} = this.state;
-                    this.setState({
-                        comment_list: [...comment_list]
-                    });
-                }
-        });*/
     }
     
 
