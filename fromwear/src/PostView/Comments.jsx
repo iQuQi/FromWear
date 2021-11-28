@@ -7,7 +7,6 @@ import { getUser, getPost } from '../graphql/queries';
 import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment } from '../graphql/mutations';
-import { onDeleteComment } from '../graphql/subscriptions';
 
 class Comments extends Component {
 

@@ -9,9 +9,10 @@ import Urgent from './Urgent';
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
+import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
-import { getPost } from '../graphql/queries';
+import { getPost, listPosts } from '../graphql/queries';
 import { updatePost, deletePost, deleteComment } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
@@ -43,10 +44,15 @@ class Post extends Component{
             first_click: false,
             delete_comment_list:[],
             delete_is_checked:false,
+
+            same1:[],
+            same2:[],
+            same3:[],
+            result_post:[],
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
@@ -60,6 +66,7 @@ class Post extends Component{
         }))
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
+        .then(res => this.getTagList())
         .catch(e => console.log(e));  
 
     }
@@ -263,11 +270,49 @@ class Post extends Component{
             console.log(res)
         });
     }
-    
+
+    getTagList =() => {
+        let {same1, same2, same3, now_post,} = this.state;
+        console.log("현재 사용자의 tag list", now_post.tag_list)
+        API.graphql({
+            query: listPosts, variables: { filter: {board_type: {ne: 1}}}
+        })
+        .then(res=>{
+            res.data.listPosts.items.map((post)=>{
+                console.log(post)
+                // 지금 post면 비교X
+                if (post.id == now_post.id) return false;
+
+                //태그 필터링
+                let same = 0;
+                post.tag_list.map((post_tag)=>{
+                    now_post.tag_list.map(now_tag=>{
+                        if(post_tag == now_tag) same++;
+                    })
+                })
+
+                //console.log("same: "+ same);
+                if(same == 3) same3=[...same3,post]
+                else if(same==2) same2=[...same2,post]
+                else if(same==1) same1=[...same1,post]
+                return true;
+
+            })
+            
+            same3=same3.sort(function(a,b){return b.like_user_num-a.like_user_num});
+            same2=same2.sort(function(a,b){return b.like_user_num-a.like_user_num});
+            same1=same1.sort(function(a,b){return b.like_user_num-a.like_user_num});
+            console.log("비교 결과 list:",[...same3,...same2,...same1]);
+            this.setState({
+                result_post: [...same3,...same2,...same1],
+            })
+        })
+        .catch(e=>console.log(e))
+    }
 
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list, delete_comment_list} = this.state;
-       
+        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list, delete_comment_list, result_post} = this.state;
+
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
         }
@@ -279,6 +324,8 @@ class Post extends Component{
             this.removeComment(delete_comment_list.items)
             
         }
+
+        console.log("render 결과:", result_post)
 
         return (
             <div className="post_page">
@@ -359,10 +406,20 @@ class Post extends Component{
                         <div className="recommend_tag">
                                 태그 맞춤 추천
                         </div>
-                        <div className="tag_list">
+                        <div className="post_tag_list">
                             <div className="container">
                                 <div className="content">
-                                    <PostSearchResult />
+                                    {
+                                        result_post.length!=0?
+                                            <div className={"post_page_content"}>
+                                                <PostSearchResult
+                                                result_post={result_post} />
+                                            </div>
+                                            :
+                                            <Typography>
+                                                해당되는 게시물이 존재하지 않습니다.
+                                            </Typography>
+                                    }
                                 </div> 
                             </div>
                         </div>

@@ -6,7 +6,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "fromwear7157cfbaPostConfirmation": {
+        "fromwear9ee2f3c2PostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
@@ -14,7 +14,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "auth": {
-        "fromwear7157cfba": {
+        "fromwear9ee2f3c2": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -23,12 +23,6 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientIDWeb": "string",
             "AppClientID": "string",
             "CreatedSNSRole": "string"
-        }
-    },
-    "storage": {
-        "s3feeed02d": {
-            "BucketName": "string",
-            "Region": "string"
         }
     }
 }

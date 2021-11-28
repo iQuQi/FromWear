@@ -3,16 +3,16 @@
   "modules": [
     "add-to-group"
   ],
-  "parentResource": "fromwear7157cfba",
-  "functionName": "fromwear7157cfbaPostConfirmation",
-  "resourceName": "fromwear7157cfbaPostConfirmation",
+  "parentResource": "fromwear9ee2f3c2",
+  "functionName": "fromwear9ee2f3c2PostConfirmation",
+  "resourceName": "fromwear9ee2f3c2PostConfirmation",
   "parentStack": "auth",
   "triggerEnvs": [],
   "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
-  "roleName": "fromwear7157cfbaPostConfirmation",
+  "roleName": "fromwear9ee2f3c2PostConfirmation",
   "skipEdit": true,
-  "GROUP": "Admin",
+  "GROUP": "",
   "enableCors": false
 }

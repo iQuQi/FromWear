@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { User, Post, Comment, follow, PostBoard, TagList, UserTag, StyleTag } = initSchema(schema);
+const { User, Post, Comment, follow, PostBoard, TagList, UserTag, StyleTag, AppInfo } = initSchema(schema);
 
 export {
   User,
@@ -14,5 +14,6 @@ export {
   PostBoard,
   TagList,
   UserTag,
-  StyleTag
+  StyleTag,
+  AppInfo
 };

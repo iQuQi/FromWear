@@ -36,6 +36,10 @@ type StyleTagMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type AppInfoMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class User {
   readonly id: string;
   readonly name: string;
@@ -68,6 +72,7 @@ export declare class Post {
   readonly user?: User;
   readonly bookmark_user_list?: (string | null)[];
   readonly like_user_list?: (string | null)[];
+  readonly urgent_user_list?: (string | null)[];
   readonly tag_list?: string[];
   readonly board_type: number;
   readonly click_num: number;
@@ -105,6 +110,7 @@ export declare class follow {
 export declare class PostBoard {
   readonly id: string;
   readonly board_type: number;
+  readonly board_name?: string;
   readonly best_post_list?: string[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
@@ -140,4 +146,13 @@ export declare class StyleTag {
   readonly updatedAt?: string;
   constructor(init: ModelInit<StyleTag, StyleTagMetaData>);
   static copyOf(source: StyleTag, mutator: (draft: MutableModel<StyleTag, StyleTagMetaData>) => MutableModel<StyleTag, StyleTagMetaData> | void): StyleTag;
+}
+
+export declare class AppInfo {
+  readonly id: string;
+  readonly today?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<AppInfo, AppInfoMetaData>);
+  static copyOf(source: AppInfo, mutator: (draft: MutableModel<AppInfo, AppInfoMetaData>) => MutableModel<AppInfo, AppInfoMetaData> | void): AppInfo;
 }
