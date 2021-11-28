@@ -52,7 +52,7 @@ class Post extends Component{
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
@@ -70,8 +70,6 @@ class Post extends Component{
         .catch(e => console.log(e));  
 
     }
-
-
 
     setClickNum = (input_click_num) => {
         //console.log('현재 조회수', input_click_num)
@@ -159,6 +157,8 @@ class Post extends Component{
             });
         }
 
+        console.log("like:", this.state.like_user_list);
+        
         API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
             like_user_list: this.state.like_user_list,
             like_user_num: this.state.like_user_list.length,
@@ -166,6 +166,7 @@ class Post extends Component{
         })
         .then(res => console.log(res))
         .catch(e => console.log(e))
+        
     }
 
     handleUrgentButton = () => {
@@ -273,13 +274,13 @@ class Post extends Component{
 
     getTagList =() => {
         let {same1, same2, same3, now_post,} = this.state;
-        console.log("현재 사용자의 tag list", now_post.tag_list)
+        //console.log("현재 사용자의 tag list", now_post.tag_list)
         API.graphql({
             query: listPosts, variables: { filter: {board_type: {ne: 1}}}
         })
         .then(res=>{
             res.data.listPosts.items.map((post)=>{
-                console.log(post)
+                //console.log(post)
                 // 지금 post면 비교X
                 if (post.id == now_post.id) return false;
 
@@ -325,7 +326,7 @@ class Post extends Component{
             
         }
 
-        console.log("render 결과:", result_post)
+        //console.log("render 결과:", result_post)
 
         return (
             <div className="post_page">

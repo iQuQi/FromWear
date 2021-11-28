@@ -28,10 +28,14 @@ export const onCreateUser = /* GraphQL */ `
           board_type
           click_num
           blind
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       my_bookmark_post_list
       my_comment_list {
@@ -43,14 +47,21 @@ export const onCreateUser = /* GraphQL */ `
           like
           like_user_list
           post_id
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       my_tag_list
       award_today
       award_week
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -83,10 +94,14 @@ export const onUpdateUser = /* GraphQL */ `
           board_type
           click_num
           blind
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       my_bookmark_post_list
       my_comment_list {
@@ -98,14 +113,21 @@ export const onUpdateUser = /* GraphQL */ `
           like
           like_user_list
           post_id
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       my_tag_list
       award_today
       award_week
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -138,10 +160,14 @@ export const onDeleteUser = /* GraphQL */ `
           board_type
           click_num
           blind
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       my_bookmark_post_list
       my_comment_list {
@@ -153,14 +179,21 @@ export const onDeleteUser = /* GraphQL */ `
           like
           like_user_list
           post_id
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       my_tag_list
       award_today
       award_week
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -172,6 +205,9 @@ export const onCreateFollow = /* GraphQL */ `
       id
       following_id
       follower_id
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -183,6 +219,9 @@ export const onUpdateFollow = /* GraphQL */ `
       id
       following_id
       follower_id
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -194,6 +233,9 @@ export const onDeleteFollow = /* GraphQL */ `
       id
       following_id
       follower_id
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -216,14 +258,19 @@ export const onCreateComment = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
+          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
+          startedAt
         }
         my_tag_list
         award_today
         award_week
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -238,6 +285,7 @@ export const onCreateComment = /* GraphQL */ `
         urgent_user_num
         comment_list {
           nextToken
+          startedAt
         }
         img
         content
@@ -256,6 +304,9 @@ export const onCreateComment = /* GraphQL */ `
           my_tag_list
           award_today
           award_week
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
@@ -266,9 +317,15 @@ export const onCreateComment = /* GraphQL */ `
         board_type
         click_num
         blind
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -291,14 +348,19 @@ export const onUpdateComment = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
+          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
+          startedAt
         }
         my_tag_list
         award_today
         award_week
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -313,6 +375,7 @@ export const onUpdateComment = /* GraphQL */ `
         urgent_user_num
         comment_list {
           nextToken
+          startedAt
         }
         img
         content
@@ -331,6 +394,9 @@ export const onUpdateComment = /* GraphQL */ `
           my_tag_list
           award_today
           award_week
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
@@ -341,9 +407,15 @@ export const onUpdateComment = /* GraphQL */ `
         board_type
         click_num
         blind
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -366,14 +438,19 @@ export const onDeleteComment = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
+          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
+          startedAt
         }
         my_tag_list
         award_today
         award_week
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -388,6 +465,7 @@ export const onDeleteComment = /* GraphQL */ `
         urgent_user_num
         comment_list {
           nextToken
+          startedAt
         }
         img
         content
@@ -406,6 +484,9 @@ export const onDeleteComment = /* GraphQL */ `
           my_tag_list
           award_today
           award_week
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
@@ -416,9 +497,15 @@ export const onDeleteComment = /* GraphQL */ `
         board_type
         click_num
         blind
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -439,10 +526,14 @@ export const onCreatePost = /* GraphQL */ `
           like
           like_user_list
           post_id
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       img
       content
@@ -459,14 +550,19 @@ export const onCreatePost = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
+          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
+          startedAt
         }
         my_tag_list
         award_today
         award_week
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -477,6 +573,9 @@ export const onCreatePost = /* GraphQL */ `
       board_type
       click_num
       blind
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -497,10 +596,14 @@ export const onUpdatePost = /* GraphQL */ `
           like
           like_user_list
           post_id
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       img
       content
@@ -517,14 +620,19 @@ export const onUpdatePost = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
+          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
+          startedAt
         }
         my_tag_list
         award_today
         award_week
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -535,6 +643,9 @@ export const onUpdatePost = /* GraphQL */ `
       board_type
       click_num
       blind
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -555,10 +666,14 @@ export const onDeletePost = /* GraphQL */ `
           like
           like_user_list
           post_id
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       img
       content
@@ -575,14 +690,19 @@ export const onDeletePost = /* GraphQL */ `
         following_num
         my_post_list {
           nextToken
+          startedAt
         }
         my_bookmark_post_list
         my_comment_list {
           nextToken
+          startedAt
         }
         my_tag_list
         award_today
         award_week
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -593,6 +713,9 @@ export const onDeletePost = /* GraphQL */ `
       board_type
       click_num
       blind
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -605,6 +728,9 @@ export const onCreatePostBoard = /* GraphQL */ `
       board_type
       board_name
       best_post_list
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -617,6 +743,9 @@ export const onUpdatePostBoard = /* GraphQL */ `
       board_type
       board_name
       best_post_list
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -629,6 +758,9 @@ export const onDeletePostBoard = /* GraphQL */ `
       board_type
       board_name
       best_post_list
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -640,6 +772,9 @@ export const onCreateTagList = /* GraphQL */ `
       id
       static_tag_list
       week_tag_list
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -651,6 +786,9 @@ export const onUpdateTagList = /* GraphQL */ `
       id
       static_tag_list
       week_tag_list
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -662,6 +800,9 @@ export const onDeleteTagList = /* GraphQL */ `
       id
       static_tag_list
       week_tag_list
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -673,6 +814,9 @@ export const onCreateUserTag = /* GraphQL */ `
       id
       user_id_list
       value
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -684,6 +828,9 @@ export const onUpdateUserTag = /* GraphQL */ `
       id
       user_id_list
       value
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -695,6 +842,9 @@ export const onDeleteUserTag = /* GraphQL */ `
       id
       user_id_list
       value
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -706,6 +856,9 @@ export const onCreateStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -717,6 +870,9 @@ export const onUpdateStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -728,6 +884,9 @@ export const onDeleteStyleTag = /* GraphQL */ `
       id
       value
       num
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -738,6 +897,9 @@ export const onCreateAppInfo = /* GraphQL */ `
     onCreateAppInfo {
       id
       today
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -748,6 +910,9 @@ export const onUpdateAppInfo = /* GraphQL */ `
     onUpdateAppInfo {
       id
       today
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -758,6 +923,9 @@ export const onDeleteAppInfo = /* GraphQL */ `
     onDeleteAppInfo {
       id
       today
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

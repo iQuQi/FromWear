@@ -1,59 +1,3 @@
-@charset "utf-8";
-/*reset CSS*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ul, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
-
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body{
-	min-width: 1082px;
-	line-height: 1;
-	font-family : '나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif;
-
-}
-ul, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-textarea, input, button,select{
-	font:inherit;
-}
-
-a{
-	color: black;
-	text-decoration: none;
-}
 
 
 
@@ -64,11 +8,13 @@ a{
 .wrap_recommend {
 	width: 1080px;
 	margin: 0 auto;
+	font-size: 13px;
 }
 
 .sort_font {
     text-align: left;
     font-weight: bold;
+	font-size: 15px;
 }
 
 .select_sort {
