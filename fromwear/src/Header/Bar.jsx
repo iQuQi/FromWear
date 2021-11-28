@@ -4,24 +4,19 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import alarm_data from './AlarmData';
-import { get_rank_tag } from '../SearchPage/RankTag';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
-let rank_1="";
+import { Button } from '@mui/material';
+import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -64,8 +59,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
-  handle_select_gender}) {
+function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
+  handle_select_gender,handle_login_click, rank_1,user}) {
+  console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -87,11 +83,15 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    setAnchorEl(null);
+  };
   const handleAlarmClose = e => {
     let index=e.target.value;
     alarm_data.splice(index,1);
     setAlarmAnchorEl(null);
   };
+  
 
 
   const menuId = 'primary-search-account-menu';
@@ -110,12 +110,12 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-      style={{zIndex:1400000}}
+      style={{zIndex:140000}}
 
 
     >
-      <a href="/mypage"><MenuItem style={{fontSize:13}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
-      <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
+      <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
+      <MenuItem  onClick={handleLogout}><SignOutButton/></MenuItem>
     </Menu>
   );
 
@@ -134,7 +134,7 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
       }}
       open={isAlarmOpen}
       onClose={handleAlarmClose}
-      style={{zIndex:1400000}}
+      style={{zIndex:140000}}
     >
     
     {
@@ -149,16 +149,10 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
   );
 
 
-  const handle_rank_data=(rank_data)=>{
-      rank_1=rank_data[0].value;
-      console.log("rank_1: "+rank_1)
-
-  };
-
+ 
 
   return (
     <div >
-      {get_rank_tag(handle_rank_data)}
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
@@ -170,7 +164,6 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
-            {console.log(window.location.pathname)}
 
             <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
@@ -188,8 +181,9 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
         
 
           <Box sx={{ flexGrow: 1 }} />
+          {user!="noUser"?
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
+          
             <IconButton
 
               style={{ color: "black", height:35 ,position:"relative",top:-10}}
@@ -206,7 +200,8 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
                 >
               </Badge>
             </IconButton>
-
+            
+           
             <IconButton
 
               style={{ color: "black",height:35 ,position:"relative",top:-10}}
@@ -223,9 +218,16 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
                   ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
                   position: "relative", marginRight:"5px"}}/>
 
-            </IconButton>
+            </IconButton>)
+            
           </Box>
- 
+          :
+          <Button
+            className="header_login"
+            style={{color:"black"}}
+            onClick={handle_login_click}
+          >로그인</Button>
+          }
         </Toolbar>
       </AppBar>
       {alarm_data.length!=0?renderAlarm:""}
@@ -236,3 +238,4 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
 
 
 
+export default PrimarySearchAppBar;
