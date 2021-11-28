@@ -9,13 +9,10 @@ import config from "./aws-exports"
 Amplify.configure(config);
 Auth.configure(config);
 
-const federated = {
-  google_client_id: "your Google Web Client ID goes here"
-};
 
 ReactDOM.render(
   <React.StrictMode>
-  <App federated={federated}/>
+  <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

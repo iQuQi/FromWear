@@ -2,6 +2,8 @@ type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   passwd: String!
+  email: String
+  phone: String
   profile_img: String!
   introduce: String
   gender: String!
