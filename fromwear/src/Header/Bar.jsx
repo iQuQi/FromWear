@@ -14,6 +14,8 @@ import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
+import SelectBoard from './SelectBoard';
+
 import alarm_data from './AlarmData';
 import { Button } from '@mui/material';
 import SignOutButton from './SignOutButton';
@@ -60,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
-  handle_select_gender,handle_login_click, rank_1,user}) {
+  handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
   console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
@@ -167,13 +169,13 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
 
             <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
-              style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
+              style={{ color: "black", fontSize: "14px",width: "70%",height:35}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
             />
             </a>
-            
+            <SelectBoard handle_select_board={handle_select_board}/>
             <SelectGender handle_select_gender={handle_select_gender}/>
             <SelectDay handle_select_day={handle_select_day}/>
           </Search>
@@ -214,7 +216,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
               onClick={handleProfileMenuOpen}
             >
               <img 
-									style={{backgroundImage:"url(\"https://github.com/iQuQi/FromWear/blob/main/fromwear/src/SearchPage/image/wear10.png?raw=true\" )"
+									style={{backgroundImage:"url("+user.profile_img+")"
                   ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
                   position: "relative", marginRight:"5px"}}/>
 

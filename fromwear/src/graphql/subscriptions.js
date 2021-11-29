@@ -7,6 +7,8 @@ export const onCreateUser = /* GraphQL */ `
       id
       name
       passwd
+      email
+      phone
       profile_img
       introduce
       gender
@@ -21,7 +23,6 @@ export const onCreateUser = /* GraphQL */ `
           img
           content
           user_id
-          bookmark_user_list
           like_user_list
           urgent_user_list
           tag_list
@@ -37,7 +38,20 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      my_bookmark_post_list
+      my_bookmark_post_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       my_comment_list {
         items {
           id
@@ -73,6 +87,8 @@ export const onUpdateUser = /* GraphQL */ `
       id
       name
       passwd
+      email
+      phone
       profile_img
       introduce
       gender
@@ -87,7 +103,6 @@ export const onUpdateUser = /* GraphQL */ `
           img
           content
           user_id
-          bookmark_user_list
           like_user_list
           urgent_user_list
           tag_list
@@ -103,7 +118,20 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      my_bookmark_post_list
+      my_bookmark_post_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       my_comment_list {
         items {
           id
@@ -139,6 +167,8 @@ export const onDeleteUser = /* GraphQL */ `
       id
       name
       passwd
+      email
+      phone
       profile_img
       introduce
       gender
@@ -153,7 +183,6 @@ export const onDeleteUser = /* GraphQL */ `
           img
           content
           user_id
-          bookmark_user_list
           like_user_list
           urgent_user_list
           tag_list
@@ -169,7 +198,20 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      my_bookmark_post_list
+      my_bookmark_post_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       my_comment_list {
         items {
           id
@@ -250,6 +292,8 @@ export const onCreateComment = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -260,7 +304,10 @@ export const onCreateComment = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -294,13 +341,14 @@ export const onCreateComment = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -310,7 +358,10 @@ export const onCreateComment = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bookmark_user_list
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
         like_user_list
         urgent_user_list
         tag_list
@@ -340,6 +391,8 @@ export const onUpdateComment = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -350,7 +403,10 @@ export const onUpdateComment = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -384,13 +440,14 @@ export const onUpdateComment = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -400,7 +457,10 @@ export const onUpdateComment = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bookmark_user_list
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
         like_user_list
         urgent_user_list
         tag_list
@@ -430,6 +490,8 @@ export const onDeleteComment = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -440,7 +502,10 @@ export const onDeleteComment = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -474,13 +539,14 @@ export const onDeleteComment = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -490,7 +556,10 @@ export const onDeleteComment = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bookmark_user_list
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
         like_user_list
         urgent_user_list
         tag_list
@@ -542,6 +611,8 @@ export const onCreatePost = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -552,7 +623,10 @@ export const onCreatePost = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -566,7 +640,20 @@ export const onCreatePost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      bookmark_user_list
+      bookmark_user_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       like_user_list
       urgent_user_list
       tag_list
@@ -612,6 +699,8 @@ export const onUpdatePost = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -622,7 +711,10 @@ export const onUpdatePost = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -636,7 +728,20 @@ export const onUpdatePost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      bookmark_user_list
+      bookmark_user_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       like_user_list
       urgent_user_list
       tag_list
@@ -682,6 +787,8 @@ export const onDeletePost = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -692,7 +799,10 @@ export const onDeletePost = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -706,7 +816,20 @@ export const onDeletePost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      bookmark_user_list
+      bookmark_user_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       like_user_list
       urgent_user_list
       tag_list
@@ -923,6 +1046,291 @@ export const onDeleteAppInfo = /* GraphQL */ `
     onDeleteAppInfo {
       id
       today
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserBookmarkPost = /* GraphQL */ `
+  subscription OnCreateUserBookmarkPost {
+    onCreateUserBookmarkPost {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        passwd
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_num
+        following_num
+        my_post_list {
+          nextToken
+          startedAt
+        }
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
+        my_comment_list {
+          nextToken
+          startedAt
+        }
+        my_tag_list
+        award_today
+        award_week
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        like_user_num
+        urgent_user_num
+        comment_list {
+          nextToken
+          startedAt
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          passwd
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
+        like_user_list
+        urgent_user_list
+        tag_list
+        board_type
+        click_num
+        blind
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserBookmarkPost = /* GraphQL */ `
+  subscription OnUpdateUserBookmarkPost {
+    onUpdateUserBookmarkPost {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        passwd
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_num
+        following_num
+        my_post_list {
+          nextToken
+          startedAt
+        }
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
+        my_comment_list {
+          nextToken
+          startedAt
+        }
+        my_tag_list
+        award_today
+        award_week
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        like_user_num
+        urgent_user_num
+        comment_list {
+          nextToken
+          startedAt
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          passwd
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
+        like_user_list
+        urgent_user_list
+        tag_list
+        board_type
+        click_num
+        blind
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserBookmarkPost = /* GraphQL */ `
+  subscription OnDeleteUserBookmarkPost {
+    onDeleteUserBookmarkPost {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        passwd
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_num
+        following_num
+        my_post_list {
+          nextToken
+          startedAt
+        }
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
+        my_comment_list {
+          nextToken
+          startedAt
+        }
+        my_tag_list
+        award_today
+        award_week
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        like_user_num
+        urgent_user_num
+        comment_list {
+          nextToken
+          startedAt
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          passwd
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
+        like_user_list
+        urgent_user_list
+        tag_list
+        board_type
+        click_num
+        blind
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt

@@ -59,8 +59,7 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
-        .then(res => console.log(res))
-        /*
+        
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
@@ -73,7 +72,7 @@ class Post extends Component{
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .then(res => this.getTagList())
-        */
+        
         .catch(e => console.log(e));  
 
     }

@@ -6,7 +6,7 @@ import "./Header.css";
 let Login = ()=>(
     <div className="login_popup">
        
-        <PopUp/>
+        <PopUp />
     </div>
 );
 
