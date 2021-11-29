@@ -13,8 +13,6 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-fromwear-dev-174201-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-<<<<<<< HEAD
-=======
       "auth": {
         "fromwear0a9d3879": {},
         "true": {},
@@ -22,16 +20,11 @@
         "fromwear5ed89bb8": {},
         "fromwear9ee2f3c2": {}
       },
->>>>>>> 1fc4b7a6b97f400cb6d290379ec31945c14c0e36
       "function": {
         "fromwear7157cfbaPostConfirmation": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/fromwear7157cfbaPostConfirmation-6732563054372f74352b-build.zip"
         },
-<<<<<<< HEAD
-        "fromwear9ee2f3c2PostConfirmation": {
-          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-=======
         "fromwear8f12d908PostConfirmation": {
           "GROUP": "fromwear-user",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
@@ -45,13 +38,8 @@
         "fromwear9ee2f3c2PostConfirmation": {
           "GROUP": "",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
->>>>>>> 1fc4b7a6b97f400cb6d290379ec31945c14c0e36
-          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-694430684f3866533038-build.zip"
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-35573151592b544e484d-build.zip"
         }
-      },
-      "auth": {
-        "fromwear7157cfba": {},
-        "fromwear9ee2f3c2": {}
       }
     }
   }

@@ -31,7 +31,7 @@ class Post extends Component{
         this.state = {
             now_post:Object,
             now_writer:Object,
-            like_user_list: [],
+            //like_user_list: [],
             like_click: false,
             urgent_user_list: [],
             urgent_click: false,
@@ -45,6 +45,8 @@ class Post extends Component{
             delete_comment_list:[],
             delete_is_checked:false,
 
+            like_num: 0,
+
             same1:[],
             same2:[],
             same3:[],
@@ -53,13 +55,17 @@ class Post extends Component{
     }
 
     componentDidMount(){
+        console.log("post_id:",this.state.post_id)
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
+        .then(res => console.log(res))
+        /*
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
-            like_user_list: res.data.getPost.like_user_list,
+            //like_num: res.data.getPost.like_user_num,
+            //like_user_list: res.data.getPost.like_user_list,
             urgent_user_list: res.data.getPost.urgent_user_list,
             tag_list: res.data.getPost.tag_list,
             bookmark_user_list: res.data.getPost.bookmark_user_list,
@@ -67,6 +73,7 @@ class Post extends Component{
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
         .then(res => this.getTagList())
+        */
         .catch(e => console.log(e));  
 
     }
@@ -84,7 +91,7 @@ class Post extends Component{
 
     setLikeAndUrgent = (board_type) => {
         if(board_type == 0 || board_type == 2){
-            this.set_like(this.state.like_user_list)
+            //this.set_like(this.state.like_user_list)
             //console.log("오늘의 착장")
         }
         else if(board_type == 1){
@@ -130,13 +137,15 @@ class Post extends Component{
 
     handleLikeButton = () => {
         if(this.state.like_click == true){
+            /*
             var index = this.state.like_user_list.indexOf(user_id)
-            if(index > -1){
-                this.state.like_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
+            //if(index > -1){
+                //this.state.like_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
             }
             else {
                 console.log("error!! cannot find user_id in like_user_list");
             }
+            */
             this.setState((prev) => {
                 return {
                     like_click: false,
@@ -145,10 +154,12 @@ class Post extends Component{
             });
         }
         else {
+            /*
             if(this.state.like_user_list === null){
                 this.state.like_user_list = []
             }
             this.state.like_user_list.push(user_id);
+            */
             this.setState((prev) => {
                 return {
                     like_click: true,
@@ -157,15 +168,21 @@ class Post extends Component{
             });
         }
 
-        console.log("like:", this.state.like_user_list);
+        //console.log("좋아요:",this.state.like_num)
         
+        /*
         API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
-            like_user_list: this.state.like_user_list,
-            like_user_num: this.state.like_user_list.length,
+            //like_user_list: this.state.like_user_list,
+            like_user_num: this.state.like_num+1,
             }}
         })
         .then(res => console.log(res))
         .catch(e => console.log(e))
+        
+        this.setState({
+            like_num: this.state.like_num+1
+        })
+        */
         
     }
 
@@ -312,7 +329,7 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list, delete_comment_list, result_post} = this.state;
+        let {post_id, now_post, now_writer, like_click,  tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list, delete_comment_list, result_post} = this.state;
 
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
@@ -387,7 +404,7 @@ class Post extends Component{
                                 
                                 (now_post.board_type == 0 || now_post.board_type == 2)  ?
                                 <Like
-                                like_user_list={like_user_list}
+                                //like_user_list={like_user_list}
                                 like_click={like_click}
                                 handleLikeButton={this.handleLikeButton}
                                 /> : <Urgent
