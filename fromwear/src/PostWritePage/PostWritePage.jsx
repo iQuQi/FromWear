@@ -20,14 +20,13 @@ let PostWritePage = () => {
 							<CloseIcon/>	
 					</Button>
                     <form action="doLogin" method="POST" class="loginForm">
-                    
                         <div className="image_file_input">
                             {
                             fileImage && ( <img alt="preivew_img" src={fileImage} class="upload_img" /> )
                             }
                             <input id="to_click_img" class="img_file_form" type="file" accept="image/*" onChange={saveFileImage} />
                             <label for="to_click_img" class="click_img">클릭해서 업로드</label>
-                            <button class="delete_img" onClick={() => deleteFileImage()} >삭제</button>
+                            <button class="delete_img" type="button" onClick={() => deleteFileImage()} ></button>
                         </div>
                         <div className="post_text_input">
                 
@@ -50,11 +49,10 @@ let PostWritePage = () => {
                                 <label class="radio"><input type="radio" name="fruit" value="아니오" checked="checked"/><span>아니오</span></label>
                             </div>
 
-                            <Button style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >등록</Button>
+                            <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >등록</Button>
 
                         </div>
                     
-
 
 
                     </form>
