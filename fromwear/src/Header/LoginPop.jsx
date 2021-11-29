@@ -6,7 +6,7 @@ let PopUp=()=>{
 
     window.location.reload();
 
-    return <span>popup</span>
+    return <span></span>
 }
 
 const MyTheme = {

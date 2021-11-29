@@ -11,7 +11,7 @@ type User @model @auth(rules: [{allow: public}]) {
   follower_num: Int!
   following_num: Int!
   my_post_list: [Post] @connection(keyName: "postByUser", fields: ["id"])
-  my_bookmark_post_list: [ID]
+  my_bookmark_post_list: [UserBookmarkPost] @connection(keyName:"UserBookmarkPostbyUser",fields:["id"])
   my_comment_list: [Comment] @connection(keyName: "commentByUser", fields: ["id"])
   my_tag_list: [String]
   award_today: Int!
@@ -23,7 +23,9 @@ type follow @model @auth(rules: [{allow: public}]) {
   follower_id: ID!
 }
 
-type Comment @model @key(name: "commentByPost", fields: ["post_id"]) @key(name: "commentByUser", fields: ["user_id"]) {
+type Comment @model 
+@key(name: "commentByPost", fields: ["post_id"]) 
+@key(name: "commentByUser", fields: ["user_id"]) {
   id: ID!
   user_id: ID!
   user: User @connection(fields: ["user_id"])
@@ -44,7 +46,7 @@ type Post @model @key(name: "postByUser", fields: ["user_id"]) {
   content: String!
   user_id: ID!
   user: User @connection(fields: ["user_id"])
-  bookmark_user_list: [ID]
+  bookmark_user_list: [UserBookmarkPost] @connection(keyName:"UserBookmarkPostbyPost",fields:["id"])
   like_user_list: [ID]
   urgent_user_list: [ID]
   tag_list: [String!]
@@ -79,3 +81,11 @@ type AppInfo @model {
   today: String
 }
  
+type UserBookmarkPost @model
+@key(name: "UserBookmarkPostbyUser",fields:["user_id"])
+@key(name: "UserBookmarkPostbyPost",fields:["post_id"]){
+  user_id: ID!
+  post_id: ID!
+  user: User! @connection(fields:["user_id"])
+  post: Post! @connection(fields:["post_id"])
+}

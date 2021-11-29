@@ -18,6 +18,8 @@ export const syncUsers = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -28,7 +30,10 @@ export const syncUsers = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -53,6 +58,8 @@ export const getUser = /* GraphQL */ `
       id
       name
       passwd
+      email
+      phone
       profile_img
       introduce
       gender
@@ -67,7 +74,6 @@ export const getUser = /* GraphQL */ `
           img
           content
           user_id
-          bookmark_user_list
           like_user_list
           urgent_user_list
           tag_list
@@ -83,7 +89,20 @@ export const getUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      my_bookmark_post_list
+      my_bookmark_post_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       my_comment_list {
         items {
           id
@@ -124,6 +143,8 @@ export const listUsers = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -134,7 +155,10 @@ export const listUsers = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -237,13 +261,14 @@ export const syncComments = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -265,7 +290,6 @@ export const syncComments = /* GraphQL */ `
           img
           content
           user_id
-          bookmark_user_list
           like_user_list
           urgent_user_list
           tag_list
@@ -298,6 +322,8 @@ export const getComment = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -308,7 +334,10 @@ export const getComment = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -342,13 +371,14 @@ export const getComment = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -358,7 +388,10 @@ export const getComment = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bookmark_user_list
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
         like_user_list
         urgent_user_list
         tag_list
@@ -393,13 +426,14 @@ export const listComments = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -421,7 +455,6 @@ export const listComments = /* GraphQL */ `
           img
           content
           user_id
-          bookmark_user_list
           like_user_list
           urgent_user_list
           tag_list
@@ -473,13 +506,14 @@ export const syncPosts = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -489,7 +523,10 @@ export const syncPosts = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bookmark_user_list
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
         like_user_list
         urgent_user_list
         tag_list
@@ -538,6 +575,8 @@ export const getPost = /* GraphQL */ `
         id
         name
         passwd
+        email
+        phone
         profile_img
         introduce
         gender
@@ -548,7 +587,10 @@ export const getPost = /* GraphQL */ `
           nextToken
           startedAt
         }
-        my_bookmark_post_list
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
         my_comment_list {
           nextToken
           startedAt
@@ -562,7 +604,20 @@ export const getPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      bookmark_user_list
+      bookmark_user_list {
+        items {
+          id
+          user_id
+          post_id
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       like_user_list
       urgent_user_list
       tag_list
@@ -599,13 +654,14 @@ export const listPosts = /* GraphQL */ `
           id
           name
           passwd
+          email
+          phone
           profile_img
           introduce
           gender
           adopted
           follower_num
           following_num
-          my_bookmark_post_list
           my_tag_list
           award_today
           award_week
@@ -615,7 +671,10 @@ export const listPosts = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bookmark_user_list
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
         like_user_list
         urgent_user_list
         tag_list
@@ -942,6 +1001,235 @@ export const listAppInfos = /* GraphQL */ `
       items {
         id
         today
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncUserBookmarkPosts = /* GraphQL */ `
+  query SyncUserBookmarkPosts(
+    $filter: ModelUserBookmarkPostFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUserBookmarkPosts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        user_id
+        post_id
+        user {
+          id
+          name
+          passwd
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          like_user_num
+          urgent_user_num
+          img
+          content
+          user_id
+          like_user_list
+          urgent_user_list
+          tag_list
+          board_type
+          click_num
+          blind
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getUserBookmarkPost = /* GraphQL */ `
+  query GetUserBookmarkPost($id: ID!) {
+    getUserBookmarkPost(id: $id) {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        passwd
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_num
+        following_num
+        my_post_list {
+          nextToken
+          startedAt
+        }
+        my_bookmark_post_list {
+          nextToken
+          startedAt
+        }
+        my_comment_list {
+          nextToken
+          startedAt
+        }
+        my_tag_list
+        award_today
+        award_week
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        like_user_num
+        urgent_user_num
+        comment_list {
+          nextToken
+          startedAt
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          passwd
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+          startedAt
+        }
+        like_user_list
+        urgent_user_list
+        tag_list
+        board_type
+        click_num
+        blind
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserBookmarkPosts = /* GraphQL */ `
+  query ListUserBookmarkPosts(
+    $filter: ModelUserBookmarkPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserBookmarkPosts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        user_id
+        post_id
+        user {
+          id
+          name
+          passwd
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          follower_num
+          following_num
+          my_tag_list
+          award_today
+          award_week
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          like_user_num
+          urgent_user_num
+          img
+          content
+          user_id
+          like_user_list
+          urgent_user_list
+          tag_list
+          board_type
+          click_num
+          blind
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
