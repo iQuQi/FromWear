@@ -3,7 +3,7 @@ import SingleComment from './SingleComment'
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser, getPost } from '../graphql/queries';
+import { getUser, getPost, listComments } from '../graphql/queries';
 import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment } from '../graphql/mutations';
@@ -41,17 +41,19 @@ class Comments extends Component {
             writer_: res.data.getUser,
         }))
         .catch(e => console.log(e));
+      
 
         API.graphql({
-            query: getPost, variables: {id: this.state.post_id}
-        })
-      
-        API.graphql({
-            query: getPost, variables: {id: this.state.post_id}
+            query: listComments, variables: {filter:
+                {
+                    _deleted: {ne: true},
+                    post_id: {eq: this.state.post_id}
+                }
+            }
         })
         .then(res => {
             this.setState({
-            comment_list: res.data.getPost.comment_list.items
+            comment_list: res.data.listComments.items
             })
             this.subscription = API.graphql({query: onCreateComment, variables: { post_id: this.state.post_id }})
             .subscribe({
@@ -67,6 +69,7 @@ class Comments extends Component {
             });
         })
         .catch(e => console.log(e));
+
         
         /*this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
         .subscribe({

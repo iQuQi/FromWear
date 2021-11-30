@@ -42,11 +42,10 @@ class Header extends Component{
 				   passwd: "",
 				   profile_img: "https://github.com/iQuQi/FromWear/blob/main/fromwear/src/SearchPage/image/wear10.png?raw=true",
 				   introduce: "",
-				   gender: "F",
+				   gender: "",
 				   adopted: 0,
 				   follower_num: 0,
 				   following_num: 0,
-				   my_bookmark_post_list: [],
 				   my_tag_list: [],
 				   award_today: 0,
 				   award_week: 0}

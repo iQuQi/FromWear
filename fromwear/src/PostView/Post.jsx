@@ -13,7 +13,7 @@ import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
-import { updatePost, deletePost, deleteComment } from '../graphql/mutations';
+import { updatePost, deletePost, deleteComment, createUserBookmarkPost, deleteUserBookmarkPost } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 //import pro1 from './Imgs/pro1.jpeg';
@@ -59,7 +59,6 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
-        
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
@@ -67,7 +66,11 @@ class Post extends Component{
             //like_user_list: res.data.getPost.like_user_list,
             urgent_user_list: res.data.getPost.urgent_user_list,
             tag_list: res.data.getPost.tag_list,
-            bookmark_user_list: res.data.getPost.bookmark_user_list,
+            bookmark_user_list: res.data.getPost.bookmark_user_list.items.filter((data123)=>{
+                console.log(data123._deleted );
+                if(data123._deleted == true) return false;
+                else return true;
+            }),
         }))
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
@@ -101,44 +104,45 @@ class Post extends Component{
 
     handleBookmarkButton = () => {
         if(this.state.bookmark_click == true){
-            var index = this.state.bookmark_user_list.indexOf(user_id)
-            if(index > -1){
-                this.state.bookmark_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
-            }
-            else {
-                console.log("error!! cannot find user_id in bookmark_user_list");
-            }
-
             this.setState((prev) => {
                 return {
                     bookmark_click: false,
                 }
 
             });
+
+            API.graphql({query: deleteUserBookmarkPost, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id,
+                    _version: 1
+                }}
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e));
         }
         else {
-            this.state.bookmark_user_list.push(user_id);
             this.setState((prev) => {
                 return {
                     bookmark_click: true,
                 }
             });
-        }
 
-        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
-            bookmark_user_list: this.state.bookmark_user_list,
-            }}
-        })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
+            API.graphql({query: createUserBookmarkPost, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id,
+                    user_id: this.state.user_id,
+                    post_id: this.state.post_id,
+                }}
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e));
+        }
     }
 
 
     handleLikeButton = () => {
         if(this.state.like_click == true){
-            /*
-            var index = this.state.like_user_list.indexOf(user_id)
-            //if(index > -1){
+            /*if(index > -1){
                 //this.state.like_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
             }
             else {
@@ -240,9 +244,17 @@ class Post extends Component{
     }
 
     set_bookmark(list){
-        var index = list.indexOf(user_id)
-        if(index > -1){
-            this.setState({bookmark_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
+        console.log("set_bookmark", list)
+        let bookmark = list.filter((data123)=>{
+            console.log(data123._deleted );
+            if(data123._deleted == true) return false;
+            else if(data123.user_id == this.state.user_id) return true;
+        })
+        console.log("bookmark:", bookmark)
+        if(bookmark.length !== 0){
+            this.setState({
+                bookmark_click: true,
+            })
         }
     }
 
