@@ -15,7 +15,7 @@ import { white } from 'jest-matcher-utils/node_modules/chalk';
 //import searchSameTagUsers from '../PostBoard/searchSameTagUsers.jsx';
 import Slider from 'react-slick';
 import { API } from 'aws-amplify';
-import { listUsers } from '../graphql/queries.js';
+import { listUsers, listFollows } from '../graphql/queries.js';
 
 import ShowFollowers from './ShowFollowers.jsx';
 
@@ -72,6 +72,8 @@ export default class Profile extends Component {
       tag_user_is_checked: false,
       tag_same_user_list: [],
       dialog_is_checked: false,
+      following_list: [],
+      follower_list: []
     }
   }
 
@@ -79,6 +81,10 @@ export default class Profile extends Component {
     if(this.props.user !== prevProps.user){
       this.setState({user: this.props.user})
     }
+  }
+
+  componentDidMount(){
+    this.dialog_get_follow();
   }
 
   find_same_tag_user = () => {
@@ -164,12 +170,36 @@ export default class Profile extends Component {
       dialog_is_checked: false,
     })
   }
+  
+  dialog_get_follow = () => {
+
+    API.graphql({
+      query: listFollows,
+      variables: { filter: {follower_id: {eq: this.state.user.id}} }
+    })
+    .then( res => {
+        this.setState({
+          following_list: res.data.listFollows.items
+        })
+    })
+    .catch( e => console.log(e) );
+
+    API.graphql({
+      query: listFollows,
+      variables: { filter: {following_id: {eq: this.state.user.id}} }
+    })
+    .then( res => {
+        this.setState({
+          follower_list: res.data.listFollows.items
+        })
+    })
+    .catch( e => console.log(e) );
+  }
 
   render(){
 
-    console.log(this.state.tag_same_user_list);
-    
-    let {user, tag_user_is_checked, tag_same_user_list, dialog_is_checked} = this.state;
+    let {user, tag_user_is_checked, tag_same_user_list, dialog_is_checked,
+      follower_list, following_list } = this.state;
 
     let taglist = [];
     let postnum = 0;
@@ -225,6 +255,8 @@ export default class Profile extends Component {
                         now_user = {user} 
                         open = {dialog_is_checked}
                         handleClose = {this.handleClose}
+                        follower_list = {follower_list}
+                        following_list = {following_list}
                       />
                       :
                       <p></p>

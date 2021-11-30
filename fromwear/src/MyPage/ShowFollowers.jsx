@@ -12,22 +12,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 let scroll = 'paper';
 
-export default function ShowFollowers({now_user, open, handleClose}) {
-    let follwing_list = [];
-
-    API.graphql({
-        query: listFollows,
-        variables: { filter: {follower_id: {eq: now_user.id}} }
-    })
-    .then( res => {
-        console.log(res.data.listFollows.items);
-        follwing_list = res.data.listFollows.items;
-        console.log(follwing_list);
-    })
-    .catch( e => console.log(e) );
-  
-    console.log(follwing_list);
-
+export default function ShowFollowers({now_user, open, handleClose, follower_list, following_list}) {
+    
   return(
     <div>
         <Dialog
@@ -39,19 +25,24 @@ export default function ShowFollowers({now_user, open, handleClose}) {
         >
             <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
-            <DialogContentText
-                id="scroll-dialog-description"
-                tabIndex={-1}
-            >
-                {[...new Array(50)]
-                .map(
-                    () => `Cras mattis consectetur purus sit amet fermentum.
-    Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-    Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                )
-                .join('\n')}
-            </DialogContentText>
+                {following_list.map((item) => (
+                    <div>
+                
+                    <a href={'/mypage/'+item.id}> 
+                    <span className='dimmed_layer'>	
+                        <img style={{height:'80px', margin:'auto'}}
+                            src={`${item.profile_img}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item.name}
+                            loading="lazy"
+                        />
+                        
+                    </span>
+                    </a>
+                    <br/>
+                    <p>{item.name}</p>
+                </div>
+                ))}
             </DialogContent>
             <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
