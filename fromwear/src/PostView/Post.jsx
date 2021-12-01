@@ -13,7 +13,7 @@ import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
-import { updatePost, deletePost, deleteComment, createUserBookmarkPost, deleteUserBookmarkPost } from '../graphql/mutations';
+import { updateUserBookmarkPost, updatePost, deletePost, deleteComment, createUserBookmarkPost, deleteUserBookmarkPost } from '../graphql/mutations';
 
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 //import pro1 from './Imgs/pro1.jpeg';
@@ -114,7 +114,6 @@ class Post extends Component{
             API.graphql({query: deleteUserBookmarkPost, variables:{input:
                 {
                     id: this.state.user_id + this.state.post_id,
-                    _version: 1
                 }}
             })
             .then(res => console.log(res))
