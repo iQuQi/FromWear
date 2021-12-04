@@ -57,10 +57,16 @@
   }
 
   .click_img {
+    position: absolute;
+    /*top: 450px;*/
+    top: 526px;
+    left: 170px;
     cursor: pointer;
+    /*
     width: 400px;
     height: 480px;
-    padding: 10px;
+    */
+    padding: 5px; /*10px*/
     border: 1px solid;
   }
 
@@ -144,4 +150,27 @@
 
   .select_blind {
     margin: 10px 0 30px;
+  }
+
+  .tag_area {
+    position: fixed;
+    top:383px;
+    width: 340px; /*340*/
+    height: 130px;
+    /*background-color: white;*/
+    z-index: 1;
+    overflow: scroll;
+    padding: 20px;
+    text-align: center; /*이게 center가 안먹힘..*/
+    box-sizing: border-box;
+  }
+
+  .postwrite_tag_list {
+    margin-top: 100px;
+  }
+
+  .submit_button {
+    position: fixed;
+    top:530px;
+    width: 340px;
   }
