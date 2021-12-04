@@ -95,9 +95,10 @@ class SingleComment extends Component {
                                 <div>
                                     <img src={writer_user.profile_img} className="writer_img" /> 
                                     <div className="comment_user_name">{writer_user.name}</div>
-                                    <Thumb 
+                                    {
+                                        /*<Thumb 
                                     comment_list={comment_list}
-                                    user_id={user_id}/>
+                                    user_id={user_id}/>*/}
                                     <p className="comment_content">{comment_list.content}</p>
                                 </div>
                         </div>

@@ -39,7 +39,7 @@ class Post extends Component{
             delete_comment_list:[],
             delete_is_checked:false,
 
-            like_num: 0,
+            like_urgent_num: 0,
 
             same1:[],
             same2:[],
@@ -134,6 +134,7 @@ class Post extends Component{
             this.setState((prev) => {
                 return {
                     like_urgent_click: false,
+                    like_urgent_num: this.state.like_urgent_num-1,
                 }
 
             });
@@ -151,6 +152,7 @@ class Post extends Component{
             this.setState((prev) => {
                 return {
                     like_urgent_click: true,
+                    like_urgent_num: this.state.like_urgent_num+1,
                 }
             });
 
@@ -175,6 +177,11 @@ class Post extends Component{
                 like_urgent_click: true,
             })
         }
+
+        this.setState({
+            like_urgent_num: list.length,
+        })
+
     }
 
     set_bookmark(list){
@@ -268,7 +275,7 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_urgent_click,  tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, user_id, delete_comment_list, result_post} = this.state;
+        let {post_id, now_post, now_writer, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, user_id, delete_comment_list, result_post} = this.state;
 
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
@@ -281,8 +288,6 @@ class Post extends Component{
             this.removeComment(delete_comment_list.items)
             
         }
-
-        console.log("@@@@@@@ board_type:", now_post.board_type)
 
         return (
             <div className="post_page">
@@ -325,6 +330,7 @@ class Post extends Component{
                                 </div>
                                 <div className="comment">
                                     <Comments
+                                    post_id = {post_id}
                                     board_type = {now_post.board_type}
                                     user_id = {user_id}
                                     post_id = {post_id}
@@ -344,6 +350,7 @@ class Post extends Component{
                                 like_urgent_click={like_urgent_click}
                                 handleLikeUrgentButton={this.handleLikeUrgentButton}
                                 board_type={now_post.board_type}
+                                like_urgent_num={like_urgent_num}
                             />
                             <div className="post_list">
                                 {"#" + tag_list[0] + " "}

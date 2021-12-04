@@ -12,7 +12,8 @@ class LikeUrgent extends Component {
             like_urgent_user_list: props.like_urgent_user_list,
             like_urgent_click: props.like_urgent_click,
             handleLikeUrgentButton: props.handleLikeUrgentButton,
-            board_type: props.board_type
+            board_type: props.board_type,
+            like_urgent_num: props.like_urgent_num,
         }
 
     }
@@ -28,10 +29,13 @@ class LikeUrgent extends Component {
         if (this.props.board_type !== prevProps.board_type) {
             this.setState({board_type: this.props.board_type,})
         }
+        if (this.props.like_urgent_num !== prevProps.like_urgent_num) {
+            this.setState({like_urgent_num: this.props.like_urgent_num,})
+        }
     }
 
     render(){
-        let {like_urgent_user_list, like_urgent_click, handleLikeUrgentButton, board_type} = this.state;
+        let {like_urgent_user_list, like_urgent_click, handleLikeUrgentButton, board_type, like_urgent_num} = this.state;
 
         return (
             <div className="icons_list">
@@ -47,7 +51,7 @@ class LikeUrgent extends Component {
                         {
                             like_urgent_user_list == null ?
                             <div className="like_num">0</div>
-                            : <div className="like_num">{like_urgent_user_list.length}</div>
+                            : <div className="like_num">{like_urgent_num}</div>
                         }
                     </div>
                     :
@@ -61,7 +65,7 @@ class LikeUrgent extends Component {
                         {
                             like_urgent_user_list == null ?
                             <div className="like_num">0</div>
-                            : <div className="like_num">{like_urgent_user_list.length}</div>
+                            : <div className="like_num">{like_urgent_num}</div>
                         }
                     </div>
                 }

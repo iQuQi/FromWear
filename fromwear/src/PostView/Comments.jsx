@@ -20,7 +20,7 @@ class Comments extends Component {
             user_id: props.user_id, //현재 댓글을 쓰는 사람 = 현재 접속자 id
             write_is_checked: false,
             writer_: Object, //현재 댓글을 쓰는 사람
-            post_writer: props.post_writer, //현재 보고 있는 post를 쓴 사람
+            post_writer: props.post_writer, //해당 post를 쓴 사람
         }
     }
 
@@ -46,7 +46,6 @@ class Comments extends Component {
         API.graphql({
             query: listComments, variables: {filter:
                 {
-                    _deleted: {ne: true},
                     post_id: {eq: this.state.post_id}
                 }
             }
@@ -95,18 +94,17 @@ class Comments extends Component {
 
     addTweet = () => {
         let value = document.querySelector('.new_tweet_content').value;
-
+        console.log("댓글 추가!!")
         API.graphql({
             query: createComment, variables: {
                 input: 
                 {
                     adopted: false, 
                     content: value, 
-                    like: 0, 
                     post_id: this.state.post_id, 
                     user_id: this.state.user_id,
-                    like_user_list: [],
                 } }
+                
         })
         .catch(e => console.log(e));
         document.querySelector('.new_tweet_content').value = "";
@@ -115,10 +113,9 @@ class Comments extends Component {
 
 
     removeComment = (delete_id) => {
-        console.log(delete_id)
         
         API.graphql({
-            query: deleteComment, variables: {input:{id: delete_id, _version: 1}}
+            query: deleteComment, variables: {input:{id: delete_id}}
         })
         .then(res => {
             console.log(res)
@@ -136,9 +133,6 @@ class Comments extends Component {
     render(){
         let {comment_list, board_type, user_id, write_is_checked, writer_, post_writer} = this.state;
         
-        //comment_list sort
-        //console.log()
-        //console.log(writer_.name)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         return (
             <div>
