@@ -3,7 +3,7 @@ import './Thumb.css'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 import { API } from 'aws-amplify';
-import { updateAppInfo, updateComment } from '../graphql/mutations';
+import { createCommentLikeUser, deleteCommentLikeUser } from '../graphql/mutations';
 
 class Thumb extends Component{
     constructor(props){
@@ -18,13 +18,17 @@ class Thumb extends Component{
     }
 
     componentDidMount(){
-        if(this.state.comment_list.like_user_list != null){
-            let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
-            if(index > -1){
-                this.setState(
-                    {is_checked: true,}
-                )
-            }
+    }
+
+    set_comment_like = (list) => {
+        let comment_like = list.filter((data)=>{
+            if(data.user_id == this.state.user_id) return true;
+            else return false;
+        })
+        if(comment_like.length !== 0){
+            this.setState({
+                bookmark_click: true,
+            })
         }
     }
 
@@ -36,24 +40,29 @@ class Thumb extends Component{
 
     onClick = () => {
         if(this.state.is_checked == true){
-            let index = this.state.comment_list.like_user_list.indexOf(this.state.user_id)
-            if(index > -1){
-                this.state.comment_list.like_user_list.splice(index, 1);
-                this.setState((prev) => {
-                    return{
-                        is_checked: !prev.is_checked,
-                    }
-                })
-            }
-            else {
-                console.log("error!! cannot find user_id in list");
-            }
+            API.graphql({query: deleteCommentLikeUser, variables:{input:
+                {
+                    id: this.state.user_id + this.state.comment_list.id,
+                }}
+            })
+            .then(res => console.log(res))
+
+            this.setState((prev) => {
+                return {
+                    is_checked: !prev.is_checked,
+                }
+            })
         }
         else {
-            if(this.state.comment_list.like_user_list == null){
-                this.state.comment_list.like_user_list = []
-            }
-            this.state.comment_list.like_user_list.push(this.state.user_id);
+            API.graphql({query: createCommentLikeUser, variables:{input:
+                {
+                    id: this.state.user_id + this.state.comment_list.id,
+                    user_id: this.state.user_id,
+                    comment_id: this.state.comment_list.id,
+                }}
+            })
+            .then(res => console.log(res))
+            
             this.setState((prev) => {
                 return {
                     is_checked: !prev.is_checked,
@@ -61,23 +70,19 @@ class Thumb extends Component{
             })
         }
 
-        API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
-            like_user_list: this.state.comment_list.like_user_list,
-            like: this.state.comment_list.like_user_list.length,
-                }}
-            })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
-
     }
 
 
     render() {
         let {comment_list, is_checked} = this.state;
+
+        console.log("ccc",comment_list)
+
+        console.log("ccc",comment_list.like_user_list)
         return (
             <div className="thumb_div">
                 {
-                    comment_list.like_user_list == null ?
+                    comment_list.like_user_list === null ?
                     <div className="thumb_num">0</div>
                     :<div className="thumb_num">{comment_list.like_user_list.length}</div>
                 

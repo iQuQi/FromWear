@@ -75,7 +75,7 @@ class SingleComment extends Component {
         let {comment_list, board_type, writer_user, user_id, post_writer} = this.state;
         //console.log(comment_list.user_id);
         //console.log(writer_user)
-        //console.log(comment_list)
+        console.log(comment_list)
         return (
             <div>
                 <div>
@@ -95,10 +95,9 @@ class SingleComment extends Component {
                                 <div>
                                     <img src={writer_user.profile_img} className="writer_img" /> 
                                     <div className="comment_user_name">{writer_user.name}</div>
-                                    {
-                                        /*<Thumb 
+                                    <Thumb 
                                     comment_list={comment_list}
-                                    user_id={user_id}/>*/}
+                                    user_id={user_id}/>
                                     <p className="comment_content">{comment_list.content}</p>
                                 </div>
                         </div>

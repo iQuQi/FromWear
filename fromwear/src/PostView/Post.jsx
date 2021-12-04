@@ -53,6 +53,7 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
+        //.then(res=>console.log(res))
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
@@ -168,8 +169,8 @@ class Post extends Component{
     }
 
     set_like_urgent(list) {
-        let like_urgent = list.filter((data123)=>{
-            if(data123.user_id == this.state.user_id) return true;
+        let like_urgent = list.filter((data)=>{
+            if(data.user_id == this.state.user_id) return true;
             else return false;
         })
         if(like_urgent.length !== 0){
@@ -185,8 +186,8 @@ class Post extends Component{
     }
 
     set_bookmark(list){
-        let bookmark = list.filter((data123)=>{
-            if(data123.user_id == this.state.user_id) return true;
+        let bookmark = list.filter((data)=>{
+            if(data.user_id == this.state.user_id) return true;
             else return false;
         })
         console.log("bookmark:", bookmark)
