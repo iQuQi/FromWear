@@ -59,6 +59,8 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
+        .then(res => console.log(res))
+        /*
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
@@ -74,9 +76,10 @@ class Post extends Component{
         }))
         .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
-        .then(res => this.getTagList())
+        .then(res => this.getTagList())*/
         
         .catch(e => console.log(e));  
+    
 
     }
 
@@ -326,10 +329,11 @@ class Post extends Component{
                 return true;
 
             })
-            
+            /*
             same3=same3.sort(function(a,b){return b.like_user_num-a.like_user_num});
             same2=same2.sort(function(a,b){return b.like_user_num-a.like_user_num});
             same1=same1.sort(function(a,b){return b.like_user_num-a.like_user_num});
+            */
             console.log("비교 결과 list:",[...same3,...same2,...same1]);
             this.setState({
                 result_post: [...same3,...same2,...same1],
@@ -352,8 +356,6 @@ class Post extends Component{
             this.removeComment(delete_comment_list.items)
             
         }
-
-        //console.log("render 결과:", result_post)
 
         return (
             <div className="post_page">
