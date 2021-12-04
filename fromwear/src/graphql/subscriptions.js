@@ -248,42 +248,6 @@ export const onDeleteUser = /* GraphQL */ `
       }
       award_today
       award_week
-<<<<<<< HEAD
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateFollow = /* GraphQL */ `
-  subscription OnCreateFollow {
-    onCreateFollow {
-      id
-      following_id
-      follower_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateFollow = /* GraphQL */ `
-  subscription OnUpdateFollow {
-    onUpdateFollow {
-      id
-      following_id
-      follower_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteFollow = /* GraphQL */ `
-  subscription OnDeleteFollow {
-    onDeleteFollow {
-      id
-      following_id
-      follower_id
-=======
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -836,11 +800,6 @@ export const onCreateStyleTag = /* GraphQL */ `
   subscription OnCreateStyleTag {
     onCreateStyleTag {
       id
-<<<<<<< HEAD
-      board_type
-      board_name
-      best_post_list
-=======
       value
       num
       is_static
@@ -855,7 +814,6 @@ export const onCreateStyleTag = /* GraphQL */ `
         }
         nextToken
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -865,11 +823,6 @@ export const onUpdateStyleTag = /* GraphQL */ `
   subscription OnUpdateStyleTag {
     onUpdateStyleTag {
       id
-<<<<<<< HEAD
-      board_type
-      board_name
-      best_post_list
-=======
       value
       num
       is_static
@@ -884,7 +837,6 @@ export const onUpdateStyleTag = /* GraphQL */ `
         }
         nextToken
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -894,11 +846,6 @@ export const onDeleteStyleTag = /* GraphQL */ `
   subscription OnDeleteStyleTag {
     onDeleteStyleTag {
       id
-<<<<<<< HEAD
-      board_type
-      board_name
-      best_post_list
-=======
       value
       num
       is_static
@@ -913,20 +860,11 @@ export const onDeleteStyleTag = /* GraphQL */ `
         }
         nextToken
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
   }
 `;
-<<<<<<< HEAD
-export const onCreateTagList = /* GraphQL */ `
-  subscription OnCreateTagList {
-    onCreateTagList {
-      id
-      static_tag_list
-      week_tag_list
-=======
 export const onCreateUserBookmarkPost = /* GraphQL */ `
   subscription OnCreateUserBookmarkPost {
     onCreateUserBookmarkPost {
@@ -1002,7 +940,6 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1012,10 +949,6 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
   subscription OnUpdateUserBookmarkPost {
     onUpdateUserBookmarkPost {
       id
-<<<<<<< HEAD
-      static_tag_list
-      week_tag_list
-=======
       user_id
       post_id
       user {
@@ -1087,7 +1020,6 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1097,10 +1029,6 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
   subscription OnDeleteUserBookmarkPost {
     onDeleteUserBookmarkPost {
       id
-<<<<<<< HEAD
-      static_tag_list
-      week_tag_list
-=======
       user_id
       post_id
       user {
@@ -1172,7 +1100,6 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1182,10 +1109,6 @@ export const onCreateFollowingFollower = /* GraphQL */ `
   subscription OnCreateFollowingFollower {
     onCreateFollowingFollower {
       id
-<<<<<<< HEAD
-      user_id_list
-      value
-=======
       following_id
       follower_id
       following {
@@ -1252,7 +1175,6 @@ export const onCreateFollowingFollower = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1262,10 +1184,6 @@ export const onUpdateFollowingFollower = /* GraphQL */ `
   subscription OnUpdateFollowingFollower {
     onUpdateFollowingFollower {
       id
-<<<<<<< HEAD
-      user_id_list
-      value
-=======
       following_id
       follower_id
       following {
@@ -1332,7 +1250,6 @@ export const onUpdateFollowingFollower = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1342,10 +1259,6 @@ export const onDeleteFollowingFollower = /* GraphQL */ `
   subscription OnDeleteFollowingFollower {
     onDeleteFollowingFollower {
       id
-<<<<<<< HEAD
-      user_id_list
-      value
-=======
       following_id
       follower_id
       following {
@@ -1412,7 +1325,6 @@ export const onDeleteFollowingFollower = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1422,10 +1334,6 @@ export const onCreateUserStyleTag = /* GraphQL */ `
   subscription OnCreateUserStyleTag {
     onCreateUserStyleTag {
       id
-<<<<<<< HEAD
-      value
-      num
-=======
       user_id
       style_tag_id
       user {
@@ -1472,7 +1380,6 @@ export const onCreateUserStyleTag = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1482,10 +1389,6 @@ export const onUpdateUserStyleTag = /* GraphQL */ `
   subscription OnUpdateUserStyleTag {
     onUpdateUserStyleTag {
       id
-<<<<<<< HEAD
-      value
-      num
-=======
       user_id
       style_tag_id
       user {
@@ -1532,7 +1435,6 @@ export const onUpdateUserStyleTag = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1542,10 +1444,6 @@ export const onDeleteUserStyleTag = /* GraphQL */ `
   subscription OnDeleteUserStyleTag {
     onDeleteUserStyleTag {
       id
-<<<<<<< HEAD
-      value
-      num
-=======
       user_id
       style_tag_id
       user {
@@ -1592,7 +1490,6 @@ export const onDeleteUserStyleTag = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1602,9 +1499,6 @@ export const onCreateCommentLikeUser = /* GraphQL */ `
   subscription OnCreateCommentLikeUser {
     onCreateCommentLikeUser {
       id
-<<<<<<< HEAD
-      today
-=======
       user_id
       comment_id
       user {
@@ -1676,7 +1570,6 @@ export const onCreateCommentLikeUser = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1686,9 +1579,6 @@ export const onUpdateCommentLikeUser = /* GraphQL */ `
   subscription OnUpdateCommentLikeUser {
     onUpdateCommentLikeUser {
       id
-<<<<<<< HEAD
-      today
-=======
       user_id
       comment_id
       user {
@@ -1760,7 +1650,6 @@ export const onUpdateCommentLikeUser = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -1770,9 +1659,6 @@ export const onDeleteCommentLikeUser = /* GraphQL */ `
   subscription OnDeleteCommentLikeUser {
     onDeleteCommentLikeUser {
       id
-<<<<<<< HEAD
-      today
-=======
       user_id
       comment_id
       user {
@@ -1844,7 +1730,6 @@ export const onDeleteCommentLikeUser = /* GraphQL */ `
         createdAt
         updatedAt
       }
->>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }

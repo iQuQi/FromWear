@@ -4,8 +4,7 @@ import React, {Component} from 'react';
 import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
-import Like from './Like'
-import Urgent from './Urgent';
+import LikeUrgent from './LikeUrgent'
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
@@ -13,11 +12,9 @@ import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
-import { updateUserBookmarkPost, updatePost, deletePost, deleteComment, createUserBookmarkPost, deleteUserBookmarkPost } from '../graphql/mutations';
-
+import { updatePost, deletePost, deleteComment, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser } from '../graphql/mutations';
+//mport { onCreatePostLikeUrgentUser } from '../graphql/subscriptions'
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
-//import pro1 from './Imgs/pro1.jpeg';
-//import img_pro from './Imgs/img.jpeg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
@@ -29,18 +26,15 @@ class Post extends Component{
         super();
 
         this.state = {
+            post_id: props.postid,
             now_post:Object,
             now_writer:Object,
-            //like_user_list: [],
-            like_click: false,
-            urgent_user_list: [],
-            urgent_click: false,
+            like_urgent_user_list: [],
+            like_urgent_click: false,
             tag_list: [],
             user_id,
             bookmark_user_list: [],
             bookmark_click: false,
-            //post_id,
-            post_id: props.postid,
             first_click: false,
             delete_comment_list:[],
             delete_is_checked:false,
@@ -59,28 +53,34 @@ class Post extends Component{
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
-        .then(res => console.log(res))
-        /*
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
-            //like_num: res.data.getPost.like_user_num,
-            //like_user_list: res.data.getPost.like_user_list,
-            urgent_user_list: res.data.getPost.urgent_user_list,
+            like_urgent_user_list: res.data.getPost.like_urgent_user_list.items,
             tag_list: res.data.getPost.tag_list,
-            bookmark_user_list: res.data.getPost.bookmark_user_list.items.filter((data123)=>{
-                console.log(data123._deleted );
-                if(data123._deleted == true) return false;
-                else return true;
-            }),
+            bookmark_user_list: res.data.getPost.bookmark_user_list.items,
+            
         }))
-        .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
+        .then(res => this.set_like_urgent(this.state.like_urgent_user_list))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
-        .then(res => this.getTagList())*/
+        .then(res => this.getTagList())
         
-        .catch(e => console.log(e));  
-    
+        .catch(e => console.log(e));
 
+
+        /*
+        this.subscription = API.graphql({query: onCreatePostLikeUrgentUser, variables: { id: this.state.user_id + this.state.post_id }})
+        .subscribe({
+            next: newCreated => {
+                console.log(newCreated)
+                if(newCreated.post_id === this.state.user_id + this.state.post_id) //이거 무슨 의민지 공부..
+                    return;
+                let {like_urgent_user_list} = this.state;
+                this.setState({
+                    like_urgent_user_list: [...like_urgent_user_list, newCreated.value.data.onCreatePostLikeUrgentUser]
+                });
+            }
+        });*/
     }
 
     setClickNum = (input_click_num) => {
@@ -92,17 +92,6 @@ class Post extends Component{
         })
         .then(res => console.log(res))
         .catch(e => console.log(e)) 
-    }
-
-    setLikeAndUrgent = (board_type) => {
-        if(board_type == 0 || board_type == 2){
-            //this.set_like(this.state.like_user_list)
-            //console.log("오늘의 착장")
-        }
-        else if(board_type == 1){
-            this.set_urgent(this.state.urgent_user_list)
-            //console.log("도움이 필요해")
-        }
     }
 
     handleBookmarkButton = () => {
@@ -136,121 +125,62 @@ class Post extends Component{
                     post_id: this.state.post_id,
                 }}
             })
+        }
+    }
+
+
+    handleLikeUrgentButton = () => {
+        if(this.state.like_urgent_click == true){
+            this.setState((prev) => {
+                return {
+                    like_urgent_click: false,
+                }
+
+            });
+
+            API.graphql({query: deletePostLikeUrgentUser, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id,
+                }}
+            })
             .then(res => console.log(res))
             .catch(e => console.log(e));
-        }
-    }
 
-
-    handleLikeButton = () => {
-        if(this.state.like_click == true){
-            /*if(index > -1){
-                //this.state.like_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
-            }
-            else {
-                console.log("error!! cannot find user_id in like_user_list");
-            }
-            */
-            this.setState((prev) => {
-                return {
-                    like_click: false,
-                }
-
-            });
         }
         else {
-            /*
-            if(this.state.like_user_list === null){
-                this.state.like_user_list = []
-            }
-            this.state.like_user_list.push(user_id);
-            */
             this.setState((prev) => {
                 return {
-                    like_click: true,
+                    like_urgent_click: true,
                 }
-
             });
+
+            API.graphql({query: createPostLikeUrgentUser, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
+                    user_id: this.state.user_id,
+                    post_id: this.state.post_id,
+                }}
+            })
         }
 
-        //console.log("좋아요:",this.state.like_num)
-        
-        /*
-        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
-            //like_user_list: this.state.like_user_list,
-            like_user_num: this.state.like_num+1,
-            }}
-        })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
-        
-        this.setState({
-            like_num: this.state.like_num+1
-        })
-        */
-        
     }
 
-    handleUrgentButton = () => {
-        if(this.state.urgent_click == true){
-            var index = this.state.urgent_user_list.indexOf(user_id)
-            if(index > -1){
-                this.state.urgent_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
-            }
-            else {
-                console.log("error!! cannot find user_id in urgent_user_list");
-            }
-
-            this.setState((prev) => {
-                return {
-                    urgent_click: false,
-                }
-
-            });
-        }
-        else {
-            if(this.state.urgent_user_list === null){
-                this.state.urgent_user_list = []
-            }
-            this.state.urgent_user_list.push(user_id);
-            this.setState((prev) => {
-                return {
-                    urgent_click: true,
-                }
-
-            });
-        }
-
-        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
-            urgent_user_list: this.state.urgent_user_list,
-            urgent_user_num: this.state.urgent_user_list.length,
-            }}
+    set_like_urgent(list) {
+        let like_urgent = list.filter((data123)=>{
+            if(data123.user_id == this.state.user_id) return true;
+            else return false;
         })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
-        
-    }
-
-    set_like(list) {
-        var index = list.indexOf(user_id)
-        if(index > -1){
-            this.setState({like_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
-        }
-    }
-    
-    set_urgent(list) {
-        var index = list.indexOf(user_id)
-        if(index > -1){
-            this.setState({urgent_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
+        if(like_urgent.length !== 0){
+            this.setState({
+                like_urgent_click: true,
+            })
         }
     }
 
     set_bookmark(list){
-        console.log("set_bookmark", list)
         let bookmark = list.filter((data123)=>{
-            console.log(data123._deleted );
-            if(data123._deleted == true) return false;
-            else if(data123.user_id == this.state.user_id) return true;
+            if(data123.user_id == this.state.user_id) return true;
+            else return false;
         })
         console.log("bookmark:", bookmark)
         if(bookmark.length !== 0){
@@ -271,10 +201,7 @@ class Post extends Component{
 
     }
 
-
-
     removeComment = (delete_comment_list) => {
-        
         for (let i = 0; i < delete_comment_list.length; i++) {
             console.log("id : ",delete_comment_list[i].id)
             console.log("내용 : ",delete_comment_list[i].content)
@@ -292,8 +219,6 @@ class Post extends Component{
     }
 
     removePost = () => {
-        
-        
         API.graphql({
             query: deletePost, variables: {input:{id: this.state.post_id}}
         })
@@ -343,7 +268,7 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_click,  tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list, delete_comment_list, result_post} = this.state;
+        let {post_id, now_post, now_writer, like_urgent_click,  tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, user_id, delete_comment_list, result_post} = this.state;
 
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
@@ -356,6 +281,8 @@ class Post extends Component{
             this.removeComment(delete_comment_list.items)
             
         }
+
+        console.log("@@@@@@@ board_type:", now_post.board_type)
 
         return (
             <div className="post_page">
@@ -412,19 +339,12 @@ class Post extends Component{
                             bookmark_click={bookmark_click}
                             handleBookmarkButton={this.handleBookmarkButton}
                             />
-                            {
-                                
-                                (now_post.board_type == 0 || now_post.board_type == 2)  ?
-                                <Like
-                                //like_user_list={like_user_list}
-                                like_click={like_click}
-                                handleLikeButton={this.handleLikeButton}
-                                /> : <Urgent
-                                urgent_user_list={urgent_user_list}
-                                urgent_click={urgent_click}
-                                handleUrgentButton={this.handleUrgentButton}
-                                />
-                            }
+                            <LikeUrgent
+                                like_urgent_user_list= {like_urgent_user_list}
+                                like_urgent_click={like_urgent_click}
+                                handleLikeUrgentButton={this.handleLikeUrgentButton}
+                                board_type={now_post.board_type}
+                            />
                             <div className="post_list">
                                 {"#" + tag_list[0] + " "}
                                 {"#" + tag_list[1] + " "}
