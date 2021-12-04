@@ -6,26 +6,38 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
+      follower_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       my_post_list {
         items {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
@@ -50,15 +62,22 @@ export const onCreateUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
         }
         nextToken
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
       createdAt
@@ -71,26 +90,38 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
+      follower_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       my_post_list {
         items {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
@@ -115,15 +146,22 @@ export const onUpdateUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
         }
         nextToken
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
       createdAt
@@ -136,26 +174,38 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
+      follower_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       my_post_list {
         items {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
@@ -180,17 +230,25 @@ export const onDeleteUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
         }
         nextToken
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
+<<<<<<< HEAD
       createdAt
       updatedAt
     }
@@ -224,6 +282,8 @@ export const onDeleteFollow = /* GraphQL */ `
       id
       following_id
       follower_id
+=======
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -237,15 +297,18 @@ export const onCreateComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -255,7 +318,9 @@ export const onCreateComment = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -263,13 +328,19 @@ export const onCreateComment = /* GraphQL */ `
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -279,16 +350,12 @@ export const onCreateComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -297,9 +364,12 @@ export const onCreateComment = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -319,15 +389,18 @@ export const onUpdateComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -337,7 +410,9 @@ export const onUpdateComment = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -345,13 +420,19 @@ export const onUpdateComment = /* GraphQL */ `
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -361,16 +442,12 @@ export const onUpdateComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -379,9 +456,12 @@ export const onUpdateComment = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -401,15 +481,18 @@ export const onDeleteComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -419,7 +502,9 @@ export const onDeleteComment = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -427,13 +512,19 @@ export const onDeleteComment = /* GraphQL */ `
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -443,16 +534,12 @@ export const onDeleteComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -461,9 +548,12 @@ export const onDeleteComment = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -479,16 +569,12 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost {
     onCreatePost {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
@@ -501,15 +587,18 @@ export const onCreatePost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -519,7 +608,9 @@ export const onCreatePost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -535,9 +626,26 @@ export const onCreatePost = /* GraphQL */ `
         }
         nextToken
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
@@ -550,16 +658,12 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost {
     onUpdatePost {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
@@ -572,15 +676,18 @@ export const onUpdatePost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -590,7 +697,9 @@ export const onUpdatePost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -606,9 +715,26 @@ export const onUpdatePost = /* GraphQL */ `
         }
         nextToken
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
@@ -621,16 +747,12 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost {
     onDeletePost {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
@@ -643,15 +765,18 @@ export const onDeletePost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -661,7 +786,9 @@ export const onDeletePost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -677,114 +804,29 @@ export const onDeletePost = /* GraphQL */ `
         }
         nextToken
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreatePostBoard = /* GraphQL */ `
-  subscription OnCreatePostBoard {
-    onCreatePostBoard {
-      id
-      board_type
-      board_name
-      best_post_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdatePostBoard = /* GraphQL */ `
-  subscription OnUpdatePostBoard {
-    onUpdatePostBoard {
-      id
-      board_type
-      board_name
-      best_post_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeletePostBoard = /* GraphQL */ `
-  subscription OnDeletePostBoard {
-    onDeletePostBoard {
-      id
-      board_type
-      board_name
-      best_post_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateTagList = /* GraphQL */ `
-  subscription OnCreateTagList {
-    onCreateTagList {
-      id
-      static_tag_list
-      week_tag_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateTagList = /* GraphQL */ `
-  subscription OnUpdateTagList {
-    onUpdateTagList {
-      id
-      static_tag_list
-      week_tag_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteTagList = /* GraphQL */ `
-  subscription OnDeleteTagList {
-    onDeleteTagList {
-      id
-      static_tag_list
-      week_tag_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUserTag = /* GraphQL */ `
-  subscription OnCreateUserTag {
-    onCreateUserTag {
-      id
-      user_id_list
-      value
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUserTag = /* GraphQL */ `
-  subscription OnUpdateUserTag {
-    onUpdateUserTag {
-      id
-      user_id_list
-      value
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUserTag = /* GraphQL */ `
-  subscription OnDeleteUserTag {
-    onDeleteUserTag {
-      id
-      user_id_list
-      value
       createdAt
       updatedAt
     }
@@ -794,8 +836,26 @@ export const onCreateStyleTag = /* GraphQL */ `
   subscription OnCreateStyleTag {
     onCreateStyleTag {
       id
+<<<<<<< HEAD
+      board_type
+      board_name
+      best_post_list
+=======
       value
       num
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -805,8 +865,26 @@ export const onUpdateStyleTag = /* GraphQL */ `
   subscription OnUpdateStyleTag {
     onUpdateStyleTag {
       id
+<<<<<<< HEAD
+      board_type
+      board_name
+      best_post_list
+=======
       value
       num
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -816,43 +894,39 @@ export const onDeleteStyleTag = /* GraphQL */ `
   subscription OnDeleteStyleTag {
     onDeleteStyleTag {
       id
+<<<<<<< HEAD
+      board_type
+      board_name
+      best_post_list
+=======
       value
       num
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
   }
 `;
-export const onCreateAppInfo = /* GraphQL */ `
-  subscription OnCreateAppInfo {
-    onCreateAppInfo {
+<<<<<<< HEAD
+export const onCreateTagList = /* GraphQL */ `
+  subscription OnCreateTagList {
+    onCreateTagList {
       id
-      today
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateAppInfo = /* GraphQL */ `
-  subscription OnUpdateAppInfo {
-    onUpdateAppInfo {
-      id
-      today
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteAppInfo = /* GraphQL */ `
-  subscription OnDeleteAppInfo {
-    onDeleteAppInfo {
-      id
-      today
-      createdAt
-      updatedAt
-    }
-  }
-`;
+      static_tag_list
+      week_tag_list
+=======
 export const onCreateUserBookmarkPost = /* GraphQL */ `
   subscription OnCreateUserBookmarkPost {
     onCreateUserBookmarkPost {
@@ -862,15 +936,18 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -880,7 +957,9 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -888,8 +967,6 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -899,16 +976,12 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -917,15 +990,19 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
         createdAt
         updatedAt
       }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
       createdAt
       updatedAt
     }
@@ -935,20 +1012,27 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
   subscription OnUpdateUserBookmarkPost {
     onUpdateUserBookmarkPost {
       id
+<<<<<<< HEAD
+      static_tag_list
+      week_tag_list
+=======
       user_id
       post_id
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -958,7 +1042,9 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -966,8 +1052,6 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -977,16 +1061,12 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -995,9 +1075,850 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserBookmarkPost = /* GraphQL */ `
+  subscription OnDeleteUserBookmarkPost {
+    onDeleteUserBookmarkPost {
+      id
+<<<<<<< HEAD
+      static_tag_list
+      week_tag_list
+=======
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateFollowingFollower = /* GraphQL */ `
+  subscription OnCreateFollowingFollower {
+    onCreateFollowingFollower {
+      id
+<<<<<<< HEAD
+      user_id_list
+      value
+=======
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateFollowingFollower = /* GraphQL */ `
+  subscription OnUpdateFollowingFollower {
+    onUpdateFollowingFollower {
+      id
+<<<<<<< HEAD
+      user_id_list
+      value
+=======
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteFollowingFollower = /* GraphQL */ `
+  subscription OnDeleteFollowingFollower {
+    onDeleteFollowingFollower {
+      id
+<<<<<<< HEAD
+      user_id_list
+      value
+=======
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserStyleTag = /* GraphQL */ `
+  subscription OnCreateUserStyleTag {
+    onCreateUserStyleTag {
+      id
+<<<<<<< HEAD
+      value
+      num
+=======
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserStyleTag = /* GraphQL */ `
+  subscription OnUpdateUserStyleTag {
+    onUpdateUserStyleTag {
+      id
+<<<<<<< HEAD
+      value
+      num
+=======
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserStyleTag = /* GraphQL */ `
+  subscription OnDeleteUserStyleTag {
+    onDeleteUserStyleTag {
+      id
+<<<<<<< HEAD
+      value
+      num
+=======
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCommentLikeUser = /* GraphQL */ `
+  subscription OnCreateCommentLikeUser {
+    onCreateCommentLikeUser {
+      id
+<<<<<<< HEAD
+      today
+=======
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCommentLikeUser = /* GraphQL */ `
+  subscription OnUpdateCommentLikeUser {
+    onUpdateCommentLikeUser {
+      id
+<<<<<<< HEAD
+      today
+=======
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCommentLikeUser = /* GraphQL */ `
+  subscription OnDeleteCommentLikeUser {
+    onDeleteCommentLikeUser {
+      id
+<<<<<<< HEAD
+      today
+=======
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+>>>>>>> 0658bcb60d48f9e2f752ce2bd41aa84c849eda2d
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreatePostLikeUrgentUser = /* GraphQL */ `
+  subscription OnCreatePostLikeUrgentUser {
+    onCreatePostLikeUrgentUser {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -1009,24 +1930,27 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteUserBookmarkPost = /* GraphQL */ `
-  subscription OnDeleteUserBookmarkPost {
-    onDeleteUserBookmarkPost {
+export const onUpdatePostLikeUrgentUser = /* GraphQL */ `
+  subscription OnUpdatePostLikeUrgentUser {
+    onUpdatePostLikeUrgentUser {
       id
       user_id
       post_id
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -1036,7 +1960,9 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1044,8 +1970,6 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -1055,16 +1979,12 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -1073,9 +1993,272 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePostLikeUrgentUser = /* GraphQL */ `
+  subscription OnDeletePostLikeUrgentUser {
+    onDeletePostLikeUrgentUser {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreatePostStyleTag = /* GraphQL */ `
+  subscription OnCreatePostStyleTag {
+    onCreatePostStyleTag {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePostStyleTag = /* GraphQL */ `
+  subscription OnUpdatePostStyleTag {
+    onUpdatePostStyleTag {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePostStyleTag = /* GraphQL */ `
+  subscription OnDeletePostStyleTag {
+    onDeletePostStyleTag {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind

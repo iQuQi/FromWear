@@ -9,6 +9,8 @@ import Login from "./Login";
 import API from '@aws-amplify/api';
 import {createUser} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
+import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
+
 class Header extends Component{
 	constructor(){
 		super();
@@ -26,7 +28,7 @@ class Header extends Component{
 		Auth.currentAuthenticatedUser()
 		.then(res=>{
 		  
-		  console.log(res.attributes.sub);
+		  console.log(res);
 		  auth_user=res;
 		  API.graphql({
 			  query: getUser,
@@ -40,13 +42,12 @@ class Header extends Component{
 				   id: auth_user.attributes.sub,
 				   name: auth_user.username,
 				   passwd: "",
-				   profile_img: "https://github.com/iQuQi/FromWear/blob/main/fromwear/src/SearchPage/image/wear10.png?raw=true",
-				   introduce: "",
+				   email:auth_user.attributes.email,
+				   phone:auth_user.attributes.phone_number,
+				   profile_img: profile_skyblue,
+				   introduce: "자기소개를 입력해주세요",
 				   gender: "",
 				   adopted: 0,
-				   follower_num: 0,
-				   following_num: 0,
-				   my_tag_list: [],
 				   award_today: 0,
 				   award_week: 0}
 				}

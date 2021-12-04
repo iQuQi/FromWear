@@ -9,26 +9,38 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
+      follower_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       my_post_list {
         items {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
@@ -53,15 +65,22 @@ export const createUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
         }
         nextToken
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
       createdAt
@@ -77,26 +96,38 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
+      follower_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       my_post_list {
         items {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
@@ -121,15 +152,22 @@ export const updateUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
         }
         nextToken
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
       createdAt
@@ -145,26 +183,38 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
+      follower_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       my_post_list {
         items {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
@@ -189,59 +239,24 @@ export const deleteUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
         }
         nextToken
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createFollow = /* GraphQL */ `
-  mutation CreateFollow(
-    $input: CreateFollowInput!
-    $condition: ModelfollowConditionInput
-  ) {
-    createFollow(input: $input, condition: $condition) {
-      id
-      following_id
-      follower_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateFollow = /* GraphQL */ `
-  mutation UpdateFollow(
-    $input: UpdateFollowInput!
-    $condition: ModelfollowConditionInput
-  ) {
-    updateFollow(input: $input, condition: $condition) {
-      id
-      following_id
-      follower_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteFollow = /* GraphQL */ `
-  mutation DeleteFollow(
-    $input: DeleteFollowInput!
-    $condition: ModelfollowConditionInput
-  ) {
-    deleteFollow(input: $input, condition: $condition) {
-      id
-      following_id
-      follower_id
       createdAt
       updatedAt
     }
@@ -258,15 +273,18 @@ export const createComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -276,7 +294,9 @@ export const createComment = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -284,13 +304,19 @@ export const createComment = /* GraphQL */ `
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -300,16 +326,12 @@ export const createComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -318,9 +340,12 @@ export const createComment = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -343,15 +368,18 @@ export const updateComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -361,7 +389,9 @@ export const updateComment = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -369,13 +399,19 @@ export const updateComment = /* GraphQL */ `
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -385,16 +421,12 @@ export const updateComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -403,9 +435,12 @@ export const updateComment = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -428,15 +463,18 @@ export const deleteComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -446,7 +484,9 @@ export const deleteComment = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -454,13 +494,19 @@ export const deleteComment = /* GraphQL */ `
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -470,16 +516,12 @@ export const deleteComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -488,9 +530,12 @@ export const deleteComment = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -509,16 +554,12 @@ export const createPost = /* GraphQL */ `
   ) {
     createPost(input: $input, condition: $condition) {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
@@ -531,15 +572,18 @@ export const createPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -549,7 +593,9 @@ export const createPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -565,9 +611,26 @@ export const createPost = /* GraphQL */ `
         }
         nextToken
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
@@ -583,16 +646,12 @@ export const updatePost = /* GraphQL */ `
   ) {
     updatePost(input: $input, condition: $condition) {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
@@ -605,15 +664,18 @@ export const updatePost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -623,7 +685,9 @@ export const updatePost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -639,9 +703,26 @@ export const updatePost = /* GraphQL */ `
         }
         nextToken
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
@@ -657,16 +738,12 @@ export const deletePost = /* GraphQL */ `
   ) {
     deletePost(input: $input, condition: $condition) {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
           createdAt
           updatedAt
@@ -679,15 +756,18 @@ export const deletePost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -697,7 +777,9 @@ export const deletePost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -713,141 +795,29 @@ export const deletePost = /* GraphQL */ `
         }
         nextToken
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPostBoard = /* GraphQL */ `
-  mutation CreatePostBoard(
-    $input: CreatePostBoardInput!
-    $condition: ModelPostBoardConditionInput
-  ) {
-    createPostBoard(input: $input, condition: $condition) {
-      id
-      board_type
-      board_name
-      best_post_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updatePostBoard = /* GraphQL */ `
-  mutation UpdatePostBoard(
-    $input: UpdatePostBoardInput!
-    $condition: ModelPostBoardConditionInput
-  ) {
-    updatePostBoard(input: $input, condition: $condition) {
-      id
-      board_type
-      board_name
-      best_post_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deletePostBoard = /* GraphQL */ `
-  mutation DeletePostBoard(
-    $input: DeletePostBoardInput!
-    $condition: ModelPostBoardConditionInput
-  ) {
-    deletePostBoard(input: $input, condition: $condition) {
-      id
-      board_type
-      board_name
-      best_post_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createTagList = /* GraphQL */ `
-  mutation CreateTagList(
-    $input: CreateTagListInput!
-    $condition: ModelTagListConditionInput
-  ) {
-    createTagList(input: $input, condition: $condition) {
-      id
-      static_tag_list
-      week_tag_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateTagList = /* GraphQL */ `
-  mutation UpdateTagList(
-    $input: UpdateTagListInput!
-    $condition: ModelTagListConditionInput
-  ) {
-    updateTagList(input: $input, condition: $condition) {
-      id
-      static_tag_list
-      week_tag_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteTagList = /* GraphQL */ `
-  mutation DeleteTagList(
-    $input: DeleteTagListInput!
-    $condition: ModelTagListConditionInput
-  ) {
-    deleteTagList(input: $input, condition: $condition) {
-      id
-      static_tag_list
-      week_tag_list
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createUserTag = /* GraphQL */ `
-  mutation CreateUserTag(
-    $input: CreateUserTagInput!
-    $condition: ModelUserTagConditionInput
-  ) {
-    createUserTag(input: $input, condition: $condition) {
-      id
-      user_id_list
-      value
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateUserTag = /* GraphQL */ `
-  mutation UpdateUserTag(
-    $input: UpdateUserTagInput!
-    $condition: ModelUserTagConditionInput
-  ) {
-    updateUserTag(input: $input, condition: $condition) {
-      id
-      user_id_list
-      value
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteUserTag = /* GraphQL */ `
-  mutation DeleteUserTag(
-    $input: DeleteUserTagInput!
-    $condition: ModelUserTagConditionInput
-  ) {
-    deleteUserTag(input: $input, condition: $condition) {
-      id
-      user_id_list
-      value
       createdAt
       updatedAt
     }
@@ -862,6 +832,18 @@ export const createStyleTag = /* GraphQL */ `
       id
       value
       num
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -876,6 +858,18 @@ export const updateStyleTag = /* GraphQL */ `
       id
       value
       num
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -890,45 +884,18 @@ export const deleteStyleTag = /* GraphQL */ `
       id
       value
       num
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createAppInfo = /* GraphQL */ `
-  mutation CreateAppInfo(
-    $input: CreateAppInfoInput!
-    $condition: ModelAppInfoConditionInput
-  ) {
-    createAppInfo(input: $input, condition: $condition) {
-      id
-      today
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateAppInfo = /* GraphQL */ `
-  mutation UpdateAppInfo(
-    $input: UpdateAppInfoInput!
-    $condition: ModelAppInfoConditionInput
-  ) {
-    updateAppInfo(input: $input, condition: $condition) {
-      id
-      today
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteAppInfo = /* GraphQL */ `
-  mutation DeleteAppInfo(
-    $input: DeleteAppInfoInput!
-    $condition: ModelAppInfoConditionInput
-  ) {
-    deleteAppInfo(input: $input, condition: $condition) {
-      id
-      today
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -946,15 +913,18 @@ export const createUserBookmarkPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -964,7 +934,9 @@ export const createUserBookmarkPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -972,8 +944,6 @@ export const createUserBookmarkPost = /* GraphQL */ `
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -983,16 +953,12 @@ export const createUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -1001,9 +967,12 @@ export const createUserBookmarkPost = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -1027,15 +996,18 @@ export const updateUserBookmarkPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -1045,7 +1017,9 @@ export const updateUserBookmarkPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1053,8 +1027,6 @@ export const updateUserBookmarkPost = /* GraphQL */ `
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -1064,16 +1036,12 @@ export const updateUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -1082,9 +1050,12 @@ export const updateUserBookmarkPost = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
@@ -1108,15 +1079,18 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
         }
@@ -1126,7 +1100,9 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         my_comment_list {
           nextToken
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1134,8 +1110,6 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
         }
@@ -1145,16 +1119,12 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
           createdAt
@@ -1163,9 +1133,1107 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         bookmark_user_list {
           nextToken
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createFollowingFollower = /* GraphQL */ `
+  mutation CreateFollowingFollower(
+    $input: CreateFollowingFollowerInput!
+    $condition: ModelFollowingFollowerConditionInput
+  ) {
+    createFollowingFollower(input: $input, condition: $condition) {
+      id
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFollowingFollower = /* GraphQL */ `
+  mutation UpdateFollowingFollower(
+    $input: UpdateFollowingFollowerInput!
+    $condition: ModelFollowingFollowerConditionInput
+  ) {
+    updateFollowingFollower(input: $input, condition: $condition) {
+      id
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFollowingFollower = /* GraphQL */ `
+  mutation DeleteFollowingFollower(
+    $input: DeleteFollowingFollowerInput!
+    $condition: ModelFollowingFollowerConditionInput
+  ) {
+    deleteFollowingFollower(input: $input, condition: $condition) {
+      id
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUserStyleTag = /* GraphQL */ `
+  mutation CreateUserStyleTag(
+    $input: CreateUserStyleTagInput!
+    $condition: ModelUserStyleTagConditionInput
+  ) {
+    createUserStyleTag(input: $input, condition: $condition) {
+      id
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUserStyleTag = /* GraphQL */ `
+  mutation UpdateUserStyleTag(
+    $input: UpdateUserStyleTagInput!
+    $condition: ModelUserStyleTagConditionInput
+  ) {
+    updateUserStyleTag(input: $input, condition: $condition) {
+      id
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUserStyleTag = /* GraphQL */ `
+  mutation DeleteUserStyleTag(
+    $input: DeleteUserStyleTagInput!
+    $condition: ModelUserStyleTagConditionInput
+  ) {
+    deleteUserStyleTag(input: $input, condition: $condition) {
+      id
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCommentLikeUser = /* GraphQL */ `
+  mutation CreateCommentLikeUser(
+    $input: CreateCommentLikeUserInput!
+    $condition: ModelCommentLikeUserConditionInput
+  ) {
+    createCommentLikeUser(input: $input, condition: $condition) {
+      id
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCommentLikeUser = /* GraphQL */ `
+  mutation UpdateCommentLikeUser(
+    $input: UpdateCommentLikeUserInput!
+    $condition: ModelCommentLikeUserConditionInput
+  ) {
+    updateCommentLikeUser(input: $input, condition: $condition) {
+      id
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCommentLikeUser = /* GraphQL */ `
+  mutation DeleteCommentLikeUser(
+    $input: DeleteCommentLikeUserInput!
+    $condition: ModelCommentLikeUserConditionInput
+  ) {
+    deleteCommentLikeUser(input: $input, condition: $condition) {
+      id
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPostLikeUrgentUser = /* GraphQL */ `
+  mutation CreatePostLikeUrgentUser(
+    $input: CreatePostLikeUrgentUserInput!
+    $condition: ModelPostLikeUrgentUserConditionInput
+  ) {
+    createPostLikeUrgentUser(input: $input, condition: $condition) {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePostLikeUrgentUser = /* GraphQL */ `
+  mutation UpdatePostLikeUrgentUser(
+    $input: UpdatePostLikeUrgentUserInput!
+    $condition: ModelPostLikeUrgentUserConditionInput
+  ) {
+    updatePostLikeUrgentUser(input: $input, condition: $condition) {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePostLikeUrgentUser = /* GraphQL */ `
+  mutation DeletePostLikeUrgentUser(
+    $input: DeletePostLikeUrgentUserInput!
+    $condition: ModelPostLikeUrgentUserConditionInput
+  ) {
+    deletePostLikeUrgentUser(input: $input, condition: $condition) {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPostStyleTag = /* GraphQL */ `
+  mutation CreatePostStyleTag(
+    $input: CreatePostStyleTagInput!
+    $condition: ModelPostStyleTagConditionInput
+  ) {
+    createPostStyleTag(input: $input, condition: $condition) {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePostStyleTag = /* GraphQL */ `
+  mutation UpdatePostStyleTag(
+    $input: UpdatePostStyleTagInput!
+    $condition: ModelPostStyleTagConditionInput
+  ) {
+    updatePostStyleTag(input: $input, condition: $condition) {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePostStyleTag = /* GraphQL */ `
+  mutation DeletePostStyleTag(
+    $input: DeletePostStyleTagInput!
+    $condition: ModelPostStyleTagConditionInput
+  ) {
+    deletePostStyleTag(input: $input, condition: $condition) {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
