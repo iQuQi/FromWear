@@ -1,107 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const syncUsers = /* GraphQL */ `
-  query SyncUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUsers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        passwd
-        email
-        phone
-        profile_img
-        introduce
-        gender
-        adopted
-        follower_num
-        following_num
-        my_post_list {
-          nextToken
-          startedAt
-        }
-        my_bookmark_post_list {
-          nextToken
-          startedAt
-        }
-        my_comment_list {
-          nextToken
-          startedAt
-        }
-        my_tag_list
-        award_today
-        award_week
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
       name
-      passwd
       email
       phone
       profile_img
       introduce
       gender
       adopted
-      follower_num
-      following_num
-      my_post_list {
+      follower_list {
         items {
           id
-          like_user_num
-          urgent_user_num
-          img
-          content
-          user_id
-          like_user_list
-          urgent_user_list
-          tag_list
-          board_type
-          click_num
-          blind
-          _version
-          _deleted
-          _lastChangedAt
+          following_id
+          follower_id
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
+      }
+      following_list {
+        items {
+          id
+          following_id
+          follower_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      my_post_list {
+        items {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       my_bookmark_post_list {
         items {
           id
           user_id
           post_id
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       my_comment_list {
         items {
@@ -109,24 +62,24 @@ export const getUser = /* GraphQL */ `
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      my_tag_list
+      my_tag_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -142,174 +95,36 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list {
           nextToken
-          startedAt
         }
         my_comment_list {
           nextToken
-          startedAt
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncFollows = /* GraphQL */ `
-  query SyncFollows(
-    $filter: ModelfollowFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFollows(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        following_id
-        follower_id
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getFollow = /* GraphQL */ `
-  query GetFollow($id: ID!) {
-    getFollow(id: $id) {
-      id
-      following_id
-      follower_id
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listFollows = /* GraphQL */ `
-  query ListFollows(
-    $filter: ModelfollowFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listFollows(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        following_id
-        follower_id
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncComments = /* GraphQL */ `
-  query SyncComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncComments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        user_id
-        user {
-          id
-          name
-          passwd
-          email
-          phone
-          profile_img
-          introduce
-          gender
-          adopted
-          follower_num
-          following_num
-          my_tag_list
-          award_today
-          award_week
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        content
-        adopted
-        like
-        like_user_list
-        post_id
-        post {
-          id
-          like_user_num
-          urgent_user_num
-          img
-          content
-          user_id
-          like_user_list
-          urgent_user_list
-          tag_list
-          board_type
-          click_num
-          blind
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -321,48 +136,52 @@ export const getComment = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list {
           nextToken
-          startedAt
         }
         my_comment_list {
           nextToken
-          startedAt
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       content
       adopted
-      like
-      like_user_list
+      like_user_list {
+        items {
+          id
+          user_id
+          comment_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       post_id
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
-          startedAt
         }
         img
         content
@@ -370,43 +189,32 @@ export const getComment = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         bookmark_user_list {
           nextToken
-          startedAt
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -425,122 +233,38 @@ export const listComments = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         content
         adopted
-        like
-        like_user_list
+        like_user_list {
+          nextToken
+        }
         post_id
         post {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncPosts = /* GraphQL */ `
-  query SyncPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPosts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        like_user_num
-        urgent_user_num
-        comment_list {
-          nextToken
-          startedAt
-        }
-        img
-        content
-        user_id
-        user {
-          id
-          name
-          passwd
-          email
-          phone
-          profile_img
-          introduce
-          gender
-          adopted
-          follower_num
-          following_num
-          my_tag_list
-          award_today
-          award_week
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        bookmark_user_list {
-          nextToken
-          startedAt
-        }
-        like_user_list
-        urgent_user_list
-        tag_list
-        board_type
-        click_num
-        blind
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -548,25 +272,17 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
-      like_user_num
-      urgent_user_num
       comment_list {
         items {
           id
           user_id
           content
           adopted
-          like
-          like_user_list
           post_id
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       img
       content
@@ -574,33 +290,32 @@ export const getPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list {
           nextToken
-          startedAt
         }
         my_comment_list {
           nextToken
-          startedAt
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
@@ -609,24 +324,34 @@ export const getPost = /* GraphQL */ `
           id
           user_id
           post_id
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      like_user_list
-      urgent_user_list
-      tag_list
+      like_urgent_user_list {
+        items {
+          id
+          user_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      tag_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       board_type
       click_num
       blind
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -641,11 +366,8 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
-          startedAt
         }
         img
         content
@@ -653,265 +375,33 @@ export const listPosts = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         bookmark_user_list {
           nextToken
-          startedAt
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncPostBoards = /* GraphQL */ `
-  query SyncPostBoards(
-    $filter: ModelPostBoardFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPostBoards(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        board_type
-        board_name
-        best_post_list
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getPostBoard = /* GraphQL */ `
-  query GetPostBoard($id: ID!) {
-    getPostBoard(id: $id) {
-      id
-      board_type
-      board_name
-      best_post_list
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listPostBoards = /* GraphQL */ `
-  query ListPostBoards(
-    $filter: ModelPostBoardFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPostBoards(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        board_type
-        board_name
-        best_post_list
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncTagLists = /* GraphQL */ `
-  query SyncTagLists(
-    $filter: ModelTagListFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTagLists(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        static_tag_list
-        week_tag_list
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getTagList = /* GraphQL */ `
-  query GetTagList($id: ID!) {
-    getTagList(id: $id) {
-      id
-      static_tag_list
-      week_tag_list
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listTagLists = /* GraphQL */ `
-  query ListTagLists(
-    $filter: ModelTagListFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTagLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        static_tag_list
-        week_tag_list
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUserTags = /* GraphQL */ `
-  query SyncUserTags(
-    $filter: ModelUserTagFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUserTags(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        user_id_list
-        value
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getUserTag = /* GraphQL */ `
-  query GetUserTag($id: ID!) {
-    getUserTag(id: $id) {
-      id
-      user_id_list
-      value
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listUserTags = /* GraphQL */ `
-  query ListUserTags(
-    $filter: ModelUserTagFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUserTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        user_id_list
-        value
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncStyleTags = /* GraphQL */ `
-  query SyncStyleTags(
-    $filter: ModelStyleTagFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncStyleTags(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        value
-        num
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -921,9 +411,18 @@ export const getStyleTag = /* GraphQL */ `
       id
       value
       num
-      _version
-      _deleted
-      _lastChangedAt
+      is_static
+      is_weekly
+      user_list {
+        items {
+          id
+          user_id
+          style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -940,143 +439,15 @@ export const listStyleTags = /* GraphQL */ `
         id
         value
         num
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAppInfos = /* GraphQL */ `
-  query SyncAppInfos(
-    $filter: ModelAppInfoFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAppInfos(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        today
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getAppInfo = /* GraphQL */ `
-  query GetAppInfo($id: ID!) {
-    getAppInfo(id: $id) {
-      id
-      today
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listAppInfos = /* GraphQL */ `
-  query ListAppInfos(
-    $filter: ModelAppInfoFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAppInfos(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        today
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUserBookmarkPosts = /* GraphQL */ `
-  query SyncUserBookmarkPosts(
-    $filter: ModelUserBookmarkPostFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUserBookmarkPosts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        user_id
-        post_id
-        user {
-          id
-          name
-          passwd
-          email
-          phone
-          profile_img
-          introduce
-          gender
-          adopted
-          follower_num
-          following_num
-          my_tag_list
-          award_today
-          award_week
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+        is_static
+        is_weekly
+        user_list {
+          nextToken
         }
-        post {
-          id
-          like_user_num
-          urgent_user_num
-          img
-          content
-          user_id
-          like_user_list
-          urgent_user_list
-          tag_list
-          board_type
-          click_num
-          blind
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -1089,43 +460,39 @@ export const getUserBookmarkPost = /* GraphQL */ `
       user {
         id
         name
-        passwd
         email
         phone
         profile_img
         introduce
         gender
         adopted
-        follower_num
-        following_num
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
         my_post_list {
           nextToken
-          startedAt
         }
         my_bookmark_post_list {
           nextToken
-          startedAt
         }
         my_comment_list {
           nextToken
-          startedAt
         }
-        my_tag_list
+        my_tag_list {
+          nextToken
+        }
         award_today
         award_week
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       post {
         id
-        like_user_num
-        urgent_user_num
         comment_list {
           nextToken
-          startedAt
         }
         img
         content
@@ -1133,43 +500,32 @@ export const getUserBookmarkPost = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         bookmark_user_list {
           nextToken
-          startedAt
         }
-        like_user_list
-        urgent_user_list
-        tag_list
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
         board_type
         click_num
         blind
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -1193,51 +549,603 @@ export const listUserBookmarkPosts = /* GraphQL */ `
         user {
           id
           name
-          passwd
           email
           phone
           profile_img
           introduce
           gender
           adopted
-          follower_num
-          following_num
-          my_tag_list
           award_today
           award_week
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         post {
           id
-          like_user_num
-          urgent_user_num
           img
           content
           user_id
-          like_user_list
-          urgent_user_list
-          tag_list
           board_type
           click_num
           blind
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
-      startedAt
+    }
+  }
+`;
+export const getFollowingFollower = /* GraphQL */ `
+  query GetFollowingFollower($id: ID!) {
+    getFollowingFollower(id: $id) {
+      id
+      following_id
+      follower_id
+      following {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      follower {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listFollowingFollowers = /* GraphQL */ `
+  query ListFollowingFollowers(
+    $filter: ModelFollowingFollowerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFollowingFollowers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        following_id
+        follower_id
+        following {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        follower {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserStyleTag = /* GraphQL */ `
+  query GetUserStyleTag($id: ID!) {
+    getUserStyleTag(id: $id) {
+      id
+      user_id
+      style_tag_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserStyleTags = /* GraphQL */ `
+  query ListUserStyleTags(
+    $filter: ModelUserStyleTagFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserStyleTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        user_id
+        style_tag_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        style_tag {
+          id
+          value
+          num
+          is_static
+          is_weekly
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCommentLikeUser = /* GraphQL */ `
+  query GetCommentLikeUser($id: ID!) {
+    getCommentLikeUser(id: $id) {
+      id
+      user_id
+      comment_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      comment {
+        id
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        content
+        adopted
+        like_user_list {
+          nextToken
+        }
+        post_id
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCommentLikeUsers = /* GraphQL */ `
+  query ListCommentLikeUsers(
+    $filter: ModelCommentLikeUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCommentLikeUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        user_id
+        comment_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        comment {
+          id
+          user_id
+          content
+          adopted
+          post_id
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getPostLikeUrgentUser = /* GraphQL */ `
+  query GetPostLikeUrgentUser($id: ID!) {
+    getPostLikeUrgentUser(id: $id) {
+      id
+      user_id
+      post_id
+      user {
+        id
+        name
+        email
+        phone
+        profile_img
+        introduce
+        gender
+        adopted
+        follower_list {
+          nextToken
+        }
+        following_list {
+          nextToken
+        }
+        my_post_list {
+          nextToken
+        }
+        my_bookmark_post_list {
+          nextToken
+        }
+        my_comment_list {
+          nextToken
+        }
+        my_tag_list {
+          nextToken
+        }
+        award_today
+        award_week
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPostLikeUrgentUsers = /* GraphQL */ `
+  query ListPostLikeUrgentUsers(
+    $filter: ModelPostLikeUrgentUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostLikeUrgentUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        user_id
+        post_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getPostStyleTag = /* GraphQL */ `
+  query GetPostStyleTag($id: ID!) {
+    getPostStyleTag(id: $id) {
+      id
+      tag_id
+      post_id
+      style_tag {
+        id
+        value
+        num
+        is_static
+        is_weekly
+        user_list {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPostStyleTags = /* GraphQL */ `
+  query ListPostStyleTags(
+    $filter: ModelPostStyleTagFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostStyleTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        tag_id
+        post_id
+        style_tag {
+          id
+          value
+          num
+          is_static
+          is_weekly
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
   }
 `;
