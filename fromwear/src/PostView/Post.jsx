@@ -1,42 +1,47 @@
 import React, {Component} from 'react';
+//import { Link } from 'react-router-dom';
 
 import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
-import Like from './Like'
-import Urgent from './Urgent';
+import LikeUrgent from './LikeUrgent'
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
+import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
-import { getComment, getPost } from '../graphql/queries';
-
+import { getPost, listPosts } from '../graphql/queries';
+import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
-//import pro1 from './Imgs/pro1.jpeg';
-//import img_pro from './Imgs/img.jpeg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "민수 id"; //현재 유저
+let user_id = "현경 id"; //현재 유저
+
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
         super();
 
         this.state = {
+            post_id: props.postid,
             now_post:Object,
             now_writer:Object,
-            like_user_list: [],
-            like_click: false,
-            urgent_user_list: [],
-            urgent_click: false,
+            like_urgent_user_list: [],
+            like_urgent_click: false,
             tag_list: [],
             user_id,
             bookmark_user_list: [],
             bookmark_click: false,
-            //post_id,
-            post_id: props.postid,
+            first_click: false,
+
+            like_urgent_num: 0,
+
+            same1:[],
+            same2:[],
+            same3:[],
+            result_post:[],
         }
     }
 
@@ -47,140 +52,199 @@ class Post extends Component{
         .then(res => this.setState({
             now_post: res.data.getPost,
             now_writer: res.data.getPost.user,
-            like_user_list: res.data.getPost.like_user_list,
-            urgent_user_list: res.data.getPost.urgent_user_list,
-            tag_list: res.data.getPost.tag_list,
-            bookmark_user_list: res.data.getPost.bookmark_user_list,
+            like_urgent_user_list: res.data.getPost.like_urgent_user_list.items,
+            tag_list: res.data.getPost.tag_list.items,
+            bookmark_user_list: res.data.getPost.bookmark_user_list.items,
         }))
-        .then(res => this.setLikeAndUrgent(this.state.now_post.board_type))
+        .then(res => this.set_like_urgent(this.state.like_urgent_user_list))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
-        .catch(e => console.log(e));  
+        .then(res => this.getTagList())
+        
+        .catch(e => console.log(e));
 
 
+        /*
+        this.subscription = API.graphql({query: onCreatePostLikeUrgentUser, variables: { id: this.state.user_id + this.state.post_id }})
+        .subscribe({
+            next: newCreated => {
+                console.log(newCreated)
+                if(newCreated.post_id === this.state.user_id + this.state.post_id) //이거 무슨 의민지 공부..
+                    return;
+                let {like_urgent_user_list} = this.state;
+                this.setState({
+                    like_urgent_user_list: [...like_urgent_user_list, newCreated.value.data.onCreatePostLikeUrgentUser]
+                });
+            }
+        });*/
     }
 
-    setLikeAndUrgent = (board_type) => {
-        if(board_type == 0){
-            this.set_like(this.state.like_user_list)
-            //console.log("오늘의 착장")
-        }
-        else if(board_type == 1){
-            this.set_urgent(this.state.urgent_user_list)
-            //console.log("도움이 필요해")
-        }
+    setClickNum = (input_click_num) => {
+        //input_click_num : '현재 조회수'
+        this.state.first_click = true
+
+        API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
+            click_num: input_click_num+1}}
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e)) 
     }
 
     handleBookmarkButton = () => {
         if(this.state.bookmark_click == true){
-            var index = this.state.bookmark_user_list.indexOf(user_id)
-            if(index > -1){
-                this.state.bookmark_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
-            }
-            else {
-                console.log("error!! cannot find user_id in bookmark_user_list");
-            }
-
             this.setState((prev) => {
                 return {
                     bookmark_click: false,
                 }
 
             });
+
+            API.graphql({query: deleteUserBookmarkPost, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id,
+                }}
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e));
         }
         else {
-            this.state.bookmark_user_list.push(user_id);
             this.setState((prev) => {
                 return {
                     bookmark_click: true,
                 }
             });
+
+            API.graphql({query: createUserBookmarkPost, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id,
+                    user_id: this.state.user_id,
+                    post_id: this.state.post_id,
+                }}
+            })
         }
     }
 
 
-    handleLikeButton = () => {
-        if(this.state.like_click == true){
-            var index = this.state.like_user_list.indexOf(user_id)
-            if(index > -1){
-                this.state.like_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
-            }
-            else {
-                console.log("error!! cannot find user_id in like_user_list");
-            }
+    handleLikeUrgentButton = () => {
+        if(this.state.like_urgent_click == true){
             this.setState((prev) => {
                 return {
-                    like_click: false,
+                    like_urgent_click: false,
+                    like_urgent_num: this.state.like_urgent_num-1,
                 }
 
             });
+
+            API.graphql({query: deletePostLikeUrgentUser, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id,
+                }}
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e));
+
         }
         else {
-            this.state.like_user_list.push(user_id);
             this.setState((prev) => {
                 return {
-                    like_click: true,
+                    like_urgent_click: true,
+                    like_urgent_num: this.state.like_urgent_num+1,
                 }
-
             });
+
+            API.graphql({query: createPostLikeUrgentUser, variables:{input:
+                {
+                    id: this.state.user_id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
+                    user_id: this.state.user_id,
+                    post_id: this.state.post_id,
+                }}
+            })
         }
-        
+
     }
 
-    handleUrgentButton = () => {
-        if(this.state.urgent_click == true){
-            var index = this.state.urgent_user_list.indexOf(user_id)
-            if(index > -1){
-                this.state.urgent_user_list.splice(index, 1); //index로부터 1개를 삭제 = user_id만 삭제
-            }
-            else {
-                console.log("error!! cannot find user_id in urgent_user_list");
-            }
-
-            this.setState((prev) => {
-                return {
-                    urgent_click: false,
-                }
-
-            });
+    set_like_urgent(list) {
+        let like_urgent = list.filter((data)=>{
+            if(data.user_id == this.state.user_id) return true;
+            else return false;
+        })
+        if(like_urgent.length !== 0){
+            this.setState({
+                like_urgent_click: true,
+            })
         }
-        else {
-            this.state.urgent_user_list.push(user_id);
-            this.setState((prev) => {
-                return {
-                    urgent_click: true,
-                }
 
-            });
-        }
-        
-    }
+        this.setState({
+            like_urgent_num: list.length,
+        })
 
-    set_like(list) {
-        var index = list.indexOf(user_id)
-        if(index > -1){
-            this.setState({like_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
-        }
-    }
-    
-    set_urgent(list) {
-        var index = list.indexOf(user_id)
-        if(index > -1){
-            this.setState({urgent_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
-        }
     }
 
     set_bookmark(list){
-        var index = list.indexOf(user_id)
-        if(index > -1){
-            this.setState({bookmark_click:true}) //index로부터 1개를 삭제 = user_id만 삭제
+        let bookmark = list.filter((data)=>{
+            if(data.user_id == this.state.user_id) return true;
+            else return false;
+        })
+        if(bookmark.length !== 0){
+            this.setState({
+                bookmark_click: true,
+            })
         }
     }
 
+    removePost = () => {
+        API.graphql({
+            query: deletePost, variables: {input:{id: this.state.post_id}}
+        })
+        .then(res => {
+            console.log(res)
+        });
+    }
+
+    getTagList =() => {
+        let {same1, same2, same3, now_post,} = this.state;
+        API.graphql({
+            query: listPosts, variables: { filter: {board_type: {ne: 1}}} //이번주태그 페이지도 보여줘도되나?
+        })
+        .then(res=>{
+            res.data.listPosts.items.map((post)=>{
+                // 지금 post면 비교X
+                if (post.id == now_post.id) return false;
+
+                //태그 필터링
+                let same = 0;
+                post.tag_list.items.map((post_tag)=>{
+                    now_post.tag_list.items.map(now_tag=>{
+                        if(post_tag.tag_id == now_tag.tag_id) same++;
+                    })
+                })
+
+                //console.log("same: "+ same);
+                if(same == 3) same3=[...same3,post]
+                else if(same==2) same2=[...same2,post]
+                else if(same==1) same1=[...same1,post]
+                return true;
+
+            })
+            
+            same3=same3.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
+            same2=same2.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
+            same1=same1.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
+            
+            console.log("비교 결과 list:",[...same3,...same2,...same1]);
+            this.setState({
+                result_post: [...same3,...same2,...same1],
+            })
+        })
+        .catch(e=>console.log(e))
+    }
+
     render(){
-        let {post_id, now_post, now_writer, like_user_list, like_click, tag_list, bookmark_user_list, bookmark_click, user_id, urgent_click, urgent_user_list} = this.state;
-       
-        //console.log(like_user_list);
-        //console.log(like_user_list.length);
+        let {post_id, now_post, now_writer, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, user_id, result_post} = this.state;
+
+        if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
+            this.setClickNum(now_post.click_num);
+        }
+
         return (
             <div className="post_page">
                 <Header />
@@ -207,10 +271,22 @@ class Post extends Component{
                                         :
                                         <div className="writer_name">{now_writer.name}</div>
                                     }
+                                    {
+                                        user_id == now_writer.id ?
+                                        //<a href={'/'}>
+                                            <button className="remove_post" onClick={this.removeCommentGet}>
+                                                삭제
+                                            </button>
+                                        //</a>
+                                        //onclick=" location.href = '/' "
+                                        :
+                                        <div></div>
+                                    }
                                     <div className="writer_content">{now_post.content}{this.state.postid}</div>
                                 </div>
                                 <div className="comment">
                                     <Comments
+                                    post_id = {post_id}
                                     board_type = {now_post.board_type}
                                     user_id = {user_id}
                                     post_id = {post_id}
@@ -225,23 +301,24 @@ class Post extends Component{
                             bookmark_click={bookmark_click}
                             handleBookmarkButton={this.handleBookmarkButton}
                             />
-                            {
-                                
-                                (now_post.board_type == 0 || now_post.board_type == 2)  ?
-                                <Like
-                                like_user_list={like_user_list}
-                                like_click={like_click}
-                                handleLikeButton={this.handleLikeButton}
-                                /> : <Urgent
-                                urgent_user_list={urgent_user_list}
-                                urgent_click={urgent_click}
-                                handleUrgentButton={this.handleUrgentButton}
-                                />
-                            }
+                            <LikeUrgent
+                                like_urgent_user_list= {like_urgent_user_list}
+                                like_urgent_click={like_urgent_click}
+                                handleLikeUrgentButton={this.handleLikeUrgentButton}
+                                board_type={now_post.board_type}
+                                like_urgent_num={like_urgent_num}
+                            />
                             <div className="post_list">
-                                {"#" + tag_list[0] + " "}
-                                {"#" + tag_list[1] + " "}
-                                {"#" + tag_list[2]}
+                                {
+                                    tag_list.length > 0 ?
+                                    <div>
+                                        {"#" + tag_list[0].style_tag.value+ " "}
+                                        {"#" + tag_list[1].style_tag.value + " "}
+                                        {"#" + tag_list[2].style_tag.value}
+                                    </div>
+                                    :
+                                    <div></div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -249,10 +326,20 @@ class Post extends Component{
                         <div className="recommend_tag">
                                 태그 맞춤 추천
                         </div>
-                        <div className="tag_list">
+                        <div className="post_tag_list">
                             <div className="container">
                                 <div className="content">
-                                    <PostSearchResult />
+                                    {
+                                        result_post.length!=0?
+                                            <div className={"post_page_content"}>
+                                                <PostSearchResult
+                                                result_post={result_post} />
+                                            </div>
+                                            :
+                                            <Typography>
+                                                해당되는 게시물이 존재하지 않습니다.
+                                            </Typography>
+                                    }
                                 </div> 
                             </div>
                         </div>

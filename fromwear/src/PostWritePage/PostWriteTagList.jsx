@@ -1,15 +1,13 @@
 import * as React from 'react';
 import {Component} from 'react';
 import { ListItem, Stack } from '@mui/material';
-import './SearchPage.css'
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import {static_tag_data} from "./TagData"
+import {static_tag_data} from "../SearchPage/TagData"
 
-
-let TagList = ({target_button,handle_tag_button_click}) => {
+let PostWriteTagList = ({target_button,handle_tag_button_click}) => {
             return(
-                    <ul className="tag_list">
+                    <ul className="postwrite_tag_list">
                         {
                           console.log("target_button", target_button)  
                         }
@@ -33,5 +31,5 @@ let TagList = ({target_button,handle_tag_button_click}) => {
 }
             
          
-export default TagList;
+export default PostWriteTagList;
     

@@ -30,10 +30,9 @@ class TodayPostBoard extends Component {
 		}
 	}
 
-	handle_write_page_open=()=> {
-		console.log(this);
+	handle_write_page=()=> {
 		this.setState({
-			is_write_page: true
+			is_write_page: !this.state.is_write_page
 		})
 	}
 
@@ -44,7 +43,7 @@ class TodayPostBoard extends Component {
 		return ( 
 			<section className="wrap">
 				{ is_write_page 
-					? <PostWritePage />
+					? <PostWritePage handle_write_page={this.handle_write_page} />
 					: null
 				}
             	<Header handle_user_info={this.handle_user_info}/>
@@ -52,7 +51,7 @@ class TodayPostBoard extends Component {
 				<TodayPostBoardPosts 
 					board_type={board_type} 
 					user={user}
-					handle_write_page_open={this.handle_write_page_open}
+					handle_write_page={this.handle_write_page}
 				/>
 			</section> )
 	}

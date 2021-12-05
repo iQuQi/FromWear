@@ -257,7 +257,7 @@ export default class TodayPostBoardPosts extends Component {
             alert("로그인이 필요합니다.");
             return;
         }
-        this.props.handle_write_page_open();
+        this.props.handle_write_page();
     } 
 
     render() {
