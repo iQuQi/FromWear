@@ -47,6 +47,20 @@ export default class TodayPostBoardPosts extends Component {
         console.log(props.user);
 	}
 
+    componentDidUpdate(prevProps){
+        if(this.props.user !== prevProps.user){
+          this.setState({
+            user: this.props.user,
+            })
+        }
+        if(this.state.post_list !== this.state.user.my_post_list){
+            this.setState({
+                post_list: this.state.user.my_post_list
+            })
+        }
+        console.log(this.state.post_list);
+    }
+
     componentDidMount() {
 		/*
         API.graphql({ 
@@ -61,58 +75,57 @@ export default class TodayPostBoardPosts extends Component {
         .catch(e => console.log(e));
 
         */
-       console.log(this.user);
-        this.setState({
-            post_list: this.state.user.my_post_list
-        })    
+       
+        console.log(this.state.user.my_post_list);
         console.log(this.state.post_list);
-        this.handleSortView();   
+        this.handleSortLatest();   
     }
 
 	handleSortLike = (e) => {
 		console.log("like");
         
-		this.setState({
+		/*this.setState({
             post_state: 1,
-            post_list: this.state.post_list.sort(function(a,b){return b.like_user_num-a.like_user_num})
-        })
+            post_list: this.state.post_list.items.sort(function(a,b){return b.like_user_num-a.like_user_num})
+        })*/
 	}
 
 	handleSortView = (e) => {
 		console.log("view");
-		this.setState({
+		/*this.setState({
             post_state: 2,
-            post_list: this.state.post_list.sort(function(a,b){return b.click_num-a.click_num})
-        });
+            post_list: this.state.post_list.items.sort(function(a,b){return b.click_num-a.click_num})
+        });*/
 	}
 
     consolePrint = () => {
-        console.log(this.state.post_list[0].comment_list.items);
+        console.log("success");
     }
 
 	handleSortReply = (e) => {
 		console.log("reply");
 	
-        this.setState({
+        /*this.setState({
             post_state: 3,
-            post_list: this.state.post_list.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
+            post_list: this.state.user.post_list.items.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
         });
 
-        
+        */
         this.consolePrint();
 	}
 
 	handleSortLatest = (e) => {
 		console.log("Latest");
-		this.setState({
+		/*this.setState({
             post_state: 4,
-            post_list: this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
-        })
+            post_list: this.state.user.post_list.items.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
+        })*/
 	}
 
 
     render() {
-		let {post_state, post_list} = this.state;
+        console.log(this.state.post_list);
+		let {user, post_state, post_list} = this.state;
 
         return (<div>
 
@@ -129,14 +142,23 @@ export default class TodayPostBoardPosts extends Component {
             </form>
             
             <div id = 'today_post' className = 'mypage_collection'>
+                {post_list?
+                    post_list.items?
                 <ImageList cols={3} gap={8} style={{clear: 'left'}}>
-                    {post_list.map((post) => (
+                    {
+                    post_list.items.map((post) => (
                         
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
                                 src={`${post.img}?w=248&fit=crop&auto=format`}
                                 srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                alt={post.user.name}
+                                alt={
+                                    post.user?
+                                        post.user.items?
+                                            post.user.name
+                                            :<p/>
+                                        : <p/>
+                                }
                                 loading="lazy"
                             />
                             
@@ -146,22 +168,29 @@ export default class TodayPostBoardPosts extends Component {
                                         <Box style={{width: '40px'}}>
                                             <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
                                                 <Grid item xs={4}>
-                                                <Item><FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                    <Item><FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                <Item>{post.like_user_num}</Item>
+                                                    <Item>{post.like_urgent_user_list.items.length}</Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                <Item><VisibilityIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                    <Item><VisibilityIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                <Item>{post.click_num}</Item>
+                                                    <Item>{post.click_num}</Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                <Item><CommentIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                    <Item><CommentIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                <Item>{post.comment_list.items.length}</Item>
+                                                    <Item>{
+                                                        post.comment_list?
+                                                            post.comment_list.items?
+                                                                post.comment_list.items.length
+                                                                :<p/>
+                                                            :<p/>
+                                                        }
+                                                    </Item>
                                                 </Grid>
                                             </Grid>
                                         </Box>
@@ -175,6 +204,9 @@ export default class TodayPostBoardPosts extends Component {
                         </ImageListItem>
                     ))}
                 </ImageList>
+                :<p></p>
+                : <p></p>
+                }
             </div>
         </div>)
     }
