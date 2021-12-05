@@ -11,6 +11,7 @@ import PostWriteTagList from '../SearchPage/TagList'
 
 
 import {static_tag_data} from "../SearchPage/TagData"
+import { createPost } from '../graphql/mutations';
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 
@@ -100,7 +101,20 @@ class PostWritePage extends Component {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else {
-            alert("submit 성공!");
+            // 글 추가
+            // API.graphql({
+            // query: createPost, variables: {
+            //     input: 
+            //     {
+            //         board_type: 
+            //         click_num: "0",
+            //         content: 
+            //         img:
+            //         user_id: user.id,
+            //     } }
+                
+        })
+        .catch(e => console.log(e));
         }
     }
 
