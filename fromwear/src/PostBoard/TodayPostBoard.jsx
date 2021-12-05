@@ -45,6 +45,7 @@ class TodayPostBoard extends Component {
 				{ is_write_page 
 					? <PostWritePage 
 						board_type={board_type} 
+						user={user}
 						handle_write_page={this.handle_write_page} 
 					  />
 					: null
