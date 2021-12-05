@@ -13,8 +13,11 @@ class TodayPostBoard extends Component {
 	constructor(props) {
 		super();
 
-		// this.state = { board_type: props.board_type };
-		this.state = { board_type: 0 };
+		this.state = { board_type: props.board_type };
+	}
+
+	handle_user_info = (user) => {
+
 	}
 
 	render() {
@@ -22,7 +25,7 @@ class TodayPostBoard extends Component {
 
 		return ( 
 			<section className="wrap">
-            	<Header />
+            	<Header handle_user_info={this.handle_user_info}/>
 				<TodayPostBoardTop5 board_type={board_type} />
 				<TodayPostBoardPosts board_type={board_type} />
 			</section> )

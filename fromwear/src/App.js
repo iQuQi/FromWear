@@ -2,13 +2,13 @@ import { React, Component } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// import MainPage from './MainPage/MainPage.jsx';
+import MainPage from './MainPage/MainPage.jsx';
 import TodayPostBoard from './PostBoard/TodayPostBoard.jsx';
-// import PostPath from './PostView/PostPath.jsx';
-// import PostWritePage from './PostWritePage/PostWritePage.jsx';
-// import SearchPage from './SearchPage/SearchPage.jsx';
-// import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
-// import MyPage from './MyPage/MyPage.jsx';
+import PostPath from './PostView/PostPath.jsx';
+import PostWritePage from './PostWritePage/PostWritePage.jsx';
+import SearchPage from './SearchPage/SearchPage.jsx';
+import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
+import MyPage from './MyPage/MyPage.jsx';
 
 
 
@@ -16,7 +16,7 @@ function App() {
 
     return (
       <div className="App">
-          {/* <BrowserRouter>
+          <BrowserRouter>
             <Routes>
               <Route path="/" element={<MainPage />} exact/>
               <Route path="/todayboard" element={<TodayPostBoard post_type="0"/>} exact/>
@@ -28,8 +28,7 @@ function App() {
               <Route path="/mypage" element={<MyPage/>} exact/>
 
             </Routes>
-          </BrowserRouter> */}
-          <TodayPostBoard />
+          </BrowserRouter>
       </div>
 
     );
