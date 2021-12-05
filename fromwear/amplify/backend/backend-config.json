@@ -9,11 +9,18 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2022-12-02T03:41:47.453Z",
+              "apiKeyExpirationDate": "2022-12-05T01:55:20.888Z",
               "description": "fromwear"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authfromwear9ee2f3c2"
+              }
+            }
+          ]
         }
       }
     }
