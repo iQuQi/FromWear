@@ -298,6 +298,10 @@ export const listComments = /* GraphQL */ `
         adopted
         like_user_list {
           nextToken
+          items {
+            user_id
+            id
+          }
         }
         post_id
         post {
@@ -401,6 +405,10 @@ export const getPost = /* GraphQL */ `
           id
           tag_id
           post_id
+          style_tag {
+            id
+            value
+          }
           createdAt
           updatedAt
         }
@@ -424,6 +432,9 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         comment_list {
+          items {
+            id
+          }
           nextToken
         }
         img
@@ -447,7 +458,7 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
-          items{
+          items {
             id
           }
           nextToken
@@ -462,7 +473,15 @@ export const listPosts = /* GraphQL */ `
 
           }
           nextToken
+          items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+          }
         }
+        
         board_type
         click_num
         blind

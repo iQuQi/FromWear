@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { styled } from '@mui/material/styles';
 import Slider from 'react-slick';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FlagIcon from '@mui/icons-material/Flag';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/Comment';
+import MoodBadIcon from '@mui/icons-material/MoodBad';
+
+import defaultImg from '../PostView/Imgs/profile_skyblue.jpg';
 
 import './CSS/TodayPostBoardTop5.css'
 
@@ -23,41 +31,94 @@ post_top_list : [
 ]
 */
 
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: '#ffffff',
+    fontWeight: 'border',
+    height: '20px',
+    backgroundColor: 'rgba(0,0,0,0)',
+    boxShadow: 'none',
+}));
+  
+
 export default class TodayPostBoardTop5 extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             post_top_list : [],
-            post_type: props.post_type,
+            board_type: props.board_type,
         };
     }
 
     componentDidMount() {
-        if(this.state.post_type == "0") {
+        let today = new Date();
+        today.setDate(today.getDate());
+
+        let sort_function = (a, b) => {
+            return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length;
+        }
+
+        if(this.state.board_type == 0) {
             API.graphql({ 
                 query: listPosts, 
-                variables: { filter: {board_type: {eq: 0}}}})
-                .then(res => this.setState({
-                    post_top_list: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}).slice(0, 5)
-                }))
+                variables: { filter: {board_type: {ne: 1}}}})
+                .then(res => {
+                    let posts = res.data.listPosts.items.filter((post)=>{
+                        //날짜 필터링
+                        if(new Date(post.createdAt)<today) return false;
+                        return true;
+                    })
+                    this.setState({
+                        post_list : posts.sort(sort_function).slice(0, 5)
+                    })
+                })
                 .catch(e => console.log(e));
+            if(this.state.post_top_list.length < 5) {
+                API.graphql({ 
+                    query: listPosts,
+                    variables: { filter: {board_type: {ne: 1}}}})
+                    .then(res => this.setState({
+                        post_top_list: res.data.listPosts.items
+                        .sort(sort_function).slice(0, 5)
+                    }))
+                    .catch(e => console.log(e));
+
+            }
         }
         else {
             API.graphql({ 
                 query: listPosts, 
-                variables: { filter: {board_type: {eq: 1}}}})
-                .then(res => this.setState({
-                    post_top_list: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}).slice(0, 5)
-                }))
+                variables: { filter: {board_type: {eq: 1}, createdAt: {ge: today}}}})
+                .then(res => {
+                    let posts = res.data.listPosts.items.filter((post)=>{
+                        //날짜 필터링
+                        if(new Date(post.createdAt)<today) return false;
+                        return true;
+                    })
+                    this.setState({
+                        post_list : posts.sort(sort_function).slice(0, 5)
+                    })
+                })
                 .catch(e => console.log(e));
+            if(this.state.post_top_list.length < 5) {
+                API.graphql({ 
+                    query: listPosts, 
+                    variables: { filter: {board_type: {eq: 1}}}})
+                    .then(res => this.setState({
+                        post_top_list: res.data.listPosts.items.sort(sort_function).slice(0, 5)
+                    }))
+                    .catch(e => console.log(e));
+            }
         }
 	}
 
    
 
     render() {
-        let {post_top_list, post_type} = this.state;
+        let {post_top_list, board_type} = this.state;
 
 		const settings = {
 			className: "center",
@@ -68,11 +129,12 @@ export default class TodayPostBoardTop5 extends Component {
             centerPadding: "0px",
 			speed: 700,
 		};
-        console.log("render");
+        
 		return (
             <div className="today_background_wrap">
+                {console.log(this.state.post_top_list)}
                 <article className="today_wear">
-                    { post_type == "0" 
+                    { board_type == 0 
                         ? <div><h1 className="title">오늘의 착장</h1><p className="title_tag">#오늘의 #베스트드레서는 #나야나</p></div>
                         : <div><h1 className="title">도움이 필요해</h1><p className="title_tag">#옷입는거 #어려워</p></div>
                     }  
@@ -82,57 +144,116 @@ export default class TodayPostBoardTop5 extends Component {
                         <Slider {...settings}>
                     
                             {post_top_list.map((post,index) => (
-
                                     <div className= {"div_test"} key={post.id + "_1"}>
                                         <img style={{backgroundImage: `URL(${post.img})`,
                                         borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
-                                        <a href={"/post/" + post.id}>
-                                            <span className="dimmed_layer">
-                                                <span className="dimmed_info_writer">
-                                                    <img src={post.user.profile_img} alt="프로필" 
-                                                        style={{width:"30px",height:"30px",borderRadius:"50%px", 
-                                                        position: "relative",top:0, left:0, marginLeft:"5px"}}/>
-                                                        {post.user.name}
-                                                    
+                            
+                                        <a href={'/post/'+post.id}> 
+                                            <span className='dimmed_layer'>	
+                                                <span className='dimmed_info' >
+                                                    <div>
+                                                        {(board_type == 1) && (post.blind == true)
+                                                        ? <div>
+                                                            <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                            <p className="profileName">익명</p>     
+                                                          </div>
+                                                        :  <div>
+                                                          <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
+                                                                  style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                          <p className="profileName">{post.user.name}</p>     
+                                                        </div>
+                                                        }
+                                                     </div>   
+                                                    <Box style={{width: '40px'}} className="box">
+                                                        <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
+                                                            <Grid item xs={4}>
+                                                            <Item>
+                                                                { board_type == 0
+                                                                    ? <FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/>
+                                                                    : <MoodBadIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/>
+                                                                }
+                                                            </Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item>{post.like_urgent_user_list.items.length}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item><VisibilityIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item>{post.click_num}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item><CommentIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item>{post.comment_list.items.length}</Item>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
                                                 </span>
-                                                { post_type == "0" 
-                                                    ? <span className="dimmed_info_like">
-                                                        {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
-                                                    </span>
-                                                    : <span className="dimmed_info_like">
-                                                        {post.urgent_user_num}<FlagIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
-                                                    </span>
-                                                }
+                                            
                                             </span>
-									    </a>
-                                    </div>
+                                        </a>
+                                 </div>
                             ))}
-                            {post_top_list.map((post, index) => (
-                                    <div className={"div_test"} key={post.id + "_2"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`
-                                        ,borderRadius:"30px", boxShadow:  "0 8px 15px 0 gray "}}></img>
-                                        <a href={"/post/" + post.id}>
-                                            <span className={"dimmed_layer"}>
-                                                <span className="dimmed_info_writer">
-                                                    <img src={post.user.profile_img} alt="프로필" 
-                                                        style={{width:"30px",height:"30px",borderRadius:"50%", 
-                                                        position: "relative",top:"10px", left:"3px", marginLeft:"5px"}}/>
-                                                    {post.user.name}
+                            {post_top_list.map((post,index) => (
+                                    <div className= {"div_test"} key={post.id + "_1"}>
+                                        <img style={{backgroundImage: `URL(${post.img})`,
+                                        borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
+                            
+                                        <a href={'/post/'+post.id}> 
+                                            <span className='dimmed_layer'>	
+                                                <span className='dimmed_info' >
+                                                    <div>
+                                                        {(board_type == 1) && (post.blind == true)
+                                                        ? <div>
+                                                            <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                            <p className="profileName">익명</p>     
+                                                          </div>
+                                                        :  <div>
+                                                          <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
+                                                                  style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                          <p className="profileName">{post.user.name}</p>     
+                                                        </div>
+                                                        }
+                                                     </div>   
+                                                    <Box style={{width: '40px'}} className="box">
+                                                        <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
+                                                            <Grid item xs={4}>
+                                                            <Item>
+                                                                { board_type == 0
+                                                                    ? <FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/>
+                                                                    : <MoodBadIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/>
+                                                                }
+                                                            </Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item>{post.like_urgent_user_list.items.length}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item><VisibilityIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item>{post.click_num}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item><CommentIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                            </Grid>
+                                                            <Grid item xs={4}>
+                                                            <Item>{post.comment_list.items.length}</Item>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
                                                 </span>
-                                                { post_type == "0" 
-                                                    ? <span className="dimmed_info_like">
-                                                        {post.like_user_num}<FavoriteIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
-                                                    </span>
-                                                    : <span className="dimmed_info_like">
-                                                        {post.urgent_user_num}<FlagIcon style={{fontSize: 20,position:"relative",top:5, marginLeft:5}}/>
-                                                    </span>
-                                                }
+                                            
                                             </span>
-									    </a>
-                                    </div>
+                                        </a>
+                                 </div>
                             ))}
                         </Slider>
-
                     </div>
                 </article>
             </div>

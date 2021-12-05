@@ -3,11 +3,17 @@ import {Component} from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Typography  from '@mui/material/Typography';
 import FlagIcon from '@mui/icons-material/Flag';
+import CommentIcon from '@mui/icons-material/Comment';
+import CreateIcon from '@mui/icons-material/Create';
+
+
+import defaultImg from '../PostView/Imgs/profile_skyblue.jpg';
 
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -21,6 +27,7 @@ import { listPosts } from '../graphql/queries.js';
 import { ThirtyFpsTwoTone } from '@mui/icons-material';
 import { integerPropType } from '@mui/utils';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 
 /*
@@ -46,25 +53,31 @@ export default class TodayPostBoardPosts extends Component {
 		super();
 
 		this.state = {
-            post_state: 1,
+            post_state: 4,
             genderVal: "",
             filter_gender: "",
             dayVal: "",
             filter_day: -1,
             post_list:[],
 
-            post_type: props.post_type,
+            board_type: props.board_type,
+            user: props.user,
+           
 		}
-	}
+    }
 
-    componentDidMount() {
-        console.log(this.state.post_type);
-        this.handleFilteredData(1);
+    componentDidUpdate(prevProps) {
+        if(this.props.user !== prevProps.user){
+            this.setState({user: this.props.user});
+        }
+    }
+
+    componentWillMount() {
+        this.handleFilteredData(this.state.post_state);
     }
 
     handleFilteredData = (sortVal) => {
-
-        if(this.state.post_type == "0") {
+        if(this.state.board_type == "0") {
             API.graphql({ 
                 query: listPosts, 
                 variables : { filter: {board_type: {ne : 1}}}})
@@ -97,16 +110,22 @@ export default class TodayPostBoardPosts extends Component {
 
                         return true;
                     })
-                if(sortVal == 1){
+                if(sortVal == 1) {
                     this.setState({
                         post_state: sortVal,
-                        post_list : posts.sort(function(a,b){return b.like_user_num-a.like_user_num})
+                        post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
                     })
                 } 
                 else if(sortVal == 2) {
                     this.setState({
                         post_state: sortVal,
                         post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
+                    })
+                }
+                else if(sortVal == 3) {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
                     })
                 }
                 else {
@@ -154,13 +173,19 @@ export default class TodayPostBoardPosts extends Component {
                 if(sortVal == 1){
                     this.setState({
                         post_state: sortVal,
-                        post_list : posts.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num})
+                        post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
                     })
                 } 
                 else if(sortVal == 2) {
                     this.setState({
                         post_state: sortVal,
                         post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
+                    })
+                }
+                else if(sortVal == 3) {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.comment_list.item.length-a.comment_list.item.length}) 
                     })
                 }
                 else {
@@ -172,6 +197,7 @@ export default class TodayPostBoardPosts extends Component {
             })
             .catch(e => console.log(e));
         }
+        console.log(this.state.post_list);
     }
 
 	handleSortLike = (e) => {
@@ -185,32 +211,10 @@ export default class TodayPostBoardPosts extends Component {
         this.handleFilteredData(2);
 	}
 
-    // consolePrint = () => {
-    //     console.log(this.state.post_list[0].comment_list.items);
-    // }
-
-	// handleSortReply = (e) => {
-	// 	console.log("reply");
-	// 	API.graphql({ 
-    //         query: listPosts, 
-    //         variables: { filter: {board_type: {ne: 1}}}})
-	// 		.then(res => {
-    //             this.setState({
-    //             post_state: 3,
-    //             post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
-    //         })
-    //     })
-	// 		.catch(e => console.log(e));
-
-    //     API.graphql({ 
-    //         query: listPosts, 
-    //         variables: { filter: {board_type: {ne: 1}}}})
-    //         .then(res => {
-    //             console.log(Object.values(res.data.listPosts.items[0])); 
-    //         })
-    //     .catch(e => console.log(e));
-    //     this.consolePrint();
-	// }
+	handleSortReply = (e) => {
+		console.log("reply");
+        this.handleFilteredData(3);
+	}
 
 	handleSortLatest = (e) => {
 		console.log("Latest");
@@ -248,29 +252,43 @@ export default class TodayPostBoardPosts extends Component {
         this.handlePostAgain();
 	}
 
+    handleWriteButton = (e) => {
+        if(this.state.user == "noUser") {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+        this.props.handle_write_page();
+    } 
 
     render() {
-		let {post_state, post_list} = this.state;
-        let {genderVal, dayVal, post_type} = this.state;
+		let {post_state, post_list,user} = this.state;
+        let {genderVal, dayVal, board_type} = this.state;
 
         return (<article className="wrap_recommend">
-
             <form className="sort_font select_sort">
-
-                <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
-                {post_type == "0"
-                    ? <label htmlFor="sort_like">좋아요순</label>
-                    : <label htmlFor="sort_like">급해요순</label>
-                }
+                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
+                    <label htmlFor="sort_latest">최신순</label>
+                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
+                    {board_type == 0
+                        ? <label htmlFor="sort_like">좋아요순</label>
+                        : <label htmlFor="sort_like">급해요순</label>
+                    }
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
-                {/* <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
-                <label htmlFor="sort_reply">댓글순</label> */}
-                <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
-                <label htmlFor="sort_latest">최신순</label>
+                <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
+                <label htmlFor="sort_reply">댓글순</label>
 
             </form>
             <div style={{verticalAlign:"center", height:"50px", lineHeight:"50px"}}>
+                <Box className="filter_layout">
+                    <Button 
+                        variant="contained" 
+                        sx={{ m: 1.2, minWidth: 100 }}
+                        endIcon={<CreateIcon />}
+                        onClick={this.handleWriteButton}
+                        style ={{height: "35px", fontSize:14,textAlign:"center", borderRadius:"30px", fontFamily : "'나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif", fontWeight:"bold", color: 'white', borderColor: '#253861', backgroundColor: '#253861'}}
+                        >글쓰기</Button>
+                </Box>
                 <Box className="filter_layout">
                     <FormControl sx={{ m: 1.2, minWidth: 100 }}>
                         <Select 
@@ -324,16 +342,23 @@ export default class TodayPostBoardPosts extends Component {
                                 <a href={"/post/" + post.id}> 
                                     <span className='dimmed_layer'>	</span>
                                 </a>
-
                                 <Stack direction="row" spacing={0}>
                                     <div className="user_profile">
-                                        <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
-                                        <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                                        {(board_type == 1) && (post.blind == true)
+                                        ?   <div>
+                                                <img src={defaultImg} alt="기본프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <p style={{margin: '16px 0px'}}>익명</p>
+                                            </div>
+                                        :   <div>
+                                                <img src={post.user.profile_img} alt="프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                                            </div>
+                                        }
                                     </div>
                                     {(post_state == 1 || post_state == 4) && 
                                         <div className="user_like">
-                                            <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
-                                            { post_type == "0"
+                                            <p style={{margin: '16px 0px'}}>{post.like_urgent_user_list.items.length}</p>
+                                            { board_type == "0"
                                                 ? <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                                 : <MoodBadIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
                                             }
@@ -345,12 +370,12 @@ export default class TodayPostBoardPosts extends Component {
                                             <VisibilityIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                         </div>
                                     }
-                                    {/* {post_state == 3 && 
+                                    {post_state == 3 && 
                                         <div className="user_like">
-                                            <p style={{margin: '16px 0px'}}>{post.comment_list.items}</p>
+                                            <p style={{margin: '16px 0px'}}>{post.comment_list.items.length}</p>
                                             <CommentIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                         </div>
-                                    } */}
+                                    }
                                 </Stack>				
                             </ImageListItem>
                         ))}
