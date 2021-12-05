@@ -248,6 +248,10 @@ export const listComments = /* GraphQL */ `
         adopted
         like_user_list {
           nextToken
+          items {
+            user_id
+            id
+          }
         }
         post_id
         post {
@@ -344,6 +348,10 @@ export const getPost = /* GraphQL */ `
           id
           tag_id
           post_id
+          style_tag {
+            id
+            value
+          }
           createdAt
           updatedAt
         }

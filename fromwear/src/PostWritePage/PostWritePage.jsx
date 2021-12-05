@@ -61,7 +61,7 @@ class PostWritePage extends Component {
 			target_tag_button: tag_clicked_list,
 		})
 
-		console.log("cur input tag7:"+this.state.current_input_tag);
+		//console.log("cur input tag7:"+this.state.current_input_tag);
 /*
 		this.update_post_data(this.state.filter_day,this.state.filter_gender,
 			this.state.current_input_tag,
