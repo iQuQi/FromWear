@@ -98,6 +98,10 @@ class Post extends Component{
     }
 
     handleBookmarkButton = () => {
+        if(this.state.now_user == 'noUser'){
+            alert("로그인해주세요.")    
+            return
+        }
         if(this.state.bookmark_click == true){
             this.setState((prev) => {
                 return {
@@ -133,6 +137,10 @@ class Post extends Component{
 
 
     handleLikeUrgentButton = () => {
+        if(this.state.now_user == 'noUser'){
+            alert("로그인해주세요.")    
+            return
+        }
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
@@ -475,9 +483,9 @@ class Post extends Component{
                                     <Comments
                                     post_id = {post_id}
                                     board_type = {now_post.board_type}
-                                    user_id = {now_user.id}
                                     post_id = {post_id}
                                     post_writer = {now_writer}
+                                    now_user = {now_user}
                                     />
                                 </div>
                             </div>

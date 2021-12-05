@@ -14,8 +14,8 @@ class SingleComment extends Component {
         this.state={
             comment_list: props.comment_list,
             board_type: props.board_type,
-            writer_user: Object,
-            user_id: props.user_id,
+            writer_user: Object, //댓글쓴 사람
+            now_user: props.now_user, //현재 유저
             post_writer: props.post_writer,
             board_type: props.board_type,
         }
@@ -31,8 +31,8 @@ class SingleComment extends Component {
         if(this.props.post_writer !== prevProps.post_writer){
             this.setState({post_writer: this.props.post_writer})
         }
-        if(this.props.user_id !== prevProps.user_id){
-            this.setState({user_id: this.props.user_id})
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
         }
     }
 
@@ -75,7 +75,7 @@ class SingleComment extends Component {
     
 
     render(){
-        let {comment_list, board_type, writer_user, user_id, post_writer} = this.state;
+        let {comment_list, board_type, writer_user, now_user, post_writer} = this.state;
         //console.log(comment_list)
         return (
             <div>
@@ -86,7 +86,7 @@ class SingleComment extends Component {
                             <Select_button
                                 writer_user={writer_user}
                                 comment_list={comment_list}
-                                user_id={user_id}
+                                now_user={now_user}
                                 post_writer={post_writer}
                                 board_type={board_type}
                             />
@@ -98,7 +98,7 @@ class SingleComment extends Component {
                                     <div className="comment_user_name">{writer_user.name}</div>
                                     <Thumb 
                                     comment_list={comment_list}
-                                    user_id={user_id}/>
+                                    now_user={now_user}/>
                                     <p className="comment_content">{comment_list.content}</p>
                                 </div>
                         </div>
