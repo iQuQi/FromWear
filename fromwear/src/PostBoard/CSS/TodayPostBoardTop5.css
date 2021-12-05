@@ -4,7 +4,7 @@
 
 .div_test{
 	padding-top: 30px;
-	height: 500px;
+	height: 430px;
 
 }
 
@@ -101,37 +101,52 @@
 }
 
 
-
-.today_wear .slick-center:hover .dimmed_info_writer{
-	display: block;
-	font-size: 15px;
+.today_wear .slick-center:hover .dimmed_layer{
+	z-index: 40;
 	position: absolute;
-	bottom: 30px;
-	left: 30px;
-	
-}
-.today_wear .slick-center:hover .dimmed_info_like{
-	display: block;
-	font-size: 15px;
-	position: absolute;
-	bottom: 30px;
-	right: 30px;
-}
-
-.today_wear  .slick-center:hover .div_test .dimmed_layer{
-    z-index: 30;
-	position: absolute;
-	top: 13px;
+	top: 12px;
 	bottom: 98px;
 	right: -57px;
-	left: 3px;
+	left: 2px;
 
-	border-radius: 40px;
 	padding: 33% 0;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.3);
 
     color: white;
-	font-size: 15px;
+	border-radius: 40px;
+	font-size: 17px;
 	font-weight: 600;
 	cursor: pointer;
+}
+
+.dimmed_info{
+    display: none;
+    position: absolute;
+    text-align: center;
+    font-size: 1.5em;
+}
+.today_wear .slick-center:hover .dimmed_info {
+	z-index: 40;
+	display: block;
+    position: absolute;
+    left: 120px;
+    top: 100px;
+}
+.today_wear .slick-center:hover .dimmed_info .profileImg {
+	margin: 0px;
+	display: inline-block;
+	position: relative;	
+	left: -55px;
+	top: 30px;
+}
+.today_wear .slick-center:hover.dimmed_info .profileName {
+	display: inline-block;
+	position: relative;	
+	left: -45px;
+}
+
+.today_wear .box {
+	position: absolute;
+	top: 70px;
+	left: -37px;
 }

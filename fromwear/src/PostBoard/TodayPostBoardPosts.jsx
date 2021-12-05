@@ -8,6 +8,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Typography  from '@mui/material/Typography';
 import FlagIcon from '@mui/icons-material/Flag';
+import CommentIcon from '@mui/icons-material/Comment';
 
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -21,6 +22,7 @@ import { listPosts } from '../graphql/queries.js';
 import { ThirtyFpsTwoTone } from '@mui/icons-material';
 import { integerPropType } from '@mui/utils';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 
 /*
@@ -55,15 +57,14 @@ export default class TodayPostBoardPosts extends Component {
 
             post_type: props.post_type,
 		}
-	}
+    }
+
 
     componentDidMount() {
-        console.log(this.state.post_type);
-        this.handleFilteredData(1);
+        this.handleFilteredData(this.state.post_state);
     }
 
     handleFilteredData = (sortVal) => {
-
         if(this.state.post_type == "0") {
             API.graphql({ 
                 query: listPosts, 
@@ -107,6 +108,12 @@ export default class TodayPostBoardPosts extends Component {
                     this.setState({
                         post_state: sortVal,
                         post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
+                    })
+                }
+                else if(sortVal == 3) {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
                     })
                 }
                 else {
@@ -163,6 +170,12 @@ export default class TodayPostBoardPosts extends Component {
                         post_list : posts.sort(function(a,b){return b.click_num-a.click_num})
                     })
                 }
+                else if(sortVal == 3) {
+                    this.setState({
+                        post_state: sortVal,
+                        post_list : posts.sort(function(a,b){return b.comment_list.item.length-a.comment_list.item.length}) 
+                    })
+                }
                 else {
                     this.setState({
                         post_state: sortVal,
@@ -185,32 +198,10 @@ export default class TodayPostBoardPosts extends Component {
         this.handleFilteredData(2);
 	}
 
-    // consolePrint = () => {
-    //     console.log(this.state.post_list[0].comment_list.items);
-    // }
-
-	// handleSortReply = (e) => {
-	// 	console.log("reply");
-	// 	API.graphql({ 
-    //         query: listPosts, 
-    //         variables: { filter: {board_type: {ne: 1}}}})
-	// 		.then(res => {
-    //             this.setState({
-    //             post_state: 3,
-    //             post_list: res.data.listPosts.items.sort(function(a,b){return b.comment_list.items-a.comment_list.items}) 
-    //         })
-    //     })
-	// 		.catch(e => console.log(e));
-
-    //     API.graphql({ 
-    //         query: listPosts, 
-    //         variables: { filter: {board_type: {ne: 1}}}})
-    //         .then(res => {
-    //             console.log(Object.values(res.data.listPosts.items[0])); 
-    //         })
-    //     .catch(e => console.log(e));
-    //     this.consolePrint();
-	// }
+	handleSortReply = (e) => {
+		console.log("reply");
+        this.handleFilteredData(3);
+	}
 
 	handleSortLatest = (e) => {
 		console.log("Latest");
@@ -264,8 +255,8 @@ export default class TodayPostBoardPosts extends Component {
                 }
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
-                {/* <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
-                <label htmlFor="sort_reply">댓글순</label> */}
+                <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
+                <label htmlFor="sort_reply">댓글순</label>
                 <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
 
@@ -324,12 +315,12 @@ export default class TodayPostBoardPosts extends Component {
                                 <a href={"/post/" + post.id}> 
                                     <span className='dimmed_layer'>	</span>
                                 </a>
-
                                 <Stack direction="row" spacing={0}>
                                     <div className="user_profile">
                                         <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
                                         <p style={{margin: '16px 0px'}}>{post.user.name}</p>
                                     </div>
+                                    {console.log(post_state)}
                                     {(post_state == 1 || post_state == 4) && 
                                         <div className="user_like">
                                             <p style={{margin: '16px 0px'}}>{post.like_user_num}</p>
@@ -345,12 +336,12 @@ export default class TodayPostBoardPosts extends Component {
                                             <VisibilityIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                         </div>
                                     }
-                                    {/* {post_state == 3 && 
+                                    {post_state == 3 && 
                                         <div className="user_like">
-                                            <p style={{margin: '16px 0px'}}>{post.comment_list.items}</p>
+                                            <p style={{margin: '16px 0px'}}>{post.comment_list.items.length}</p>
                                             <CommentIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/> 
                                         </div>
-                                    } */}
+                                    }
                                 </Stack>				
                             </ImageListItem>
                         ))}

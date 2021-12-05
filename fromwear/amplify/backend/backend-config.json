@@ -9,6 +9,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
+              "apiKeyExpirationDate": "2022-12-02T03:41:47.453Z",
               "description": "fromwear"
             }
           },
@@ -18,20 +19,20 @@
     }
   },
   "function": {
-    "fromwear7157cfbaPostConfirmation": {
+    "fromwear9ee2f3c2PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "auth": {
-    "fromwear7157cfba": {
+    "fromwear9ee2f3c2": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "fromwear7157cfbaPostConfirmation",
+          "resourceName": "fromwear9ee2f3c2PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -60,21 +61,5 @@
       }
     }
   },
-  "storage": {
-    "s3feeed02d": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "fromwear7157cfbaPostConfirmation",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
-    }
-  }
+  "storage": {}
 }
