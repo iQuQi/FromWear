@@ -92,7 +92,10 @@ class Comments extends Component {
 
     addTweet = () => {
         let value = document.querySelector('.new_tweet_content').value;
-
+        if(value == ""){
+            alert("내용을 입력하세요")
+            return
+        }
         API.graphql({
             query: createComment, variables: {
                 input: 
