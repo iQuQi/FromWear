@@ -398,11 +398,20 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
+
           nextToken
         }
         tag_list {
           nextToken
+          items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+          }
         }
+        
         board_type
         click_num
         blind

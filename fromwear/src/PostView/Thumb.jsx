@@ -23,7 +23,6 @@ class Thumb extends Component{
     }
 
     set_comment_like = (list) => {
-        console.log("now:",list)
         let comment_like = list.filter((data)=>{
             if(data.user_id == this.state.user_id) return true;
             else return false;
@@ -89,8 +88,8 @@ class Thumb extends Component{
     render() {
         let {comment_list, is_checked, comment_like_num} = this.state;
 
-        console.log("comment_like",comment_list)
-        console.log("coment_like_user_list",comment_list.like_user_list.items)
+        //console.log("comment_like",comment_list)
+        //console.log("coment_like_user_list",comment_list.like_user_list.items)
         
         return (
             <div className="thumb_div">

@@ -12,8 +12,7 @@ import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts } from '../graphql/queries';
-import { updatePost, deletePost, deleteComment, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser } from '../graphql/mutations';
-//mport { onCreatePostLikeUrgentUser } from '../graphql/subscriptions'
+import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
@@ -36,8 +35,6 @@ class Post extends Component{
             bookmark_user_list: [],
             bookmark_click: false,
             first_click: false,
-            delete_comment_list:[],
-            delete_is_checked:false,
 
             like_urgent_num: 0,
 
@@ -49,7 +46,6 @@ class Post extends Component{
     }
 
     componentDidMount(){
-        console.log("post_id:",this.state.post_id)
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
@@ -59,7 +55,6 @@ class Post extends Component{
             like_urgent_user_list: res.data.getPost.like_urgent_user_list.items,
             tag_list: res.data.getPost.tag_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list.items,
-            
         }))
         .then(res => this.set_like_urgent(this.state.like_urgent_user_list))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
@@ -84,7 +79,7 @@ class Post extends Component{
     }
 
     setClickNum = (input_click_num) => {
-        //console.log('현재 조회수', input_click_num)
+        //input_click_num : '현재 조회수'
         this.state.first_click = true
 
         API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
@@ -189,40 +184,11 @@ class Post extends Component{
             if(data.user_id == this.state.user_id) return true;
             else return false;
         })
-        console.log("bookmark:", bookmark)
         if(bookmark.length !== 0){
             this.setState({
                 bookmark_click: true,
             })
         }
-    }
-
-    removeCommentGet = () => {
-        API.graphql({
-            query: getPost, variables: {id: this.state.post_id}
-        })
-        .then(res => this.setState({
-            delete_is_checked: true,
-            delete_comment_list: res.data.getPost.comment_list
-        }))
-
-    }
-
-    removeComment = (delete_comment_list) => {
-        for (let i = 0; i < delete_comment_list.length; i++) {
-            console.log("id : ",delete_comment_list[i].id)
-            console.log("내용 : ",delete_comment_list[i].content)
-
-            API.graphql({
-                query: deleteComment, variables: {input:{id: delete_comment_list[i].id}}
-            })
-            .then(console.log("삭제삭제"))
-            .then(res => {
-                console.log(res)
-            })
-		}
-
-        this.removePost();
     }
 
     removePost = () => {
@@ -236,21 +202,19 @@ class Post extends Component{
 
     getTagList =() => {
         let {same1, same2, same3, now_post,} = this.state;
-        //console.log("현재 사용자의 tag list", now_post.tag_list)
         API.graphql({
-            query: listPosts, variables: { filter: {board_type: {ne: 1}}}
+            query: listPosts, variables: { filter: {board_type: {ne: 1}}} //이번주태그 페이지도 보여줘도되나?
         })
         .then(res=>{
             res.data.listPosts.items.map((post)=>{
-                //console.log(post)
                 // 지금 post면 비교X
                 if (post.id == now_post.id) return false;
 
                 //태그 필터링
                 let same = 0;
-                post.tag_list.map((post_tag)=>{
-                    now_post.tag_list.style_tag.value.map(now_tag=>{
-                        if(post_tag == now_tag) same++;
+                post.tag_list.items.map((post_tag)=>{
+                    now_post.tag_list.items.map(now_tag=>{
+                        if(post_tag.tag_id == now_tag.tag_id) same++;
                     })
                 })
 
@@ -275,18 +239,10 @@ class Post extends Component{
     }
 
     render(){
-        let {post_id, now_post, now_writer, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, user_id, delete_comment_list, result_post} = this.state;
+        let {post_id, now_post, now_writer, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, user_id, result_post} = this.state;
 
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
-        }
-
-        if(this.state.delete_is_checked) {
-            console.log("삭제 실행");
-            
-            console.log(delete_comment_list.items[0].id)
-            this.removeComment(delete_comment_list.items)
-            
         }
 
         return (
