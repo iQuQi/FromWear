@@ -157,7 +157,8 @@
     top:383px;
     width: 340px; /*340*/
     height: 130px;
-    /*background-color: white;*/
+    background-color: #e3e3e3;
+    border-radius: 30px;
     z-index: 1;
     overflow: scroll;
     padding: 20px;
