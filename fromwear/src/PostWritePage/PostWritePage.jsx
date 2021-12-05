@@ -146,7 +146,7 @@ class PostWritePage extends Component {
                                         input: 
                                         {
                                             post_id: res.data.createPost.id,
-                                            tag_id: index,
+                                            tag_id: index+1,
                                         } 
                                 }})
                                 .then(res => console.log(res))
