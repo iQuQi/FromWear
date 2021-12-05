@@ -22,6 +22,7 @@
 	float: left;
 	height: 50px;
 	line-height: 50px;
+	margin-top: 30px;
 }
 
 .select_sort input[type=radio] {
@@ -41,11 +42,19 @@
 	width: 100px;
 	float: right;
 	margin-left: 10px;
+	margin-top: 30px;
 }
 .wrap_recommend .filter_layout::after {
 	clear: both;
 	content: '';
 	display: block; 
+}
+
+.wrap_recommend .filter_layout .writeButton {
+	width: 100px;
+	border-radius: 50px;
+	color: black;
+	border-color: gray;
 }
 
 .wrap_recommend .collection{

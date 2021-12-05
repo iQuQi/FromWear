@@ -13,17 +13,21 @@ class TodayPostBoard extends Component {
 	constructor(props) {
 		super();
 
-		this.state = { post_type: props.post_type };
+		this.state = { board_type: props.board_type };
+	}
+
+	handle_user_info = (user) => {
+
 	}
 
 	render() {
-		let {post_type} = this.state;
+		let {board_type} = this.state;
 
 		return ( 
 			<section className="wrap">
-            	<Header />
-				<TodayPostBoardTop5 post_type={post_type} />
-				<TodayPostBoardPosts post_type={post_type} />
+            	<Header handle_user_info={this.handle_user_info}/>
+				<TodayPostBoardTop5 board_type={board_type} />
+				<TodayPostBoardPosts board_type={board_type} />
 			</section> )
 	}
 }
