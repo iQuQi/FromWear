@@ -212,8 +212,8 @@ class SearchPage extends Component{
 			board);
 	}
 
-	handel_user_info=(user)=>{
-		console.log("user info get");
+	handle_user_info=(user)=>{
+		console.log("user info get",user);
 	}
 
 
@@ -379,7 +379,7 @@ class SearchPage extends Component{
 				handle_select_day={this.handle_select_day}
 				handle_select_gender={this.handle_select_gender}
 				handle_select_board={this.handle_select_board}
-				handel_user_info={this.handel_user_info}
+				handle_user_info={this.handle_user_info}
 				/>
 				
 				<div className="search_page_container">	

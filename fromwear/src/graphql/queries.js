@@ -447,6 +447,9 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
+          items{
+            id
+          }
           nextToken
         }
         tag_list {

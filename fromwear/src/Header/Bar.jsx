@@ -89,7 +89,8 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    alarm_data.splice(index,1);
+    if(user.alarm_list)
+      user.alarm_list.splice(index,1);
     setAlarmAnchorEl(null);
   };
   
@@ -233,7 +234,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {alarm_data.length!=0?renderAlarm:""}
+      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
   )

@@ -27,6 +27,12 @@ class Header extends Component{
 		console.log("will mount");
 		console.log(this.state.user);
 		let auth_user ;
+		console.log(this.props.handle_user_info);
+		if(this.props.handle_user_info!=undefined){
+			console.log("handle user info");
+			this.props.handle_user_info("noUser");
+		}
+
 		Auth.currentAuthenticatedUser()
 		.then(res=>{
 		  
@@ -71,17 +77,11 @@ class Header extends Component{
 		  })
 		  .catch(e=>{
 			console.log(e);
-			if(this.props.handle_user_info!=undefined){
-				this.props.handle_user_info("noUser");
-			  }
+			
 		  })
-		 
-	
 		}).catch(e=>{
 			console.log(e)
-			if(this.props.handle_user_info!=undefined){
-				this.props.handle_user_info("noUser");
-			}
+			
 		});
 
 		{get_rank_tag(this.handle_rank_data)}
