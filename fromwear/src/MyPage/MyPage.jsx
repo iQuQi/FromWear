@@ -6,8 +6,8 @@ import Header from '../Header/Header';
 import { API } from 'aws-amplify';
 import { getUser } from '../graphql/queries.js';
 
-import MyPostBoard from './MyPostBoard';
 import Profile from './Profile';
+import MyPageTab from './MyPageTab';
 
 
 class MyPage extends Component {
@@ -48,9 +48,13 @@ class MyPage extends Component {
 				</div>
 				<Profile user={now_user}/>
 
-				<div id = 'my_post' className = 'mypage_collection'>
-					<MyPostBoard user={now_user}/>					
+				<div id = 'tab' className = 'mypage_collection'>
+					<MyPageTab user={now_user}/>
 				</div>
+
+				
+
+				
             </div>
 
 			

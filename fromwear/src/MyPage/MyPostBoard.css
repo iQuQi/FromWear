@@ -1,13 +1,15 @@
 
 .sort_font {  
     text-align: right;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-right: 0px;
     font-weight: bold;
 }
 
 .select_sort {
 	padding: 0 10px;
+	position: relative;
+	right: -650px;
 }
 
 .select_sort input[type=radio] {

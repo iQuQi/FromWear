@@ -53,6 +53,18 @@ export const getUser = /* GraphQL */ `
           blind
           createdAt
           updatedAt
+          like_urgent_user_list {
+            items {
+              id
+            }
+            nextToken
+          }
+          comment_list {
+            items {
+              id
+            }
+            nextToken
+          }
         }
         nextToken
       }
