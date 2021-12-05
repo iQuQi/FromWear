@@ -41,7 +41,6 @@ class Header extends Component{
 					variables:{ input:{
 				   id: auth_user.attributes.sub,
 				   name: auth_user.username,
-				   passwd: "",
 				   email:auth_user.attributes.email,
 				   phone:auth_user.attributes.phone_number,
 				   profile_img: profile_skyblue,
@@ -100,6 +99,9 @@ class Header extends Component{
 			login_popup: false
 
 		})
+		if(this.props.handle_user_info!=undefined){
+			this.props.handle_user_info(user);
+		}
 		console.log("user set complete",user);
 	}
 
@@ -113,7 +115,6 @@ class Header extends Component{
 				handle_select_day={this.props.handle_select_day}
 				handle_select_gender={this.props.handle_select_gender}
 				handle_select_board={this.props.handle_select_board}
-
 				handle_login_click={this.handle_login_click}
 				rank_1 ={rank_1}
 				user={user}

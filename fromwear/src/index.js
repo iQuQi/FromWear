@@ -5,7 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Amplify from "aws-amplify";
 import config from "./aws-exports_custom"
+import {Auth} from "aws-amplify";
 Amplify.configure(config);
+Auth.configure(config);
+
 
 
 ReactDOM.render(
