@@ -22,7 +22,6 @@ function App() {
               <Route path="/todayboard" element={<TodayPostBoard post_type="0"/>} exact/>
               <Route path="/sosboard" element={<TodayPostBoard post_type="1"/>} exact/>
               <Route path="/post/:postid" element={<PostPath/>} exact/>
-              <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
               <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
               <Route path="/mypage" element={<MyPage/>} exact/>
@@ -63,6 +62,6 @@ export default App;
 
 export default App;
 
-
+*/
 
   

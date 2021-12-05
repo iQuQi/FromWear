@@ -16,7 +16,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
 import {getPost, listPosts, listUsers} from '../graphql/queries.js';
 import { format } from "date-fns";
-
+import Footer from '../Footer/Footer';
 import { static_tag_data } from './TagData';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
@@ -446,6 +446,7 @@ class SearchPage extends Component{
 				
 					
 				</div>
+				<Footer/>
 			</div>
 		)
 	}
