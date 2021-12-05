@@ -6,14 +6,18 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Input from '@mui/material/Input';
-import TagData from '../SearchPage/TagData'
-import PostWriteTagList from '../SearchPage/TagList'
-
-
+import TagData from '../SearchPage/TagData';
+import PostWriteTagList from '../SearchPage/TagList';
+import {v4 as uuid} from 'uuid';
+import Storage from '@aws-amplify/storage';
 import {static_tag_data} from "../SearchPage/TagData"
+<<<<<<< HEAD
 import { API } from 'aws-amplify';
 import { createPost, createPostStyleTag } from '../graphql/mutations';
 
+=======
+let board_type = 1
+>>>>>>> 8bdc2ae59e082495cdcf7ea5178157f3c9cb2e67
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 
 class PostWritePage extends Component {
@@ -47,6 +51,11 @@ class PostWritePage extends Component {
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
+        let filetype =file.name.split('.').pop();
+        Storage.put(`${uuid()}.${filetype}`,file)
+        .then(res=>console.log(res))
+        .catch(e=> console.log('onChange error',e));
+
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -114,6 +123,7 @@ class PostWritePage extends Component {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else {
+<<<<<<< HEAD
             // 글 추가
             let new_post_id = '';
             if(this.state.board_type == 0) {
@@ -176,6 +186,8 @@ class PostWritePage extends Component {
             else {
                 window.location.href = './sosboard';
             }
+=======
+>>>>>>> 8bdc2ae59e082495cdcf7ea5178157f3c9cb2e67
             window.location.reload();
         }
     }

@@ -27,7 +27,6 @@ class Header extends Component{
 		console.log("will mount");
 		console.log(this.state.user);
 		let auth_user ;
-		console.log(this.props.handle_user_info);
 	
 
 		Auth.currentAuthenticatedUser()

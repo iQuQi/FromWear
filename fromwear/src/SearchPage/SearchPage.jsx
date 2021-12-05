@@ -327,13 +327,8 @@ class SearchPage extends Component{
 						rmved.map(tag=>{
 							if(post_tag.style_tag.value==tag) same++;
 						})
-						
-						
-						
-
 					})
-					
-
+				
 					console.log("same: "+ same);
 					if(same == 3) same3=[...same3,post]
 					else if(same==2) same2=[...same2,post]
