@@ -15,7 +15,7 @@ import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
-
+import {updateUser} from '../graphql/mutations.js';
 import { Button } from '@mui/material';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
@@ -89,8 +89,19 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    if(user.alarm_list)
-      user.alarm_list.splice(index,1);
+    if(user.alarm_list){
+      API.graphql({
+        query: updateUser,
+        variables: { input: {
+          id: user.id,
+          alarm_list : user.alarm_list.splice(index,1)
+        }}
+
+      }).then(res=>{
+        console.log(res);
+      })
+      .catch(e=>console.log(e));
+    }
     setAlarmAnchorEl(null);
   };
   
@@ -197,7 +208,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             >                
               <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
-                badgeContent={17} 
+                badgeContent={user.alarm_list?user.alarm_list.items.length:0} 
                 color="primary"
                 style={{position:"relative",top:-10}}
 
