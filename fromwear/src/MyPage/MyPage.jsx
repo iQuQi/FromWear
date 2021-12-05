@@ -24,6 +24,7 @@ class MyPage extends Component {
 		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
 		.then( res => {
 			this.set_now_user(res.data.getUser);
+			console.log(res.data.getUser);
 		})
 		.catch( e => console.log(e));	
     }
@@ -48,7 +49,7 @@ class MyPage extends Component {
 				<Profile user={now_user}/>
 
 				<div id = 'my_post' className = 'mypage_collection'>
-					<MyPostBoard userid={now_user_id}/>					
+					<MyPostBoard user={now_user}/>					
 				</div>
             </div>
 

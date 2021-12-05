@@ -147,6 +147,22 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -231,6 +247,14 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "urgent_user_list": {
+                    "name": "urgent_user_list",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "tag_list": {
                     "name": "tag_list",
                     "isArray": true,
@@ -289,8 +313,7 @@ export const schema = {
                     "properties": {
                         "name": "postByUser",
                         "fields": [
-                            "user_id",
-                            "id"
+                            "user_id"
                         ]
                     }
                 }
@@ -390,8 +413,7 @@ export const schema = {
                     "properties": {
                         "name": "commentByPost",
                         "fields": [
-                            "post_id",
-                            "id"
+                            "post_id"
                         ]
                     }
                 },
@@ -400,8 +422,7 @@ export const schema = {
                     "properties": {
                         "name": "commentByUser",
                         "fields": [
-                            "user_id",
-                            "id"
+                            "user_id"
                         ]
                     }
                 }
@@ -454,6 +475,22 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -472,6 +509,13 @@ export const schema = {
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "board_name": {
+                    "name": "board_name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "best_post_list": {
@@ -660,10 +704,52 @@ export const schema = {
                     "properties": {}
                 }
             ]
+        },
+        "AppInfo": {
+            "name": "AppInfo",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "today": {
+                    "name": "today",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "AppInfos",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                }
+            ]
         }
     },
     "enums": {},
     "nonModels": {},
-
-    "version": "ad46248307cb144530bb6fa5634fecf8"
+    "version": "cdf56dda9f7064fcac699f2b367a6114"
 };

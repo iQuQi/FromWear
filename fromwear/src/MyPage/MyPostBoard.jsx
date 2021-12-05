@@ -42,13 +42,14 @@ export default class TodayPostBoardPosts extends Component {
             filter_gender: "",
             filter_day: "",
             post_list:[],
-            now_user_id: props.userid,
+            user: props.user,
 		}
-
+        console.log(props.user);
 	}
 
     componentDidMount() {
-		API.graphql({ 
+		/*
+        API.graphql({ 
             query: listPosts, 
             variables: { filter: {user_id: {eq: this.state.now_user_id}}}})
         .then(res => {
@@ -59,8 +60,13 @@ export default class TodayPostBoardPosts extends Component {
         })
         .catch(e => console.log(e));
 
-        
-        
+        */
+       console.log(this.user);
+        this.setState({
+            post_list: this.state.user.my_post_list
+        })    
+        console.log(this.state.post_list);
+        this.handleSortView();   
     }
 
 	handleSortLike = (e) => {

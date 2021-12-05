@@ -15,7 +15,7 @@ import { white } from 'jest-matcher-utils/node_modules/chalk';
 //import searchSameTagUsers from '../PostBoard/searchSameTagUsers.jsx';
 import Slider from 'react-slick';
 import { API } from 'aws-amplify';
-import { listUsers, listFollows } from '../graphql/queries.js';
+import { listUsers } from '../graphql/queries.js';
 
 import ShowFollowers from './ShowFollowers.jsx';
 
@@ -71,19 +71,20 @@ export default class Profile extends Component {
       user: props.user,
       tag_user_is_checked: false,
       tag_same_user_list: [],
-      dialog_is_checked: false,
-      following_list: [],
-      follower_list: []
+      following_is_checked: false,
+      follower_is_checked: false,
     }
   }
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
-      this.setState({user: this.props.user})
+      this.setState({
+        user: this.props.user,
+       })
     }
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.dialog_get_follow();
   }
 
@@ -111,19 +112,19 @@ export default class Profile extends Component {
     let same3=[],same2=[],same1=[];
 	  let result_user=[];
 
+    
     API.graphql({
         query: listUsers
     }).then(res=>{
         res.data.listUsers.items.map((user)=>{
-
             // 지금 user와 비교
             if (user.id == profileUser.id) return false;
 
             //태그 필터링
             let same = 0;
-            user.my_tag_list.map((user_tag)=>{
-                profileUser.my_tag_list.map(tag=>{
-                    if(user_tag == tag) same++;
+            user.my_tag_list.items.map((user_tag)=>{
+                profileUser.my_tag_list.items.map(tag=>{
+                    if(user_tag.style_tag.value == tag.style_tag.value) same++;
                 })
             })
 
@@ -140,7 +141,7 @@ export default class Profile extends Component {
         same1=same1.sort(function(a,b){return b.follower_num-a.follower_num});
 
         result_user=[...same3,...same2,...same1];
-        console.log(result_user);
+  
         this.setState({
           tag_same_user_list: result_user,
         })
@@ -148,20 +149,34 @@ export default class Profile extends Component {
     .catch(e=>console.log(e))  
   }
 
-  dialog_click = () => {
-    let {dialog_is_checked, user} = this.state;
+  dialog_click = (mode) => {
+    let {following_is_checked, follower_is_checked} = this.state;
 
-    if(dialog_is_checked){
-       
-      this.setState({
-        dialog_is_checked: false,
-      })
+    if(mode=='following'){
+      if(following_is_checked){   
+        this.setState({
+          following_is_checked: false,
+        })
+      }
+      else{
+        this.setState({
+          following_is_checked: true,
+        })
+      }
     }
-    else{
-      this.setState({
-        dialog_is_checked: true,
-      })
+    else if(mode=='follower'){
+      if(follower_is_checked){   
+        this.setState({
+          follower_is_checked: false,
+        })
+      }
+      else{
+        this.setState({
+          follower_is_checked: true,
+        })
+      }
     }
+    
     
   }
 
@@ -172,41 +187,56 @@ export default class Profile extends Component {
   }
   
   dialog_get_follow = () => {
-
+/*
     API.graphql({
       query: listFollows,
       variables: { filter: {follower_id: {eq: this.state.user.id}} }
     })
     .then( res => {
+        
+    })
+    .catch( e => console.log(e) );*/
+    /*if(this.state.user.following_list || this.state.user.follower_list){
+      if(this.state.user.following_list.items || this.state.user.follower_list.items){
         this.setState({
-          following_list: res.data.listFollows.items
+          following_list: this.state.user.following_list.items,
+          follower_list: this.state.user.follower_list.items
         })
-    })
-    .catch( e => console.log(e) );
-
-    API.graphql({
-      query: listFollows,
-      variables: { filter: {following_id: {eq: this.state.user.id}} }
-    })
-    .then( res => {
-        this.setState({
-          follower_list: res.data.listFollows.items
-        })
-    })
-    .catch( e => console.log(e) );
+      }
+      
+      API.graphql({
+        query: listFollows,
+        variables: { filter: {following_id: {eq: this.state.user.id}} }
+      })
+      .then( res => {
+          
+      })
+      .catch( e => console.log(e) );
+  
+      
+      
+    }*/
+    
+    
   }
 
   render(){
+    if(this.state.user.following_list || this.state.user.follower_list){
+      console.log(this.state.user.follower_list.items.length);
+    }
+    
+    console.log(this.state.user.my_tag_list);
 
-    let {user, tag_user_is_checked, tag_same_user_list, dialog_is_checked,
-      follower_list, following_list } = this.state;
+    let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked} = this.state;
 
     let taglist = [];
     let postnum = 0;
 
     if(user.my_tag_list){
-      taglist = user.my_tag_list;
-      console.log(taglist[0]);
+      if(user.my_tag_list.items){
+        taglist = user.my_tag_list.items;
+        console.log(taglist);
+      }
     }
 
     if(user.my_post_list){
@@ -247,23 +277,39 @@ export default class Profile extends Component {
                   </EditBtn>
                 </Grid>
                 <Grid item xs={12} style={{paddingTop:'0px', fontWeight:'border'}} > 
-                  <ButtonBase onClick={this.dialog_click} style={{fontWeight:'border'}}>
-                    팔로잉 {user.following_num}
+                  <ButtonBase onClick={() => this.dialog_click('following')} style={{fontWeight:'border'}}>
+                    팔로잉 {user.following_list?
+                            user.following_list.items.length 
+                            : 0
+                          }
                     {
-                      dialog_is_checked? 
+                      following_is_checked && user.following_list? 
                       <ShowFollowers 
                         now_user = {user} 
-                        open = {dialog_is_checked}
+                        open = {following_is_checked}
                         handleClose = {this.handleClose}
-                        follower_list = {follower_list}
-                        following_list = {following_list}
+                        mode = 'following'
                       />
                       :
                       <p></p>
                     }
                   </ButtonBase> &emsp;
-                  <ButtonBase  style={{fontWeight:'2em'}} >
-                    팔로워 {user.follower_num}
+                  <ButtonBase  onClick={() => this.dialog_click('follower')} style={{fontWeight:'border'}}>
+                    팔로워 {user.follower_list?
+                            user.follower_list.items.length 
+                            : 0
+                          }
+                    {
+                      follower_is_checked && user.follower_list? 
+                      <ShowFollowers 
+                        now_user = {user} 
+                        open = {follower_is_checked}
+                        handleClose = {this.handleClose}
+                        mode = 'follower'
+                      />
+                      :
+                      <p></p>
+                    }
                   </ButtonBase> &emsp;
                   <ButtonBase disabled >
                     채택 {user.adopted}
@@ -292,7 +338,13 @@ export default class Profile extends Component {
           </Grid>
           <Grid item container direction="row" spacing={2} > 
             <Grid item xs={3.2} style={{paddingTop:'36px', paddingLeft:'50px'}}>
-              <p>#{taglist[0]} #{taglist[1]} #{taglist[2]}</p>
+              {
+                user.my_tag_list?
+                  <p>#{user.my_tag_list.items[0].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[2].style_tag.value}</p>
+                  :<p></p>    
+              }
+              
+
             </Grid>
             <Grid item xs={0.6} style={{paddingTop:'33px', paddingLeft:'0px'}}>
               

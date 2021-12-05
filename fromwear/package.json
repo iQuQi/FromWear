@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@ant-design/icons": "^4.7.0",
+        "@aws-amplify/ui-react": "^1.2.26",
         "@emotion/react": "^11.5.0",
         "@emotion/styled": "^11.3.0",
         "@material/image-list": "^13.0.0",
