@@ -26,19 +26,19 @@
           "s3Key": "amplify-builds/S3Triggeracd29845-5a41557854454248396d-build.zip"
         },
         "fromwear8f12d908PostConfirmation": {
-          "GROUP": "fromwear-user",
+          "GROUP": "fromwearUser",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/fromwear8f12d908PostConfirmation-524a7a7a63594b52496a-build.zip"
         },
         "fromwear5ed89bb8PostConfirmation": {
-          "GROUP": "fromewear-user",
+          "GROUP": "fromewearUser",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/fromwear5ed89bb8PostConfirmation-364f716f38385a616161-build.zip"
         },
         "fromwear9ee2f3c2PostConfirmation": {
-          "GROUP": "",
+          "GROUP": "fromwearUser",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-694430684f3866533038-build.zip"
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-706a6467464730493449-build.zip"
         }
       }
     }

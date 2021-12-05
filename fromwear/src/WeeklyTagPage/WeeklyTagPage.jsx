@@ -34,7 +34,7 @@ class WeeklyTagPage extends Component {
 	}
 
 
-
+/*
 	componentDidMount(){
 		
 		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 2}} }})
@@ -155,7 +155,7 @@ class WeeklyTagPage extends Component {
 
         </div>       
     }
-
+*/
 }
 
 export default WeeklyTagPage;
