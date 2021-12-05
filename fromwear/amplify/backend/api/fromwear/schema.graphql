@@ -13,8 +13,15 @@ type User @model @auth(rules: [{allow: public}]) {
   my_bookmark_post_list: [UserBookmarkPost] @connection(keyName:"UserBookmarkPostByUser",fields:["id"])
   my_comment_list: [Comment] @connection(keyName: "commentByUser", fields: ["id"])
   my_tag_list: [UserStyleTag] @connection(keyName:"UserStyleTagByUser",fields:["id"])
+  alarm_list: [Alarm]
   award_today: Int
   award_week: Int
+}
+
+type Alarm @model{
+  id:ID!
+  content: String
+  link: String
 }
 
 
@@ -64,8 +71,8 @@ type UserBookmarkPost @model
 @key(name: "UserBookmarkPostByPost",fields:["post_id"]){
   user_id: ID!
   post_id: ID!
-  user: User! @connection(fields:["user_id"])
-  post: Post! @connection(fields:["post_id"])
+  user: User @connection(fields:["user_id"])
+  post: Post @connection(fields:["post_id"])
 }
 
 type FollowingFollower @model
@@ -74,8 +81,8 @@ type FollowingFollower @model
 {
   following_id: ID!
   follower_id: ID!
-  following: User! @connection(fields:["following_id"])
-  follower: User! @connection(fields:["follower_id"])
+  following: User @connection(fields:["following_id"])
+  follower: User @connection(fields:["follower_id"])
 }
 
 type UserStyleTag @model
@@ -83,8 +90,8 @@ type UserStyleTag @model
 @key(name: "UserStyleTagByTag",fields:["style_tag_id"]){
   user_id: ID!
   style_tag_id: ID!
-  user: User! @connection(fields:["user_id"])
-  style_tag: StyleTag! @connection(fields:["style_tag_id"])
+  user: User @connection(fields:["user_id"])
+  style_tag: StyleTag @connection(fields:["style_tag_id"])
 }
 
 
@@ -93,8 +100,8 @@ type CommentLikeUser @model
 @key(name: "CommentLikeUserByComment",fields:["comment_id"]){
   user_id: ID!
   comment_id: ID!
-  user: User! @connection(fields:["user_id"])
-  comment: Comment! @connection(fields:["comment_id"])
+  user: User @connection(fields:["user_id"])
+  comment: Comment @connection(fields:["comment_id"])
 }
 
 type PostLikeUrgentUser @model
@@ -102,8 +109,8 @@ type PostLikeUrgentUser @model
 @key(name: "PostLikeUrgentUserByPost",fields:["post_id"]){
   user_id: ID!
   post_id: ID!
-  user: User! @connection(fields:["user_id"])
-  post: Post! @connection(fields:["post_id"])
+  user: User @connection(fields:["user_id"])
+  post: Post @connection(fields:["post_id"])
 }
 
 type PostStyleTag @model
@@ -111,6 +118,6 @@ type PostStyleTag @model
 @key(name: "PostStyleTagByPost",fields:["post_id"]){
   tag_id: ID!
   post_id: ID!
-  style_tag: StyleTag! @connection(fields:["tag_id"])
-  post: Post! @connection(fields:["post_id"])
+  style_tag: StyleTag @connection(fields:["tag_id"])
+  post: Post @connection(fields:["post_id"])
 }

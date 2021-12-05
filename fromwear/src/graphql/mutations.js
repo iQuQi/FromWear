@@ -15,7 +15,7 @@ export const createUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -25,7 +25,7 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -80,6 +80,13 @@ export const createUser = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      alarm_list {
+        id
+        content
+        link
+        createdAt
+        updatedAt
       }
       award_today
       award_week
@@ -102,7 +109,7 @@ export const updateUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -112,7 +119,7 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -167,6 +174,13 @@ export const updateUser = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      alarm_list {
+        id
+        content
+        link
+        createdAt
+        updatedAt
       }
       award_today
       award_week
@@ -189,7 +203,7 @@ export const deleteUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -199,7 +213,7 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -255,8 +269,57 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      alarm_list {
+        id
+        content
+        link
+        createdAt
+        updatedAt
+      }
       award_today
       award_week
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAlarm = /* GraphQL */ `
+  mutation CreateAlarm(
+    $input: CreateAlarmInput!
+    $condition: ModelAlarmConditionInput
+  ) {
+    createAlarm(input: $input, condition: $condition) {
+      id
+      content
+      link
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAlarm = /* GraphQL */ `
+  mutation UpdateAlarm(
+    $input: UpdateAlarmInput!
+    $condition: ModelAlarmConditionInput
+  ) {
+    updateAlarm(input: $input, condition: $condition) {
+      id
+      content
+      link
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAlarm = /* GraphQL */ `
+  mutation DeleteAlarm(
+    $input: DeleteAlarmInput!
+    $condition: ModelAlarmConditionInput
+  ) {
+    deleteAlarm(input: $input, condition: $condition) {
+      id
+      content
+      link
       createdAt
       updatedAt
     }
@@ -279,10 +342,10 @@ export const createComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -296,6 +359,13 @@ export const createComment = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -374,10 +444,10 @@ export const updateComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -391,6 +461,13 @@ export const updateComment = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -469,10 +546,10 @@ export const deleteComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -486,6 +563,13 @@ export const deleteComment = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -578,10 +662,10 @@ export const createPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -595,6 +679,13 @@ export const createPost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -670,10 +761,10 @@ export const updatePost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -687,6 +778,13 @@ export const updatePost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -762,10 +860,10 @@ export const deletePost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -779,6 +877,13 @@ export const deletePost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -919,10 +1024,10 @@ export const createUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -936,6 +1041,13 @@ export const createUserBookmarkPost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1002,10 +1114,10 @@ export const updateUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1019,6 +1131,13 @@ export const updateUserBookmarkPost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1085,10 +1204,10 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1102,6 +1221,13 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1168,10 +1294,10 @@ export const createFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1185,6 +1311,13 @@ export const createFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1200,10 +1333,10 @@ export const createFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1217,6 +1350,13 @@ export const createFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1246,10 +1386,10 @@ export const updateFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1263,6 +1403,13 @@ export const updateFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1278,10 +1425,10 @@ export const updateFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1295,6 +1442,13 @@ export const updateFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1324,10 +1478,10 @@ export const deleteFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1341,6 +1495,13 @@ export const deleteFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1356,10 +1517,10 @@ export const deleteFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1373,6 +1534,13 @@ export const deleteFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1402,10 +1570,10 @@ export const createUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1419,6 +1587,13 @@ export const createUserStyleTag = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1460,10 +1635,10 @@ export const updateUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1477,6 +1652,13 @@ export const updateUserStyleTag = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1518,10 +1700,10 @@ export const deleteUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1535,6 +1717,13 @@ export const deleteUserStyleTag = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1576,10 +1765,10 @@ export const createCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1593,6 +1782,13 @@ export const createCommentLikeUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1659,10 +1855,10 @@ export const updateCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1676,6 +1872,13 @@ export const updateCommentLikeUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1742,10 +1945,10 @@ export const deleteCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1759,6 +1962,13 @@ export const deleteCommentLikeUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1825,10 +2035,10 @@ export const createPostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1842,6 +2052,13 @@ export const createPostLikeUrgentUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1908,10 +2125,10 @@ export const updatePostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1925,6 +2142,13 @@ export const updatePostLikeUrgentUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -1991,10 +2215,10 @@ export const deletePostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -2008,6 +2232,13 @@ export const deletePostLikeUrgentUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
