@@ -155,7 +155,7 @@ export default class TodayPostBoardTop5 extends Component {
                                                         {(board_type == 1) && (post.blind == true)
                                                         ? <div>
                                                             <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
-                                                                    style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
                                                             <p className="profileName">익명</p>     
                                                           </div>
                                                         :  <div>
