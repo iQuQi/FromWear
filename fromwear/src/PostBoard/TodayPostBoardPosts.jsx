@@ -12,6 +12,9 @@ import FlagIcon from '@mui/icons-material/Flag';
 import CommentIcon from '@mui/icons-material/Comment';
 import CreateIcon from '@mui/icons-material/Create';
 
+
+import defaultImg from '../PostView/Imgs/profile_skyblue.jpg';
+
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -163,7 +166,7 @@ export default class TodayPostBoardPosts extends Component {
                 if(sortVal == 1){
                     this.setState({
                         post_state: sortVal,
-                        post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.llike_urgent_user_list.items.length})
+                        post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
                     })
                 } 
                 else if(sortVal == 2) {
@@ -327,8 +330,16 @@ export default class TodayPostBoardPosts extends Component {
                                 </a>
                                 <Stack direction="row" spacing={0}>
                                     <div className="user_profile">
-                                        <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
-                                        <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                                        {(board_type == 1) && (post.blind == true)
+                                        ?   <div>
+                                                <img src={defaultImg} alt="기본프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <p style={{margin: '16px 0px'}}>익명</p>
+                                            </div>
+                                        :   <div>
+                                                <img src={post.user.profile_img} alt="프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                                            </div>
+                                        }
                                     </div>
                                     {(post_state == 1 || post_state == 4) && 
                                         <div className="user_like">
