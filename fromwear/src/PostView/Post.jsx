@@ -17,7 +17,7 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "현경 id"; //현재 유저
+//let user_id = "현경 id"; //현재 유저
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
@@ -31,7 +31,7 @@ class Post extends Component{
             like_urgent_user_list: [],
             like_urgent_click: false,
             tag_list: [],
-            user_id,
+            now_user: 'noUser',
             bookmark_user_list: [],
             bookmark_click: false,
             first_click: false,
@@ -108,7 +108,7 @@ class Post extends Component{
 
             API.graphql({query: deleteUserBookmarkPost, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id,
+                    id: this.state.now_user.id + this.state.post_id,
                 }}
             })
             .then(res => console.log(res))
@@ -123,8 +123,8 @@ class Post extends Component{
 
             API.graphql({query: createUserBookmarkPost, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id,
-                    user_id: this.state.user_id,
+                    id: this.state.now_user.id + this.state.post_id,
+                    user_id: this.state.now_user.id,
                     post_id: this.state.post_id,
                 }}
             })
@@ -148,7 +148,7 @@ class Post extends Component{
 
             API.graphql({query: deletePostLikeUrgentUser, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id,
+                    id: this.state.now_user.id + this.state.post_id,
                 }}
             })
             .then(res => console.log(res))
@@ -165,8 +165,8 @@ class Post extends Component{
 
             API.graphql({query: createPostLikeUrgentUser, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
-                    user_id: this.state.user_id,
+                    id: this.state.now_user.id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
+                    user_id: this.state.now_user.id,
                     post_id: this.state.post_id,
                 }}
             })
@@ -175,8 +175,10 @@ class Post extends Component{
     }
 
     set_like_urgent(list) {
+        console.log("좋아요 list:",list)
+        console.log("현재 사람:",this.state.now_user)
         let like_urgent = list.filter((data)=>{
-            if(data.user_id == this.state.user_id) return true;
+            if(data.user_id == this.state.now_user.id) return true;
             else return false;
         })
         if(like_urgent.length !== 0){
@@ -193,7 +195,7 @@ class Post extends Component{
 
     set_bookmark(list){
         let bookmark = list.filter((data)=>{
-            if(data.user_id == this.state.user_id) return true;
+            if(data.user_id == this.state.now_user.id) return true;
             else return false;
         })
         if(bookmark.length !== 0){
@@ -391,7 +393,7 @@ class Post extends Component{
             same2=same2.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
             same1=same1.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
             
-            console.log("비교 결과 list:",[...same3,...same2,...same1]);
+            //console.log("비교 결과 list:",[...same3,...same2,...same1]);
             this.setState({
                 result_post: [...same3,...same2,...same1],
             })
@@ -399,9 +401,25 @@ class Post extends Component{
         .catch(e=>console.log(e))
     }
 
-    render(){
-        let {post_id, now_post, now_writer, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, user_id, result_post} = this.state;
 
+	handle_user_info = (user) => {
+        console.log(user)
+        if(this.state.now_user == 'noUser'){
+            this.setState({
+                now_user: user,
+            })
+            this.set_like_urgent(this.state.like_urgent_user_list)
+            this.set_bookmark(this.state.bookmark_user_list)
+        }
+        else {
+        }
+	}
+
+    render(){
+        //now_writer : 지금 보고 있는 post 작성자
+        let {post_id, now_post, now_writer, now_user, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
+
+        console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
         }
@@ -416,7 +434,7 @@ class Post extends Component{
 
         return (
             <div className="post_page">
-                <Header />
+                <Header handle_user_info={this.handle_user_info}/>
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
@@ -441,7 +459,7 @@ class Post extends Component{
                                         <div className="writer_name">{now_writer.name}</div>
                                     }
                                     {
-                                        user_id == now_writer.id ?
+                                        now_user.id == now_writer.id ?
                                         //<a href={'/'}>
                                             <button className="remove_post" onClick={this.removePostIcons}>
                                                 삭제
@@ -457,7 +475,7 @@ class Post extends Component{
                                     <Comments
                                     post_id = {post_id}
                                     board_type = {now_post.board_type}
-                                    user_id = {user_id}
+                                    user_id = {now_user.id}
                                     post_id = {post_id}
                                     post_writer = {now_writer}
                                     />

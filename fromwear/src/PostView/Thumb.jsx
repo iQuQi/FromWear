@@ -42,6 +42,9 @@ class Thumb extends Component{
             })
           this.set_comment_like(this.props.comment_list.like_user_list.items)
         }
+        if(this.props.user_id !== prevProps.user_id){
+            this.setState({user_id: this.props.user_id})
+        }
     }
 
     onClick = () => {

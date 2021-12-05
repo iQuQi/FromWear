@@ -31,6 +31,9 @@ class SingleComment extends Component {
         if(this.props.post_writer !== prevProps.post_writer){
             this.setState({post_writer: this.props.post_writer})
         }
+        if(this.props.user_id !== prevProps.user_id){
+            this.setState({user_id: this.props.user_id})
+        }
     }
 
 

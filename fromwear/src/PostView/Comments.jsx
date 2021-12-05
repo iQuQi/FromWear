@@ -28,6 +28,9 @@ class Comments extends Component {
         if(this.props.board_type !== prevProps.board_type){
             this.setState({board_type: this.props.board_type});
         }
+        if(this.props.user_id !== prevProps.user_id){
+            this.setState({user_id: this.props.user_id})
+        }
         if(this.props.post_writer !== prevProps.post_writer){
             this.setState({post_writer: this.props.post_writer})
         }
