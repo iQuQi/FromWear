@@ -42,7 +42,7 @@
         },
         "S3Trigger6b6ec516": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/S3Trigger6b6ec516-745263394c365a634e56-build.zip"
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-7036676e556b7642376c-build.zip"
         }
       }
     }

@@ -39,7 +39,8 @@
       line-height: 400px;
       width: 400px;
       height: 480px;
-      background-color: #e3e3e3;
+      background-color: white;
+      border: 1px solid black;
       border-radius: 30px;
 
   }
@@ -48,7 +49,7 @@
     width: 400px;
     height: 480px;
     cursor: pointer;
-    color:#e3e3e3;
+    color:white;
 
     position: absolute;
     top:0;left: 0;
