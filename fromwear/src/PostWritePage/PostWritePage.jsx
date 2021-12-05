@@ -16,7 +16,7 @@ let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 
 class PostWritePage extends Component {
-    constructor(){
+    constructor(props){
         super();
 
         this.state = {
@@ -104,6 +104,10 @@ class PostWritePage extends Component {
         }
     }
 
+    handleCloseButton(e) {
+        console.log("1");
+        this.props.handle_write_page();
+    }
 
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
@@ -118,7 +122,7 @@ class PostWritePage extends Component {
             <div className="post_write_container">
                 <div className="post_write_content">
                     <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
+                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.handleCloseButton.bind(this)}>
 							<CloseIcon/>	
 					</Button>
                     <form action="doLogin" method="POST" className="loginForm">
