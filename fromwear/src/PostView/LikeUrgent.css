@@ -2,12 +2,14 @@
     display: inline-block;
 }
 
-.urgent_yes {
+.heart_filled {
+    padding-top: 6px; /*vertical-middle 적용안돼서*/
     color: red;
     font-size: 20px;
 }
 
-.urgent_not {
+.heart_outlined {
+    padding-top: 5px;
     font-size: 20px;
 }
 
@@ -22,8 +24,18 @@
     transform: scale(1.1);
 }
 
-.urgent_num {
+.like_num {
     display: inline-block;
     margin-left: 5px;
     font-size: 14px;
+}
+
+
+.urgent_yes {
+    color: red;
+    font-size: 20px;
+}
+
+.urgent_not {
+    font-size: 20px;
 }

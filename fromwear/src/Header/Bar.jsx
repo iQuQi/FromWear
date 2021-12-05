@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { API } from 'aws-amplify';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,7 +18,6 @@ import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
 import {updateUser} from '../graphql/mutations.js';
 import { Button } from '@mui/material';
-import API from '@aws-amplify/api';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
