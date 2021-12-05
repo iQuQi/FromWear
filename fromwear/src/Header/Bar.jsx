@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { API } from 'aws-amplify';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,8 +16,7 @@ import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
-
-import alarm_data from './AlarmData';
+import {updateUser} from '../graphql/mutations.js';
 import { Button } from '@mui/material';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
@@ -90,7 +90,19 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    alarm_data.splice(index,1);
+    if(user.alarm_list){
+      API.graphql({
+        query: updateUser,
+        variables: { input: {
+          id: user.id,
+          alarm_list : user.alarm_list.splice(index,1)
+        }}
+
+      }).then(res=>{
+        console.log(res);
+      })
+      .catch(e=>console.log(e));
+    }
     setAlarmAnchorEl(null);
   };
   
@@ -140,9 +152,11 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
     
     {
-    alarm_data.map((item,index)=>
-      <a href=""><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
-    )
+    user.alarm_list?
+      user.alarm_list.map((item,index)=>
+        <a href={item.link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
+      )
+    :""
     }
     
 
@@ -195,7 +209,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             >                
               <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
-                badgeContent={17} 
+                badgeContent={user.alarm_list?user.alarm_list.items.length:0} 
                 color="primary"
                 style={{position:"relative",top:-10}}
 
@@ -232,7 +246,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {alarm_data.length!=0?renderAlarm:""}
+      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
   )

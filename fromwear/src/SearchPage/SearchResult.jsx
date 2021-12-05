@@ -27,11 +27,8 @@ let SearchResult = ({post_data,current_next_post_page})=>
 												{item.user.name}
 											</span>
 											<span className="dimmed_info_like">
-												{console.log(item.board_type)}
-												{item.board_type==1?
-												item.urgent_user_num:
-												item.like_user_num
-												}
+											
+												{item.like_urgent_user_list.items.length}
 												{item.board_type==1?
 												<MoodBadIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
 												:
