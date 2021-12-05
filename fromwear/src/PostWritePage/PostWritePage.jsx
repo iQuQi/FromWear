@@ -11,13 +11,9 @@ import PostWriteTagList from '../SearchPage/TagList';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import {static_tag_data} from "../SearchPage/TagData"
-<<<<<<< HEAD
 import { API } from 'aws-amplify';
 import { createPost, createPostStyleTag } from '../graphql/mutations';
 
-=======
-let board_type = 1
->>>>>>> 8bdc2ae59e082495cdcf7ea5178157f3c9cb2e67
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 
 class PostWritePage extends Component {
@@ -123,7 +119,6 @@ class PostWritePage extends Component {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else {
-<<<<<<< HEAD
             // 글 추가
             let new_post_id = '';
             if(this.state.board_type == 0) {
@@ -138,7 +133,23 @@ class PostWritePage extends Component {
                             user_id: this.state.user.id,
                         } 
                     }})
-                    .then(res => new_post_id = res.data.createPost.id)
+                    .then(res => {
+                        tag_clicked_list.forEach((tag, index) => {
+                            if(tag == 1) {
+                                API.graphql({
+                                    query: createPostStyleTag, variables: {
+                                        input: 
+                                        {
+                                            post_id: res.data.createPost.id,
+                                            tag_id: index,
+                                        } 
+                                }})
+                                .then(res => console.log(res))
+                                .then(res => this.setState({create_tag: true}))
+                                .catch(e => console.log(e));
+                            }
+                        })
+                    })
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
             }
@@ -155,40 +166,26 @@ class PostWritePage extends Component {
                             blind: this.state.blind,
                         } 
                     }})
-                    .then(res => new_post_id = res.data.createPost.id)
+                    .then(res => {
+                        tag_clicked_list.forEach((tag, index) => {
+                            if(tag == 1) {
+                                API.graphql({
+                                    query: createPostStyleTag, variables: {
+                                        input: 
+                                        {
+                                            post_id: res.data.createPost.id,
+                                            tag_id: index,
+                                        } 
+                                }})
+                                .then(res => console.log(res))
+                                .then(res => this.setState({create_tag: true}))
+                                .catch(e => console.log(e));
+                            }
+                        })
+                    })
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
             }
-
-            console.log(new_post_id);
-
-            tag_clicked_list.forEach((tag, index) => {
-                if(tag == 1) {
-                    API.graphql({
-                        query: createPostStyleTag, variables: {
-                            input: 
-                            {
-                                post_id: new_post_id,
-                                tag_id: index,
-                            } 
-                    }})
-                    .then(res => console.log(res))
-                    .then(res => this.setState({create_tag: true}))
-                    .catch(e => console.log(e));
-                }
-            })
-        }
-
-        if (this.state.create_post == true && this.state.create_tag == true) {
-            if(this.state.blindboard_type == 0) {
-                window.location.href = './todayboard';
-            }
-            else {
-                window.location.href = './sosboard';
-            }
-=======
->>>>>>> 8bdc2ae59e082495cdcf7ea5178157f3c9cb2e67
-            window.location.reload();
         }
     }
 
@@ -216,7 +213,17 @@ class PostWritePage extends Component {
         if(this.state.file !== ''){
           profile_preview = <img alt="preivew_img" className='upload_img' src={this.state.previewURL}></img>
         }
+ 
 
+        if (this.state.create_post == true && this.state.create_tag == true) {
+            if(this.state.board_type == 0) {
+                window.location.href = './todayboard';
+            }
+            else {
+                window.location.href = './sosboard';
+            }
+            window.location.reload();
+        }
 
 		return(
             <div className="post_write_container">
