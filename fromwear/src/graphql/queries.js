@@ -12,7 +12,7 @@ export const getUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -22,7 +22,7 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -101,10 +101,10 @@ export const listUsers = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -142,10 +142,10 @@ export const getComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -296,10 +296,10 @@ export const getPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -390,9 +390,25 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
+          items {
+            id
+            user_id
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         tag_list {
+          items{
+            id
+            post_id
+            tag_id
+            style_tag{
+              id
+              value
+            }
+          }
           nextToken
         }
         board_type
@@ -466,10 +482,10 @@ export const getUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -515,6 +531,13 @@ export const getUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
+          items {
+            id
+            user_id
+            post_id
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         tag_list {
@@ -593,10 +616,10 @@ export const getFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -625,10 +648,10 @@ export const getFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -718,10 +741,10 @@ export const getUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -814,10 +837,10 @@ export const getCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -939,10 +962,10 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -991,6 +1014,8 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         tag_list {
+
+      
           nextToken
         }
         board_type

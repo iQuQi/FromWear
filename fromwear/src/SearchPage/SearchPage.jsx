@@ -15,6 +15,7 @@ import moment from 'moment';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
 import {getPost, listPosts, listUsers} from '../graphql/queries.js';
+import { format } from "date-fns";
 
 import { static_tag_data } from './TagData';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
@@ -46,7 +47,7 @@ class SearchPage extends Component{
 	}
 
 	componentWillMount(){
-
+		console.log("searchpage will mount");
 		this.update_post_data(-1,"",this.state.current_input_tag,-1);
 		get_rank_tag(this.handle_rank_tag_data);
 
@@ -211,6 +212,10 @@ class SearchPage extends Component{
 			board);
 	}
 
+	handel_user_info=(user)=>{
+		console.log("user info get");
+	}
+
 
 	update_post_data=(day,gender,current_input_tag,board)=>{
 
@@ -246,16 +251,21 @@ class SearchPage extends Component{
 			}).then(res=>{
 			  res.data.listPosts.items
 			  .map((post)=>{
-					console.log(post);
 				//날짜 필터링
 				let basis = new Date();
 				if(filter_day==10){//오늘
-				  console.log("created:"+ new Date(post.createdAt));
-				  basis.setDate(basis.getDate());
-				  console.log("basis: " +basis);
-				  console.log(new Date(post.createdAt)<basis);
+				  var base_y = basis.getFullYear();
+				  var base_m = basis.getMonth()+1;
+				  var base_d = basis.getDate();
+				  var today_y = new Date(post.createdAt).getFullYear();
+				  var today_m = new Date(post.createdAt).getMonth()+1;
+				  var today_d = new Date(post.createdAt).getDate();
+				  console.log("today",post.id,base_y,base_m,base_d,today_y,today_m,today_d);
 
-				  if(new Date(post.createdAt)!=basis) return false;
+				  if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
+					return false;
+				}
+			
 				}
 				else if(filter_day==20){//일주일
 					basis.setDate(basis.getDate() - 7);
@@ -312,14 +322,17 @@ class SearchPage extends Component{
 				else{
 					console.log("not show all");
 					let same = 0;
-					post.tag_list.map((post_tag)=>{
-						console.log(post_tag);
-
+					
+					post.tag_list.items.map((post_tag)=>{
 						rmved.map(tag=>{
-							if(post_tag==tag) same++;
+							if(post_tag.style_tag.value==tag) same++;
 						})
+						
+						
+						
 
 					})
+					
 
 					console.log("same: "+ same);
 					if(same == 3) same3=[...same3,post]
@@ -334,21 +347,20 @@ class SearchPage extends Component{
 			  
 			  if(rmved.length===0) {
 				result_post=result_post.sort(function(a,b){
-					return (b.board_type==1?b.urgent_user_num:b.like_user_num)-
-					(a.board_type==1?a.urgent_user_num:a.like_user_num)});
+					return b.like_urgent_user_list.items.length-
+						a.like_urgent_user_list.items.length});
 			  }
 			  else{
-				same3=same3.sort(function(a,b){return (b.board_type==1?b.urgent_user_num:b.like_user_num)-
-					(a.board_type==1?a.urgent_user_num:a.like_user_num)});
-				same2=same2.sort(function(a,b){return (b.board_type==1?b.urgent_user_num:b.like_user_num)-
-					(a.board_type==1?a.urgent_user_num:a.like_user_num)});
-				same1=same1.sort(function(a,b){return (b.board_type==1?b.urgent_user_num:b.like_user_num)-
-					(a.board_type==1?a.urgent_user_num:a.like_user_num)});
+				same3=same3.sort(function(a,b){return b.like_urgent_user_list.items.length-
+					a.like_urgent_user_list.items.length});
+				same2=same2.sort(function(a,b){return b.like_urgent_user_list.items.length-
+					a.like_urgent_user_list.items.length});
+				same1=same1.sort(function(a,b){return b.like_urgent_user_list.items.length-
+					a.like_urgent_user_list.items.length});
 
 			  	result_post=[...same3,...same2,...same1];
 			  }
 
-			  console.log(result_post);
 			  return handle_post_data(result_post);
 			})
 			.catch(e=>console.log(e))
@@ -367,7 +379,7 @@ class SearchPage extends Component{
 				handle_select_day={this.handle_select_day}
 				handle_select_gender={this.handle_select_gender}
 				handle_select_board={this.handle_select_board}
-
+				handel_user_info={this.handel_user_info}
 				/>
 				
 				<div className="search_page_container">	

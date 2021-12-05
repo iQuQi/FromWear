@@ -15,7 +15,7 @@ export const createUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -25,7 +25,7 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -102,7 +102,7 @@ export const updateUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -112,7 +112,7 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -189,7 +189,7 @@ export const deleteUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -199,7 +199,7 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -279,10 +279,10 @@ export const createComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -374,10 +374,10 @@ export const updateComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -469,10 +469,10 @@ export const deleteComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -578,10 +578,10 @@ export const createPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -670,10 +670,10 @@ export const updatePost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -762,10 +762,10 @@ export const deletePost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -919,10 +919,10 @@ export const createUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1002,10 +1002,10 @@ export const updateUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1085,10 +1085,10 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1168,10 +1168,10 @@ export const createFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1200,10 +1200,10 @@ export const createFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1246,10 +1246,10 @@ export const updateFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1278,10 +1278,10 @@ export const updateFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1324,10 +1324,10 @@ export const deleteFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1356,10 +1356,10 @@ export const deleteFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1402,10 +1402,10 @@ export const createUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1460,10 +1460,10 @@ export const updateUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1518,10 +1518,10 @@ export const deleteUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1576,10 +1576,10 @@ export const createCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1659,10 +1659,10 @@ export const updateCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1742,10 +1742,10 @@ export const deleteCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1825,10 +1825,10 @@ export const createPostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1908,10 +1908,10 @@ export const updatePostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -1991,10 +1991,10 @@ export const deletePostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
