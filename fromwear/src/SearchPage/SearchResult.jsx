@@ -1,10 +1,10 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import { ImageListItem } from '@mui/material';
+import MoodBadIcon from '@mui/icons-material/MoodBad';
 
 import './SearchPage.css'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { ConsoleLogger } from '@aws-amplify/core';
 let link;
 let SearchResult = ({post_data,current_next_post_page})=>
 <ImageList cols={5} gap={10} >
@@ -27,7 +27,16 @@ let SearchResult = ({post_data,current_next_post_page})=>
 												{item.user.name}
 											</span>
 											<span className="dimmed_info_like">
-												{item.like_user_num}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+												{console.log(item.board_type)}
+												{item.board_type==1?
+												item.urgent_user_num:
+												item.like_user_num
+												}
+												{item.board_type==1?
+												<MoodBadIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+												:
+												<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+												}
 											</span>
 										</span>
 									</a>

@@ -50,6 +50,13 @@
 	display: block; 
 }
 
+.wrap_recommend .filter_layout .writeButton {
+	width: 100px;
+	border-radius: 50px;
+	color: black;
+	border-color: gray;
+}
+
 .wrap_recommend .collection{
     position: relative;
     width: 1080px;

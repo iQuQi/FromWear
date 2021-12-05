@@ -16,6 +16,10 @@ type CommentMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type UserBookmarkPostMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type followMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -36,10 +40,16 @@ type StyleTagMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type AppInfoMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class User {
   readonly id: string;
   readonly name: string;
   readonly passwd: string;
+  readonly email?: string;
+  readonly phone?: string;
   readonly profile_img: string;
   readonly introduce?: string;
   readonly gender: string;
@@ -47,7 +57,7 @@ export declare class User {
   readonly follower_num: number;
   readonly following_num: number;
   readonly my_post_list?: (Post | null)[];
-  readonly my_bookmark_post_list?: (string | null)[];
+  readonly my_bookmark_post_list?: (UserBookmarkPost | null)[];
   readonly my_comment_list?: (Comment | null)[];
   readonly my_tag_list?: (string | null)[];
   readonly award_today: number;
@@ -66,8 +76,9 @@ export declare class Post {
   readonly img: string;
   readonly content: string;
   readonly user?: User;
-  readonly bookmark_user_list?: (string | null)[];
+  readonly bookmark_user_list?: (UserBookmarkPost | null)[];
   readonly like_user_list?: (string | null)[];
+  readonly urgent_user_list?: (string | null)[];
   readonly tag_list?: string[];
   readonly board_type: number;
   readonly click_num: number;
@@ -92,6 +103,16 @@ export declare class Comment {
   static copyOf(source: Comment, mutator: (draft: MutableModel<Comment, CommentMetaData>) => MutableModel<Comment, CommentMetaData> | void): Comment;
 }
 
+export declare class UserBookmarkPost {
+  readonly id: string;
+  readonly user: User;
+  readonly post: Post;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<UserBookmarkPost, UserBookmarkPostMetaData>);
+  static copyOf(source: UserBookmarkPost, mutator: (draft: MutableModel<UserBookmarkPost, UserBookmarkPostMetaData>) => MutableModel<UserBookmarkPost, UserBookmarkPostMetaData> | void): UserBookmarkPost;
+}
+
 export declare class follow {
   readonly id: string;
   readonly following_id: string;
@@ -105,6 +126,7 @@ export declare class follow {
 export declare class PostBoard {
   readonly id: string;
   readonly board_type: number;
+  readonly board_name?: string;
   readonly best_post_list?: string[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
@@ -140,4 +162,13 @@ export declare class StyleTag {
   readonly updatedAt?: string;
   constructor(init: ModelInit<StyleTag, StyleTagMetaData>);
   static copyOf(source: StyleTag, mutator: (draft: MutableModel<StyleTag, StyleTagMetaData>) => MutableModel<StyleTag, StyleTagMetaData> | void): StyleTag;
+}
+
+export declare class AppInfo {
+  readonly id: string;
+  readonly today?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<AppInfo, AppInfoMetaData>);
+  static copyOf(source: AppInfo, mutator: (draft: MutableModel<AppInfo, AppInfoMetaData>) => MutableModel<AppInfo, AppInfoMetaData> | void): AppInfo;
 }

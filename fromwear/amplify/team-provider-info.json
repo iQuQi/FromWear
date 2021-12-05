@@ -16,7 +16,8 @@
       "auth": {
         "fromwear0a9d3879": {},
         "true": {},
-        "fromwear7157cfba": {},
+        "fromwear8f12d908": {},
+        "fromwear5ed89bb8": {},
         "fromwear9ee2f3c2": {}
       },
       "function": {
@@ -24,12 +25,18 @@
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/S3Triggeracd29845-5a41557854454248396d-build.zip"
         },
-        "fromwear7157cfbaPostConfirmation": {
-          "GROUP": "Admin",
+        "fromwear8f12d908PostConfirmation": {
+          "GROUP": "fromwear-user",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/fromwear7157cfbaPostConfirmation-3437494e527063565269-build.zip"
+          "s3Key": "amplify-builds/fromwear8f12d908PostConfirmation-524a7a7a63594b52496a-build.zip"
+        },
+        "fromwear5ed89bb8PostConfirmation": {
+          "GROUP": "fromewear-user",
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/fromwear5ed89bb8PostConfirmation-364f716f38385a616161-build.zip"
         },
         "fromwear9ee2f3c2PostConfirmation": {
+          "GROUP": "fromwear-user",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-35573151592b544e484d-build.zip"
         }

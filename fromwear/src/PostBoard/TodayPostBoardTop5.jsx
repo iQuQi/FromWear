@@ -48,45 +48,59 @@ export default class TodayPostBoardTop5 extends Component {
         super(props);
         this.state = {
             post_top_list : [],
-            // board_type: props.board_type,
-            board_type: 0,
+            board_type: props.board_type,
         };
     }
 
     componentDidMount() {
         let today = new Date();
+        today.setDate(today.getDate());
 
         let sort_function = (a, b) => {
-            return b.like_urgent_user_list.length-a.like_urgent_user_list.length;
+            return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length;
         }
 
-        today.setDate(today.getDate());
         if(this.state.board_type == 0) {
             API.graphql({ 
                 query: listPosts, 
-                // variables: { filter: {board_type: {ne: 1}, createdAt: {ge: today}}}})
-            }).then(res => console.log(res))
-                // .then(res => this.setState({
-                //     post_top_list: res.data.listPosts.items.sort(sort_function).slice(0, 5)
-                // }))
+                variables: { filter: {board_type: {ne: 1}}}})
+                .then(res => {
+                    let posts = res.data.listPosts.items.filter((post)=>{
+                        //날짜 필터링
+                        if(new Date(post.createdAt)<today) return false;
+                        return true;
+                    })
+                    this.setState({
+                        post_list : posts.sort(sort_function).slice(0, 5)
+                    })
+                })
                 .catch(e => console.log(e));
             if(this.state.post_top_list.length < 5) {
                 API.graphql({ 
                     query: listPosts,
                     variables: { filter: {board_type: {ne: 1}}}})
                     .then(res => this.setState({
-                        post_top_list: res.data.listPosts.items.sort(sort_function).slice(0, 5)
+                        post_top_list: res.data.listPosts.items
+                        .sort(sort_function).slice(0, 5)
                     }))
                     .catch(e => console.log(e));
+
             }
         }
         else {
             API.graphql({ 
                 query: listPosts, 
                 variables: { filter: {board_type: {eq: 1}, createdAt: {ge: today}}}})
-                .then(res => this.setState({
-                    post_top_list: res.data.listPosts.items.sort(sort_function).slice(0, 5)
-                }))
+                .then(res => {
+                    let posts = res.data.listPosts.items.filter((post)=>{
+                        //날짜 필터링
+                        if(new Date(post.createdAt)<today) return false;
+                        return true;
+                    })
+                    this.setState({
+                        post_list : posts.sort(sort_function).slice(0, 5)
+                    })
+                })
                 .catch(e => console.log(e));
             if(this.state.post_top_list.length < 5) {
                 API.graphql({ 
@@ -117,6 +131,7 @@ export default class TodayPostBoardTop5 extends Component {
         
 		return (
             <div className="today_background_wrap">
+                {console.log(this.state.post_top_list)}
                 <article className="today_wear">
                     { board_type == 0 
                         ? <div><h1 className="title">오늘의 착장</h1><p className="title_tag">#오늘의 #베스트드레서는 #나야나</p></div>
@@ -136,9 +151,9 @@ export default class TodayPostBoardTop5 extends Component {
                                             <span className='dimmed_layer'>	
                                                 <span className='dimmed_info' >
                                                     <div>
-                                                        <img src={post.user.items.profile_img} alt="프로필" className="profileImg"
+                                                        <img src={post.user.profile_img} alt="프로필" className="profileImg"
                                                                 style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
-                                                        <p className="profileName">{post.user.items.name}</p>     
+                                                        <p className="profileName">{post.user.name}</p>     
                                                      </div>   
                                                     <Box style={{width: '40px'}} className="box">
                                                         <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
@@ -182,15 +197,15 @@ export default class TodayPostBoardTop5 extends Component {
                                             <span className='dimmed_layer'>	
                                                 <span className='dimmed_info' >
                                                     <div>
-                                                        <img src={post.user.items.profile_img} alt="프로필" className="profileImg"
+                                                        <img src={post.user.profile_img} alt="프로필" className="profileImg"
                                                                 style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
-                                                        <p className="profileName">{post.user.items.name}</p>     
+                                                        <p className="profileName">{post.user.name}</p>     
                                                      </div>   
                                                     <Box style={{width: '40px'}} className="box">
                                                         <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
                                                             <Grid item xs={4}>
                                                             <Item>
-                                                                { board_type == "0"
+                                                                { board_type == 0
                                                                     ? <FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/>
                                                                     : <MoodBadIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/>
                                                                 }
