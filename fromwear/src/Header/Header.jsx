@@ -28,10 +28,7 @@ class Header extends Component{
 		console.log(this.state.user);
 		let auth_user ;
 		console.log(this.props.handle_user_info);
-		if(this.props.handle_user_info!=undefined){
-			console.log("handle user info");
-			this.props.handle_user_info(this.state.user);
-		}
+	
 
 		Auth.currentAuthenticatedUser()
 		.then(res=>{
