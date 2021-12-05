@@ -456,6 +456,14 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         tag_list {
+          items{
+            id
+            style_tag{
+              id
+              value
+            }
+
+          }
           nextToken
         }
         board_type
