@@ -12,7 +12,6 @@ import PostWriteTagList from '../SearchPage/TagList'
 
 import {static_tag_data} from "../SearchPage/TagData"
 
-let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 
 class PostWritePage extends Component {
@@ -26,6 +25,7 @@ class PostWritePage extends Component {
 			current_click_tag_num: 0,
             total_tag_num: 0,
             contents: '',
+            board_type: props.board_type,
         }
     }
     
@@ -111,7 +111,7 @@ class PostWritePage extends Component {
 
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
-        let {contents} = this.state;
+        let {contents, board_type} = this.state;
 
         let profile_preview = null;
         if(this.state.file !== ''){
