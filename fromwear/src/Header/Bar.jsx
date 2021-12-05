@@ -16,7 +16,6 @@ import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
 
-import alarm_data from './AlarmData';
 import { Button } from '@mui/material';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
@@ -90,7 +89,8 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    alarm_data.splice(index,1);
+    if(user.alarm_list)
+      user.alarm_list.splice(index,1);
     setAlarmAnchorEl(null);
   };
   
@@ -140,9 +140,11 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
     
     {
-    alarm_data.map((item,index)=>
-      <a href=""><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
-    )
+    user.alarm_list?
+      user.alarm_list.map((item,index)=>
+        <a href={item.link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
+      )
+    :""
     }
     
 
@@ -232,7 +234,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {alarm_data.length!=0?renderAlarm:""}
+      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
   )

@@ -12,7 +12,7 @@ export const getUser = /* GraphQL */ `
       introduce
       gender
       adopted
-      follower_list {
+      following_list {
         items {
           id
           following_id
@@ -22,7 +22,7 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      following_list {
+      follower_list {
         items {
           id
           following_id
@@ -78,6 +78,13 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      alarm_list {
+        id
+        content
+        link
+        createdAt
+        updatedAt
+      }
       award_today
       award_week
       createdAt
@@ -101,10 +108,10 @@ export const listUsers = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -119,8 +126,44 @@ export const listUsers = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
+        }
         award_today
         award_week
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getAlarm = /* GraphQL */ `
+  query GetAlarm($id: ID!) {
+    getAlarm(id: $id) {
+      id
+      content
+      link
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAlarms = /* GraphQL */ `
+  query ListAlarms(
+    $filter: ModelAlarmFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAlarms(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        content
+        link
         createdAt
         updatedAt
       }
@@ -142,10 +185,10 @@ export const getComment = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -159,6 +202,13 @@ export const getComment = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -296,10 +346,10 @@ export const getPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -313,6 +363,13 @@ export const getPost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -472,10 +529,10 @@ export const getUserBookmarkPost = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -489,6 +546,13 @@ export const getUserBookmarkPost = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -599,10 +663,10 @@ export const getFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -616,6 +680,13 @@ export const getFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -631,10 +702,10 @@ export const getFollowingFollower = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -648,6 +719,13 @@ export const getFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -724,10 +802,10 @@ export const getUserStyleTag = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -741,6 +819,13 @@ export const getUserStyleTag = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -820,10 +905,10 @@ export const getCommentLikeUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -837,6 +922,13 @@ export const getCommentLikeUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -945,10 +1037,10 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
         introduce
         gender
         adopted
-        follower_list {
+        following_list {
           nextToken
         }
-        following_list {
+        follower_list {
           nextToken
         }
         my_post_list {
@@ -962,6 +1054,13 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week

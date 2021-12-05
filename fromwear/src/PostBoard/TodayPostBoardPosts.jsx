@@ -61,6 +61,7 @@ export default class TodayPostBoardPosts extends Component {
             post_list:[],
 
             board_type: props.board_type,
+            user: props.user,
 		}
     }
 
@@ -103,7 +104,7 @@ export default class TodayPostBoardPosts extends Component {
 
                         return true;
                     })
-                if(sortVal == 1){
+                if(sortVal == 1) {
                     this.setState({
                         post_state: sortVal,
                         post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
@@ -246,15 +247,23 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
     handleWriteButton = (e) => {
+        console.log(this.state.user);
+        if(this.state.user == "noUser") {
+            alert("로그인이 필요합니다.");
+            return;
+        }
         window.location.href = "/posting"
     } 
 
     render() {
-		let {post_state, post_list} = this.state;
+		let {post_state, post_list,user} = this.state;
         let {genderVal, dayVal, board_type} = this.state;
 
         return (<article className="wrap_recommend">
 
+            {console.log(user)}
+     
+            {console.log(this.state.board_type)}
             <form className="sort_font select_sort">
                 <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
                     <label htmlFor="sort_latest">최신순</label>
