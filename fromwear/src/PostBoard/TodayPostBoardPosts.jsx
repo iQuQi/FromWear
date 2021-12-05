@@ -245,6 +245,9 @@ export default class TodayPostBoardPosts extends Component {
         this.handlePostAgain();
 	}
 
+    handleWriteButton = (e) => {
+        window.location.href = "/posting"
+    } 
 
     render() {
 		let {post_state, post_list} = this.state;
@@ -272,6 +275,7 @@ export default class TodayPostBoardPosts extends Component {
                         variant="contained" 
                         sx={{ m: 1.2, minWidth: 100 }}
                         endIcon={<CreateIcon />}
+                        onClick={this.handleWriteButton}
                         style ={{height: "35px", fontSize:14,textAlign:"center", borderRadius:"30px", fontFamily : "'나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif", fontWeight:"bold", color: 'white', borderColor: '#253861', backgroundColor: '#253861'}}
                         >글쓰기</Button>
                 </Box>
