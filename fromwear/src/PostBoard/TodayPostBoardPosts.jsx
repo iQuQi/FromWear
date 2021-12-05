@@ -62,9 +62,15 @@ export default class TodayPostBoardPosts extends Component {
 
             board_type: props.board_type,
             user: props.user,
+           
 		}
     }
 
+    componentDidUpdate(prevProps) {
+        if(this.props.user !== prevProps.user){
+            this.setState({user: this.props.user});
+        }
+    }
 
     componentWillMount() {
         this.handleFilteredData(this.state.post_state);
@@ -247,12 +253,11 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
     handleWriteButton = (e) => {
-        console.log(this.state.user);
         if(this.state.user == "noUser") {
             alert("로그인이 필요합니다.");
             return;
         }
-        window.location.href = "/posting"
+        this.props.handle_write_page_open();
     } 
 
     render() {
@@ -260,10 +265,6 @@ export default class TodayPostBoardPosts extends Component {
         let {genderVal, dayVal, board_type} = this.state;
 
         return (<article className="wrap_recommend">
-
-            {console.log(user)}
-     
-            {console.log(this.state.board_type)}
             <form className="sort_font select_sort">
                 <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
                     <label htmlFor="sort_latest">최신순</label>
