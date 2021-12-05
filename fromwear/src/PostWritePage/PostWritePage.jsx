@@ -15,6 +15,7 @@ import { API } from 'aws-amplify';
 import { createPost, createPostStyleTag } from '../graphql/mutations';
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
+let uuid_ = uuid();
 
 class PostWritePage extends Component {
     constructor(props){
@@ -33,6 +34,7 @@ class PostWritePage extends Component {
             blind: false,
             create_post: false,
             create_tag: false,
+            file_key: '',
         }
     }
     
@@ -48,7 +50,10 @@ class PostWritePage extends Component {
         let reader = new FileReader();
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
-        Storage.put(`${uuid()}.${filetype}`,file)
+
+        this.setState({file_key: `${uuid_}.${filetype}`})
+
+        Storage.put(`${uuid_}.${filetype}`,file)
         .then(res=>console.log(res))
         .catch(e=> console.log('onChange error',e));
 
@@ -129,7 +134,7 @@ class PostWritePage extends Component {
                             board_type: 0,
                             click_num: "0",
                             content: this.state.contents,
-                            img: this.state.file,
+                            img: this.state.file_key,
                             user_id: this.state.user.id,
                         } 
                     }})
@@ -161,7 +166,7 @@ class PostWritePage extends Component {
                             board_type: 1,
                             click_num: "0",
                             content: this.state.contents,
-                            img: this.state.file,
+                            img: this.state.file_key,
                             user_id: this.state.user.id,
                             blind: this.state.blind,
                         } 
