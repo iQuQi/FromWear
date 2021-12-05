@@ -5,6 +5,7 @@ import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
 import LikeUrgent from './LikeUrgent'
+import PostModifyPage from './PostModifyPage';
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
@@ -59,6 +60,8 @@ class Post extends Component{
             same2:[],
             same3:[],
             result_post:[],
+
+            is_write_page:false,
         }
     }
 
@@ -94,6 +97,19 @@ class Post extends Component{
         });*/
     }
 
+
+	handle_user_info = (user) => {
+        console.log(user)
+        if(this.state.now_user == 'noUser'){
+            this.setState({
+                now_user: user,
+            })
+            this.set_like_urgent(this.state.like_urgent_user_list)
+            this.set_bookmark(this.state.bookmark_user_list)
+        }
+        else {
+        }
+	}
 
     setClickNum = (input_click_num) => {
         //input_click_num : '현재 조회수'
@@ -221,6 +237,21 @@ class Post extends Component{
             })
         }
     }
+
+    modifyPost = () => {
+		this.setState({
+			is_write_page: !this.state.is_write_page
+		})
+        console.log("is",this.state.is_write_page)
+        
+    }
+
+	handle_write_page=()=> {
+		this.setState({
+			is_write_page: !this.state.is_write_page
+		})
+        console.log("is",this.state.is_write_page)
+	}
 
     removePostIcons = () => { 
         this.setState({
@@ -419,22 +450,9 @@ class Post extends Component{
     }
 
 
-	handle_user_info = (user) => {
-        console.log(user)
-        if(this.state.now_user == 'noUser'){
-            this.setState({
-                now_user: user,
-            })
-            this.set_like_urgent(this.state.like_urgent_user_list)
-            this.set_bookmark(this.state.bookmark_user_list)
-        }
-        else {
-        }
-	}
-
     render(){
         //now_writer : 지금 보고 있는 post 작성자
-        let {post_id, now_post, now_writer, now_user, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
+        let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
         console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
@@ -452,8 +470,19 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
+        console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">
+                {
+                is_write_page 
+					? <PostModifyPage 
+						board_type={now_post.board_type} 
+						user={now_user}
+                        handle_write_page={this.handle_write_page}
+                        now_post={now_post}
+					  />
+					: null
+                }
                 <Header handle_user_info={this.handle_user_info}/>
                 <div className="whole_page">
                     <div className="main_box">
@@ -480,12 +509,17 @@ class Post extends Component{
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                        //<a href={'/'}>
+                                            <button className="modify_post" onClick={this.modifyPost}>
+                                                수정
+                                            </button>
+                                        :
+                                        <div></div>
+                                    }
+                                    {
+                                        now_user.id == now_writer.id ?
                                             <button className="remove_post" onClick={this.removePostIcons}>
                                                 삭제
                                             </button>
-                                        //</a>
-                                        //onclick=" location.href = '/' "
                                         :
                                         <div></div>
                                     }
