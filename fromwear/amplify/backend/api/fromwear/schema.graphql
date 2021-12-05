@@ -13,8 +13,15 @@ type User @model @auth(rules: [{allow: public}]) {
   my_bookmark_post_list: [UserBookmarkPost] @connection(keyName:"UserBookmarkPostByUser",fields:["id"])
   my_comment_list: [Comment] @connection(keyName: "commentByUser", fields: ["id"])
   my_tag_list: [UserStyleTag] @connection(keyName:"UserStyleTagByUser",fields:["id"])
+  alarm_list: [Alarm]
   award_today: Int
   award_week: Int
+}
+
+type Alarm @model{
+  id:ID!
+  content: String
+  link: String
 }
 
 

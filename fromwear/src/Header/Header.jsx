@@ -11,13 +11,15 @@ import {createUser} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
 
+
+
 class Header extends Component{
 	constructor(){
 		super();
 		this.state = {
 			rank_1:"",
 			login_popup:false,
-			user :"noUser"
+			user :"noUser",
 		}
 	}
 
@@ -45,6 +47,7 @@ class Header extends Component{
 				   phone:auth_user.attributes.phone_number,
 				   profile_img: profile_skyblue,
 				   introduce: "자기소개를 입력해주세요",
+				   alarm_list:[],
 				   gender: "",
 				   adopted: 0,
 				   award_today: 0,
@@ -64,14 +67,22 @@ class Header extends Component{
 			  console.log("already exist user");
 			  this.handle_get_user(res.data.getUser);
 			  }
+			 
 		  })
 		  .catch(e=>{
 			console.log(e);
-			
+			if(this.props.handle_user_info!=undefined){
+				this.props.handle_user_info("noUser");
+			  }
 		  })
 		 
 	
-		}).catch(e=>console.log(e));
+		}).catch(e=>{
+			console.log(e)
+			if(this.props.handle_user_info!=undefined){
+				this.props.handle_user_info("noUser");
+			}
+		});
 
 		{get_rank_tag(this.handle_rank_data)}
 

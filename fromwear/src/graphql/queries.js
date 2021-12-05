@@ -78,6 +78,13 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      alarm_list {
+        id
+        content
+        link
+        createdAt
+        updatedAt
+      }
       award_today
       award_week
       createdAt
@@ -119,8 +126,44 @@ export const listUsers = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
+        }
         award_today
         award_week
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getAlarm = /* GraphQL */ `
+  query GetAlarm($id: ID!) {
+    getAlarm(id: $id) {
+      id
+      content
+      link
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAlarms = /* GraphQL */ `
+  query ListAlarms(
+    $filter: ModelAlarmFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAlarms(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        content
+        link
         createdAt
         updatedAt
       }
@@ -159,6 +202,13 @@ export const getComment = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -314,6 +364,13 @@ export const getPost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
+        }
         award_today
         award_week
         createdAt
@@ -390,25 +447,9 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
-          items {
-            id
-            user_id
-            post_id
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         tag_list {
-          items{
-            id
-            post_id
-            tag_id
-            style_tag{
-              id
-              value
-            }
-          }
           nextToken
         }
         board_type
@@ -500,6 +541,13 @@ export const getUserBookmarkPost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
+        }
         award_today
         award_week
         createdAt
@@ -531,13 +579,6 @@ export const getUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         like_urgent_user_list {
-          items {
-            id
-            user_id
-            post_id
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         tag_list {
@@ -634,6 +675,13 @@ export const getFollowingFollower = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
+        }
         award_today
         award_week
         createdAt
@@ -665,6 +713,13 @@ export const getFollowingFollower = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -758,6 +813,13 @@ export const getUserStyleTag = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -854,6 +916,13 @@ export const getCommentLikeUser = /* GraphQL */ `
         }
         my_tag_list {
           nextToken
+        }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
         }
         award_today
         award_week
@@ -980,6 +1049,13 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          id
+          content
+          link
+          createdAt
+          updatedAt
+        }
         award_today
         award_week
         createdAt
@@ -1014,8 +1090,6 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         tag_list {
-
-      
           nextToken
         }
         board_type
