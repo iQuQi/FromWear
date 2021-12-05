@@ -14,10 +14,20 @@ import { API } from 'aws-amplify';
 import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
 import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
+var AWS = require('aws-sdk'); 
 
+const s3 = new AWS.S3();
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
 //let user_id = "현경 id"; //현재 유저
+
+// AWS.config.update(
+// 	{
+// 	  accessKeyId: "AKIAQGPJROM4FWISMQBG",
+// 	  secretAccessKey: "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",
+// 	}
+// );
+
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
@@ -70,7 +80,7 @@ class Post extends Component{
         
         .catch(e => console.log(e));
 
-
+        this.fetchImages();
         /*
         this.subscription = API.graphql({query: onCreatePostLikeUrgentUser, variables: { id: this.state.user_id + this.state.post_id }})
         .subscribe({
@@ -85,6 +95,24 @@ class Post extends Component{
             }
         });*/
     }
+
+    fetchImages = ()=>{
+        console.log('https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/0fa30f95-e332-4f6c-98e1-87b39928d693.jpeg');
+    //     console.log("시시시실행")
+	// 	s3.getObject(
+	// 	  { Bucket: "fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev", Key: "public/85fbd06f-2727-4a9c-845d-2121e179ecf7.jpeg" },
+	// 	  function (error, data) {
+	// 		if (error != null) {
+	// 		  alert("Failed to retrieve an object: " + error);
+	// 		} else {
+	// 		  alert("Loaded " + data.ContentLength + " bytes");
+	// 		  // do something with data.Body
+	// 		}
+	// 	  }
+	// 	);
+    //     console.log("시시시실행끝")
+
+	}
 
     setClickNum = (input_click_num) => {
         //input_click_num : '현재 조회수'
@@ -440,13 +468,16 @@ class Post extends Component{
             this.moveTo();
         }
 
+        let img_src123 = now_post.img
+        let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
+
         return (
             <div className="post_page">
                 <Header handle_user_info={this.handle_user_info}/>
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <div className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}></div>
+                            <div className="post_img" style={{backgroundImage: 'URL('+img_src+')'}}></div>
                             <div className="content_box">
                                 <div className="writer">
                                     {
