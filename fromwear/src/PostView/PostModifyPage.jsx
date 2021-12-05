@@ -38,8 +38,11 @@ class PostModifyPage extends Component {
             now_post:props.now_post,
         }
     }
-    
-    componentDidMount(){
+
+    componentDidMount(){        
+        this.setState({
+            contents: this.state.now_post.content,
+        })
         this.set_tag_list();
     }
     componentDidUpdate(prevProps) {
@@ -48,7 +51,10 @@ class PostModifyPage extends Component {
             console.log(this.state.user);
         }
         if(this.props.now_post !== prevProps.now_post){
-            this.setState({now_post: this.props.now_post});
+            this.setState({
+                now_post: this.props.now_post,
+                contents: this.props.now_post.content,
+            });
         }
     }
 
@@ -197,33 +203,49 @@ class PostModifyPage extends Component {
                     .catch(e => console.log(e));
             }
             else {
+
+                var tag_index = []
+                
                 API.graphql({
                     query: updatePost, variables: {
                         input: 
                         {
-                            post_id: this.state.now_post.id,
+                            id: this.state.now_post.id,
                             content: this.state.contents,
                             img: this.state.file_key,
                             blind: this.state.blind,
                         } 
                     }})
                     .then(res => {
+                        console.log(this.state.now_post.tag_list)
+                        console.log(tag_clicked_list)
+                        
                         tag_clicked_list.forEach((tag, index) => {
-                            console.log("혀ㅕㄴㄴ재애ㅐ",tag)
                             if(tag == 1) {
+                                tag_index = [...tag_index, index+1]
+                            }
+                        })
+                        console.log(tag_index)
+                    })
+                    .then(res => {
+                        console.log("현재 태그???", this.state.now_post.tag_list)
+                        var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                        //console.log(origin_post_id)
+                        origin_post_id.map((origin_id, index)=>{
                                 API.graphql({
                                     query: updatePostStyleTag, variables: {
                                         input: 
                                         {
-                                            id: tag.id,
+                                            id: origin_id,
                                             post_id: this.state.now_post.id,
-                                            tag_id: index+1,
+                                            tag_id: tag_index[index],
                                         } 
                                 }})
-                                .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
-                                .catch(e => console.log(e));
-                            }
+                                .then(res => {
+                                    if(index == 2){
+                                        this.setState({create_tag:true})
+                                    }
+                                })
                         })
                     })
                     .then(res => this.setState({create_post: true}))
@@ -252,13 +274,13 @@ class PostModifyPage extends Component {
         let {fileImage, setFileImage, tag_click} = this.state;
         let {tag_contents, contents, board_type, now_post} = this.state;
 
-
-        let img_src123 = now_post.img
-        let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
-
-        let profile_preview = <img alt="preivew_img" className='upload_img' src={img_src}></img>;
+        let profile_preview = null;
         if(this.state.file !== ''){
           profile_preview = <img alt="preivew_img" className='upload_img' src={this.state.previewURL}></img>
+        }
+        else {
+            profile_preview = <img alt="preivew_img" className='upload_img' src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img}></img>;
+            //이게 진짜 profile_preivew라...보여주는 것만함...file에 넘겨줘야하는데..아님 사진에 변화가 있는지 체크하거나
         }
  
 
@@ -296,7 +318,7 @@ class PostModifyPage extends Component {
                             <h3>내용</h3>
                             <div className="text_form">
                                 <textarea className= "content_write" name="" type="text"
-                                 placeholder="내용을 입력해주세요" onChange={this.changeTextArea.bind(this)}>{now_post.content}</textarea>
+                                 placeholder="내용을 입력해주세요" value={contents} onChange={this.changeTextArea.bind(this)}></textarea>
                             </div>
 
                             <h3>태그</h3>
@@ -323,10 +345,22 @@ class PostModifyPage extends Component {
                                 board_type == 1 ?
                                 <div>
                                     <h3>익명 여부 선택</h3>
-                                    <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="1" onClick={this.checkBlind.bind(this)}/><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="2" onClick={this.checkBlind.bind(this)} defaultChecked/><span>아니오</span></label>
-                                    </div>
+                                    {
+                                        now_post.blind ? //원래 post가 익명상태면, 익명 여부의 "예"가 default
+                                        <div>
+                                            <div className="select_blind">
+                                                <label className="radio"><input type="radio" name="fruit" value="1" onClick={this.checkBlind.bind(this)} defaultChecked/><span>예</span></label>
+                                                <label className="radio"><input type="radio" name="fruit" value="2" onClick={this.checkBlind.bind(this)}/><span>아니오</span></label>
+                                            </div>
+                                        </div>
+                                        :
+                                        <div>
+                                            <div className="select_blind">
+                                                <label className="radio"><input type="radio" name="fruit" value="1" onClick={this.checkBlind.bind(this)}/><span>예</span></label>
+                                                <label className="radio"><input type="radio" name="fruit" value="2" onClick={this.checkBlind.bind(this)} defaultChecked/><span>아니오</span></label>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                                 :
                                 <div>
