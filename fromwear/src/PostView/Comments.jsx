@@ -3,10 +3,10 @@ import SingleComment from './SingleComment'
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser, getPost, listComments } from '../graphql/queries';
+import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
 import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
-import  { deleteComment } from '../graphql/mutations';
+import  { deleteComment, deleteCommentLikeUser } from '../graphql/mutations';
 
 class Comments extends Component {
 
@@ -94,7 +94,7 @@ class Comments extends Component {
 
     addTweet = () => {
         let value = document.querySelector('.new_tweet_content').value;
-        console.log("댓글 추가!!")
+
         API.graphql({
             query: createComment, variables: {
                 input: 
@@ -115,6 +115,21 @@ class Comments extends Component {
     removeComment = (delete_id) => {
         
         API.graphql({
+            query: listCommentLikeUsers, variables: {input:{comment_id: delete_id}}
+        })
+        .then(res => {
+            res.data.listCommentLikeUsers.items.map((like)=>{
+                API.graphql({
+                    query: deleteCommentLikeUser, variables: {input:{id: like.id}}
+                })
+                .then(res => console.log(res))
+                .catch(e => console.log(e))
+            })
+        })
+        .catch(e => console.log(e))
+
+
+        API.graphql({
             query: deleteComment, variables: {input:{id: delete_id}}
         })
         .then(res => {
@@ -127,6 +142,8 @@ class Comments extends Component {
                 comment_list: this.state.comment_list
             })
         })
+
+        
     }
     
 
