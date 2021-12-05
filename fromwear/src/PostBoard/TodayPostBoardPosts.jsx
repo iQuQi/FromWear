@@ -12,6 +12,9 @@ import FlagIcon from '@mui/icons-material/Flag';
 import CommentIcon from '@mui/icons-material/Comment';
 import CreateIcon from '@mui/icons-material/Create';
 
+
+import defaultImg from '../PostView/Imgs/profile_skyblue.jpg';
+
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -58,9 +61,16 @@ export default class TodayPostBoardPosts extends Component {
             post_list:[],
 
             board_type: props.board_type,
+            user: props.user,
+           
 		}
     }
 
+    componentDidUpdate(prevProps) {
+        if(this.props.user !== prevProps.user){
+            this.setState({user: this.props.user});
+        }
+    }
 
     componentWillMount() {
         this.handleFilteredData(this.state.post_state);
@@ -100,7 +110,7 @@ export default class TodayPostBoardPosts extends Component {
 
                         return true;
                     })
-                if(sortVal == 1){
+                if(sortVal == 1) {
                     this.setState({
                         post_state: sortVal,
                         post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
@@ -163,7 +173,7 @@ export default class TodayPostBoardPosts extends Component {
                 if(sortVal == 1){
                     this.setState({
                         post_state: sortVal,
-                        post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.llike_urgent_user_list.items.length})
+                        post_list : posts.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
                     })
                 } 
                 else if(sortVal == 2) {
@@ -242,13 +252,19 @@ export default class TodayPostBoardPosts extends Component {
         this.handlePostAgain();
 	}
 
+    handleWriteButton = (e) => {
+        if(this.state.user == "noUser") {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+        this.props.handle_write_page();
+    } 
 
     render() {
-		let {post_state, post_list} = this.state;
+		let {post_state, post_list,user} = this.state;
         let {genderVal, dayVal, board_type} = this.state;
 
         return (<article className="wrap_recommend">
-
             <form className="sort_font select_sort">
                 <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
                     <label htmlFor="sort_latest">최신순</label>
@@ -269,6 +285,7 @@ export default class TodayPostBoardPosts extends Component {
                         variant="contained" 
                         sx={{ m: 1.2, minWidth: 100 }}
                         endIcon={<CreateIcon />}
+                        onClick={this.handleWriteButton}
                         style ={{height: "35px", fontSize:14,textAlign:"center", borderRadius:"30px", fontFamily : "'나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif", fontWeight:"bold", color: 'white', borderColor: '#253861', backgroundColor: '#253861'}}
                         >글쓰기</Button>
                 </Box>
@@ -327,8 +344,16 @@ export default class TodayPostBoardPosts extends Component {
                                 </a>
                                 <Stack direction="row" spacing={0}>
                                     <div className="user_profile">
-                                        <img src={post.user.profile_img} style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
-                                        <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                                        {(board_type == 1) && (post.blind == true)
+                                        ?   <div>
+                                                <img src={defaultImg} alt="기본프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <p style={{margin: '16px 0px'}}>익명</p>
+                                            </div>
+                                        :   <div>
+                                                <img src={post.user.profile_img} alt="프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                                            </div>
+                                        }
                                     </div>
                                     {(post_state == 1 || post_state == 4) && 
                                         <div className="user_like">

@@ -14,6 +14,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
+import API from '@aws-amplify/api';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
 import {updateUser} from '../graphql/mutations.js';

@@ -83,10 +83,11 @@
 	cursor: pointer;
 }
 
-.wrap_recommend .collection .user_profile,
+.wrap_recommend .collection .user_profile div,
 .wrap_recommend .collection .user_like {
 	display: flex;
 }
+
 .wrap_recommend .collection .user_like {
 	margin-left: auto;
 }
