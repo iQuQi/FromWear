@@ -346,7 +346,7 @@ export default class TodayPostBoardPosts extends Component {
                                     <div className="user_profile">
                                         {(board_type == 1) && (post.blind == true)
                                         ?   <div>
-                                                <img src={defaultImg} alt="기본프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px'}}/>
+                                                <img src={defaultImg} alt="기본프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px', borderRadius: '50%'}}/>
                                                 <p style={{margin: '16px 0px'}}>익명</p>
                                             </div>
                                         :   <div>
