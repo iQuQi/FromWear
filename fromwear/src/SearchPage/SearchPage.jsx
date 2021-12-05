@@ -20,7 +20,16 @@ import { format } from "date-fns";
 import { static_tag_data } from './TagData';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
-
+var AWS = require('aws-sdk'); 
+/*
+AWS.config.update(
+	{
+	  accessKeyId: ".. your key ..",
+	  secretAccessKey: ".. your secret key ..",
+	}
+  );
+  */
+const s3 = new AWS.S3();
 class SearchPage extends Component{
 	constructor(){
 		super();
@@ -226,6 +235,21 @@ class SearchPage extends Component{
 			day,gender,board);
 	}
 
+	fetchImages = ()=>{
+		s3.getObject(
+		  { Bucket: "my-bucket", Key: "my-picture.jpg" },
+		  function (error, data) {
+			if (error != null) {
+			  alert("Failed to retrieve an object: " + error);
+			} else {
+			  alert("Loaded " + data.ContentLength + " bytes");
+			  // do something with data.Body
+			}
+		  }
+		);
+
+	}
+
 	get_post_data =  (handle_post_data,
 		current_input_tag,
 		tag_clicked_list,
@@ -327,13 +351,8 @@ class SearchPage extends Component{
 						rmved.map(tag=>{
 							if(post_tag.style_tag.value==tag) same++;
 						})
-						
-						
-						
-
 					})
-					
-
+				
 					console.log("same: "+ same);
 					if(same == 3) same3=[...same3,post]
 					else if(same==2) same2=[...same2,post]

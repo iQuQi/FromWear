@@ -9,6 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 
+import defaultImg from '../PostView/Imgs/profile_skyblue.jpg';
 
 import './CSS/TodayPostBoardTop5.css'
 
@@ -151,9 +152,18 @@ export default class TodayPostBoardTop5 extends Component {
                                             <span className='dimmed_layer'>	
                                                 <span className='dimmed_info' >
                                                     <div>
-                                                        <img src={post.user.profile_img} alt="프로필" className="profileImg"
-                                                                style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
-                                                        <p className="profileName">{post.user.name}</p>     
+                                                        {(board_type == 1) && (post.blind == true)
+                                                        ? <div>
+                                                            <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
+                                                            <p className="profileName">익명</p>     
+                                                          </div>
+                                                        :  <div>
+                                                          <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
+                                                                  style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                          <p className="profileName">{post.user.name}</p>     
+                                                        </div>
+                                                        }
                                                      </div>   
                                                     <Box style={{width: '40px'}} className="box">
                                                         <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
@@ -197,9 +207,18 @@ export default class TodayPostBoardTop5 extends Component {
                                             <span className='dimmed_layer'>	
                                                 <span className='dimmed_info' >
                                                     <div>
-                                                        <img src={post.user.profile_img} alt="프로필" className="profileImg"
-                                                                style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
-                                                        <p className="profileName">{post.user.name}</p>     
+                                                        {(board_type == 1) && (post.blind == true)
+                                                        ? <div>
+                                                            <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                            <p className="profileName">익명</p>     
+                                                          </div>
+                                                        :  <div>
+                                                          <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
+                                                                  style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                          <p className="profileName">{post.user.name}</p>     
+                                                        </div>
+                                                        }
                                                      </div>   
                                                     <Box style={{width: '40px'}} className="box">
                                                         <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
