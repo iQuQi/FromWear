@@ -11,8 +11,8 @@ import Header from '../Header/Header'
 import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
-import { getPost, listPosts } from '../graphql/queries';
-import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser } from '../graphql/mutations';
+import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
+import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 
@@ -37,6 +37,13 @@ class Post extends Component{
             first_click: false,
 
             like_urgent_num: 0,
+
+            deleted_comment:false,
+            deleted_comment_like:false,
+            deleted_like_urgent:false,
+            deleted_bookmark:false,
+            deleted_post:false,
+            now_post_board_type:0, //delete할때 board_type담아둘것
 
             same1:[],
             same2:[],
@@ -192,12 +199,133 @@ class Post extends Component{
     }
 
     removePost = () => {
+        this.setState({
+            now_post_board_type: this.state.now_post.board_type,
+        })
+
+        console.log("now_post 댓글", this.state.now_post.comment_list.items.length)
+        if(this.state.now_post.comment_list.items.length == 0){
+            this.setState({
+                deleted_comment: true, //이미 null이라 삭제안해도됨
+                deleted_comment_like: true,
+            })
+        }
+        else {
+            API.graphql({
+                query: listComments, variables: {filter:
+                    {
+                        post_id: {eq: this.state.post_id}
+                    }
+                }
+            })
+            .then(res => {
+                res.data.listComments.items.map((comment)=>{
+                    API.graphql({
+                        query: listCommentLikeUsers, variables: {filter:
+                            {
+                                comment_id: {eq: comment.id}
+                            }
+                        }
+                    })
+                    .then(res => {
+                        if(res.data.listCommentLikeUsers.items.length == 0){
+                            this.setState({deleted})
+                        }
+                        res.data.listCommentLikeUsers.items.map((comment_like)=>{
+                            API.graphql({
+                                query: deleteCommentLikeUser, variables:{input:{id: comment_like.id}}
+                            })
+                            .then(e => 
+                                this.setState({deleted_comment_like: true}))
+                        })
+                    })
+                    
+                    API.graphql({
+                    query: deleteComment, variables: {input:{id: comment.id}}
+                    })
+                    .then(e => this.setState({
+                        deleted_comment:true,
+                    }))
+                })
+            })
+            .catch(e => console.log(e));
+        }
+
+        if(this.state.now_post.like_urgent_user_list.items.length == 0){
+            this.setState({
+                deleted_like_urgent: true,
+            })
+        }
+            else {
+            API.graphql({
+                query: listPostLikeUrgentUsers, variables: {filter:
+                    {
+                        post_id: {eq: this.state.post_id}
+                    }
+                }
+            })
+            .then(res => {
+                res.data.listPostLikeUrgentUsers.items.map((like)=>{
+                    API.graphql({
+                        query: deletePostLikeUrgentUser, variables:{input:{id: like.id}}
+                    })
+                    .then(e => this.setState({
+                        deleted_like_urgent:true,
+                    }))
+                })
+            })
+        }
+
+        if(this.state.now_post.bookmark_user_list.items.length == 0){
+            this.setState({
+                deleted_bookmark: true,
+            })
+        }
+        else {
+            API.graphql({
+                query: listUserBookmarkPosts, variables: {filter:
+                    {
+                        post_id: {eq: this.state.post_id}
+                    }
+                }
+            })
+            .then(res => {
+                res.data.listUserBookmarkPosts.items.map((bookmark)=>{
+                    API.graphql({
+                        query: deleteUserBookmarkPost, variables:{input:{id: bookmark.id}}
+                    })
+                    .then(e => console.log(e))
+                })
+                this.setState({
+                    deleted_bookmark: true,
+                })
+            })
+
+        }
+        
+
+        
+        /*
         API.graphql({
             query: deletePost, variables: {input:{id: this.state.post_id}}
         })
-        .then(res => {
-            console.log(res)
-        });
+        .then(res => this.setState({
+            deleted_post: true,
+        }));*/
+    }
+
+    moveTo = () => {
+        console.log(this.state.now_post_board_type)
+        if(this.state.now_post_board_type == 0){
+            window.location.href = "/todayboard"
+        }
+        else if(this.state.now_post_board_type == 1){
+            window.location.href = "/sosboard"
+        }
+        else if(this.state.now_post_board_type == 2){
+            window.location.href = "/weeklytag"
+        }
+        
     }
 
     getTagList =() => {
@@ -245,6 +373,10 @@ class Post extends Component{
             this.setClickNum(now_post.click_num);
         }
 
+        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark){
+            this.moveTo();
+        }
+
         return (
             <div className="post_page">
                 <Header />
@@ -274,7 +406,7 @@ class Post extends Component{
                                     {
                                         user_id == now_writer.id ?
                                         //<a href={'/'}>
-                                            <button className="remove_post" onClick={this.removeCommentGet}>
+                                            <button className="remove_post" onClick={this.removePost}>
                                                 삭제
                                             </button>
                                         //</a>
