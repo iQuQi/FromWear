@@ -10,7 +10,7 @@ import API from '@aws-amplify/api';
 import {createUser} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
-
+import SignOutButton from './SignOutButton';
 
 
 class Header extends Component{
@@ -49,12 +49,10 @@ class Header extends Component{
 				   phone:auth_user.attributes.phone_number,
 				   profile_img: profile_skyblue,
 				   introduce: "자기소개를 입력해주세요",
-				   alarm_list:[],
 				   gender: "",
 				   adopted: 0,
 				   award_today: 0,
-				   award_week: 0}
-				}
+				   award_week: 0}}
 				}).then(
 					res=>{console.log(res,"new user get!!");
 					API.graphql({
@@ -63,6 +61,7 @@ class Header extends Component{
 					}).then(res=>{
 						this.handle_get_user(res.data.getUser);
 					})
+					.catch(e=>console.log("새 유저 get error",e));
 				})
 				.catch(e=>console.log(e));
 			  }else{
@@ -126,7 +125,6 @@ class Header extends Component{
 				rank_1 ={rank_1}
 				user={user}
 				/>
-				
 				{login_popup?<Login 
 				handle_login_complete={this.handle_login_complete}/>:<br/>}
 				<MoveToTop/>

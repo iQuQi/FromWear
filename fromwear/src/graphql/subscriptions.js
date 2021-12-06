@@ -79,11 +79,15 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
       }
       alarm_list {
-        id
-        content
-        link
-        createdAt
-        updatedAt
+        items {
+          id
+          user_id
+          content
+          link
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       award_today
       award_week
@@ -170,11 +174,15 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
       }
       alarm_list {
-        id
-        content
-        link
-        createdAt
-        updatedAt
+        items {
+          id
+          user_id
+          content
+          link
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       award_today
       award_week
@@ -261,11 +269,15 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
       }
       alarm_list {
-        id
-        content
-        link
-        createdAt
-        updatedAt
+        items {
+          id
+          user_id
+          content
+          link
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       award_today
       award_week
@@ -278,6 +290,7 @@ export const onCreateAlarm = /* GraphQL */ `
   subscription OnCreateAlarm {
     onCreateAlarm {
       id
+      user_id
       content
       link
       createdAt
@@ -289,6 +302,7 @@ export const onUpdateAlarm = /* GraphQL */ `
   subscription OnUpdateAlarm {
     onUpdateAlarm {
       id
+      user_id
       content
       link
       createdAt
@@ -300,6 +314,7 @@ export const onDeleteAlarm = /* GraphQL */ `
   subscription OnDeleteAlarm {
     onDeleteAlarm {
       id
+      user_id
       content
       link
       createdAt
@@ -340,11 +355,7 @@ export const onCreateComment = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -439,11 +450,7 @@ export const onUpdateComment = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -538,11 +545,7 @@ export const onDeleteComment = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -651,11 +654,7 @@ export const onCreatePost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -747,11 +746,7 @@ export const onUpdatePost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -843,11 +838,7 @@ export const onDeletePost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -995,11 +986,7 @@ export const onCreateUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1082,11 +1069,7 @@ export const onUpdateUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1169,11 +1152,7 @@ export const onDeleteUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1256,11 +1235,7 @@ export const onCreateFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1295,11 +1270,7 @@ export const onCreateFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1345,11 +1316,7 @@ export const onUpdateFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1384,11 +1351,7 @@ export const onUpdateFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1434,11 +1397,7 @@ export const onDeleteFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1473,11 +1432,7 @@ export const onDeleteFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1523,11 +1478,7 @@ export const onCreateUserStyleTag = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1585,11 +1536,7 @@ export const onUpdateUserStyleTag = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1647,11 +1594,7 @@ export const onDeleteUserStyleTag = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1709,11 +1652,7 @@ export const onCreateCommentLikeUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1796,11 +1735,7 @@ export const onUpdateCommentLikeUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1883,11 +1818,7 @@ export const onDeleteCommentLikeUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1970,11 +1901,7 @@ export const onCreatePostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -2057,11 +1984,7 @@ export const onUpdatePostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -2144,11 +2067,7 @@ export const onDeletePostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
