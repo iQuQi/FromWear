@@ -99,7 +99,7 @@ class Post extends Component{
 
 
 	handle_user_info = (user) => {
-        console.log(user)
+        //console.log(user)
         if(this.state.now_user == 'noUser'){
             this.setState({
                 now_user: user,
@@ -208,8 +208,8 @@ class Post extends Component{
     }
 
     set_like_urgent(list) {
-        console.log("좋아요 list:",list)
-        console.log("현재 사람:",this.state.now_user)
+        //console.log("좋아요 list:",list)
+        //console.log("현재 사람:",this.state.now_user)
         let like_urgent = list.filter((data)=>{
             if(data.user_id == this.state.now_user.id) return true;
             else return false;
@@ -454,7 +454,7 @@ class Post extends Component{
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
-        console.log("현재 유저:",now_user.id)
+        //console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
         }
@@ -470,7 +470,7 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-        console.log("now_post 태그@@@@@@", now_post.tag_list)
+        //console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">
                 {

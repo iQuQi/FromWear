@@ -145,7 +145,7 @@ export default class TodayPostBoardTop5 extends Component {
                     
                             {post_top_list.map((post,index) => (
                                     <div className= {"div_test"} key={post.id + "_1"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`,
+                                        <img style={{backgroundImage: `URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img})`,
                                         borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
                             
                                         <a href={'/post/'+post.id}> 
@@ -200,7 +200,7 @@ export default class TodayPostBoardTop5 extends Component {
                             ))}
                             {post_top_list.map((post,index) => (
                                     <div className= {"div_test"} key={post.id + "_1"}>
-                                        <img style={{backgroundImage: `URL(${post.img})`,
+                                        <img style={{backgroundImage: `URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img})`,
                                         borderRadius:"30px", boxShadow: "0 8px 15px 0 gray "}}></img>
                             
                                         <a href={'/post/'+post.id}> 

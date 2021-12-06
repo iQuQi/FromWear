@@ -13,13 +13,18 @@ class Thumb extends Component{
             is_checked: false,
             comment_list: props.comment_list,
             now_user: props.now_user,
-            comment_like_num: props.comment_list.like_user_list.items.length,
+            comment_like_num: 0,
         };
 
     }
 
     componentDidMount(){
         this.set_comment_like(this.state.comment_list.like_user_list.items)
+        if(this.props.comment_list.like_user_list.items){
+            this.setState({
+                comment_like_num: this.props.comment_list.like_user_list.items.length
+            })
+        }
     }
 
     set_comment_like = (list) => {

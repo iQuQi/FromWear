@@ -334,8 +334,8 @@ export default class TodayPostBoardPosts extends Component {
                         {post_list.map((post) => (
                             <ImageListItem key={post.id} className='today_image_list_item'>
                                 <img style={{height:'322.55px', borderRadius:16}}
-                                    src={`${post.img}?w=248&fit=crop&auto=format`}
-                                    srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                    src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
+                                    srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                     alt={post.user.name}
                                     loading="lazy"
                                 />

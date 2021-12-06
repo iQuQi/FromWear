@@ -79,11 +79,15 @@ export const getUser = /* GraphQL */ `
         nextToken
       }
       alarm_list {
-        id
-        content
-        link
-        createdAt
-        updatedAt
+        items {
+          id
+          user_id
+          content
+          link
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       award_today
       award_week
@@ -127,11 +131,7 @@ export const listUsers = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -146,6 +146,7 @@ export const getAlarm = /* GraphQL */ `
   query GetAlarm($id: ID!) {
     getAlarm(id: $id) {
       id
+      user_id
       content
       link
       createdAt
@@ -162,6 +163,7 @@ export const listAlarms = /* GraphQL */ `
     listAlarms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        user_id
         content
         link
         createdAt
@@ -204,11 +206,7 @@ export const getComment = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -369,11 +367,7 @@ export const getPost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -432,7 +426,7 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         comment_list {
-          items {
+          items{
             id
           }
           nextToken
@@ -455,10 +449,13 @@ export const listPosts = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list {
+          items{
+            id
+          }
           nextToken
         }
         like_urgent_user_list {
-          items {
+          items{
             id
           }
           nextToken
@@ -466,22 +463,20 @@ export const listPosts = /* GraphQL */ `
         tag_list {
           items{
             id
+            tag_id
+            post_id
             style_tag{
               id
               value
             }
-
+            post{
+              id
+            }
+            createdAt
+            updatedAt
           }
           nextToken
-          items {
-          id
-          tag_id
-          post_id
-          createdAt
-          updatedAt
-          }
         }
-        
         board_type
         click_num
         blind
@@ -572,11 +567,7 @@ export const getUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -706,11 +697,7 @@ export const getFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -745,11 +732,7 @@ export const getFollowingFollower = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -845,11 +828,13 @@ export const getUserStyleTag = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          items{
+            id
+            user_id
+            content
+            link
+          }
+          nextToken
         }
         award_today
         award_week
@@ -948,11 +933,7 @@ export const getCommentLikeUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week
@@ -1080,11 +1061,7 @@ export const getPostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         alarm_list {
-          id
-          content
-          link
-          createdAt
-          updatedAt
+          nextToken
         }
         award_today
         award_week

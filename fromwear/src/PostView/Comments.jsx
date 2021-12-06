@@ -150,7 +150,7 @@ class Comments extends Component {
 
     render(){
         let {comment_list, board_type, write_is_checked, now_user, post_writer} = this.state;
-        console.log("user_id", now_user)
+        console.log("현재 댓글", comment_list)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         return (
             <div>

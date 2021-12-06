@@ -16,7 +16,7 @@ import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
-import {updateUser} from '../graphql/mutations.js';
+import {deleteAlarm} from '../graphql/mutations.js';
 import { Button } from '@mui/material';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
@@ -92,10 +92,10 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     let index=e.target.value;
     if(user.alarm_list){
       API.graphql({
-        query: updateUser,
+        query: deleteAlarm,
         variables: { input: {
-          id: user.id,
-          alarm_list : user.alarm_list.splice(index,1)
+          id: user.alarm_list[index].id,
+
         }}
 
       }).then(res=>{
@@ -153,7 +153,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     
     {
     user.alarm_list?
-      user.alarm_list.map((item,index)=>
+      user.alarm_list.items.map((item,index)=>
         <a href={item.link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
       )
     :""
@@ -219,9 +219,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             
            
             <IconButton
-
               style={{ color: "black",height:35 ,position:"relative",top:-10}}
-
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -229,6 +227,8 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
+              <span className="bar_user_name ellips" >{user.name}</span>
+              <span className="bar_user_name">님</span>
               <img 
 									style={{backgroundImage:"url("+user.profile_img+")"
                   ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
