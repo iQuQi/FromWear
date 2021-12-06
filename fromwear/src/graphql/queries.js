@@ -418,6 +418,9 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         comment_list {
+          items{
+            id
+          }
           nextToken
         }
         img
@@ -452,6 +455,17 @@ export const listPosts = /* GraphQL */ `
         tag_list {
           items{
             id
+            tag_id
+            post_id
+            style_tag{
+              id
+              value
+            }
+            post{
+              id
+            }
+            createdAt
+            updatedAt
           }
           nextToken
         }
