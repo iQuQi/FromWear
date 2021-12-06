@@ -219,9 +219,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             
            
             <IconButton
-
               style={{ color: "black",height:35 ,position:"relative",top:-10}}
-
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -229,6 +227,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
+              <span className="bar_user_name" >{user.name}님</span>
               <img 
 									style={{backgroundImage:"url("+user.profile_img+")"
                   ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
