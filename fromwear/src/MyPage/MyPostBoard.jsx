@@ -8,7 +8,7 @@ import dayFilter from '../PostBoard/dayFilter';
 import './MyPostBoard.css';
 import './MyPage.css';
 import { API } from 'aws-amplify';
-import { listPosts, getPost } from '../graphql/queries.js';
+import { getUser } from '../graphql/queries.js';
 
 
 //dimmed grid box
@@ -35,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default class TodayPostBoardPosts extends Component {
     constructor(props) {
-		super();
+		super(props);
 
 		this.state = {
             post_state: 1,
@@ -43,6 +43,9 @@ export default class TodayPostBoardPosts extends Component {
             filter_day: "",
             post_list:[],
             user: props.user,
+            board: props.board,
+            post_list_0:[],
+            post_list_1:[],
 		}
         console.log(props.user);
 	}
@@ -53,23 +56,69 @@ export default class TodayPostBoardPosts extends Component {
             user: this.props.user,
             })
         }
-        if(this.state.user.my_post_list!=undefined&&this.state.post_list !== this.state.user.my_post_list.items){
-            console.log(this.state.user.my_post_list);
-            this.setState({
-                post_list: this.state.user.my_post_list.items
+        console.log("state board",this.state.board);
+        console.log("props board",this.props.board);
+        if(this.state.user.my_post_list!=undefined && this.state.board!=this.props.board){
+            var tmplist =this.state.user.my_post_list.items.filter((item)=>{
+                return item.board_type!=1
+            });
+            console.log(tmplist);
+            
+            this.get_posts(this.state.board);
+
+            /*this.setState({
+                post_list: this.state.user.my_post_list.items.filter((item)=>{
+                    return item.board_type!=1
+                }),
+                board: this.props.board
             })
+            console.log(this.state.post_list);
+            
+            if(tmplist!=this.state.post_list){
+            
+                console.log(this.state.post_list);
+                console.log(this.state.board);
+                
+                console.log(this.state.user.my_post_list);
+                this.setState({
+                    post_list: this.state.user.my_post_list.items.filter((item)=>{
+                return item.board_type!=1
+            }),
+                    board: this.props.board
+                })
+            }*/
+            
+            
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         console.log(this.state.user);
         console.log(this.state.user.my_post_list);
-        this.setState({
-            post_list: this.state.user.my_post_list
-        })
-        console.log(this.state.user.my_post_list);
-        console.log(this.state.post_list);
-        this.handleSortView();   
+        
+        
+        if(this.state.user.my_post_list){
+            console.log("하이");
+            console.log(this.state.user.my_post_list.items.filter((item)=>{
+                return item.board_type!=1
+            }));
+            
+            console.log(this.state.user.my_post_list);
+            console.log(this.state.post_list);
+            this.handleSortView();   
+        }
+        this.get_posts(); 
+    }
+    get_posts = () => {
+        if(this.state.user.my_post_list!=undefined){
+            console.log("여기여기여기");
+            this.setState({
+                post_list : this.state.user.my_post_list.items.filter((item)=>{
+                    return item.board_type!=1
+                })
+            })
+        }
+        
     }
 
 	handleSortLike = (e) => {
@@ -122,9 +171,11 @@ export default class TodayPostBoardPosts extends Component {
     render() {
         console.log("render 되고 있니?");
         console.log("render ", this.state.post_list);
+        console.log("postlist 0", this.state.post_list_0);
+        console.log("포스트리스트 1", this.state.post_list_1);
 		let {user, post_state, post_list} = this.state;
 
-        return (<div>
+        return (<div id = 'contents'>
 
             <form className="sort_font select_sort">
                 <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
@@ -138,7 +189,7 @@ export default class TodayPostBoardPosts extends Component {
 
             </form>
             
-            <div id = 'today_post' className = 'mypage_collection'>
+            <div id = 'today_post' >
                 {post_list?
                     post_list?
                 <ImageList cols={3} gap={8} style={{clear: 'left'}}>

@@ -39,6 +39,10 @@
           "GROUP": "",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-35573151592b544e484d-build.zip"
+        },
+        "S3Trigger6b6ec516": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-676b526237705a2f5372-build.zip"
         }
       }
     }

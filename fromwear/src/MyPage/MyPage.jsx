@@ -35,8 +35,11 @@ class MyPage extends Component {
 
 
     render(){
+		{console.log("now user test1",this.state.now_user)}
 
 		let {now_user, now_user_id} = this.state;
+		{console.log("now user test2",now_user)}
+
 		
         return <div id = 'my_page'>
 			<Header/>
@@ -46,6 +49,7 @@ class MyPage extends Component {
 				<div id = 'profile' className = 'mypage_profile'>
 					
 				</div>
+				{console.log("now user test3",now_user)}
 				<Profile user={now_user}/>
 
 				<div id = 'tab' className = 'mypage_collection'>
