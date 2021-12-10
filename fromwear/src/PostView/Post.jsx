@@ -437,9 +437,9 @@ class Post extends Component{
 
             })
             
-            same3=same3.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
-            same2=same2.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
-            same1=same1.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
+            same3=same3.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length});
+            same2=same2.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length});
+            same1=same1.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length});
             
             //console.log("비교 결과 list:",[...same3,...same2,...same1]);
             this.setState({
@@ -470,6 +470,7 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
+        console.log("태그 리스트:",result_post)
         //console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">
