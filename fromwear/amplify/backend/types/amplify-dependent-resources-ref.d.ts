@@ -6,15 +6,21 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "fromwear7157cfbaPostConfirmation": {
+        "fromwear9ee2f3c2PostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
             "Region": "string"
+        },
+        "S3Trigger6b6ec516": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     },
     "auth": {
-        "fromwear7157cfba": {
+        "fromwear9ee2f3c2": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -26,7 +32,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "s3feeed02d": {
+        "s3ab9f94ac": {
             "BucketName": "string",
             "Region": "string"
         }
