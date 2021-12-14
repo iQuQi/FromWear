@@ -366,7 +366,7 @@ export default class TodayPostBoardPosts extends Component {
                                                 <p style={{margin: '16px 0px'}}>익명</p>
                                             </div>
                                         :   <div>
-                                                <img src={post.user.profile_img} alt="프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px', borderRadius: '50%'}}/>
+                                                <img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`} alt="프로필이미지" style={{margin: '7px 3px 7px 5px', width:'20px', height:'20px', borderRadius: '50%'}}/>
                                                 <p style={{margin: '16px 0px'}}>{post.user.name}</p>
                                             </div>
                                         }
