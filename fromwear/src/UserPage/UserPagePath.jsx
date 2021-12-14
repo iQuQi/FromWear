@@ -1,15 +1,15 @@
 import { useParams } from "react-router";
-import MyPage from "./MyPage.jsx";
+import UserPage from "./UserPage.jsx";
 
-function MyPagePath() {
+function UserPagePath() {
     const {userid} = useParams();
     
     return (
       <div>
-          <MyPage userid = {userid}/>
+          <UserPage userid = {userid}/>
       </div>  
     );
         
 }
 
-export default MyPagePath;
+export default UserPagePath;

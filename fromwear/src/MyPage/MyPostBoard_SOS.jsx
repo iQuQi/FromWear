@@ -84,6 +84,7 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: this.props.user.my_post_list.items
             })
         }
+        
            
     }
 
@@ -167,7 +168,7 @@ export default class TodayPostBoardPosts extends Component {
 
         return (<div id = 'contents'>
 
-            <form className="sort_font select_sort">
+            <form className="my_sort_font my_select_sort">
                 <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
                 <label htmlFor="sort_like">좋아요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>

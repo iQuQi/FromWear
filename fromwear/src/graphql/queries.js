@@ -17,6 +17,16 @@ export const getUser = /* GraphQL */ `
           id
           following_id
           follower_id
+          following {
+            id
+            name
+            profile_img
+          }
+          follower {
+            id
+            name
+            profile_img
+          }
           createdAt
           updatedAt
         }
@@ -27,6 +37,16 @@ export const getUser = /* GraphQL */ `
           id
           following_id
           follower_id
+          following {
+            id
+            name
+            profile_img
+          }
+          follower {
+            id
+            name
+            profile_img
+          }
           createdAt
           updatedAt
         }

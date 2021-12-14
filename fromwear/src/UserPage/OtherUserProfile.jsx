@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import Button from '@mui/material/Button';
 
-import CustomizedDialogs from './ShowFollowers.jsx';
+import CustomizedDialogs from '../MyPage/ShowFollowers.jsx';
 
 import { grey } from '@mui/material/colors';
 import { white } from 'jest-matcher-utils/node_modules/chalk';
@@ -16,8 +16,9 @@ import { white } from 'jest-matcher-utils/node_modules/chalk';
 import Slider from 'react-slick';
 import { API } from 'aws-amplify';
 import { listUsers } from '../graphql/queries.js';
+import { createFollowingFollower } from '../graphql/mutations.js'
 
-import ShowFollowers from './ShowFollowers.jsx';
+import ShowFollowers from '../MyPage/ShowFollowers.jsx';
 
 const btn = grey[500];
 
@@ -68,11 +69,13 @@ export default class Profile extends Component {
     super();
 
     this.state = {
+      now_user: props.now_user,
       user: props.user,
       tag_user_is_checked: false,
       tag_same_user_list: [],
       following_is_checked: false,
       follower_is_checked: false,
+      follow_click: false,
     }
   }
 
@@ -191,6 +194,23 @@ export default class Profile extends Component {
     
   }
 
+  handle_follow = () => {
+    if(this.state.follow_click==true){
+      API.graphql({
+        query: createFollowingFollower,
+        variables:{ input: { id:this.state.now_user.id+this.state.user.id, follower_id:this.state.now_user.id, following_id:this.state.user.id } }
+      })
+      .then(res => {
+        console.log("추가해보자");
+        console.log(res);
+      })
+      .catch(e => console.log(e))
+    }
+    this.setState({
+      follow_click: !this.state.follow_click
+    })
+  }
+
   render(){
     if(this.state.user.following_list || this.state.user.follower_list){
       console.log(this.state.user.follower_list.items.length);
@@ -198,7 +218,7 @@ export default class Profile extends Component {
     
     console.log(this.state.user.my_tag_list);
 
-    let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked} = this.state;
+    let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked, follow_click} = this.state;
 
     let taglist = [];
     let postnum = 0;
@@ -229,7 +249,7 @@ export default class Profile extends Component {
           <Grid container spacing={2}>
             <Grid item>
               <img style={{height:'300px', width:'300px'}}
-                src={`${user.profile_img}?w=248&fit=crop&auto=format`}
+                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format`}
                 srcSet={`${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={user.name}
                 loading="lazy"
@@ -243,8 +263,11 @@ export default class Profile extends Component {
                   </h1>
                 </Grid>
                 <Grid item xs={3} style={{  padding: '5px 5px 0px 5px'}}>
-                  <EditBtn variant='outlined'>
-                    프로필 편집
+                  <EditBtn variant='outlined' onClick={this.handle_follow}>
+                    {follow_click?'팔로우 취소'
+                    :'팔로우하기'
+                    }
+                    
                   </EditBtn>
                 </Grid>
                 <Grid item xs={12} style={{paddingTop:'0px', fontWeight:'border'}} > 
@@ -342,7 +365,7 @@ export default class Profile extends Component {
                   {tag_same_user_list.map((item) => (
                     <div>
             
-                      <a href={'/mypage/'+item.id}> 
+                      <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
                           <img style={{height:'80px', margin:'auto'}}
                               src={`${item.profile_img}?w=248&fit=crop&auto=format`}

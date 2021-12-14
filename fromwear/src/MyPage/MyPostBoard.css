@@ -1,27 +1,32 @@
 
-.sort_font {  
+.my_sort_font {  
     text-align: right;
     margin-top: 10px;
     margin-right: 0px;
     font-weight: bold;
+	font-size: 15px;
 }
 
-.select_sort {
+.my_select_sort {
 	padding: 0 10px;
 	position: relative;
 	right: -630px;
+	padding-left: 10px;
+	float: left;
+	height: 50px;
+	line-height: 50px;
 }
 
-.select_sort input[type=radio] {
+.my_select_sort input[type=radio] {
 	display: none;
 }
 
 
-.select_sort label {
+.my_select_sort label {
 	margin-right: 10px;
 	color: grey;
 }
-.select_sort input[type=radio]:checked+label {
+.my_select_sort input[type=radio]:checked+label {
 	color: black;
 }
 
