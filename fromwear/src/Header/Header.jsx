@@ -10,7 +10,7 @@ import API from '@aws-amplify/api';
 import {createUser} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
-
+import SignOutButton from './SignOutButton';
 
 
 class Header extends Component{
@@ -49,7 +49,6 @@ class Header extends Component{
 				   phone:auth_user.attributes.phone_number,
 				   profile_img: profile_skyblue,
 				   introduce: "자기소개를 입력해주세요",
-				   alarm_list:[],
 				   gender: "",
 				   adopted: 0,
 				   award_today: 0,

@@ -82,11 +82,13 @@ export const createUser = /* GraphQL */ `
         nextToken
       }
       alarm_list {
+        items{
         id
         content
         link
         createdAt
         updatedAt
+        }
       }
       award_today
       award_week

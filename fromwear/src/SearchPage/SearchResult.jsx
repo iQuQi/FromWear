@@ -12,8 +12,9 @@ let SearchResult = ({post_data,current_next_post_page})=>
 						 index<(current_next_post_page*25)?
 						 <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
                                 <img className="img_item" 
-								src={item.img}
-								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+								
+								src={item.img[0]=='h'&&item.img[1]=='t'?item.img:"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
+								srcSet={`${item.img[0]=='h'&&item.img[1]=='t'?item.img:"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.img+index}
 								loading="lazy"
 							    />	
