@@ -420,17 +420,21 @@ class Post extends Component{
             query: listPosts, variables: { filter: {board_type: {ne: 1}}} //이번주태그 페이지도 보여줘도되나?
         })
         .then(res=>{
+            console.log("가져온 데이터?:",res.data.listPosts.items)
             res.data.listPosts.items.map((post)=>{
+                console.log("ppp",post)
                 // 지금 post면 비교X
                 if (post.id == now_post.id) return false;
 
                 //태그 필터링
                 let same = 0;
+                /*
                 post.tag_list.items.map((post_tag)=>{
                     now_post.tag_list.items.map(now_tag=>{
+                        console.log("p:",post_tag.tag_id, "n:",now_tag.tag_id)
                         if(post_tag.tag_id == now_tag.tag_id) same++;
                     })
-                })
+                })*/
 
                 //console.log("same: "+ same);
                 if(same == 3) same3=[...same3,post]

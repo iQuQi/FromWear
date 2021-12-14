@@ -475,6 +475,20 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         tag_list {
+          items{
+            id
+            tag_id
+            post_id
+            style_tag{
+              id
+              value
+            }
+            post{
+              id
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         board_type
@@ -1237,4 +1251,3 @@ export const listPostStyleTags = /* GraphQL */ `
     }
   }
 `;
-
