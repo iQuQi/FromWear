@@ -148,6 +148,25 @@ class ProfileEdit extends Component{
 
             console.log("프로필 업데이트 성공!");
             //window.location.reload();
+            /*
+            .then(res => {
+                        tag_clicked_list.forEach((tag, index) => {
+                            if(tag == 1) {
+                                API.graphql({
+                                    query: createPostStyleTag, variables: {
+                                        input: 
+                                        {
+                                            post_id: res.data.createPost.id,
+                                            tag_id: index+1,
+                                        } 
+                                }})
+                                .then(res => console.log(res))
+                                .then(res => this.setState({create_tag: true}))
+                                .catch(e => console.log(e));
+                            }
+                        })
+                    })
+            */
         }
     }
 
