@@ -90,11 +90,12 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    if(user.alarm_list){
+
+    if(user.alarm_list.items[index]){
       API.graphql({
         query: deleteAlarm,
         variables: { input: {
-          id: user.alarm_list[index].id,
+          id: user.alarm_list.items[index].id,
 
         }}
 
@@ -152,6 +153,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
     
     {
+    
     user.alarm_list?
       user.alarm_list.items.map((item,index)=>
         <a href={item.link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
