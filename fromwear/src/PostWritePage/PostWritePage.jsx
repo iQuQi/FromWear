@@ -6,14 +6,16 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Input from '@mui/material/Input';
-import TagData from '../SearchPage/TagData'
-import PostWriteTagList from '../SearchPage/TagList'
-
-
+import TagData from '../SearchPage/TagData';
+import PostWriteTagList from '../SearchPage/TagList';
+import {v4 as uuid} from 'uuid';
+import Storage from '@aws-amplify/storage';
 import {static_tag_data} from "../SearchPage/TagData"
+import { API } from 'aws-amplify';
+import { createPost, createPostStyleTag } from '../graphql/mutations';
 
-let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
+let uuid_ = uuid();
 
 class PostWritePage extends Component {
     constructor(props){
@@ -25,14 +27,36 @@ class PostWritePage extends Component {
             tag_click: false,
 			current_click_tag_num: 0,
             total_tag_num: 0,
-            contents: '',
+            tag_contents: '', //tag contents
+            contents: '', //contents
+            board_type: props.board_type,
+            user: props.user,
+            blind: false,
+            create_post: false,
+            create_tag: false,
+            file_key: '',
         }
     }
     
+    componentDidUpdate(prevProps) {
+        if(this.props.user !== prevProps.user){
+            this.setState({user: this.props.user});
+            console.log(this.state.user);
+        }
+    }
+
     handleFileOnChange = (event) => {
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
+        let filetype =file.name.split('.').pop();
+
+        this.setState({file_key: `${uuid_}.${filetype}`})
+
+        Storage.put(`${uuid_}.${filetype}`,file)
+        .then(res=>console.log(res))
+        .catch(e=> console.log('onChange error',e));
+
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -42,12 +66,13 @@ class PostWritePage extends Component {
         reader.readAsDataURL(file);
       }
 	
-    onClickTag = () => {
+    onClickTag = e => {
+        console.log("eeee:",e)
         this.setState({tag_click: !this.state.tag_click})
         console.log(this.state.tag_click)
     }
 
-    changeTextArea() {
+    changeTagTextArea() {
         let changeContents = '';
         tag_clicked_list.forEach((tag, index) => {
             if(tag == 1) {
@@ -55,7 +80,7 @@ class PostWritePage extends Component {
             }
         })
         this.setState({
-            contents: changeContents
+            tag_contents: changeContents
         })
     }
 
@@ -80,7 +105,7 @@ class PostWritePage extends Component {
 			})
 		}
 
-        this.changeTextArea();
+        this.changeTagTextArea();
         
 		//console.log("cur input tag7:"+this.state.current_input_tag);
 /*
@@ -100,8 +125,85 @@ class PostWritePage extends Component {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else {
-            alert("submit 성공!");
+            // 글 추가
+            let new_post_id = '';
+            if(this.state.board_type == 0) {
+                API.graphql({
+                    query: createPost, variables: {
+                        input: 
+                        {
+                            board_type: 0,
+                            click_num: "0",
+                            content: this.state.contents,
+                            img: this.state.file_key,
+                            user_id: this.state.user.id,
+                        } 
+                    }})
+                    .then(res => {
+                        tag_clicked_list.forEach((tag, index) => {
+                            if(tag == 1) {
+                                API.graphql({
+                                    query: createPostStyleTag, variables: {
+                                        input: 
+                                        {
+                                            post_id: res.data.createPost.id,
+                                            tag_id: index+1,
+                                        } 
+                                }})
+                                .then(res => console.log(res))
+                                .then(res => this.setState({create_tag: true}))
+                                .catch(e => console.log(e));
+                            }
+                        })
+                    })
+                    .then(res => this.setState({create_post: true}))
+                    .catch(e => console.log(e));
+            }
+            else {
+                API.graphql({
+                    query: createPost, variables: {
+                        input: 
+                        {
+                            board_type: 1,
+                            click_num: "0",
+                            content: this.state.contents,
+                            img: this.state.file_key,
+                            user_id: this.state.user.id,
+                            blind: this.state.blind,
+                        } 
+                    }})
+                    .then(res => {
+                        tag_clicked_list.forEach((tag, index) => {
+                            if(tag == 1) {
+                                API.graphql({
+                                    query: createPostStyleTag, variables: {
+                                        input: 
+                                        {
+                                            post_id: res.data.createPost.id,
+                                            tag_id: index+1,
+                                        } 
+                                }})
+                                .then(res => console.log(res))
+                                .then(res => this.setState({create_tag: true}))
+                                .catch(e => console.log(e));
+                            }
+                        })
+                    })
+                    .then(res => this.setState({create_post: true}))
+                    .catch(e => console.log(e));
+            }
         }
+    }
+
+    changeTextArea(e) {
+        this.setState({contents : e.target.value});
+    }
+
+    checkBlind(e) {
+        if(e.target.value == 1) {
+            this.setState({blind : true});
+        }
+        else this.setState({blind : false});
     }
 
     handleCloseButton(e) {
@@ -111,11 +213,22 @@ class PostWritePage extends Component {
 
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
-        let {contents} = this.state;
+        let {tag_contents, contents, board_type} = this.state;
 
         let profile_preview = null;
         if(this.state.file !== ''){
           profile_preview = <img alt="preivew_img" className='upload_img' src={this.state.previewURL}></img>
+        }
+ 
+
+        if (this.state.create_post == true && this.state.create_tag == true) {
+            if(this.state.board_type == 0) {
+                window.location.href = './todayboard';
+            }
+            else {
+                window.location.href = './sosboard';
+            }
+            window.location.reload();
         }
 
 		return(
@@ -142,12 +255,12 @@ class PostWritePage extends Component {
                             <h3>내용</h3>
                             <div className="text_form">
                                 <textarea className= "content_write" name="" type="text"
-                                 placeholder="내용을 입력해주세요"></textarea>
+                                 placeholder="내용을 입력해주세요" value={contents} onChange={this.changeTextArea.bind(this)}></textarea>
                             </div>
 
                             <h3>태그</h3>
                             <div className="text_form tag_write">
-                                <Input value={contents} 
+                                <Input value={tag_contents} 
                                   style={{margin:"10px 0",width:"100%"}}
                                   placeholder="태그를 입력해주세요"  
                                   onClick={this.onClickTag}/>
@@ -170,8 +283,8 @@ class PostWritePage extends Component {
                                 <div>
                                     <h3>익명 여부 선택</h3>
                                     <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="예" /><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="아니오" defaultChecked/><span>아니오</span></label>
+                                        <label className="radio"><input type="radio" name="fruit" value="1" onClick={this.checkBlind.bind(this)}/><span>예</span></label>
+                                        <label className="radio"><input type="radio" name="fruit" value="2" onClick={this.checkBlind.bind(this)} defaultChecked/><span>아니오</span></label>
                                     </div>
                                 </div>
                                 :

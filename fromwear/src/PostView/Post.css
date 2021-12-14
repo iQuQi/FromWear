@@ -75,10 +75,24 @@
     display:inline-block;
 }
 
+
+.modify_post {
+    cursor: pointer;
+    position: relative;
+    left: 225px;
+    height: 21px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background-color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    color: #fff;
+}
+
 .remove_post {
     cursor: pointer;
     position: relative;
-    left: 268px;
+    left: 234px;
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
@@ -149,8 +163,7 @@
 }
 
 .content{
-    height: auto;
-    margin: auto;
+    margin-bottom: 20px;
 }
 
 .main_post_tag_div {

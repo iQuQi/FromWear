@@ -24,7 +24,7 @@ let PostSearchResult = ({result_post})=>
 												{item.user.name}
 											</span>
 											<span className="dimmed_info_like">
-												{item.like_user_num}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
+												{item.like_urgent_user_list.items.length}<FavoriteIcon style={{fontSize: 18,position:"relative",top:5, marginLeft:5}}/>
 											</span>
 										</span>
 									</a>

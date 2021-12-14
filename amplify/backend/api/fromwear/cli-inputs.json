@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "keyDescription": "api key description",
+      "expirationTime": 30
+    },
+    "conflictResolution": {},
+    "apiName": "fromwear",
+    "gqlSchemaPath": "/Users/choejimin/FromWear/fromwear/amplify/backend/api/fromwear/schema.graphql",
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      },
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authfromwear9ee2f3c2"
+      }
+    ]
+  }
+}

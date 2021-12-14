@@ -17,10 +17,9 @@ class Comments extends Component {
             post_id: props.post_id,
             comment_list: [],
             board_type: props.board_type,
-            user_id: props.user_id, //현재 댓글을 쓰는 사람 = 현재 접속자 id
             write_is_checked: false,
-            writer_: Object, //현재 댓글을 쓰는 사람
             post_writer: props.post_writer, //해당 post를 쓴 사람
+            now_user: props.now_user, //현재 접속자
         }
     }
 
@@ -31,17 +30,12 @@ class Comments extends Component {
         if(this.props.post_writer !== prevProps.post_writer){
             this.setState({post_writer: this.props.post_writer})
         }
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
+        }
     }
 
     componentWillMount(){
-        API.graphql({
-            query: getUser, variables: {id: this.state.user_id}
-        })
-        .then(res => this.setState({
-            writer_: res.data.getUser,
-        }))
-        .catch(e => console.log(e));
-      
 
         API.graphql({
             query: listComments, variables: {filter:
@@ -81,6 +75,10 @@ class Comments extends Component {
     }
     
     onClick = () => {
+        if(this.state.now_user=='noUser'){
+            alert("로그인 후 댓글 쓰기가 가능합니다.")
+            return
+        }
         this.state.write_is_checked?
         this.setState({
             write_is_checked:false,
@@ -94,7 +92,10 @@ class Comments extends Component {
 
     addTweet = () => {
         let value = document.querySelector('.new_tweet_content').value;
-
+        if(value == ""){
+            alert("내용을 입력하세요")
+            return
+        }
         API.graphql({
             query: createComment, variables: {
                 input: 
@@ -102,7 +103,7 @@ class Comments extends Component {
                     adopted: false, 
                     content: value, 
                     post_id: this.state.post_id, 
-                    user_id: this.state.user_id,
+                    user_id: this.state.now_user.id,
                 } }
                 
         })
@@ -148,8 +149,8 @@ class Comments extends Component {
     
 
     render(){
-        let {comment_list, board_type, user_id, write_is_checked, writer_, post_writer} = this.state;
-        
+        let {comment_list, board_type, write_is_checked, now_user, post_writer} = this.state;
+        console.log("현재 댓글", comment_list)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         return (
             <div>
@@ -159,9 +160,9 @@ class Comments extends Component {
                         {
                             comment_list.map(comment_list => {
                                 return <div className="one_comment_and_remove_button">
-                                    <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} user_id={user_id} post_writer={post_writer}/>
+                                    <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                     {
-                                        comment_list.user_id == user_id ?
+                                        comment_list.user_id == now_user.id ?
                                         <button className="remove_comment" onClick={() => this.removeComment(comment_list.id)}>삭제</button>
                                         :
                                         <div></div>
@@ -175,7 +176,7 @@ class Comments extends Component {
                         {
                             write_is_checked ?
                             <div className="writing_area">
-                                    <div className="now_comment_user">{writer_.name}</div>
+                                    <div className="now_comment_user">{now_user.name}</div>
                                     <div class="writing_content">
                                         <textarea class="new_tweet_content"></textarea>
                                         <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>

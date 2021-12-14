@@ -42,7 +42,6 @@ export default App;
       <div className="App">
           <BrowserRouter>
             <Routes>
->>>>>>> c5615bfdad653787cd5514a37df215624a80c153
               <Route path="/" element={<MainPage />} exact/>
               <Route path="/todayboard" element={<TodayPostBoard post_type="0"/>} exact/>
               <Route path="/sosboard" element={<TodayPostBoard post_type="1"/>} exact/>
@@ -63,5 +62,3 @@ export default App;
 export default App;
 
 */
-
-  

@@ -1,0 +1,125 @@
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  email: String
+  phone: String
+  profile_img: String!
+  introduce: String!
+  gender: String!
+  adopted: Int
+  following_list: [FollowingFollower] @connection(keyName:"FollowingFollowerByFollower",fields:["id"])
+  follower_list: [FollowingFollower] @connection(keyName:"FollowingFollowerByFollowing",fields:["id"])
+  my_post_list: [Post] @connection(keyName: "postByUser", fields: ["id"])
+  my_bookmark_post_list: [UserBookmarkPost] @connection(keyName:"UserBookmarkPostByUser",fields:["id"])
+  my_comment_list: [Comment] @connection(keyName: "commentByUser", fields: ["id"])
+  my_tag_list: [UserStyleTag] @connection(keyName:"UserStyleTagByUser",fields:["id"])
+  alarm_list: [Alarm] @connection(keyName:"alarmByUser",fields:["id"])
+  award_today: Int
+  award_week: Int
+}
+
+type Alarm @model
+@key(name: "alarmByUser", fields: ["user_id"]) {
+  id:ID!
+  user_id: ID! 
+  content: String
+  link: String
+}
+
+
+type Comment @model 
+@key(name: "commentByPost", fields: ["post_id"]) 
+@key(name: "commentByUser", fields: ["user_id"]) {
+  id: ID!
+  user_id: ID!
+  user: User @connection(fields: ["user_id"])
+  content: String!
+  adopted: Boolean!
+  like_user_list: [CommentLikeUser] @connection(keyName:"CommentLikeUserByComment",fields:["id"])
+  post_id: ID!
+  post: Post @connection(fields: ["post_id"])
+}
+
+
+type Post @model @key(name: "postByUser", fields: ["user_id"]) {
+  id: ID!
+  comment_list: [Comment] @connection(keyName: "commentByPost", fields: ["id"])
+  img: String!
+  content: String!
+  user_id: ID!
+  user: User @connection(fields: ["user_id"])
+  bookmark_user_list: [UserBookmarkPost] @connection(keyName:"UserBookmarkPostByPost",fields:["id"])
+  like_urgent_user_list: [PostLikeUrgentUser] @connection(keyName:"PostLikeUrgentUserByPost",fields:["id"])
+  tag_list: [PostStyleTag] @connection(keyName:"PostStyleTagByPost",fields:["id"])
+  board_type: Int!
+  click_num: Int!
+  blind: Boolean
+}
+
+
+type StyleTag @model {
+  id: ID!
+  value: String!
+  num: Int!
+  is_static: Boolean
+  is_weekly: Boolean
+  user_list: [UserStyleTag] @connection(keyName:"UserStyleTagByTag",fields:["id"])
+}
+
+
+
+type UserBookmarkPost @model
+@key(name: "UserBookmarkPostByUser",fields:["user_id"])
+@key(name: "UserBookmarkPostByPost",fields:["post_id"]){
+  user_id: ID!
+  post_id: ID!
+  user: User @connection(fields:["user_id"])
+  post: Post @connection(fields:["post_id"])
+}
+
+type FollowingFollower @model
+@key(name: "FollowingFollowerByFollowing",fields:["following_id"])
+@key(name: "FollowingFollowerByFollower",fields:["follower_id"])
+{
+  following_id: ID!
+  follower_id: ID!
+  following: User @connection(fields:["following_id"])
+  follower: User @connection(fields:["follower_id"])
+}
+
+type UserStyleTag @model
+@key(name: "UserStyleTagByUser",fields:["user_id"])
+@key(name: "UserStyleTagByTag",fields:["style_tag_id"]){
+  user_id: ID!
+  style_tag_id: ID!
+  user: User @connection(fields:["user_id"])
+  style_tag: StyleTag @connection(fields:["style_tag_id"])
+}
+
+
+type CommentLikeUser @model
+@key(name: "CommentLikeUserByUser",fields:["user_id"])
+@key(name: "CommentLikeUserByComment",fields:["comment_id"]){
+  user_id: ID!
+  comment_id: ID!
+  user: User @connection(fields:["user_id"])
+  comment: Comment @connection(fields:["comment_id"])
+}
+
+type PostLikeUrgentUser @model
+@key(name: "PostLikeUrgentUserByUser",fields:["user_id"])
+@key(name: "PostLikeUrgentUserByPost",fields:["post_id"]){
+  user_id: ID!
+  post_id: ID!
+  user: User @connection(fields:["user_id"])
+  post: Post @connection(fields:["post_id"])
+}
+
+type PostStyleTag @model
+@key(name: "PostStyleTagByTag",fields:["tag_id"])
+@key(name: "PostStyleTagByPost",fields:["post_id"]){
+  tag_id: ID!
+  post_id: ID!
+  style_tag: StyleTag @connection(fields:["tag_id"])
+  post: Post @connection(fields:["post_id"])
+}

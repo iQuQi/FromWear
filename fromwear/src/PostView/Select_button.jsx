@@ -12,7 +12,7 @@ class Select_button extends Component{
 
         this.state = {
             select_button_is_checked: props.comment_list.adopted,
-            user_id: props.user_id, //현재 로그인한 사람
+            now_user: props.now_user, //현재 로그인한 사람
             comment_list: props.comment_list,
             post_writer: props.post_writer, //게시물을 쓴 사람
             board_type: props.board_type,
@@ -71,7 +71,7 @@ class Select_button extends Component{
     
 
     render() {
-        let {select_button_is_checked, user_id, comment_list, post_writer, post_board, writer_user} = this.state;
+        let {select_button_is_checked, now_user, comment_list, post_writer, post_board, writer_user} = this.state;
         
         console.log(select_button_is_checked)
         return (
@@ -91,10 +91,10 @@ class Select_button extends Component{
                 }
                 <Thumb 
                         comment_list={comment_list}
-                        user_id={user_id}/>
+                        now_user={now_user}/>
                 <div className="select_div">
                     {
-                        post_writer.id==user_id ?
+                        post_writer.id==now_user.id ?
                         <div>
                         {
                             select_button_is_checked ?

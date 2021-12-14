@@ -5,6 +5,7 @@ import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
 import LikeUrgent from './LikeUrgent'
+import PostModifyPage from './PostModifyPage';
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
@@ -14,10 +15,19 @@ import { API } from 'aws-amplify';
 import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
 import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
+var AWS = require('aws-sdk'); 
 
 
 //나중에 상위 컴포넌트한테 prop로 받아야하는 것
-let user_id = "현경 id"; //현재 유저
+//let user_id = "현경 id"; //현재 유저
+
+// AWS.config.update(
+// 	{
+// 	  accessKeyId: "AKIAQGPJROM4FWISMQBG",
+// 	  secretAccessKey: "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",
+// 	}
+// );
+
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
@@ -31,7 +41,7 @@ class Post extends Component{
             like_urgent_user_list: [],
             like_urgent_click: false,
             tag_list: [],
-            user_id,
+            now_user: 'noUser',
             bookmark_user_list: [],
             bookmark_click: false,
             first_click: false,
@@ -50,6 +60,8 @@ class Post extends Component{
             same2:[],
             same3:[],
             result_post:[],
+
+            is_write_page:false,
         }
     }
 
@@ -70,7 +82,6 @@ class Post extends Component{
         
         .catch(e => console.log(e));
 
-
         /*
         this.subscription = API.graphql({query: onCreatePostLikeUrgentUser, variables: { id: this.state.user_id + this.state.post_id }})
         .subscribe({
@@ -86,6 +97,20 @@ class Post extends Component{
         });*/
     }
 
+
+	handle_user_info = (user) => {
+        //console.log(user)
+        if(this.state.now_user == 'noUser'){
+            this.setState({
+                now_user: user,
+            })
+            this.set_like_urgent(this.state.like_urgent_user_list)
+            this.set_bookmark(this.state.bookmark_user_list)
+        }
+        else {
+        }
+	}
+
     setClickNum = (input_click_num) => {
         //input_click_num : '현재 조회수'
         this.state.first_click = true
@@ -98,6 +123,10 @@ class Post extends Component{
     }
 
     handleBookmarkButton = () => {
+        if(this.state.now_user == 'noUser'){
+            alert("로그인해주세요.")    
+            return
+        }
         if(this.state.bookmark_click == true){
             this.setState((prev) => {
                 return {
@@ -108,7 +137,7 @@ class Post extends Component{
 
             API.graphql({query: deleteUserBookmarkPost, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id,
+                    id: this.state.now_user.id + this.state.post_id,
                 }}
             })
             .then(res => console.log(res))
@@ -123,8 +152,8 @@ class Post extends Component{
 
             API.graphql({query: createUserBookmarkPost, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id,
-                    user_id: this.state.user_id,
+                    id: this.state.now_user.id + this.state.post_id,
+                    user_id: this.state.now_user.id,
                     post_id: this.state.post_id,
                 }}
             })
@@ -133,6 +162,10 @@ class Post extends Component{
 
 
     handleLikeUrgentButton = () => {
+        if(this.state.now_user == 'noUser'){
+            alert("로그인해주세요.")    
+            return
+        }
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
@@ -148,7 +181,7 @@ class Post extends Component{
 
             API.graphql({query: deletePostLikeUrgentUser, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id,
+                    id: this.state.now_user.id + this.state.post_id,
                 }}
             })
             .then(res => console.log(res))
@@ -165,8 +198,8 @@ class Post extends Component{
 
             API.graphql({query: createPostLikeUrgentUser, variables:{input:
                 {
-                    id: this.state.user_id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
-                    user_id: this.state.user_id,
+                    id: this.state.now_user.id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
+                    user_id: this.state.now_user.id,
                     post_id: this.state.post_id,
                 }}
             })
@@ -175,8 +208,10 @@ class Post extends Component{
     }
 
     set_like_urgent(list) {
+        //console.log("좋아요 list:",list)
+        //console.log("현재 사람:",this.state.now_user)
         let like_urgent = list.filter((data)=>{
-            if(data.user_id == this.state.user_id) return true;
+            if(data.user_id == this.state.now_user.id) return true;
             else return false;
         })
         if(like_urgent.length !== 0){
@@ -193,7 +228,7 @@ class Post extends Component{
 
     set_bookmark(list){
         let bookmark = list.filter((data)=>{
-            if(data.user_id == this.state.user_id) return true;
+            if(data.user_id == this.state.now_user.id) return true;
             else return false;
         })
         if(bookmark.length !== 0){
@@ -202,6 +237,21 @@ class Post extends Component{
             })
         }
     }
+
+    modifyPost = () => {
+		this.setState({
+			is_write_page: !this.state.is_write_page
+		})
+        console.log("is",this.state.is_write_page)
+        
+    }
+
+	handle_write_page=()=> {
+		this.setState({
+			is_write_page: !this.state.is_write_page
+		})
+        console.log("is",this.state.is_write_page)
+	}
 
     removePostIcons = () => { 
         this.setState({
@@ -387,11 +437,11 @@ class Post extends Component{
 
             })
             
-            same3=same3.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
-            same2=same2.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
-            same1=same1.sort(function(a,b){return b.like_urgent_user_list.length-a.like_urgent_user_list.length});
+            same3=same3.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length});
+            same2=same2.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length});
+            same1=same1.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length});
             
-            console.log("비교 결과 list:",[...same3,...same2,...same1]);
+            //console.log("비교 결과 list:",[...same3,...same2,...same1]);
             this.setState({
                 result_post: [...same3,...same2,...same1],
             })
@@ -399,9 +449,12 @@ class Post extends Component{
         .catch(e=>console.log(e))
     }
 
-    render(){
-        let {post_id, now_post, now_writer, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, user_id, result_post} = this.state;
 
+    render(){
+        //now_writer : 지금 보고 있는 post 작성자
+        let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
+
+        //console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
         }
@@ -414,13 +467,28 @@ class Post extends Component{
             this.moveTo();
         }
 
+        let img_src123 = now_post.img
+        let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
+
+        console.log("태그 리스트:",result_post)
+        //console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">
-                <Header />
+                {
+                is_write_page 
+					? <PostModifyPage 
+						board_type={now_post.board_type} 
+						user={now_user}
+                        handle_write_page={this.handle_write_page}
+                        now_post={now_post}
+					  />
+					: null
+                }
+                <Header handle_user_info={this.handle_user_info}/>
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <div className="post_img" style={{backgroundImage: 'URL('+now_post.img+')'}}></div>
+                            <div className="post_img" style={{backgroundImage: 'URL('+img_src+')'}}></div>
                             <div className="content_box">
                                 <div className="writer">
                                     {
@@ -441,13 +509,18 @@ class Post extends Component{
                                         <div className="writer_name">{now_writer.name}</div>
                                     }
                                     {
-                                        user_id == now_writer.id ?
-                                        //<a href={'/'}>
+                                        now_user.id == now_writer.id ?
+                                            <button className="modify_post" onClick={this.modifyPost}>
+                                                수정
+                                            </button>
+                                        :
+                                        <div></div>
+                                    }
+                                    {
+                                        now_user.id == now_writer.id ?
                                             <button className="remove_post" onClick={this.removePostIcons}>
                                                 삭제
                                             </button>
-                                        //</a>
-                                        //onclick=" location.href = '/' "
                                         :
                                         <div></div>
                                     }
@@ -457,9 +530,9 @@ class Post extends Component{
                                     <Comments
                                     post_id = {post_id}
                                     board_type = {now_post.board_type}
-                                    user_id = {user_id}
                                     post_id = {post_id}
                                     post_writer = {now_writer}
+                                    now_user = {now_user}
                                     />
                                 </div>
                             </div>
