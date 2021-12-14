@@ -16,7 +16,8 @@
       "auth": {
         "fromwear0a9d3879": {},
         "true": {},
-        "fromwear7157cfba": {}
+        "fromwear7157cfba": {},
+        "fromwear9ee2f3c2": {}
       },
       "function": {
         "S3Triggeracd29845": {
@@ -27,6 +28,14 @@
           "GROUP": "Admin",
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/fromwear7157cfbaPostConfirmation-3437494e527063565269-build.zip"
+        },
+        "fromwear9ee2f3c2PostConfirmation": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-414932594b6d4638554f-build.zip"
+        },
+        "S3Trigger6b6ec516": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-4f762b4775744463434c-build.zip"
         }
       }
     }
