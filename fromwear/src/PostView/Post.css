@@ -166,7 +166,11 @@
     margin-bottom: 20px;
 }
 
-.main_post_tag_div {
-    /*margin-top : 520px;*/
+.post_page_content {
+    min-height: 301px;
+}
 
+
+.post_page_tag_empty {
+    min-height: 301px;
 }

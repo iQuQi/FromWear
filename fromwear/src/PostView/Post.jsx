@@ -6,6 +6,7 @@ import Comments from './Comments';
 import Bookmark from './Bookmark';
 import LikeUrgent from './LikeUrgent'
 import PostModifyPage from './PostModifyPage';
+import Footer from '../Footer/Footer'
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
@@ -582,22 +583,24 @@ class Post extends Component{
                         <div className="post_tag_list">
                             <div className="container">
                                 <div className="content">
-                                    {
+                                    {   
                                         result_post.length!=0?
                                             <div className={"post_page_content"}>
                                                 <PostSearchResult
                                                 result_post={result_post} />
                                             </div>
                                             :
-                                            <Typography>
+                                            <Typography className="post_page_tag_empty">
                                                 해당되는 게시물이 존재하지 않습니다.
                                             </Typography>
+                                            
                                     }
                                 </div> 
                             </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
 
         );
