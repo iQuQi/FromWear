@@ -13,7 +13,7 @@ import  Typography  from '@mui/material/Typography';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
-import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag } from '../graphql/mutations';
+import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag, createAlarm } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 var AWS = require('aws-sdk'); 
 
@@ -123,6 +123,8 @@ class Post extends Component{
     }
 
     handleBookmarkButton = () => {
+        console.log("@@@@@@@teset")
+        console.log("현 좋아요 now user:", this.state.now_user)
         if(this.state.now_user == 'noUser'){
             alert("로그인해주세요.")    
             return
@@ -157,6 +159,18 @@ class Post extends Component{
                     post_id: this.state.post_id,
                 }}
             })
+
+            
+            /*
+            API.graphql({query: createAlarm, variables:{input:
+                {
+                    id: this.state.now_writer.id,
+                    content: this.state.now_user.name,
+                    link:
+
+
+                }}
+            })*/
         }
     }
 
