@@ -161,7 +161,7 @@ export default class TodayPostBoardTop5 extends Component {
                                                         :  <div>
                                                           <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
                                                                   style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
-                                                          <p className="profileName">{post.user.name}</p>     
+                                                          <p className="profileName postEllips" style={{textAlign:"left"}}>{post.user.name}</p>     
                                                         </div>
                                                         }
                                                      </div>   
@@ -216,7 +216,7 @@ export default class TodayPostBoardTop5 extends Component {
                                                         :  <div>
                                                           <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
                                                                   style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
-                                                          <p className="profileName">{post.user.name}</p>     
+                                                          <p className="profileName postEllips"  style={{textAlign:"left"}}>{post.user.name}</p>     
                                                         </div>
                                                         }
                                                      </div>   

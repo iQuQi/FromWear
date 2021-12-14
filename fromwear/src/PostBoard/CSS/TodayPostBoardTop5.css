@@ -136,17 +136,30 @@
 	margin: 0px;
 	display: inline-block;
 	position: relative;	
-	left: -55px;
+	/* left: -55px; */
+	left: -90px;
 	top: 30px;
 }
-.today_wear .slick-center:hover.dimmed_info .profileName {
+.today_wear .slick-center:hover .dimmed_info .profileName {
 	display: inline-block;
-	position: relative;	
-	left: -45px;
+	position: relative;
+		
+	/* left: -45px; */
+	left: -7px;
+	top: -3px;
 }
 
 .today_wear .box {
 	position: absolute;
 	top: 70px;
 	left: -37px;
+}
+
+.postEllips{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 4em;
+	overflow: hidden;
+	word-break: normal;
+	display: inline-block;
 }
