@@ -184,6 +184,9 @@ class ProfileEdit extends Component{
                     })
                 })
             })
+            .then(res=>{
+                window.location.reload();
+            })
 
                 // tag_clicked_list.forEach((tag, index) => {
                 //     if(tag == 1) {
