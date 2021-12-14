@@ -51,6 +51,9 @@ class Select_button extends Component{
         if (this.props.writer_user !== prevProps.writer_user) {
           this.setState({writer_user: this.props.writer_user})
         }
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
+        }
     }
 
 

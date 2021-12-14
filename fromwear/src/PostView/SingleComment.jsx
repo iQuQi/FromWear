@@ -76,7 +76,7 @@ class SingleComment extends Component {
 
     render(){
         let {comment_list, board_type, writer_user, now_user, post_writer} = this.state;
-        //console.log(comment_list)
+        
         return (
             <div>
                 <div>
