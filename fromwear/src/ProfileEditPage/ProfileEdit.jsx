@@ -226,7 +226,7 @@ class ProfileEdit extends Component{
         return <div className="profile_page_container" style={{ zIndex: 10000}}>
             <div className="profile_edit_page">
             <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.handleCloseButton.bind(this)}>
+                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.props.handle_profile_edit}>
 							<CloseIcon/>	
 					</Button>
                     <form action="doLogin" method="POST" className="img_form">
