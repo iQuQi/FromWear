@@ -1,0 +1,54 @@
+
+.sort_font {  
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 0px;
+    font-weight: bold;
+}
+
+.select_sort {
+	padding: 0 10px;
+	position: relative;
+	right: -630px;
+}
+
+.select_sort input[type=radio] {
+	display: none;
+}
+
+
+.select_sort label {
+	margin-right: 10px;
+	color: grey;
+}
+.select_sort input[type=radio]:checked+label {
+	color: black;
+}
+
+.mypage_image_list_item:hover .dimmed_layer{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+
+	padding: 33% 0;
+	background-color: rgba(0, 0, 0, 0.3);
+
+    color: white;
+	font-size: 17px;
+	font-weight: 600;
+	cursor: pointer;
+}
+.dimmed_info{
+    display: none;
+    position: absolute;
+    text-align: center;
+    font-size: 1.5em;
+}
+.mypage_image_list_item:hover .dimmed_info{
+	display: block;
+    position: absolute;
+    left: 120px;
+    top: 100px;
+}

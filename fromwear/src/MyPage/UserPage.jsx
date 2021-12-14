@@ -6,23 +6,23 @@ import Header from '../Header/Header';
 import { API } from 'aws-amplify';
 import { getUser } from '../graphql/queries.js';
 
-import Profile from './Profile';
-import MyPageButtonGroup from './MyPageButtonGroup';
-import MyPostBoard from './MyPostBoard';
+import OtherUserProfile from './OtherUserProfile';
 
 
-class MyPage extends Component {
+
+class UserPage extends Component {
     constructor(props) {
 		super();
 
 		this.state = {
 			now_user_id: '',
 			now_user: {},
+            user_id: props.userid,
 		};
 	}
 
     componentDidMount(){
-		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
+		API.graphql({ query: getUser, variables: { id: this.state.user_id} })
 		.then( res => {
 			this.set_now_user(res.data.getUser);
 			console.log(res.data.getUser);
@@ -53,11 +53,11 @@ class MyPage extends Component {
 				<div id = 'profile' className = 'mypage_profile'>
 					
 				</div>
-				{console.log("now user test3",now_user)}
-				<Profile user={now_user}/>
+				
+				<OtherUserProfile now_user={now_user} user={user}/>
 
 				<div id = 'tab' className = 'mypage_collection'>
-					<MyPageButtonGroup user={now_user}/>
+					<MyPostBoard user={user} board={20}/>
 				</div>
 
 				
@@ -71,4 +71,4 @@ class MyPage extends Component {
 }
 
 
-export default MyPage;
+export default UserPage;

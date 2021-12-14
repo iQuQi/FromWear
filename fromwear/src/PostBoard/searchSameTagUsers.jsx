@@ -1,7 +1,8 @@
 import { API } from 'aws-amplify';
 import { listUsers } from '../graphql/queries.js';
 
-export default function searchSameTagUsers({profileUser}) {
+export default function searchSameTagUsers(profileUser) {
+    //console.log(profileUser);
     let same3=[],same2=[],same1=[];
 	let result_user=[];
 
@@ -10,7 +11,7 @@ export default function searchSameTagUsers({profileUser}) {
     }).then(res=>{
         res.data.listUsers.items.map((user)=>{
 
-            console.log(user);
+            //console.log(user);
         
             // 지금 user와 비교
             if (user.id == profileUser.id) return false;
@@ -23,7 +24,7 @@ export default function searchSameTagUsers({profileUser}) {
                 })
             })
 
-            console.log("same: "+ same);
+            //console.log("same: "+ same);
             if(same == 3) same3=[...same3,user]
             else if(same==2) same2=[...same2,user]
             else if(same==1) same1=[...same1,user]
@@ -37,7 +38,7 @@ export default function searchSameTagUsers({profileUser}) {
 
         result_user=[...same3,...same2,...same1];
 
-        console.log(result_user);
+        console.log("ㄱㅕㄹ고ㅏㅏ:",result_user);
         return result_user;
     })
     .catch(e=>console.log(e))
