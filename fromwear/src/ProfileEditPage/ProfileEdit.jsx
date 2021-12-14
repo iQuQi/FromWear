@@ -29,10 +29,17 @@ class ProfileEdit extends Component{
 	}
 
 
+   
     handleFileOnChange = (event) => {
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
+        let filetype =file.name.split('.').pop();
+/*
+        Storage.put(`${uuid_}.${filetype}`,file)
+        .then(res=>console.log(res))
+        .catch(e=> console.log('onChange error',e));
+*/
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -99,18 +106,18 @@ class ProfileEdit extends Component{
 
     handleCloseButton=(e)=> {
         console.log("1");
-        this.props.handle_write_page();
+        //this.props.handle_write_page();
     }
 
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
         let {contents} = this.state;
 
-        let profile_preview = <img alt="preivew_img" className='original_img' 
-        style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover",}}/>;
+        let profile_preview = <img className='original_img' 
+        style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover"}}/>;
         if(this.state.file !== ''){
-          profile_preview = <img alt="preivew_img" className='upload_img' 
-          style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover",}}
+          profile_preview = <img className='upload_img' 
+          style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover"}}
           ></img>
         }
         return <div className="profile_page_container">
@@ -120,7 +127,7 @@ class ProfileEdit extends Component{
 							<CloseIcon/>	
 					</Button>
                     <form action="doLogin" method="POST" className="img_form">
-                            {profile_preview}
+                            {profile_preview} 
                             <input
                                 id="to_click_img" className="img_file_form"
                                 type='file' 
