@@ -88,7 +88,7 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
                     now_user.following_list.items.map((item) => (
                         <Grid style={{padding:'10px', paddingBottom:'0px'}}>
                             <Stack style={{textAlign:'center'}}>
-                                <a href={'/mypage/'+item.following.id}> 
+                                <a href={'/userpage/'+item.following.id}> 
                                     <span className='dimmed_layer'>	
                                         <img style={{height:'80px', margin:'auto'}}
                                             src={`${item.following.profile_img}?w=248&fit=crop&auto=format`}
@@ -108,7 +108,7 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
                     now_user.follower_list.items.map((item) => (
                         <Grid style={{padding:'10px', paddingBottom:'0px'}}>
                             <Stack style={{textAlign:'center'}}>
-                                <a href={'/mypage/'+item.follower.id}> 
+                                <a href={'/userpage/'+item.follower.id}> 
                                     <span className='dimmed_layer'>	
                                         <img style={{height:'80px', margin:'auto'}}
                                             src={`${item.follower.profile_img}?w=248&fit=crop&auto=format`}

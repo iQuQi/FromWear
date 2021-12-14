@@ -12,7 +12,6 @@ import { white } from 'jest-matcher-utils/node_modules/chalk';
 import MyPageComments from './MyPageComments';
 import MyPageBookmark from './MyPageBookmark';
 import MyPostBoard_SOS from './MyPostBoard_SOS';
-
 const EditBtn = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
     backgroundColor: white[500],

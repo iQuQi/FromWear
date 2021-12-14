@@ -84,6 +84,7 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: this.props.user.my_post_list.items
             })
         }
+        
            
     }
 

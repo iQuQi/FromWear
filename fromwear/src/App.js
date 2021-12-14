@@ -7,8 +7,10 @@ import TodayPostBoard from './PostBoard/TodayPostBoard.jsx';
 import PostPath from './PostView/PostPath.jsx';
 import SearchPage from './SearchPage/SearchPage.jsx';
 import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
-import MyPage from './MyPage/MyPage.jsx';
+//import MyPagePath from './MyPage/MyPagePath.jsx';
 import ProfileEdit from './ProfileEditPage/ProfileEdit.jsx';
+import MyPage from './MyPage/MyPage.jsx';
+//import UserPage from './Mypage/UserPage.jsx';
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
               <Route path="/search" element={<SearchPage />} exact/>
               <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
               <Route path="/mypage" element={<MyPage/>} exact/>
+              
               <Route path="/profileedit" element={<ProfileEdit/>} exact/>
 
             </Routes>

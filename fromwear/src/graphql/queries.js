@@ -43,6 +43,18 @@ export const getUser = /* GraphQL */ `
           blind
           createdAt
           updatedAt
+          like_urgent_user_list {
+            items {
+              id
+            }
+            nextToken
+          }
+          comment_list {
+            items {
+              id
+            }
+            nextToken
+          }
         }
         nextToken
       }
@@ -51,6 +63,33 @@ export const getUser = /* GraphQL */ `
           id
           user_id
           post_id
+          post { 
+            id
+            img
+            user {
+              
+                id
+                name
+              
+            }
+            board_type
+            click_num
+            blind
+            createdAt
+            updatedAt
+            like_urgent_user_list {
+              items {
+                id
+              }
+              nextToken
+            }
+            comment_list {
+              items {
+                id
+              }
+              nextToken
+            }
+          }
           createdAt
           updatedAt
         }
@@ -63,8 +102,20 @@ export const getUser = /* GraphQL */ `
           content
           adopted
           post_id
+          post { 
+            id
+            img
+            user {
+              
+                id
+                name
+              
+            }
+          }
           createdAt
           updatedAt
+          
+        
         }
         nextToken
       }
@@ -73,17 +124,10 @@ export const getUser = /* GraphQL */ `
           id
           user_id
           style_tag_id
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      alarm_list {
-        items {
-          id
-          user_id
-          content
-          link
+          style_tag{
+            id
+            value
+          }
           createdAt
           updatedAt
         }
@@ -128,44 +172,21 @@ export const listUsers = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
-          nextToken
-        }
-        alarm_list {
+          items {
+            id
+            user_id
+            style_tag_id
+            style_tag{
+              id
+              value
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         award_today
         award_week
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getAlarm = /* GraphQL */ `
-  query GetAlarm($id: ID!) {
-    getAlarm(id: $id) {
-      id
-      user_id
-      content
-      link
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listAlarms = /* GraphQL */ `
-  query ListAlarms(
-    $filter: ModelAlarmFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAlarms(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        user_id
-        content
-        link
         createdAt
         updatedAt
       }
@@ -203,9 +224,6 @@ export const getComment = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
-          nextToken
-        }
-        alarm_list {
           nextToken
         }
         award_today
@@ -296,10 +314,6 @@ export const listComments = /* GraphQL */ `
         adopted
         like_user_list {
           nextToken
-          items {
-            user_id
-            id
-          }
         }
         post_id
         post {
@@ -366,9 +380,6 @@ export const getPost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
-        alarm_list {
-          nextToken
-        }
         award_today
         award_week
         createdAt
@@ -399,10 +410,6 @@ export const getPost = /* GraphQL */ `
           id
           tag_id
           post_id
-          style_tag {
-            id
-            value
-          }
           createdAt
           updatedAt
         }
@@ -449,9 +456,6 @@ export const listPosts = /* GraphQL */ `
           updatedAt
         }
         bookmark_user_list {
-          items{
-            id
-          }
           nextToken
         }
         like_urgent_user_list {
@@ -461,20 +465,6 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         tag_list {
-          items{
-            id
-            tag_id
-            post_id
-            style_tag{
-              id
-              value
-            }
-            post{
-              id
-            }
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         board_type
@@ -564,9 +554,6 @@ export const getUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
-          nextToken
-        }
-        alarm_list {
           nextToken
         }
         award_today
@@ -696,9 +683,6 @@ export const getFollowingFollower = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
-        alarm_list {
-          nextToken
-        }
         award_today
         award_week
         createdAt
@@ -729,9 +713,6 @@ export const getFollowingFollower = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
-          nextToken
-        }
-        alarm_list {
           nextToken
         }
         award_today
@@ -825,15 +806,6 @@ export const getUserStyleTag = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
-          nextToken
-        }
-        alarm_list {
-          items{
-            id
-            user_id
-            content
-            link
-          }
           nextToken
         }
         award_today
