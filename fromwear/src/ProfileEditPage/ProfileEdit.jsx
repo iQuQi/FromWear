@@ -14,7 +14,7 @@ import { API } from 'aws-amplify';
 import { createPost, createPostStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 
-let board_type = 1
+let uuid_ = uuid();
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 class ProfileEdit extends Component{
 
