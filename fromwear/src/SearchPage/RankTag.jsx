@@ -36,7 +36,7 @@ export let get_rank_tag =(handle_rank_tag_data)=>{
     })
     .then(res=>{
       style_tags = res.data.listStyleTags.items;
-      //a.sort(function (a, b) { return b - a }) - javascript sorting 방법
+      
       return style_tags.sort(function(a,b){return b.num-a.num});
 
     })
