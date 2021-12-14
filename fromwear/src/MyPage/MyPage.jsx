@@ -9,6 +9,7 @@ import { getUser } from '../graphql/queries.js';
 import Profile from './Profile';
 import MyPageButtonGroup from './MyPageButtonGroup';
 import MyPostBoard from './MyPostBoard';
+import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 
 
 class MyPage extends Component {
@@ -18,6 +19,7 @@ class MyPage extends Component {
 		this.state = {
 			now_user_id: '',
 			now_user: {},
+			is_profile_edit: false,
 		};
 	}
 
@@ -35,26 +37,41 @@ class MyPage extends Component {
 	}
 
 	handle_user_info = (user) => {
+		
 		this.setState({ now_user: user });
+		
 	}
 
+	handle_profile_edit = ()=> {
+		this.setState({
+			is_profile_edit: !this.state.is_profile_edit
+		})
+	}
 
     render(){
 		console.log(this.props.user);
 		console.log(this.state.now_user);
-		let {now_user, now_user_id} = this.state;
-
+		let {now_user, now_user_id, is_profile_edit} = this.state;
 		
+		
+
         return <div id = 'my_page'>
 			<Header handle_user_info={this.handle_user_info}/>
+			
+			{is_profile_edit?
+					<ProfileEdit user={now_user} handle_profile_edit={this.handle_profile_edit} />
+					: null
+			}
 			
 			<div className='mypage_contents'>
 
 				<div id = 'profile' className = 'mypage_profile'>
 					
 				</div>
-				{console.log("now user test3",now_user)}
-				<Profile user={now_user}/>
+				
+				<Profile user={now_user} handle_profile_edit={this.handle_profile_edit}/>
+				
+				
 
 				<div id = 'tab' className = 'mypage_collection'>
 					<MyPageButtonGroup user={now_user}/>
