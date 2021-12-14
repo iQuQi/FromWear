@@ -11,11 +11,12 @@ import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import { API } from 'aws-amplify';
-import { createPost, createPostStyleTag } from '../graphql/mutations';
+import { updateUser } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 
 let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
+
 class ProfileEdit extends Component{
 
     constructor(props){
@@ -28,11 +29,30 @@ class ProfileEdit extends Component{
             total_tag_num: 0,
             contents: '',
             user : props.user,
+            content_introduce: '',
+            gender: props.user.gender,
 		}
 	}
+    
+    componentDidMount(){
 
+    }
+    
+    componentDidUpdate(prevProps) {
+        if(this.props.user !== prevProps.user){
+            this.setState({
+                user: this.props.user,
+                content_introduce: this.props.introduce,
+                gender: this.props.user.gender,
+            });
+            
+        }
+    }
 
-   
+    changeIntroduceArea(e) {
+        this.setState({content_introduce : e.target.value});
+    }
+
     handleFileOnChange = (event) => {
         event.preventDefault();
         let reader = new FileReader();
@@ -93,17 +113,41 @@ class ProfileEdit extends Component{
         this.changeTextArea();
 
 	}
+    
+    checkGender = e => {
+        if(e.target.value == 1) {
+            this.setState({gender : 'M'});
+        }
+        else if(e.target.value == 2) {
+            this.setState({gender : 'F'});
+        }
+        else {
+            this.setState({gender : ''});
+        }
+        
+        
+    }
 
     handleSubmit=(e)=> {
         e.preventDefault();
-        console.log(this.state);
+        console.log("현재 유저 :",this.state.user);
+        console.log("현재 introduce :",this.state.content_introduce);
         
         if(this.state.total_tag_num != 3) {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else {
+            API.graphql({
+                query: updateUser, variables:{input:{
+                    id: this.state.user.id,
+                    introduce: this.state.content_introduce,
+                    gender: this.state.gender,
+                }}
+            })
+            .then(e => console.log(e))
+
             console.log("프로필 업데이트 성공!");
-            window.location.reload();
+            //window.location.reload();
         }
     }
 
@@ -113,7 +157,7 @@ class ProfileEdit extends Component{
     }
 
     render(){
-        let {fileImage, setFileImage, tag_click} = this.state;
+        let {fileImage, setFileImage, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
 
         let profile_preview = <img className='profile_original_img' 
@@ -143,7 +187,7 @@ class ProfileEdit extends Component{
                              <div className="profile_introduce">
                                 <h3>자기소개</h3>
                                 <textarea name="" type="text" className="profile_introduce_text"
-                                 placeholder="내용을 입력해주세요"></textarea>
+                                 placeholder="내용을 입력해주세요" value={content_introduce} onChange={this.changeIntroduceArea.bind(this)}></textarea>
                             </div>
 
                             <div className="profile_mytag">
@@ -169,9 +213,9 @@ class ProfileEdit extends Component{
                              <div className="profile_gender">
                                     <h3>성별</h3>
                                     <div className="select_blind">
-                                        <label className="profile_radio"><input type="radio" name="fruit" value="예" /><span>남자</span></label>
-                                        <label className="profile_radio"><input type="radio" name="fruit" value="아니오" /><span>여자</span></label>
-                                        <label className="profile_radio"><input type="radio" name="fruit" value="아니오" defaultChecked/><span>비공개</span></label>
+                                        <label className="profile_radio"><input type="radio" name="gender" value="1" onClick={this.checkGender} /><span>남자</span></label>
+                                        <label className="profile_radio"><input type="radio" name="gender" value="2" onClick={this.checkGender}/><span>여자</span></label>
+                                        <label className="profile_radio"><input type="radio" name="gender" value="3" defaultChecked onClick={this.checkGender}/><span>비공개</span></label>
 
                                     </div>
                             </div>

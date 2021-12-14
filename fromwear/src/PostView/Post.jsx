@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer'
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 import  Typography  from '@mui/material/Typography';
+import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
@@ -522,16 +523,16 @@ class Post extends Component{
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                            <button className="modify_post" onClick={this.modifyPost}>
-                                                수정
+                                            <button className="remove_post" onClick={this.removePostIcons}>
+                                                삭제
                                             </button>
                                         :
                                         <div></div>
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                            <button className="remove_post" onClick={this.removePostIcons}>
-                                                삭제
+                                            <button className="modify_post" onClick={this.modifyPost}>
+                                                수정
                                             </button>
                                         :
                                         <div></div>
@@ -576,6 +577,7 @@ class Post extends Component{
                             </div>
                         </div>
                     </div>
+                    <ProfileEdit user={now_user}/>
                     <div className="main_post_tag_div">
                         <div className="recommend_tag">
                                 태그 맞춤 추천
