@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "fromwear",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2021-12-05T01:55:31.365Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authfromwear9ee2f3c2",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

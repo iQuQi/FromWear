@@ -63,7 +63,7 @@ a{
     top: 0;
     min-width: 1082px;
     width: 100%;
-	z-index: 1000000;
+	z-index: 10000;
 
 }
 
@@ -107,4 +107,42 @@ a{
 
 .top_button:hover{
 	cursor: pointer;
+}
+
+.header_login{
+	font-size:  13px;
+	color: black;
+	position: relative;
+	top: -10px;
+	right: 10px;
+}
+
+.login_popup{
+	width: 100%;
+	height: 120%;
+	position: fixed;
+	top: -50px;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 9999999;
+	padding-top: 50px;
+}
+
+.login_popup_inside{
+	position: absolute;
+	top: 100px;
+}
+
+.bar_user_name{
+	font-size: 12px;
+	margin-right: 8px;
+	margin-left: -10px;
+}
+
+.ellips{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 4em;
+	overflow: hidden;
+	word-break: normal;
+	display: inline-block;
 }

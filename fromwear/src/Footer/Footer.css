@@ -1,0 +1,37 @@
+.footer_div{
+    background-color: black;
+    width: 100%;
+    height: 90px;
+}
+
+.footer_wrap{
+    position: relative;
+    width: 1080px;
+    margin: auto;
+    height: 100%;
+}
+
+.footer_wrap a{
+    color: white;
+    font-size: 13px;
+    position: relative;
+    top: 15px;
+}
+
+.footer_img{
+    position: absolute;
+    top: 25%;
+    left: 0;
+    width: 40px;
+    height: auto;
+}
+
+.fromwear_typ{
+    position: absolute;
+    top: 35%;
+    left: 45px;
+    color:white;
+    font-weight: bold;
+    font-size: 16px;
+}
+

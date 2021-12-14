@@ -1,3 +1,16 @@
+:root{
+	--now_index:0;
+}
+
+.div_test{
+	padding-top: 30px;
+	height: 430px;
+
+}
+
+.div_test:focus-visible{
+	outline:none;
+}
 .today_background_wrap {
 	margin-top: 40px;
 	background-color: #F2F2F2;
@@ -12,6 +25,9 @@
 	padding-top: 50px;
 }
 
+.today_wear .slick-next, .today_wear .slick-prev{
+	top:40%;
+}
 
 .today_wear .title {
 	font-size: 50px;
@@ -43,54 +59,94 @@
     background-size: cover;
     background-position: center center;
 }
+
+
+
 .today_wear .slick-next:before,
 .today_wear .slick-prev:before {
     color: #000;
-    font-size: 40px;
+    font-size: 35px;
 }
 .today_wear .slick-prev:before{
     margin-left: -20px;
 }
 
-.today_wear .center .slick-center img {
-    z-index: 10;
+
+
+.today_wear .center .slick-active + .slick-active img {
+    z-index: 9;
     opacity: 1;
-    -ms-transform: scale(1.5);
-    transform: scale(1.5);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
 }
+
+
+.today_wear .center .slick-current + .slick-active + .slick-active img{
+	z-index: 8;
+    opacity: 1;
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.today_wear .center .slick-track .slick-current img {
+    z-index: 11;
+    opacity: 1;
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+
 .today_wear .center img {
     transition: all .3s ease;
 }
 
-.today_wear .slick-center:hover .dimmed_info_writer{
-	display: block;
-	font-size: 15px;
-	position: absolute;
-	bottom: 30px;
-	left: 30px;
-	
-}
-.today_wear .slick-center:hover .dimmed_info_like{
-	display: block;
-	font-size: 15px;
-	position: absolute;
-	bottom: 30px;
-	right: 30px;
-}
 
-.today_wear  .slick-center:hover .div_test .dimmed_layer{
-    z-index: 30;
+.today_wear .slick-center:hover .dimmed_layer{
+	z-index: 40;
 	position: absolute;
-	top: 0;
-	bottom: -10px;
-	right: -75px;
-	left: -15px;
+	top: 12px;
+	bottom: 28px;
+	right: -57px;
+	left: 3px;
 
 	padding: 33% 0;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.3);
 
     color: white;
-	font-size: 15px;
+	border-radius: 40px;
+	font-size: 17px;
 	font-weight: 600;
 	cursor: pointer;
+}
+
+.dimmed_info{
+    display: none;
+    position: absolute;
+    text-align: center;
+    font-size: 1.5em;
+}
+.today_wear .slick-center:hover .dimmed_info {
+	z-index: 40;
+	display: block;
+    position: absolute;
+    left: 120px;
+    top: 100px;
+}
+.today_wear .slick-center:hover .dimmed_info .profileImg {
+	margin: 0px;
+	display: inline-block;
+	position: relative;	
+	left: -55px;
+	top: 30px;
+}
+.today_wear .slick-center:hover.dimmed_info .profileName {
+	display: inline-block;
+	position: relative;	
+	left: -45px;
+}
+
+.today_wear .box {
+	position: absolute;
+	top: 70px;
+	left: -37px;
 }
