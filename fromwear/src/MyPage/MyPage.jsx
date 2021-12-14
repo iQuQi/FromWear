@@ -8,6 +8,8 @@ import { getUser } from '../graphql/queries.js';
 
 import Profile from './Profile';
 import MyPageTab from './MyPageTab';
+import MyPageButtonGroup from './MyPageButtonGroup';
+import MyPostBoard from './MyPostBoard';
 
 
 class MyPage extends Component {
@@ -20,7 +22,7 @@ class MyPage extends Component {
 		};
 	}
 
-    componentWillMount(){
+    componentDidMount(){
 		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
 		.then( res => {
 			this.set_now_user(res.data.getUser);
@@ -35,10 +37,8 @@ class MyPage extends Component {
 
 
     render(){
-		{console.log("now user test1",this.state.now_user)}
 
 		let {now_user, now_user_id} = this.state;
-		{console.log("now user test2",now_user)}
 
 		
         return <div id = 'my_page'>
@@ -53,7 +53,7 @@ class MyPage extends Component {
 				<Profile user={now_user}/>
 
 				<div id = 'tab' className = 'mypage_collection'>
-					<MyPageTab user={now_user}/>
+					<MyPageButtonGroup user={now_user}/>
 				</div>
 
 				

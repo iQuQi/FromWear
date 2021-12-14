@@ -73,6 +73,33 @@ export const getUser = /* GraphQL */ `
           id
           user_id
           post_id
+          post { 
+            id
+            img
+            user {
+              
+                id
+                name
+              
+            }
+            board_type
+            click_num
+            blind
+            createdAt
+            updatedAt
+            like_urgent_user_list {
+              items {
+                id
+              }
+              nextToken
+            }
+            comment_list {
+              items {
+                id
+              }
+              nextToken
+            }
+          }
           createdAt
           updatedAt
         }
@@ -85,8 +112,20 @@ export const getUser = /* GraphQL */ `
           content
           adopted
           post_id
+          post { 
+            id
+            img
+            user {
+              
+                id
+                name
+              
+            }
+          }
           createdAt
           updatedAt
+          
+        
         }
         nextToken
       }
