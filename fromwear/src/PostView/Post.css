@@ -78,8 +78,10 @@
 
 .modify_post {
     cursor: pointer;
-    position: relative;
-    left: 225px;
+    float:right;
+    margin-right: 5px;
+    /*position: relative;
+    left: 225px;*/
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
@@ -91,8 +93,9 @@
 
 .remove_post {
     cursor: pointer;
-    position: relative;
-    left: 234px;
+    float: right;
+    /*position: relative;
+    left: 234px;*/
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
@@ -166,7 +169,11 @@
     margin-bottom: 20px;
 }
 
-.main_post_tag_div {
-    /*margin-top : 520px;*/
+.post_page_content {
+    min-height: 301px;
+}
 
+
+.post_page_tag_empty {
+    min-height: 301px;
 }

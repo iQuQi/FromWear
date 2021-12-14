@@ -179,7 +179,7 @@ class PostModifyPage extends Component {
                         console.log(tag_index)
                     })
                     .then(res => {
-                        console.log("현재 태그???", this.state.now_post.tag_list)
+                        //console.log("현재 태그???", this.state.now_post.tag_list)
                         var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
                         //console.log(origin_post_id)
                         origin_post_id.map((origin_id, index)=>{

@@ -68,7 +68,17 @@ export default class TodayPostBoardTop5 extends Component {
                 .then(res => {
                     let posts = res.data.listPosts.items.filter((post)=>{
                         //날짜 필터링
-                        if(new Date(post.createdAt)<today) return false;
+                        let basis = new Date();
+                        var base_y = basis.getFullYear();
+                        var base_m = basis.getMonth()+1;
+                        var base_d = basis.getDate();
+                        var today_y = new Date(post.createdAt).getFullYear();
+                        var today_m = new Date(post.createdAt).getMonth()+1;
+                        var today_d = new Date(post.createdAt).getDate();
+
+                        if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
+                            return false;
+                        }
                         return true;
                     })
                     this.setState({
@@ -95,7 +105,17 @@ export default class TodayPostBoardTop5 extends Component {
                 .then(res => {
                     let posts = res.data.listPosts.items.filter((post)=>{
                         //날짜 필터링
-                        if(new Date(post.createdAt)<today) return false;
+                        let basis = new Date();
+                        var base_y = basis.getFullYear();
+                        var base_m = basis.getMonth()+1;
+                        var base_d = basis.getDate();
+                        var today_y = new Date(post.createdAt).getFullYear();
+                        var today_m = new Date(post.createdAt).getMonth()+1;
+                        var today_d = new Date(post.createdAt).getDate();
+
+                        if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
+                            return false;
+                        }
                         return true;
                     })
                     this.setState({
@@ -159,9 +179,9 @@ export default class TodayPostBoardTop5 extends Component {
                                                             <p className="profileName">익명</p>     
                                                           </div>
                                                         :  <div>
-                                                          <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
-                                                                  style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
-                                                          <p className="profileName">{post.user.name}</p>     
+                                                          <img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`} alt="프로필이미지" className="profileImg"
+                                                                  style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
+                                                          <p className="profileName postEllips" style={{textAlign:"left"}}>{post.user.name}</p>     
                                                         </div>
                                                         }
                                                      </div>   
@@ -210,13 +230,13 @@ export default class TodayPostBoardTop5 extends Component {
                                                         {(board_type == 1) && (post.blind == true)
                                                         ? <div>
                                                             <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
-                                                                    style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
                                                             <p className="profileName">익명</p>     
                                                           </div>
                                                         :  <div>
-                                                          <img src={post.user.profile_img} alt="프로필이미지" className="profileImg"
-                                                                  style={{width:"30px",height:"30px",borderRadius:"50%px"}}/>
-                                                          <p className="profileName">{post.user.name}</p>     
+                                                          <img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`} alt="프로필이미지" className="profileImg"
+                                                                  style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
+                                                          <p className="profileName postEllips"  style={{textAlign:"left"}}>{post.user.name}</p>     
                                                         </div>
                                                         }
                                                      </div>   

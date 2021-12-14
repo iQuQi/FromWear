@@ -1,0 +1,20 @@
+.mypage_contents{
+	overflow: auto;
+	margin-top: 120px;
+    margin-bottom: 120px;
+}
+.mypage_collection{
+    position: relative;
+    width: 900px;
+    overflow-y: auto; 
+    margin: auto;
+    padding: 0px;
+    background-color: white;
+
+    text-align: left;
+    white-space: pre-wrap;
+}
+.img_radius{
+    border-radius: 50%;
+}
+

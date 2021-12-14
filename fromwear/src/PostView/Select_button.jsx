@@ -40,7 +40,7 @@ class Select_button extends Component{
             this.setState({
                 comment_list: this.props.comment_list,
                 select_button_is_checked: this.props.comment_list.adopted,
-        })
+            })
         }
         if(this.props.board_type !== prevProps.board_type){
             this.setState({board_type: this.props.board_type});
@@ -50,6 +50,9 @@ class Select_button extends Component{
         }
         if (this.props.writer_user !== prevProps.writer_user) {
           this.setState({writer_user: this.props.writer_user})
+        }
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
         }
     }
 
@@ -79,9 +82,9 @@ class Select_button extends Component{
                 {
                     select_button_is_checked ?
                     <div className="selected_star_img">
-                        <img src={writer_user.profile_img} className="writer_img selected_img" /> 
+                        <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img selected_img" /> 
                     </div>
-                    :<img src={writer_user.profile_img} className="writer_img" /> 
+                    :<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img" /> 
                 
                 }
                 {

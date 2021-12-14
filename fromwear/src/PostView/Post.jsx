@@ -6,27 +6,18 @@ import Comments from './Comments';
 import Bookmark from './Bookmark';
 import LikeUrgent from './LikeUrgent'
 import PostModifyPage from './PostModifyPage';
+import Footer from '../Footer/Footer'
 
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 import  Typography  from '@mui/material/Typography';
+import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
 import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag, createAlarm } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 var AWS = require('aws-sdk'); 
-
-
-//나중에 상위 컴포넌트한테 prop로 받아야하는 것
-//let user_id = "현경 id"; //현재 유저
-
-// AWS.config.update(
-// 	{
-// 	  accessKeyId: "AKIAQGPJROM4FWISMQBG",
-// 	  secretAccessKey: "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",
-// 	}
-// );
 
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
@@ -97,7 +88,6 @@ class Post extends Component{
         });*/
     }
 
-
 	handle_user_info = (user) => {
         //console.log(user)
         if(this.state.now_user == 'noUser'){
@@ -123,8 +113,7 @@ class Post extends Component{
     }
 
     handleBookmarkButton = () => {
-        console.log("@@@@@@@teset")
-        console.log("현 좋아요 now user:", this.state.now_user)
+        
         if(this.state.now_user == 'noUser'){
             alert("로그인해주세요.")    
             return
@@ -160,17 +149,6 @@ class Post extends Component{
                 }}
             })
 
-            
-            /*
-            API.graphql({query: createAlarm, variables:{input:
-                {
-                    id: this.state.now_writer.id,
-                    content: this.state.now_user.name,
-                    link:
-
-
-                }}
-            })*/
         }
     }
 
@@ -217,6 +195,16 @@ class Post extends Component{
                     post_id: this.state.post_id,
                 }}
             })
+            
+            API.graphql({query: createAlarm, variables:{input:
+                {
+                    user_id: this.state.now_writer.id,
+                    content: this.state.now_user.name+'님이 게시글에 좋아요를 눌렀습니다',
+                    link:'post/' + this.state.post_id
+
+                }}
+            })
+            .then(e => console.log(e))
         }
 
     }
@@ -437,6 +425,7 @@ class Post extends Component{
 
                 //태그 필터링
                 let same = 0;
+                
                 post.tag_list.items.map((post_tag)=>{
                     now_post.tag_list.items.map(now_tag=>{
                         if(post_tag.tag_id == now_tag.tag_id) same++;
@@ -484,8 +473,6 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-        console.log("태그 리스트:",result_post)
-        //console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">
                 {
@@ -509,7 +496,7 @@ class Post extends Component{
                                         now_post.blind?
                                         <img className="post_writer_img" src={profile_skyblue} />
                                         :
-                                        <img className="post_writer_img" src={now_writer.profile_img} />
+                                        <img className="post_writer_img" src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
                                         //나중에 backgroundImg로 URL넘겨줄거면 div로 변경
                                         //마찬가지로 바꿀 때 SingleComment의 53번째 line도 div로 변경
                                         //div로 하면 src가 적용이 안됨 style에서 넘겨줘야할듯
@@ -524,16 +511,16 @@ class Post extends Component{
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                            <button className="modify_post" onClick={this.modifyPost}>
-                                                수정
+                                            <button className="remove_post" onClick={this.removePostIcons}>
+                                                삭제
                                             </button>
                                         :
                                         <div></div>
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                            <button className="remove_post" onClick={this.removePostIcons}>
-                                                삭제
+                                            <button className="modify_post" onClick={this.modifyPost}>
+                                                수정
                                             </button>
                                         :
                                         <div></div>
@@ -585,22 +572,24 @@ class Post extends Component{
                         <div className="post_tag_list">
                             <div className="container">
                                 <div className="content">
-                                    {
+                                    {   
                                         result_post.length!=0?
                                             <div className={"post_page_content"}>
                                                 <PostSearchResult
                                                 result_post={result_post} />
                                             </div>
                                             :
-                                            <Typography>
+                                            <Typography className="post_page_tag_empty">
                                                 해당되는 게시물이 존재하지 않습니다.
                                             </Typography>
+                                            
                                     }
                                 </div> 
                             </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
 
         );

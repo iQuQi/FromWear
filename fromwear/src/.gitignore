@@ -1,7 +1,4 @@
-
-
-amplify-do-not-edit-begin
-
+#amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/logs
@@ -18,7 +15,6 @@ amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-
 .secret-*
 **.sample
-amplify-do-not-edit-end
+#amplify-do-not-edit-end

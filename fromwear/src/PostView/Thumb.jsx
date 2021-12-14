@@ -19,7 +19,9 @@ class Thumb extends Component{
     }
 
     componentDidMount(){
-        this.set_comment_like(this.state.comment_list.like_user_list.items)
+        if(this.state.comment_list.like_user_list){
+            this.set_comment_like(this.state.now_user.id)
+        }
         if(this.props.comment_list.like_user_list.items){
             this.setState({
                 comment_like_num: this.props.comment_list.like_user_list.items.length
@@ -27,12 +29,15 @@ class Thumb extends Component{
         }
     }
 
-    set_comment_like = (list) => {
-        let comment_like = list.filter((data)=>{
-            if(data.user_id == this.state.now_user.id) return true;
-            else return false;
+    set_comment_like = (now_user_id) => {
+        console.log("추가", now_user_id);
+        let like_num = this.state.comment_list.like_user_list.items.filter((data)=>{
+            if(data.user_id == now_user_id){   
+                return true;
+            };
+            return false;
         })
-        if(comment_like.length !== 0){
+        if(like_num.length > 0){
             this.setState({
                 is_checked: true,
             })
@@ -41,14 +46,19 @@ class Thumb extends Component{
 
     componentDidUpdate(prevProps) {
         if (this.props.comment_list !== prevProps.comment_list) {
-          this.setState({
+            console.log("따봉 업데이트 진행!!")
+            this.setState({
               comment_list: this.props.comment_list,
               comment_like_num: this.props.comment_list.like_user_list.items.length
             })
-          this.set_comment_like(this.props.comment_list.like_user_list.items)
+            this.set_comment_like(this.state.now_user.id)
         }
         if(this.props.now_user !== prevProps.now_user){
-            this.setState({now_user: this.props.now_user})
+            //console.log(this.state.now_user, "랑 ",this.props.now_user)
+            this.setState({
+                now_user: this.props.now_user
+            })
+            this.set_comment_like(this.props.now_user.id)
         }
     }
 
@@ -100,6 +110,8 @@ class Thumb extends Component{
     render() {
         let {comment_list, is_checked, comment_like_num} = this.state;
 
+        //console.log("현재 유저", this.state.now_user)
+        console.log("render 현재 user:",this.state.now_user.id);
         //console.log("comment_like",comment_list)
         //console.log("coment_like_user_list",comment_list.like_user_list.items)
         
