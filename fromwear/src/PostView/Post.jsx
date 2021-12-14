@@ -566,7 +566,6 @@ class Post extends Component{
                             </div>
                         </div>
                     </div>
-                    <ProfileEdit user={now_user}/>
                     <div className="main_post_tag_div">
                         <div className="recommend_tag">
                                 태그 맞춤 추천
