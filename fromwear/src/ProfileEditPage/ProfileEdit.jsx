@@ -11,7 +11,7 @@ import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import { API } from 'aws-amplify';
-import { updateUser } from '../graphql/mutations';
+import { updateUser,createUserStyleTag,updateUserStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 
 let board_type = 1
@@ -31,6 +31,8 @@ class ProfileEdit extends Component{
             user : props.user,
             content_introduce: '',
             gender: props.user.gender,
+            create_tag: false,
+            create_tag: false,
 		}
 	}
     
@@ -145,28 +147,57 @@ class ProfileEdit extends Component{
                 }}
             })
             .then(e => console.log(e))
+            .then(res => {
+                //현재 사용자의 tag list의 id 불러옴
+                var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
+                console.log("befsd", before_tag_list)
+
+                //check된 리스트
+                var tag_index = [];
+                tag_clicked_list.forEach((tag, index) => {
+                    if(tag == 1) {
+                        tag_index = [...tag_index, index+1]
+                    }
+                })
+
+                before_tag_list.map((origin_id, index)=>{
+                    API.graphql({
+                        query: updateUserStyleTag, variables: {
+                            input: 
+                            {
+                                id: origin_id,
+                                style_tag_id: tag_index[index],
+                            } 
+                    }})
+                    .then(res => {
+                        if(index == 2){
+                            this.setState({
+                                create_tag:true
+                            })
+                        }
+                    })
+                })
+            })
+
+                // tag_clicked_list.forEach((tag, index) => {
+                //     if(tag == 1) {
+                //         API.graphql({
+                //             query: updateUserStyleTag, variables: {
+                //                 input: 
+                //                 {
+                //                     user_id: this.state.user.id,
+                //                     style_tag_id: index+1,
+                //                 } 
+                //         }})
+                //         .then(res => console.log(res))
+                //         .then(res => this.setState({create_tag: true}))
+                //         .catch(e => console.log(e));
+                //     }
+                // })
 
             console.log("프로필 업데이트 성공!");
             //window.location.reload();
-            /*
-            .then(res => {
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                API.graphql({
-                                    query: createPostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            post_id: res.data.createPost.id,
-                                            tag_id: index+1,
-                                        } 
-                                }})
-                                .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
-                                .catch(e => console.log(e));
-                            }
-                        })
-                    })
-            */
+            
         }
     }
 
