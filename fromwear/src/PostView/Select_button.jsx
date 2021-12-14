@@ -40,7 +40,7 @@ class Select_button extends Component{
             this.setState({
                 comment_list: this.props.comment_list,
                 select_button_is_checked: this.props.comment_list.adopted,
-        })
+            })
         }
         if(this.props.board_type !== prevProps.board_type){
             this.setState({board_type: this.props.board_type});
@@ -50,6 +50,9 @@ class Select_button extends Component{
         }
         if (this.props.writer_user !== prevProps.writer_user) {
           this.setState({writer_user: this.props.writer_user})
+        }
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
         }
     }
 

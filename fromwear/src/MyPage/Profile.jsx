@@ -182,7 +182,7 @@ export default class Profile extends Component {
 
   handleClose = () => {
     this.setState({
-      dialog_is_checked: false,
+      dialog_is_checked: !this.state.dialog_is_checked,
     })
   }
   
