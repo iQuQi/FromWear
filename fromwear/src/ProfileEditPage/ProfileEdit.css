@@ -1,0 +1,132 @@
+@charset "utf-8";
+
+.blind{
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip: rect(0, 0 ,0, 0);
+	margin: -1px;
+	overflow: hidden;
+  }
+
+
+
+  .profile_upload_img ,.profile_original_img{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1px solid;
+    box-sizing: border-box;
+    position: absolute;
+    left : 40px;
+    top: 35px;
+  }
+
+.profile_upload_button{
+    position: absolute;
+    top:300px;
+    left:105px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 30px;
+
+}
+
+.profile_edit_page{
+    position: relative;
+    top:100px;
+    width: 1080px;
+    height: 500px;
+    background-color: white;
+    margin: auto;
+    border-radius: 30px;
+
+}
+
+.profile_page_container{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.profile_my_tag_list{
+    position: absolute;
+    top: 250px;
+    right: 30px;
+
+    width:68%;
+    z-index: 1000;
+
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px;
+    box-sizing: border-box;
+    border:1px solid lightgray;
+}
+
+.profile_introduce{
+    position: relative;
+    right: -350px;
+    top:50px;
+    width: 63%;
+}
+
+.profile_introduce_text{
+    width: 100%;
+    height: 70px;   
+    margin-top: 20px;
+    resize:none;
+
+}
+
+.profile_mytag{
+    position: relative;
+    right: -350px;
+    top:70px;
+    width: 63%;
+    text-align: center;
+}
+
+.profile_gender{
+    position: relative;
+    right: -350px;
+    top:90px;
+    width:63%;
+}
+
+.profile_radio span{
+    border-radius: 10px;
+
+}
+
+.profile_radio input[type="radio"]{
+    display:none;
+
+  }
+  
+  .profile_radio input[type="radio"] + span{
+    display:inline-block;
+    background:none;
+    border:1px solid;  
+    padding:0px 10px;
+    text-align:center;
+    height:35px;
+    line-height:33px;
+    cursor:pointer;
+    margin-right: 10px;
+  }
+  
+  .profile_radio input[type="radio"]:checked + span{
+    border:1px solid black;
+    background:black;
+    color:#fff;
+  }
+
+  .profile_submit_button {
+    position: relative;
+    top: 100px;
+    right: -535px;
+    width: 300px;
+  }

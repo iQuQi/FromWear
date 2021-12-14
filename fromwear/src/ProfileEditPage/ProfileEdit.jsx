@@ -39,9 +39,10 @@ class ProfileEdit extends Component{
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
 
-        Storage.put(`${uuid_}.${filetype}`,file)
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
+
+        //Storage.put(`${uuid_}.${filetype}`,file)
+        //.then(res=>console.log(res))
+        //.catch(e=> console.log('onChange error',e));
 
         reader.onloadend = () => {
           this.setState({
@@ -103,8 +104,6 @@ class ProfileEdit extends Component{
         }
         else {
             console.log("프로필 업데이트 성공!");
-            
-
             window.location.reload();
         }
     }

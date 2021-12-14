@@ -43,7 +43,11 @@ class TodayPostBoard extends Component {
 		return ( 
 			<section className="wrap">
 				{ is_write_page 
-					? <PostWritePage handle_write_page={this.handle_write_page} />
+					? <PostWritePage 
+						board_type={board_type} 
+						user={user}
+						handle_write_page={this.handle_write_page} 
+					  />
 					: null
 				}
             	<Header handle_user_info={this.handle_user_info}/>

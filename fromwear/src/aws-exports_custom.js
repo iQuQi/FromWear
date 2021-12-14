@@ -25,8 +25,9 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ]
+    ],
+    "aws_user_files_s3_bucket": "fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev",
+    "aws_user_files_s3_bucket_region": "ap-northeast-2"
 };
-
 
 export default awsmobile;

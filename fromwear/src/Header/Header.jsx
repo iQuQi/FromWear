@@ -7,11 +7,11 @@ import Auth from '@aws-amplify/auth';
 import { get_rank_tag } from '../SearchPage/RankTag';
 import Login from "./Login";
 import API from '@aws-amplify/api';
-import {createUser} from '../graphql/mutations.js';
+import {createUser,createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
-import SignOutButton from './SignOutButton';
 
+import { Button } from '@mui/material';
 
 class Header extends Component{
 	constructor(){
@@ -53,7 +53,41 @@ class Header extends Component{
 				   adopted: 0,
 				   award_today: 0,
 				   award_week: 0}}
-				}).then(
+				})
+				.then(res=>{
+					API.graphql({
+						query: createUserStyleTag,
+						variables:{
+							input:{
+								user_id: auth_user.attributes.sub,
+								style_tag_id: 101
+							}
+						}
+					})
+
+					API.graphql({
+						query: createUserStyleTag,
+						variables:{
+							input:{
+								user_id: auth_user.attributes.sub,
+								style_tag_id: 102
+							}
+						}
+					})
+
+					API.graphql({
+						query: createUserStyleTag,
+						variables:{
+							input:{
+								user_id: auth_user.attributes.sub,
+								style_tag_id: 103
+							}
+						}
+					})
+
+					return res;
+				})
+				.then(
 					res=>{console.log(res,"new user get!!");
 					API.graphql({
 						query: getUser,
@@ -111,9 +145,10 @@ class Header extends Component{
 		console.log("user set complete",user);
 	}
 
-
-
+	
 	render(){
+	
+	
 		let {rank_1,user,login_popup} = this.state;
 		return <div className="header_bar">		
 				<PrimarySearchAppBar 
@@ -128,6 +163,7 @@ class Header extends Component{
 				{login_popup?<Login 
 				handle_login_complete={this.handle_login_complete}/>:<br/>}
 				<MoveToTop/>
+				<a href="/profileedit">프로필 편집 화면으로 이동</a>
 		</div>
 	}	
 }

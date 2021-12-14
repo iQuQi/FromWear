@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
-  console.log(user);
+  //console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 

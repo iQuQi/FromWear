@@ -12,19 +12,24 @@ class Thumb extends Component{
         this.state = {
             is_checked: false,
             comment_list: props.comment_list,
-            user_id: props.user_id,
-            comment_like_num: props.comment_list.like_user_list.items.length,
+            now_user: props.now_user,
+            comment_like_num: 0,
         };
 
     }
 
     componentDidMount(){
         this.set_comment_like(this.state.comment_list.like_user_list.items)
+        if(this.props.comment_list.like_user_list.items){
+            this.setState({
+                comment_like_num: this.props.comment_list.like_user_list.items.length
+            })
+        }
     }
 
     set_comment_like = (list) => {
         let comment_like = list.filter((data)=>{
-            if(data.user_id == this.state.user_id) return true;
+            if(data.user_id == this.state.now_user.id) return true;
             else return false;
         })
         if(comment_like.length !== 0){
@@ -42,16 +47,23 @@ class Thumb extends Component{
             })
           this.set_comment_like(this.props.comment_list.like_user_list.items)
         }
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
+        }
     }
 
     onClick = () => {
+        if(this.state.now_user == 'noUser'){
+            alert("로그인 후 이용가능합니다.")
+            return
+        }
         if(this.state.is_checked == true){
             this.setState({
                 comment_like_num: this.state.comment_like_num-1,
             })
             API.graphql({query: deleteCommentLikeUser, variables:{input:
                 {
-                    id: this.state.user_id + this.state.comment_list.id,
+                    id: this.state.now_user.id + this.state.comment_list.id,
                 }}
             })
             .then(res => console.log(res))
@@ -68,8 +80,8 @@ class Thumb extends Component{
             })
             API.graphql({query: createCommentLikeUser, variables:{input:
                 {
-                    id: this.state.user_id + this.state.comment_list.id,
-                    user_id: this.state.user_id,
+                    id: this.state.now_user.id + this.state.comment_list.id,
+                    user_id: this.state.now_user.id,
                     comment_id: this.state.comment_list.id,
                 }}
             })
