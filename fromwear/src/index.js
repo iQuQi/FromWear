@@ -3,19 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Auth from '@aws-amplify/auth';
 import Amplify from "aws-amplify";
-import config from "./aws-exports"
+import config from "./aws-exports_custom"
+import {Auth} from "aws-amplify";
 Amplify.configure(config);
 Auth.configure(config);
 
-const federated = {
-  google_client_id: "your Google Web Client ID goes here"
-};
+
 
 ReactDOM.render(
   <React.StrictMode>
-  <App federated={federated}/>
+  <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

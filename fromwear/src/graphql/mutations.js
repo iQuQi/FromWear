@@ -81,6 +81,17 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      alarm_list {
+        items {
+          id
+          user_id
+          content
+          link
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
       createdAt
@@ -163,6 +174,17 @@ export const updateUser = /* GraphQL */ `
           id
           user_id
           style_tag_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      alarm_list {
+        items {
+          id
+          user_id
+          content
+          link
           createdAt
           updatedAt
         }
@@ -255,8 +277,64 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      alarm_list {
+        items {
+          id
+          user_id
+          content
+          link
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       award_today
       award_week
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAlarm = /* GraphQL */ `
+  mutation CreateAlarm(
+    $input: CreateAlarmInput!
+    $condition: ModelAlarmConditionInput
+  ) {
+    createAlarm(input: $input, condition: $condition) {
+      id
+      user_id
+      content
+      link
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAlarm = /* GraphQL */ `
+  mutation UpdateAlarm(
+    $input: UpdateAlarmInput!
+    $condition: ModelAlarmConditionInput
+  ) {
+    updateAlarm(input: $input, condition: $condition) {
+      id
+      user_id
+      content
+      link
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAlarm = /* GraphQL */ `
+  mutation DeleteAlarm(
+    $input: DeleteAlarmInput!
+    $condition: ModelAlarmConditionInput
+  ) {
+    deleteAlarm(input: $input, condition: $condition) {
+      id
+      user_id
+      content
+      link
       createdAt
       updatedAt
     }
@@ -295,6 +373,9 @@ export const createComment = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -392,6 +473,9 @@ export const updateComment = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -485,6 +569,9 @@ export const deleteComment = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -596,6 +683,9 @@ export const createPost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -688,6 +778,9 @@ export const updatePost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -778,6 +871,9 @@ export const deletePost = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -937,6 +1033,9 @@ export const createUserBookmarkPost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1018,6 +1117,9 @@ export const updateUserBookmarkPost = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1103,6 +1205,9 @@ export const deleteUserBookmarkPost = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1186,6 +1291,9 @@ export const createFollowingFollower = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1216,6 +1324,9 @@ export const createFollowingFollower = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1264,6 +1375,9 @@ export const updateFollowingFollower = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1294,6 +1408,9 @@ export const updateFollowingFollower = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1342,6 +1459,9 @@ export const deleteFollowingFollower = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1372,6 +1492,9 @@ export const deleteFollowingFollower = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1418,6 +1541,9 @@ export const createUserStyleTag = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1478,6 +1604,9 @@ export const updateUserStyleTag = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1536,6 +1665,9 @@ export const deleteUserStyleTag = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1592,6 +1724,9 @@ export const createCommentLikeUser = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1677,6 +1812,9 @@ export const updateCommentLikeUser = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1758,6 +1896,9 @@ export const deleteCommentLikeUser = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today
@@ -1843,6 +1984,9 @@ export const createPostLikeUrgentUser = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -1926,6 +2070,9 @@ export const updatePostLikeUrgentUser = /* GraphQL */ `
         my_tag_list {
           nextToken
         }
+        alarm_list {
+          nextToken
+        }
         award_today
         award_week
         createdAt
@@ -2007,6 +2154,9 @@ export const deletePostLikeUrgentUser = /* GraphQL */ `
           nextToken
         }
         my_tag_list {
+          nextToken
+        }
+        alarm_list {
           nextToken
         }
         award_today

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { API } from 'aws-amplify';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,7 +15,8 @@ import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
-import alarm_data from './AlarmData';
+import SelectBoard from './SelectBoard';
+import {deleteAlarm} from '../graphql/mutations.js';
 import { Button } from '@mui/material';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
@@ -60,8 +62,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
-  handle_select_gender,handle_login_click, rank_1,user}) {
-  console.log(user);
+  handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
+  //console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -88,7 +90,20 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    alarm_data.splice(index,1);
+
+    if(user.alarm_list.items[index]){
+      API.graphql({
+        query: deleteAlarm,
+        variables: { input: {
+          id: user.alarm_list.items[index].id,
+
+        }}
+
+      }).then(res=>{
+        console.log(res);
+      })
+      .catch(e=>console.log(e));
+    }
     setAlarmAnchorEl(null);
   };
   
@@ -138,9 +153,12 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
     
     {
-    alarm_data.map((item,index)=>
-      <a href=""><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
-    )
+    
+    user.alarm_list?
+      user.alarm_list.items.map((item,index)=>
+        <a href={item.link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
+      )
+    :""
     }
     
 
@@ -167,13 +185,13 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
 
             <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
-              style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
+              style={{ color: "black", fontSize: "14px",width: "70%",height:35}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
             />
             </a>
-            
+            <SelectBoard handle_select_board={handle_select_board}/>
             <SelectGender handle_select_gender={handle_select_gender}/>
             <SelectDay handle_select_day={handle_select_day}/>
           </Search>
@@ -193,7 +211,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             >                
               <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
-                badgeContent={17} 
+                badgeContent={user.alarm_list?user.alarm_list.items.length:0} 
                 color="primary"
                 style={{position:"relative",top:-10}}
 
@@ -203,9 +221,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             
            
             <IconButton
-
               style={{ color: "black",height:35 ,position:"relative",top:-10}}
-
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -213,8 +229,10 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
+              <span className="bar_user_name ellips" >{user.name}</span>
+              <span className="bar_user_name">님</span>
               <img 
-									style={{backgroundImage:"url(\"https://github.com/iQuQi/FromWear/blob/main/fromwear/src/SearchPage/image/wear10.png?raw=true\" )"
+									style={{backgroundImage:"url("+user.profile_img+")"
                   ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
                   position: "relative", marginRight:"5px"}}/>
 
@@ -230,7 +248,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {alarm_data.length!=0?renderAlarm:""}
+      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
   )

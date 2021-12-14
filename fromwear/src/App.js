@@ -5,14 +5,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage/MainPage.jsx';
 import TodayPostBoard from './PostBoard/TodayPostBoard.jsx';
 import PostPath from './PostView/PostPath.jsx';
-import PostWritePage from './PostWritePage/PostWritePage.jsx';
 import SearchPage from './SearchPage/SearchPage.jsx';
-//import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
-
-import MyPagePath from './MyPage/MyPagePath.jsx';
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
-Amplify.configure(config);
+import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
+import MyPage from './MyPage/MyPage.jsx';
+import ProfileEdit from './ProfileEditPage/ProfileEdit.jsx';
 
 
 function App() {
@@ -25,10 +21,11 @@ function App() {
               <Route path="/todayboard" element={<TodayPostBoard post_type="0"/>} exact/>
               <Route path="/sosboard" element={<TodayPostBoard post_type="1"/>} exact/>
               <Route path="/post/:postid" element={<PostPath/>} exact/>
-              <Route path="/posting" element={<PostWritePage />} exact/>
               <Route path="/search" element={<SearchPage />} exact/>
-              
-              <Route path="/mypage/:userid" element={<MyPagePath/>} exact/>
+              <Route path="/weeklytag" element={<WeeklyTagPage />} exact/>
+              <Route path="/mypage" element={<MyPage/>} exact/>
+              <Route path="/profileedit" element={<ProfileEdit/>} exact/>
+
             </Routes>
           </BrowserRouter>
       </div>
@@ -38,3 +35,5 @@ function App() {
 
 
 export default App;
+
+
