@@ -113,10 +113,10 @@ class ProfileEdit extends Component{
         let {fileImage, setFileImage, tag_click} = this.state;
         let {contents} = this.state;
 
-        let profile_preview = <img className='original_img' 
+        let profile_preview = <img className='profile_original_img' 
         style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover"}}/>;
         if(this.state.file !== ''){
-          profile_preview = <img className='upload_img' 
+          profile_preview = <img className='profile_upload_img' 
           style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover"}}
           ></img>
         }
@@ -135,11 +135,11 @@ class ProfileEdit extends Component{
                                 name='profile_img' 
                                 onChange={this.handleFileOnChange}>
                             </input>
-                            <label htmlFor="to_click_img" className="upload_button">프로필 업로드</label>
+                            <label htmlFor="to_click_img" className="profile_upload_button">프로필 업로드</label>
                 
                              <div className="profile_introduce">
                                 <h3>자기소개</h3>
-                                <textarea name="" type="text" className="introduce_text"
+                                <textarea name="" type="text" className="profile_introduce_text"
                                  placeholder="내용을 입력해주세요"></textarea>
                             </div>
 
@@ -152,7 +152,7 @@ class ProfileEdit extends Component{
                             </div>
                             {
                                 tag_click ?
-                                <div className="my_tag_list">
+                                <div className="profile_my_tag_list">
                                     <ProfileEditTagList
                                     target_button={tag_clicked_list}
                                     handle_tag_button_click={this.handle_tag_button_click}
@@ -166,13 +166,13 @@ class ProfileEdit extends Component{
                              <div className="profile_gender">
                                     <h3>성별</h3>
                                     <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="예" /><span>남자</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="아니오" /><span>여자</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="아니오" defaultChecked/><span>비공개</span></label>
+                                        <label className="profile_radio"><input type="radio" name="fruit" value="예" /><span>남자</span></label>
+                                        <label className="profile_radio"><input type="radio" name="fruit" value="아니오" /><span>여자</span></label>
+                                        <label className="profile_radio"><input type="radio" name="fruit" value="아니오" defaultChecked/><span>비공개</span></label>
 
                                     </div>
                             </div>
-                            <div className="submit_button">
+                            <div className="profile_submit_button">
                                 <Button type="submit" style={{margin:"auto",backgroundColor:"white",width:"100%",color:"black",fontSize:18,
                                 borderRadius:30,border:"1px solid black"
                             }} variant="contained" onClick={this.handleSubmit.bind(this)}>등록</Button>
