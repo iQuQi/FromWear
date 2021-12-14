@@ -8,7 +8,10 @@ import Input from '@mui/material/Input';
 import TagData from '../SearchPage/TagData'
 import ProfileEditTagList from './ProfileEditTagList';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
-
+import {v4 as uuid} from 'uuid';
+import Storage from '@aws-amplify/storage';
+import { API } from 'aws-amplify';
+import { createPost, createPostStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 
 let board_type = 1
@@ -35,11 +38,11 @@ class ProfileEdit extends Component{
         let reader = new FileReader();
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
-/*
+
         Storage.put(`${uuid_}.${filetype}`,file)
         .then(res=>console.log(res))
         .catch(e=> console.log('onChange error',e));
-*/
+
         reader.onloadend = () => {
           this.setState({
             file : file,
