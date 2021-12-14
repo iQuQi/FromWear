@@ -10,8 +10,7 @@ import API from '@aws-amplify/api';
 import {createUser} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
-import SignOutButton from './SignOutButton';
-
+import { Button } from '@mui/material';
 
 class Header extends Component{
 	constructor(){
@@ -111,8 +110,7 @@ class Header extends Component{
 		console.log("user set complete",user);
 	}
 
-
-
+	
 	render(){
 		let {rank_1,user,login_popup} = this.state;
 		return <div className="header_bar">		
@@ -128,6 +126,7 @@ class Header extends Component{
 				{login_popup?<Login 
 				handle_login_complete={this.handle_login_complete}/>:<br/>}
 				<MoveToTop/>
+				<a href="/profileedit">프로필 편집 화면으로 이동</a>
 		</div>
 	}	
 }
