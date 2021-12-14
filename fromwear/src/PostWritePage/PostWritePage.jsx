@@ -66,7 +66,8 @@ class PostWritePage extends Component {
         reader.readAsDataURL(file);
       }
 	
-    onClickTag = () => {
+    onClickTag = e => {
+        console.log("eeee:",e)
         this.setState({tag_click: !this.state.tag_click})
         console.log(this.state.tag_click)
     }
