@@ -6,6 +6,7 @@ import TodayPostBoardTop5 from './TodayPostBoardTop5';
 import TodayPostBoardPosts from './TodayPostBoardPosts';
 
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import './CSS/PostBoard.css';
 import { set } from 'date-fns';
 import PostWritePage from '../PostWritePage/PostWritePage';
@@ -57,6 +58,7 @@ class TodayPostBoard extends Component {
 					user={user}
 					handle_write_page={this.handle_write_page}
 				/>
+				<Footer />
 			</section> )
 	}
 }
