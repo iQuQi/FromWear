@@ -123,8 +123,7 @@ class Post extends Component{
     }
 
     handleBookmarkButton = () => {
-        console.log("@@@@@@@teset")
-        console.log("현 좋아요 now user:", this.state.now_user)
+        
         if(this.state.now_user == 'noUser'){
             alert("로그인해주세요.")    
             return
@@ -160,17 +159,6 @@ class Post extends Component{
                 }}
             })
 
-            
-            /*
-            API.graphql({query: createAlarm, variables:{input:
-                {
-                    id: this.state.now_writer.id,
-                    content: this.state.now_user.name,
-                    link:
-
-
-                }}
-            })*/
         }
     }
 
@@ -217,6 +205,16 @@ class Post extends Component{
                     post_id: this.state.post_id,
                 }}
             })
+            
+            API.graphql({query: createAlarm, variables:{input:
+                {
+                    user_id: this.state.now_writer.id,
+                    content: this.state.now_user.name+'님이 게시글에 좋아요를 눌렀습니다',
+                    link:'post/' + this.state.post_id
+
+                }}
+            })
+            .then(e => console.log(e))
         }
 
     }
@@ -484,7 +482,6 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-        console.log("태그 리스트:",result_post)
         //console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">

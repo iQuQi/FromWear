@@ -6,7 +6,7 @@ import { API } from 'aws-amplify';
 import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
 import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
-import  { deleteComment, deleteCommentLikeUser } from '../graphql/mutations';
+import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
 
 class Comments extends Component {
 
@@ -109,6 +109,17 @@ class Comments extends Component {
         })
         .catch(e => console.log(e));
         document.querySelector('.new_tweet_content').value = "";
+
+
+        API.graphql({query: createAlarm, variables:{input:
+            {
+                user_id: this.state.post_writer.id,
+                content: this.state.now_user.name+'님이 게시글에 댓글을 달았습니다',
+                link:'post/' + this.state.post_id
+
+            }}
+        })
+        .then(e => console.log(e))
 
     }
 
