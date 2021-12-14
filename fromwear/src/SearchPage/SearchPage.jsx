@@ -15,13 +15,21 @@ import moment from 'moment';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
 import {getPost, listPosts, listUsers} from '../graphql/queries.js';
-import { ConsoleSqlOutlined, FastForwardOutlined } from '@ant-design/icons';
-import MainPage from "../MainPage/MainPage";
-import SelectDay from "../Header/SelectDay";
+import { format } from "date-fns";
+import Footer from '../Footer/Footer';
 import { static_tag_data } from './TagData';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
-
+var AWS = require('aws-sdk'); 
+/*
+AWS.config.update(
+	{
+	  accessKeyId: ".. your key ..",
+	  secretAccessKey: ".. your secret key ..",
+	}
+  );
+  */
+const s3 = new AWS.S3();
 class SearchPage extends Component{
 	constructor(){
 		super();
@@ -35,6 +43,7 @@ class SearchPage extends Component{
 
 			filter_gender: "",
 			filter_day:-1,
+			filter_board:-1,
 
 			post_data: [],
 			rank_tag_data:[],
@@ -47,8 +56,8 @@ class SearchPage extends Component{
 	}
 
 	componentWillMount(){
-
-		this.update_post_data("","",this.state.current_input_tag);
+		console.log("searchpage will mount");
+		this.update_post_data(-1,"",this.state.current_input_tag,-1);
 		get_rank_tag(this.handle_rank_tag_data);
 
 	}
@@ -82,7 +91,9 @@ class SearchPage extends Component{
 
 		console.log("cur input tag7:"+this.state.current_input_tag);
 
-		this.update_post_data(this.state.filter_day,this.state.filter_gender,this.state.current_input_tag);
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,
+			this.state.current_input_tag,
+			this.state.filter_board);
 
 	}
 
@@ -103,9 +114,10 @@ class SearchPage extends Component{
 		this.setState({
 			target_rank_tag_button: rank_tag_clicked_list,
 		})
-		console.log("cur input tag6:"+this.state.current_input_tag);
 
-		this.update_post_data(this.state.filter_day,this.state.filter_gender,this.state.current_input_tag);
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,
+			this.state.current_input_tag,
+			this.state.filter_board);
 	}
 
 	handle_tag_more_button=e=>{
@@ -146,9 +158,9 @@ class SearchPage extends Component{
 		this.setState({
 			current_input_tag: split_tags.slice(1,split_tags.length)
 		})
-		console.log("cur input tag5:"+this.state.current_input_tag);
 
-		this.update_post_data(this.state.filter_day,this.state.filter_gender,split_tags.slice(1,split_tags.length));
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,split_tags.slice(1,split_tags.length),
+		this.state.filter_board);
 
 	}
 
@@ -168,9 +180,9 @@ class SearchPage extends Component{
 		this.setState({
 			filter_gender : gender
 		})
-		console.log("cur input tag4:"+this.state.current_input_tag);
 
-		this.update_post_data(this.state.filter_day,gender,this.state.current_input_tag);
+		this.update_post_data(this.state.filter_day,gender,this.state.current_input_tag,
+			this.state.filter_board);
 
 	}
 
@@ -183,48 +195,101 @@ class SearchPage extends Component{
 		this.setState({
 			filter_day : day
 		})
-		console.log("cur input tag1:"+this.state.current_input_tag);
-		this.update_post_data(day,this.state.filter_gender,this.state.current_input_tag);
+		this.update_post_data(day,this.state.filter_gender,this.state.current_input_tag,
+			this.state.filter_board);
 	}
 
 
+	handle_select_board=e=>{
+		let select=e.target.value;
+		let board=-1;
+		if(select==10){
+			board=0;
+		} 
+		else if(select ==20){
+			board=1;
+		}
+		else if(select==30){
+			board=2;
+		}
 
-	update_post_data=(day,gender,current_input_tag)=>{
-		console.log("cur input tag2:"+current_input_tag);
+
+		this.setState({
+			filter_board : board
+		})
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,this.state.current_input_tag,
+			board);
+	}
+
+	handle_user_info=(user)=>{
+		console.log("user info get",user);
+	}
+
+
+	update_post_data=(day,gender,current_input_tag,board)=>{
 
 		this.get_post_data(this.handle_post_data,
 			current_input_tag,
 			tag_clicked_list,
 			rank_tag_clicked_list,
-			day,gender);
+			day,gender,board);
+	}
+
+	fetchImages = ()=>{
+		s3.getObject(
+		  { Bucket: "my-bucket", Key: "my-picture.jpg" },
+		  function (error, data) {
+			if (error != null) {
+			  alert("Failed to retrieve an object: " + error);
+			} else {
+			  alert("Loaded " + data.ContentLength + " bytes");
+			  // do something with data.Body
+			}
+		  }
+		);
+
 	}
 
 	get_post_data =  (handle_post_data,
 		current_input_tag,
 		tag_clicked_list,
 		rank_tag_clicked_list,
-		filter_day,filter_gender) =>{
-			console.log("cur input tag3:"+current_input_tag);
+		filter_day,filter_gender,filter_board) =>{
+			console.log("filter board",filter_board);
 
 			let same3=[],same2=[],same1=[];
 			let result_post=[];
 			let rmved =[];
 
+			let var_one={
+				filter:{
+					board_type: {
+						eq: filter_board 
+					}
+				}
+			}
+
 			API.graphql({
 			  query: listPosts,
-			  variables:{filter:{board_type:{ne:1}}}
+			  variables:filter_board==-1?{}:var_one
 			}).then(res=>{
 			  res.data.listPosts.items
 			  .map((post)=>{
 				//날짜 필터링
 				let basis = new Date();
 				if(filter_day==10){//오늘
-				  console.log("created:"+ new Date(post.createdAt));
-				  basis.setDate(basis.getDate());
-				  console.log("basis: " +basis);
-				  console.log(new Date(post.createdAt)<basis);
+				  var base_y = basis.getFullYear();
+				  var base_m = basis.getMonth()+1;
+				  var base_d = basis.getDate();
+				  var today_y = new Date(post.createdAt).getFullYear();
+				  var today_m = new Date(post.createdAt).getMonth()+1;
+				  var today_d = new Date(post.createdAt).getDate();
+				  console.log("today",post.id,base_y,base_m,base_d,today_y,today_m,today_d);
 
-				  if(new Date(post.createdAt)!=basis) return false;
+				  if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
+					return false;
+				}
+			
 				}
 				else if(filter_day==20){//일주일
 					basis.setDate(basis.getDate() - 7);
@@ -266,12 +331,10 @@ class SearchPage extends Component{
 				this.state.rank_tag_data.map((find_tag,index)=>{
 					if(rank_tag_clicked_list[index])dup.push(find_tag.value);
 				})
-				console.log("this is rmved bef:" + dup);
 
 				let dup_rmv= new Set(dup);
 				rmved = [...dup_rmv];
 
-				console.log("this is rmved aft:" + rmved);
 
 				//태그 필터링
 				//입력된 태그가 없다면 전체 보여주기
@@ -283,15 +346,13 @@ class SearchPage extends Component{
 				else{
 					console.log("not show all");
 					let same = 0;
-					post.tag_list.map((post_tag)=>{
-						console.log(post_tag);
-
+					
+					post.tag_list.items.map((post_tag)=>{
 						rmved.map(tag=>{
-							if(post_tag==tag) same++;
+							if(post_tag.style_tag.value==tag) same++;
 						})
-
 					})
-
+				
 					console.log("same: "+ same);
 					if(same == 3) same3=[...same3,post]
 					else if(same==2) same2=[...same2,post]
@@ -304,17 +365,21 @@ class SearchPage extends Component{
 			  })
 			  
 			  if(rmved.length===0) {
-				result_post=result_post.sort(function(a,b){return b.like_user_num-a.like_user_num});
+				result_post=result_post.sort(function(a,b){
+					return b.like_urgent_user_list.items.length-
+						a.like_urgent_user_list.items.length});
 			  }
 			  else{
-				same3=same3.sort(function(a,b){return b.like_user_num-a.like_user_num});
-				same2=same2.sort(function(a,b){return b.like_user_num-a.like_user_num});
-				same1=same1.sort(function(a,b){return b.like_user_num-a.like_user_num});
+				same3=same3.sort(function(a,b){return b.like_urgent_user_list.items.length-
+					a.like_urgent_user_list.items.length});
+				same2=same2.sort(function(a,b){return b.like_urgent_user_list.items.length-
+					a.like_urgent_user_list.items.length});
+				same1=same1.sort(function(a,b){return b.like_urgent_user_list.items.length-
+					a.like_urgent_user_list.items.length});
 
 			  	result_post=[...same3,...same2,...same1];
 			  }
 
-			  console.log(result_post);
 			  return handle_post_data(result_post);
 			})
 			.catch(e=>console.log(e))
@@ -332,6 +397,8 @@ class SearchPage extends Component{
 				handle_inputbase_on_change={this.handle_inputbase_on_change}
 				handle_select_day={this.handle_select_day}
 				handle_select_gender={this.handle_select_gender}
+				handle_select_board={this.handle_select_board}
+				handle_user_info={this.handle_user_info}
 				/>
 				
 				<div className="search_page_container">	
@@ -403,6 +470,7 @@ class SearchPage extends Component{
 				
 					
 				</div>
+				<Footer/>
 			</div>
 		)
 	}

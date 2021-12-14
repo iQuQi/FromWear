@@ -24,6 +24,20 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "profile_img": {
                     "name": "profile_img",
                     "isArray": false,
@@ -83,10 +97,16 @@ export const schema = {
                 "my_bookmark_post_list": {
                     "name": "my_bookmark_post_list",
                     "isArray": true,
-                    "type": "ID",
+                    "type": {
+                        "model": "UserBookmarkPost"
+                    },
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "user"
+                    }
                 },
                 "my_comment_list": {
                     "name": "my_comment_list",
@@ -147,6 +167,22 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -218,13 +254,27 @@ export const schema = {
                 "bookmark_user_list": {
                     "name": "bookmark_user_list",
                     "isArray": true,
+                    "type": {
+                        "model": "UserBookmarkPost"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "post"
+                    }
+                },
+                "like_user_list": {
+                    "name": "like_user_list",
+                    "isArray": true,
                     "type": "ID",
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "like_user_list": {
-                    "name": "like_user_list",
+                "urgent_user_list": {
+                    "name": "urgent_user_list",
                     "isArray": true,
                     "type": "ID",
                     "isRequired": false,
@@ -289,8 +339,7 @@ export const schema = {
                     "properties": {
                         "name": "postByUser",
                         "fields": [
-                            "user_id",
-                            "id"
+                            "user_id"
                         ]
                     }
                 }
@@ -390,8 +439,7 @@ export const schema = {
                     "properties": {
                         "name": "commentByPost",
                         "fields": [
-                            "post_id",
-                            "id"
+                            "post_id"
                         ]
                     }
                 },
@@ -400,8 +448,87 @@ export const schema = {
                     "properties": {
                         "name": "commentByUser",
                         "fields": [
-                            "user_id",
-                            "id"
+                            "user_id"
+                        ]
+                    }
+                }
+            ]
+        },
+        "UserBookmarkPost": {
+            "name": "UserBookmarkPost",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "user": {
+                    "name": "user",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "user_id"
+                    }
+                },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "post_id"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "UserBookmarkPosts",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "UserBookmarkPostbyUser",
+                        "fields": [
+                            "user_id"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "UserBookmarkPostbyPost",
+                        "fields": [
+                            "post_id"
                         ]
                     }
                 }
@@ -454,6 +581,22 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -472,6 +615,13 @@ export const schema = {
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "board_name": {
+                    "name": "board_name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "best_post_list": {
@@ -660,10 +810,52 @@ export const schema = {
                     "properties": {}
                 }
             ]
+        },
+        "AppInfo": {
+            "name": "AppInfo",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "today": {
+                    "name": "today",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "AppInfos",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                }
+            ]
         }
     },
     "enums": {},
     "nonModels": {},
-
-    "version": "ad46248307cb144530bb6fa5634fecf8"
+    "version": "e05405cce5f381513113968d98b7f1dc"
 };

@@ -1,27 +1,24 @@
 import * as React from 'react';
+import { API } from 'aws-amplify';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import './Header.css'
 import logo from './image/logo.png';
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
-import alarm_data from './AlarmData';
-import { get_rank_tag } from '../SearchPage/RankTag';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
-let rank_1="";
+import SelectBoard from './SelectBoard';
+import {deleteAlarm} from '../graphql/mutations.js';
+import { Button } from '@mui/material';
+import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -64,8 +61,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
-  handle_select_gender}) {
+function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
+  handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
+  //console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -87,11 +85,28 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    setAnchorEl(null);
+  };
   const handleAlarmClose = e => {
     let index=e.target.value;
-    alarm_data.splice(index,1);
+
+    if(user.alarm_list.items[index]){
+      API.graphql({
+        query: deleteAlarm,
+        variables: { input: {
+          id: user.alarm_list.items[index].id,
+
+        }}
+
+      }).then(res=>{
+        console.log(res);
+      })
+      .catch(e=>console.log(e));
+    }
     setAlarmAnchorEl(null);
   };
+  
 
 
   const menuId = 'primary-search-account-menu';
@@ -110,12 +125,12 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-      style={{zIndex:1400000}}
+      style={{zIndex:140000}}
 
 
     >
-      <a href="/mypage"><MenuItem style={{fontSize:13}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
-      <MenuItem style={{fontSize:13}} onClick={handleMenuClose}>로그아웃</MenuItem>
+      <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
+      <MenuItem  onClick={handleLogout}><SignOutButton/></MenuItem>
     </Menu>
   );
 
@@ -134,13 +149,16 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
       }}
       open={isAlarmOpen}
       onClose={handleAlarmClose}
-      style={{zIndex:1400000}}
+      style={{zIndex:140000}}
     >
     
     {
-    alarm_data.map((item,index)=>
-      <a href=""><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
-    )
+    
+    user.alarm_list?
+      user.alarm_list.items.map((item,index)=>
+        <a href={item.link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>
+      )
+    :""
     }
     
 
@@ -149,16 +167,10 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
   );
 
 
-  const handle_rank_data=(rank_data)=>{
-      rank_1=rank_data[0].value;
-      console.log("rank_1: "+rank_1)
-
-  };
-
+ 
 
   return (
     <div >
-      {get_rank_tag(handle_rank_data)}
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
@@ -170,16 +182,16 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
-            <a href={window.location.href=="http://localhost:3000/search"?"#":"/search"}>
-              {console.log("rank_1: "+rank_1)}
+
+            <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
-              style={{ color: "black", fontSize: "14px",width: "80%",height:35}}
+              style={{ color: "black", fontSize: "14px",width: "70%",height:35}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
             />
             </a>
-            
+            <SelectBoard handle_select_board={handle_select_board}/>
             <SelectGender handle_select_gender={handle_select_gender}/>
             <SelectDay handle_select_day={handle_select_day}/>
           </Search>
@@ -187,8 +199,9 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
         
 
           <Box sx={{ flexGrow: 1 }} />
+          {user!="noUser"?
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
+          
             <IconButton
 
               style={{ color: "black", height:35 ,position:"relative",top:-10}}
@@ -198,18 +211,17 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
             >                
               <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
-                badgeContent={17} 
+                badgeContent={user.alarm_list?user.alarm_list.items.length:0} 
                 color="primary"
                 style={{position:"relative",top:-10}}
 
                 >
               </Badge>
             </IconButton>
-
+            
+           
             <IconButton
-
               style={{ color: "black",height:35 ,position:"relative",top:-10}}
-
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -217,14 +229,26 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <AccountCircle style={{fontSize:25}}/>
+              <span className="bar_user_name ellips" >{user.name}</span>
+              <span className="bar_user_name">님</span>
+              <img 
+									style={{backgroundImage:"url("+user.profile_img+")"
+                  ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
+                  position: "relative", marginRight:"5px"}}/>
 
-            </IconButton>
+            </IconButton>)
+            
           </Box>
- 
+          :
+          <Button
+            className="header_login"
+            style={{color:"black"}}
+            onClick={handle_login_click}
+          >로그인</Button>
+          }
         </Toolbar>
       </AppBar>
-      {alarm_data.length!=0?renderAlarm:""}
+      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
       {renderMenu}
     </div>
   )
@@ -232,3 +256,4 @@ export default function PrimarySearchAppBar({handle_inputbase_on_change,handle_s
 
 
 
+export default PrimarySearchAppBar;

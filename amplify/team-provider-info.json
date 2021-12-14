@@ -1,0 +1,31 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fromwear-dev-174201-authRole",
+      "UnauthRoleArn": "arn:aws:iam::013911552824:role/amplify-fromwear-dev-174201-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::013911552824:role/amplify-fromwear-dev-174201-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+      "UnauthRoleName": "amplify-fromwear-dev-174201-unauthRole",
+      "StackName": "amplify-fromwear-dev-174201",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:013911552824:stack/amplify-fromwear-dev-174201/be9a9bc0-4526-11ec-ba2d-0224d33b9f6a",
+      "AmplifyAppId": "d30b7gvovhfaij",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-fromwear-dev-174201-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "function": {
+        "fromwear9ee2f3c2PostConfirmation": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-414932594b6d4638554f-build.zip"
+        },
+        "S3Trigger6b6ec516": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-4f762b4775744463434c-build.zip"
+        }
+      },
+      "auth": {
+        "fromwear9ee2f3c2": {}
+      }
+    }
+  }
+}
