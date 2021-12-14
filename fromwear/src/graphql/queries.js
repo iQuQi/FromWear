@@ -295,6 +295,9 @@ export const listComments = /* GraphQL */ `
         content
         adopted
         like_user_list {
+          items{
+            id
+          }
           nextToken
         }
         post_id
