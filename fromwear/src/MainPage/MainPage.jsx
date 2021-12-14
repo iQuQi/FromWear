@@ -17,6 +17,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { API } from 'aws-amplify';
 import { listPosts } from '.././graphql/queries';
 
+import Footer from '../Footer/Footer.jsx';
+
 class MainPage extends Component {
 	constructor() {
 		super();
@@ -39,12 +41,12 @@ class MainPage extends Component {
 		.then( res => {
 			if(i==0) {
 				this.setState({ postlist_0: res.data.listPosts.items });
-				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_user_num-a.like_user_num})});
+				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})});
 			}
 			else if(i==1) this.setState({ postlist_1: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}) });
 			else if(i==2) {
-				this.setState({ postlist_2: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
-				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_user_num-a.like_user_num})});
+				this.setState({ postlist_2: res.data.listPosts.items.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length}) });
+				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})});
 			}
 		})
 		.catch( e => console.log(e));
@@ -74,8 +76,8 @@ class MainPage extends Component {
 							<ImageListItem key={item.img} className='weekly_image_list_item'ls
 							>
 								<img style={{borderRadius:16}}
-									src={`${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.id}
 									loading="lazy"
 								/>
@@ -85,10 +87,10 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
+									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
 									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 								</Stack>				
 							</ImageListItem>
@@ -105,8 +107,8 @@ class MainPage extends Component {
 						{best_post_1.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'>
 								<img style={{borderRadius:16 }}
-									src={`${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.id}
 									loading="lazy"
 								/>
@@ -116,10 +118,13 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									{
+										item.blind? <p style={{margin: '16px 0px'}}>익명</p>
+										: <p style={{margin: '16px 0px'}}>{item.user.name}</p>
+									}
 									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.urgent_user_num}</p>
+									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
 									<MoodBadIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 								</Stack>				
 							</ImageListItem>
@@ -135,8 +140,8 @@ class MainPage extends Component {
 						{best_post_2.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'>
 								<img style={{borderRadius:16 }}
-									src={`${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.user}
 									loading="lazy"
 								/>
@@ -146,10 +151,10 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
+									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
 									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 								</Stack>			
 							</ImageListItem>
@@ -157,7 +162,7 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 			</div>
-
+			<Footer/>
 		</div>
 	}
 
