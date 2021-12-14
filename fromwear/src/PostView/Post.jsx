@@ -20,17 +20,6 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 var AWS = require('aws-sdk'); 
 
 
-//나중에 상위 컴포넌트한테 prop로 받아야하는 것
-//let user_id = "현경 id"; //현재 유저
-
-// AWS.config.update(
-// 	{
-// 	  accessKeyId: "AKIAQGPJROM4FWISMQBG",
-// 	  secretAccessKey: "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",
-// 	}
-// );
-
-
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){

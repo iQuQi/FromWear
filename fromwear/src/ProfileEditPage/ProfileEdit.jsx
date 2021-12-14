@@ -13,9 +13,11 @@ import Storage from '@aws-amplify/storage';
 import { API } from 'aws-amplify';
 import { updateUser,createUserStyleTag,updateUserStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
+import zIndex from '@mui/material/styles/zIndex';
 
 let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
+let uuid_ = uuid();
 
 class ProfileEdit extends Component{
 
@@ -33,6 +35,7 @@ class ProfileEdit extends Component{
             gender: props.user.gender,
             create_tag: false,
             create_tag: false,
+            file_key: '',
 		}
 	}
     
@@ -60,11 +63,13 @@ class ProfileEdit extends Component{
         let reader = new FileReader();
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
-/*
+
+        this.setState({file_key: `${uuid_}.${filetype}`})
+        
         Storage.put(`${uuid_}.${filetype}`,file)
         .then(res=>console.log(res))
         .catch(e=> console.log('onChange error',e));
-*/
+
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -144,6 +149,7 @@ class ProfileEdit extends Component{
                     id: this.state.user.id,
                     introduce: this.state.content_introduce,
                     gender: this.state.gender,
+                    profile_img: this.state.file_key,
                 }}
             })
             .then(e => console.log(e))
@@ -217,7 +223,7 @@ class ProfileEdit extends Component{
           style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover"}}
           ></img>
         }
-        return <div className="profile_page_container">
+        return <div className="profile_page_container" style={{ zIndex: 10000}}>
             <div className="profile_edit_page">
             <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
                     fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.handleCloseButton.bind(this)}>
