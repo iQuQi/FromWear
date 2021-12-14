@@ -11,6 +11,8 @@ import MyPageButtonGroup from './MyPageButtonGroup';
 import MyPostBoard from './MyPostBoard';
 import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 
+import Footer from '../Footer/Footer.jsx';
+
 
 class MyPage extends Component {
     constructor(props) {
@@ -82,6 +84,7 @@ class MyPage extends Component {
 				
             </div>
 
+			<Footer/>
 			
         </div>
     }

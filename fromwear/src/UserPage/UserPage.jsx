@@ -9,6 +9,7 @@ import { getUser } from '../graphql/queries.js';
 import OtherUserProfile from './OtherUserProfile';
 import MyPostBoard from '../MyPage/MyPostBoard';
 
+import Footer from '../Footer/Footer.jsx';
 
 class UserPage extends Component {
     constructor(props) {
@@ -81,7 +82,7 @@ class UserPage extends Component {
 				
             </div>
 
-			
+			<Footer/>
         </div>
     }
 }
