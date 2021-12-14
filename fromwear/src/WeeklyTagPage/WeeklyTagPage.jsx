@@ -17,7 +17,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import {API} from 'aws-amplify';
 import {listPosts} from '../graphql/queries.js';
-import {listTagLists, listStyleTags} from '../graphql/queries';
+import {listStyleTags} from '../graphql/queries';
 
 class WeeklyTagPage extends Component {
 
@@ -39,35 +39,20 @@ class WeeklyTagPage extends Component {
 		
 		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 2}} }})
 		.then( res => {
-			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_user_num-a.like_user_num}) });
+			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length}) });
 		})
 		.catch( e => console.log(e));
 
-		API.graphql({ query: listTagLists})
-		.then( res => {
-			this.setState({ weekly_tag_id: res.data.listTagLists.items[0].week_tag_list });
-			this.setState({ weekly_tag_id: this.state.weekly_tag_id.slice(1)})
-			console.log(this.state.weekly_tag_id)	
-		})
+		API.graphql({ query: listStyleTags, variables: { filter: {is_weekly: {eq: true}}}})
 		.then( res => {
 			for (let i = 0; i < 3; i++) {
-				this.getWeeklyTag(i);	
+				this.setState({ weekly_tag: [...this.state.weekly_tag, res.data.listStyleTags.items[i].value] });	
 			}	
 		})
 		.catch( e => console.log(e));
 		
-		
-		
 	}
 
-	getWeeklyTag = (i) => {
-		API.graphql({ query: listStyleTags, variables: { filter: {id: {eq: this.state.weekly_tag_id[i]}} }})
-		.then( res => {
-			this.setState({ weekly_tag: [...this.state.weekly_tag, res.data.listStyleTags.items[0].value] });
-			console.log(this.state.weekly_tag)
-		})
-		.catch( e => console.log(e));
-	};
 	
 	
 	
@@ -75,6 +60,7 @@ class WeeklyTagPage extends Component {
 	
 
 	render(){
+		console.log(this.state.weekly_tag);
 		const posts = this.state.postlist_0;
 		const best_posts = posts.slice(0,4);
 		const ranking_posts = posts.slice(4);
@@ -111,7 +97,7 @@ class WeeklyTagPage extends Component {
 										
 										<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 										<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-										<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
+										<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
 										<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 									</Stack>				
 								</ImageListItem>)
@@ -143,7 +129,7 @@ class WeeklyTagPage extends Component {
 								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.like_user_num}</p>
+								<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
 								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 							</Stack>				
 						</ImageListItem>

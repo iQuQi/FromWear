@@ -31,11 +31,11 @@
         },
         "fromwear9ee2f3c2PostConfirmation": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-35573151592b544e484d-build.zip"
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-414932594b6d4638554f-build.zip"
         },
         "S3Trigger6b6ec516": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/S3Trigger6b6ec516-676b526237705a2f5372-build.zip"
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-4f762b4775744463434c-build.zip"
         }
       }
     }
