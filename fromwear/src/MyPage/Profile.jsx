@@ -243,8 +243,8 @@ export default class Profile extends Component {
                   </h1>
                 </Grid>
                 <Grid item xs={3} style={{  padding: '5px 5px 0px 5px'}}>
-                  <EditBtn variant='outlined'>
-                    <a href='/profileedit'>프로필 편집</a>
+                  <EditBtn variant='outlined' onClick={this.props.handle_profile_edit}>
+                    프로필 편집
                   </EditBtn>
                 </Grid>
                 <Grid item xs={12} style={{paddingTop:'0px', fontWeight:'border'}} > 
