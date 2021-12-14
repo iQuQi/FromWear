@@ -11,23 +11,13 @@ import Footer from '../Footer/Footer'
 import PostSearchResult from './PostSearchResult';
 import Header from '../Header/Header'
 import  Typography  from '@mui/material/Typography';
+import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 
 import { API } from 'aws-amplify';
 import { getPost, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
 import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag, createAlarm } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
 var AWS = require('aws-sdk'); 
-
-
-//나중에 상위 컴포넌트한테 prop로 받아야하는 것
-//let user_id = "현경 id"; //현재 유저
-
-// AWS.config.update(
-// 	{
-// 	  accessKeyId: "AKIAQGPJROM4FWISMQBG",
-// 	  secretAccessKey: "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",
-// 	}
-// );
 
 
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
@@ -522,16 +512,16 @@ class Post extends Component{
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                            <button className="modify_post" onClick={this.modifyPost}>
-                                                수정
+                                            <button className="remove_post" onClick={this.removePostIcons}>
+                                                삭제
                                             </button>
                                         :
                                         <div></div>
                                     }
                                     {
                                         now_user.id == now_writer.id ?
-                                            <button className="remove_post" onClick={this.removePostIcons}>
-                                                삭제
+                                            <button className="modify_post" onClick={this.modifyPost}>
+                                                수정
                                             </button>
                                         :
                                         <div></div>
@@ -576,6 +566,7 @@ class Post extends Component{
                             </div>
                         </div>
                     </div>
+                    <ProfileEdit user={now_user}/>
                     <div className="main_post_tag_div">
                         <div className="recommend_tag">
                                 태그 맞춤 추천
