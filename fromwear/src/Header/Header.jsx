@@ -163,10 +163,6 @@ class Header extends Component{
 				{login_popup?<Login 
 				handle_login_complete={this.handle_login_complete}/>:<br/>}
 				<MoveToTop/>
-<<<<<<< HEAD
-=======
-				
->>>>>>> my_page
 		</div>
 	}	
 }

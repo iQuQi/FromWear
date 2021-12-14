@@ -28,15 +28,14 @@ class Thumb extends Component{
     }
 
     set_comment_like = (list) => {
+        console.log("댓글 좋아요 누른 사람:",list)
         let comment_like = list.filter((data)=>{
-            if(data.user_id == this.state.now_user.id) return true;
-            else return false;
+            if(data.user_id == this.state.now_user.id){      
+                this.setState({
+                    is_checked: true,
+                })
+            };
         })
-        if(comment_like.length !== 0){
-            this.setState({
-                is_checked: true,
-            })
-        }
     }
 
     componentDidUpdate(prevProps) {
@@ -45,7 +44,7 @@ class Thumb extends Component{
               comment_list: this.props.comment_list,
               comment_like_num: this.props.comment_list.like_user_list.items.length
             })
-          this.set_comment_like(this.props.comment_list.like_user_list.items)
+            this.set_comment_like(this.props.comment_list.like_user_list.items)
         }
         if(this.props.now_user !== prevProps.now_user){
             this.setState({now_user: this.props.now_user})

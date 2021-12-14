@@ -36,7 +36,6 @@ class Comments extends Component {
     }
 
     componentWillMount(){
-
         API.graphql({
             query: listComments, variables: {filter:
                 {
