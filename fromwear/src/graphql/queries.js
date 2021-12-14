@@ -391,10 +391,17 @@ export const getPost = /* GraphQL */ `
         nextToken
       }
       tag_list {
-        items {
+        items{
           id
           tag_id
           post_id
+          style_tag{
+            id
+            value
+          }
+          post{
+            id
+          }
           createdAt
           updatedAt
         }

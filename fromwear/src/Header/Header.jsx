@@ -163,7 +163,6 @@ class Header extends Component{
 				{login_popup?<Login 
 				handle_login_complete={this.handle_login_complete}/>:<br/>}
 				<MoveToTop/>
-				<a href="/profileedit">프로필 편집 화면으로 이동</a>
 		</div>
 	}	
 }
