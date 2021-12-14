@@ -90,9 +90,9 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
                             <Stack style={{textAlign:'center'}}>
                                 <a href={'/userpage/'+item.following.id}> 
                                     <span className='dimmed_layer'>	
-                                        <img style={{height:'80px', margin:'auto'}}
-                                            src={`${item.following.profile_img}?w=248&fit=crop&auto=format`}
-                                            srcSet={`${item.following.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                        <img className='img_radius' style={{height:'80px', margin:'auto'}}
+                                            src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}?w=248&fit=crop&auto=format`}
+                                            srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                             alt={item.following.name}
                                             loading="lazy"
                                         />
@@ -110,9 +110,9 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
                             <Stack style={{textAlign:'center'}}>
                                 <a href={'/userpage/'+item.follower.id}> 
                                     <span className='dimmed_layer'>	
-                                        <img style={{height:'80px', margin:'auto'}}
-                                            src={`${item.follower.profile_img}?w=248&fit=crop&auto=format`}
-                                            srcSet={`${item.follower.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                        <img className='img_radius' style={{height:'80px', margin:'auto'}}
+                                            src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}?w=248&fit=crop&auto=format`}
+                                            srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                             alt={item.follower.name}
                                             loading="lazy"
                                         />

@@ -16,7 +16,7 @@ import { white } from 'jest-matcher-utils/node_modules/chalk';
 import Slider from 'react-slick';
 import { API } from 'aws-amplify';
 import { listUsers } from '../graphql/queries.js';
-import { createFollowingFollower } from '../graphql/mutations.js'
+import { createFollowingFollower, deleteFollowingFollower } from '../graphql/mutations.js'
 
 import ShowFollowers from '../MyPage/ShowFollowers.jsx';
 
@@ -81,14 +81,84 @@ export default class Profile extends Component {
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
+      console.log("업데이트1");
       this.setState({
         user: this.props.user,
-       })
+      })
+      this.state.user = this.props.user
+
+      if(this.state.user.follower_list){
+        console.log("업데이트2");
+        console.log(this.state.follow_click);
+        console.log(this.state.now_user);
+        console.log(this.state.user);
+        this.state.user.follower_list.items.map((data) => {
+          if(data.follower_id==this.state.now_user.id){
+            this.setState({
+              follow_click: true,
+            })
+          }
+        })
+      }
     }
+    /*if(this.state.user != this.props.user && this.state.user.follower_list){
+      this.state.user.follower_list.items.map((data) => {
+        if(data.follower_id==this.state.now_user.id){
+          this.setState({
+            follow_click: true,
+          })
+        }
+      })
+    }*/
+      
+    
+    if(this.props.now_user !== prevProps.now_user){
+      this.setState({
+        now_user: this.props.now_user
+      })
+      if(this.state.now_user.following_list){
+        this.state.now_user.following_list.items.map((data) => {
+          if(data.following_id==this.state.user.id){
+            this.setState({
+              follow_click: true,
+            })
+          }
+        })
+      }
+    }
+     
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.dialog_get_follow();
+    console.log("DIDMOUNT");
+    console.log(this.state.user);
+    if(this.state.user!=undefined)  {
+      this.find_from_follower_list();
+    }   
+  }
+
+  find_from_follower_list = () => {
+    let {user, now_user} = this.state;
+    if(now_user.following_list){
+      now_user.following_list.items.map((data) => {
+        if(data.following_id==user.id){
+          this.setState({
+            follow_click: true,
+          })
+        }
+      })
+    }
+    /*if(user.follower_list){
+      user.follower_list.items.map((data) => {
+        if(data.follower_id==now_user.id){
+          this.setState({
+            follow_click: true,
+          })
+        }
+      })
+    }*/
+    
   }
 
   find_same_tag_user = () => {
@@ -195,23 +265,48 @@ export default class Profile extends Component {
   }
 
   handle_follow = () => {
-    if(this.state.follow_click==true){
+    if(this.state.follow_click==false){
       API.graphql({
         query: createFollowingFollower,
         variables:{ input: { id:this.state.now_user.id+this.state.user.id, follower_id:this.state.now_user.id, following_id:this.state.user.id } }
       })
       .then(res => {
         console.log("추가해보자");
-        console.log(res);
+        this.setState({
+          follow_click: !this.state.follow_click
+        })
+      })
+      .then(res => {
+        window.location.reload();
+      })
+      .catch(e => console.log(e))
+      
+    }
+    if(this.state.follow_click==true){
+      API.graphql({
+        query: deleteFollowingFollower,
+        variables:{ input: { id:this.state.now_user.id+this.state.user.id } }
+      })
+      .then(res => {
+        console.log("삭제해보자");
+        this.setState({
+          follow_click: !this.state.follow_click
+        })
+      })
+      .then(res => {
+        window.location.reload();
       })
       .catch(e => console.log(e))
     }
-    this.setState({
-      follow_click: !this.state.follow_click
-    })
+    
+    
   }
 
   render(){
+    console.log(this.state.follow_click);
+    console.log(this.state.now_user);
+    console.log(this.state.user);
+
     if(this.state.user.following_list || this.state.user.follower_list){
       console.log(this.state.user.follower_list.items.length);
     }
@@ -248,9 +343,9 @@ export default class Profile extends Component {
         <Paper sx={{ p: 2, margin: 'auto', maxWidth: 880, flexGrow: 1, boxShadow: '0px 0px 0px 0px' }}>
           <Grid container spacing={2}>
             <Grid item>
-              <img style={{height:'300px', width:'300px'}}
+              <img className='img_radius' style={{height:'300px', width:'300px'}}
                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format`}
-                srcSet={`${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={user.name}
                 loading="lazy"
               />
@@ -367,9 +462,9 @@ export default class Profile extends Component {
             
                       <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img style={{height:'80px', margin:'auto'}}
-                              src={`${item.profile_img}?w=248&fit=crop&auto=format`}
-                              srcSet={`${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          <img className='img_radius' style={{height:'80px', margin:'auto'}}
+                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
+                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                               alt={item.name}
                               loading="lazy"
                           />

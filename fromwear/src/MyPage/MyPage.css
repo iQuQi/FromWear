@@ -14,5 +14,7 @@
     text-align: left;
     white-space: pre-wrap;
 }
-
+.img_radius{
+    border-radius: 50%;
+}
 
