@@ -244,7 +244,7 @@ export default class Profile extends Component {
                 </Grid>
                 <Grid item xs={3} style={{  padding: '5px 5px 0px 5px'}}>
                   <EditBtn variant='outlined'>
-                    팔로우하기
+                    <a href='/profileedit'>프로필 편집</a>
                   </EditBtn>
                 </Grid>
                 <Grid item xs={12} style={{paddingTop:'0px', fontWeight:'border'}} > 
