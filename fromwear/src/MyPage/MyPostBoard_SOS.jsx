@@ -19,7 +19,7 @@ import Grid from '@mui/material/Grid';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
-
+import MoodBadIcon from '@mui/icons-material/MoodBad';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -170,7 +170,7 @@ export default class TodayPostBoardPosts extends Component {
 
             <form className="my_sort_font my_select_sort">
                 <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
-                <label htmlFor="sort_like">좋아요순</label>
+                <label htmlFor="sort_like">급해요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
@@ -201,7 +201,7 @@ export default class TodayPostBoardPosts extends Component {
                                         <Box style={{width: '40px'}}>
                                             <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
                                                 <Grid item xs={4}>
-                                                    <Item><FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                    <Item><MoodBadIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <Item>{post.like_urgent_user_list.items.length}</Item>
