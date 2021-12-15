@@ -153,6 +153,14 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      alarm_list{
+        items{
+          content
+          id
+          user_id
+          link
+        }
+      }
       award_today
       award_week
       createdAt
