@@ -42,7 +42,7 @@ class MainPage extends Component {
 				this.setState({ postlist_0: res.data.listPosts.items });
 				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})});
 			}
-			else if(i==1) this.setState({ postlist_1: res.data.listPosts.items.sort(function(a,b){return b.urgent_user_num-a.urgent_user_num}) });
+			else if(i==1) this.setState({ postlist_1: res.data.listPosts.items.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length}) });
 			else if(i==2) {
 				this.setState({ postlist_2: res.data.listPosts.items.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length}) });
 				this.setState({ postlist_0: [...this.state.postlist_0, ...this.state.postlist_2].sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})});
