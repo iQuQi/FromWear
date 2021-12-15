@@ -85,26 +85,40 @@ export default class TodayPostBoardPosts extends Component {
                     let posts = res.data.listPosts.items.filter((post)=>{
                         //날짜 필터링
 
-                        let today = new Date();
+                        let basis = new Date();
                         if(this.state.filter_day==10){//오늘
-                            today.setDate(today.getDate());
-                            if(new Date(post.createdAt)<today) return false;
+                            var base_y = basis.getFullYear();
+                            var base_m = basis.getMonth()+1;
+                            var base_d = basis.getDate();
+                            var today_y = new Date(post.createdAt).getFullYear();
+                            var today_m = new Date(post.createdAt).getMonth()+1;
+                            var today_d = new Date(post.createdAt).getDate();
+                            console.log("today",post.id,base_y,base_m,base_d,today_y,today_m,today_d);
+
+                            if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
+                                return false;
+                            }
                         }
                         else if(this.state.filter_day==20){//일주일
-                            today.setDate(today.getDate() - 7);
-                            if(new Date(post.createdAt)<today) return false;
+                            basis.setDate(basis.getDate() - 7);
+                            if(new Date(post.createdAt)<basis) return false;
                         }
-                        else if(this.state.filter_day==30){//한달
-                            today.setMonth(today.getMonth() - 1);
-                            if(new Date(post.createdAt)<today) return false;
+                        else if(this.state.ilter_day==30){//한달
+                            console.log("created:"+ new Date(post.createdAt));
+
+                            basis.setMonth(basis.getMonth() - 1);
+                            console.log("basis: " +basis);
+                            console.log(new Date(post.createdAt)<basis);
+
+                            if(new Date(post.createdAt)<basis) return false;
                         }
                         else if(this.state.filter_day==40){//6개월
-                            today.setMonth(today.getMonth() - 6);
-                            if(new Date(post.createdAt)<today) return false;
+                            basis.setMonth(basis.getMonth() - 6);
+                            if(new Date(post.createdAt)<basis) return false;
                         }
                         else if(this.state.filter_day==50){//1년
-                            today.setFullYear(today.getFullYear() - 1);
-                            if(new Date(post.createdAt)<today) return false;
+                            basis.setFullYear(basis.getFullYear() - 1);
+                            if(new Date(post.createdAt)<basis) return false;
                         }
 
                         if(this.state.filter_gender!=""&&this.state.filter_gender!=post.user.gender) return false;
@@ -201,7 +215,7 @@ export default class TodayPostBoardPosts extends Component {
                 else if(sortVal == 3) {
                     this.setState({
                         post_state: sortVal,
-                        post_list : posts.sort(function(a,b){return b.comment_list.item.length-a.comment_list.item.length}) 
+                        post_list : posts.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length}) 
                     })
                 }
                 else {
