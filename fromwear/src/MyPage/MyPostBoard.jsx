@@ -94,7 +94,6 @@ export default class TodayPostBoardPosts extends Component {
     
     componentDidMount(){
         this.get_posts(); 
-        this.handleSortLatest();
     }
 
     get_posts = () => {
