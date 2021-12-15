@@ -94,7 +94,8 @@ class WeeklyTagPage extends Component {
 									</a>
 									
 									<Stack direction="row" spacing={0} justifyContent="space-between" style={{width:'250px'}}>
-										<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+										{console.log(item.user)}
+										<img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.user.profile_img}`} style={{margin: '7px 3px', width:'20px', height:'20px', borderRadius:"50%"}}/>
 										
 										<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 										<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
@@ -127,7 +128,8 @@ class WeeklyTagPage extends Component {
 							</a>
 
 							<Stack direction="row" spacing={0} justifyContent="space-between">
-								<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+								<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img}
+								 style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
 								<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>

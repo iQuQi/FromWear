@@ -130,11 +130,12 @@ class PostWritePage extends Component {
             // 글 추가
             let new_post_id = '';
             if(this.state.board_type == 0) {
+                let current_board_type = (tag_clicked_list[36] == 1 ? 2 : 0);
                 API.graphql({
                     query: createPost, variables: {
                         input: 
                         {
-                            board_type: 0,
+                            board_type: current_board_type,
                             click_num: "0",
                             content: this.state.contents,
                             img: this.state.file_key,
