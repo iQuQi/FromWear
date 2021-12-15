@@ -130,11 +130,12 @@ class PostWritePage extends Component {
             // 글 추가
             let new_post_id = '';
             if(this.state.board_type == 0) {
+                let current_board_type = (tag_clicked_list[36] == 1 ? 2 : 0);
                 API.graphql({
                     query: createPost, variables: {
                         input: 
                         {
-                            board_type: 0,
+                            board_type: current_board_type,
                             click_num: "0",
                             content: this.state.contents,
                             img: this.state.file_key,
@@ -153,12 +154,12 @@ class PostWritePage extends Component {
                                         } 
                                 }})
                                 .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
+                                // .then(res => this.setState({create_tag: true}))
                                 .catch(e => console.log(e));
                             }
                         })
                     })
-                    .then(res => this.setState({create_post: true}))
+                    // .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
             }
             else {
@@ -186,7 +187,7 @@ class PostWritePage extends Component {
                                         } 
                                 }})
                                 .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
+                                // .then(res => this.setState({create_tag: true}))
                                 // .then(res => {
                                 //     API.graphql({
                                 //         query: UpdateStyleTag, variables:{
@@ -199,7 +200,7 @@ class PostWritePage extends Component {
                             }
                         })
                     })
-                    .then(res => this.setState({create_post: true}))
+                    // .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
             }
         }
