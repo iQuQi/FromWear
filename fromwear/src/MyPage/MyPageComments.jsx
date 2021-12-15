@@ -36,7 +36,7 @@ export default class MyPageComments extends Component{
                 <a href={`../post/${item.post.id}`}>
                     <Avatar variant="square"
                         style={{width:'100px', height:'120px'}}
-                        alt="Remy Sharp" src={item.post.img} />
+                        alt="Remy Sharp" src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.post.img} />
                 </a>
               
             </ListItemAvatar>
