@@ -412,6 +412,10 @@ class Post extends Component{
         }
         
     }
+    
+    moveToWriterPage = () => {
+        window.location.href = "/userpage/" + this.state.now_writer.id
+    }
 
     getTagList =() => {
         let {same1, same2, same3, now_post,} = this.state;
@@ -496,7 +500,7 @@ class Post extends Component{
                                         now_post.blind?
                                         <img className="post_writer_img" src={profile_skyblue} />
                                         :
-                                        <img className="post_writer_img" src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
+                                        <img className="post_writer_img move_to_userpage" onClick={this.moveToWriterPage} src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
                                         //나중에 backgroundImg로 URL넘겨줄거면 div로 변경
                                         //마찬가지로 바꿀 때 SingleComment의 53번째 line도 div로 변경
                                         //div로 하면 src가 적용이 안됨 style에서 넘겨줘야할듯
@@ -507,7 +511,7 @@ class Post extends Component{
                                         now_post.blind?
                                         <div className="writer_name">익명</div>
                                         :
-                                        <div className="writer_name">{now_writer.name}</div>
+                                        <div className="writer_name move_to_userpage" onClick={this.moveToWriterPage}>{now_writer.name}</div>
                                     }
                                     {
                                         now_user.id == now_writer.id ?

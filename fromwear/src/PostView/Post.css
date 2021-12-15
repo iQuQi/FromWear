@@ -177,3 +177,8 @@
 .post_page_tag_empty {
     min-height: 301px;
 }
+
+.move_to_userpage {
+    cursor: pointer;
+
+}
