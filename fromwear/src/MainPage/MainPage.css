@@ -59,3 +59,10 @@
 	font-weight: 600;
 	cursor: pointer;
 }
+.innerdiv{
+    display: flex;
+}
+.innerdiv_margin{
+    display: flex;
+    margin-left: auto;
+}
