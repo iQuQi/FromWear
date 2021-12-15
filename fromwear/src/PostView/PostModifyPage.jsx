@@ -249,6 +249,7 @@ class PostModifyPage extends Component {
                         })
                     })
                     .then(res => this.setState({create_post: true}))
+                    .then(window.location.reload())
                     .catch(e => console.log(e));
             }
         }
