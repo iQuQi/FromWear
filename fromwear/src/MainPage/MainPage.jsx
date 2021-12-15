@@ -88,12 +88,23 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-									style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+									<div>
+										<div className='innerdiv'>
+											<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+											style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
+											<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+										</div>
+									</div>
+									<div>
+										<div className='innerdiv_margin'>
+											<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
+											<FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+										</div>
+									</div>
+									
+									
+									
+									
 								</Stack>				
 							</ImageListItem>
 						))}
@@ -120,21 +131,29 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									{
-										item.blind? <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+'profile_skyblue.jpg'} 
-										style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-										: 
-										<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-										style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-									}
+									<div>
+										<div className='innerdiv'>
+											{
+												item.blind? <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+'profile_skyblue.jpg'} 
+												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+												: 
+												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+											}
+											
+											{
+												item.blind? <p style={{margin: '16px 0px'}}>익명</p>
+												: <p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											}
+										</div>
+									</div>	
+									<div>
+										<div className='innerdiv_margin'>
+											<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
+											<MoodBadIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+										</div>
+									</div>
 									
-									{
-										item.blind? <p style={{margin: '16px 0px'}}>익명</p>
-										: <p style={{margin: '16px 0px'}}>{item.user.name}</p>
-									}
-									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-									<MoodBadIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 								</Stack>				
 							</ImageListItem>
 						))}
@@ -160,12 +179,20 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-									style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-									<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+									<div>
+										<div className='innerdiv'>
+											<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+											style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+											<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+										</div>
+									</div>
+									<div>
+										<div className='innerdiv_margin'>
+											<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
+											<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+										</div>
+									</div>
+									
 								</Stack>			
 							</ImageListItem>
 						))}
