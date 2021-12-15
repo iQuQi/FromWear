@@ -99,8 +99,7 @@ export default class MyPageButtonGroup extends Component{
                 <EditBtn onClick={()=>this.set_btn(4)}>북마크</EditBtn>
               </EditBtnGroup>
             </Box>
-            {btn_clicked==0? <MyPostBoard user={now_user} board={20}/> : 
-                btn_clicked==1? <MyPostBoard user={now_user} board={20}/> : 
+            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20}/> : 
                 btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1}/> :
                 btn_clicked==3? <MyPageComments user={now_user}/> :
                 btn_clicked==4? <MyPageBookmark user={now_user}/> :
