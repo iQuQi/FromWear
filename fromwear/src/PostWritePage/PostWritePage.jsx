@@ -154,12 +154,12 @@ class PostWritePage extends Component {
                                         } 
                                 }})
                                 .then(res => console.log(res))
-                                // .then(res => this.setState({create_tag: true}))
+                                .then(res => this.setState({create_tag: true}))
                                 .catch(e => console.log(e));
                             }
                         })
                     })
-                    // .then(res => this.setState({create_post: true}))
+                    .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
             }
             else {
@@ -187,7 +187,7 @@ class PostWritePage extends Component {
                                         } 
                                 }})
                                 .then(res => console.log(res))
-                                // .then(res => this.setState({create_tag: true}))
+                                .then(res => this.setState({create_tag: true}))
                                 // .then(res => {
                                 //     API.graphql({
                                 //         query: UpdateStyleTag, variables:{
@@ -200,7 +200,7 @@ class PostWritePage extends Component {
                             }
                         })
                     })
-                    // .then(res => this.setState({create_post: true}))
+                    .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
             }
         }
