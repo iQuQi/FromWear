@@ -430,7 +430,7 @@ export default class Profile extends Component {
               {
                 user.my_tag_list?
                   user.my_tag_list.items.length!=0?
-                  <p>#{user.my_tag_list.items[2].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[0].style_tag.value}</p>
+                  <p>#{user.my_tag_list.items[0].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[2].style_tag.value}</p>
                   :<p></p>    
                   :<p></p>    
               }

@@ -35,7 +35,7 @@ class ProfileEdit extends Component{
             gender: props.user.gender,
             create_tag: false,
             create_tag: false,
-            file_key: '',
+            file_key: 'profile_skyblue.jpg',
 		}
 	}
     

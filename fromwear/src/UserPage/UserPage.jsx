@@ -61,7 +61,9 @@ class UserPage extends Component {
 		console.log(this.state.now_user);
 		let {now_user, user} = this.state;
 
-		
+		if(Object.keys(now_user).length>0&&Object.keys(user).length>0&&now_user.id==user.id){
+			window.location.href = "/mypage";
+		}
         return <div id = 'my_page'>
 			<Header handle_user_info={this.handle_user_info}/>
 			
