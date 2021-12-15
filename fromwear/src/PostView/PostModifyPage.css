@@ -166,10 +166,10 @@
     text-align: center; /*이게 center가 안먹힘..*/
     box-sizing: border-box;
   }
-
+/* 
   .postwrite_tag_list {
     margin-top: 100px;
-  }
+  } */
 
   .submit_button {
     position: fixed;
