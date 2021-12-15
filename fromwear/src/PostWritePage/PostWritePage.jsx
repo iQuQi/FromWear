@@ -14,7 +14,7 @@ import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import {post_tag_data} from "./PostTagData"
 import { API } from 'aws-amplify';
-import { createPost, createPostStyleTag } from '../graphql/mutations';
+import { createPost, createPostStyleTag, UpdateStyleTag } from '../graphql/mutations';
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //37개 태그
 let uuid_ = uuid();
@@ -187,7 +187,15 @@ class PostWritePage extends Component {
                                 }})
                                 .then(res => console.log(res))
                                 .then(res => this.setState({create_tag: true}))
-                                .catch(e => console.log(e));
+                                // .then(res => {
+                                //     API.graphql({
+                                //         query: UpdateStyleTag, variables:{
+                                //             input: {
+
+                                //             }
+                                //         }
+                                //     })
+                                // })
                             }
                         })
                     })
