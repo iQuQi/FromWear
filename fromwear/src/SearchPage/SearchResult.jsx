@@ -11,7 +11,7 @@ let SearchResult = ({post_data,current_next_post_page})=>
 					{post_data.map((item,index) => 
 						 index<(current_next_post_page*25)?
 						 <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
-							 {new_link = item.img[0]=='h'&&item.img[1]=='t'?item.img:'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.img}
+							 {new_link = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.img}
                                 <img className="img_item" 
 								src={new_link}
 								srcSet={`${new_link}?w=248&fit=crop&auto=format&dpr=2 2x`}

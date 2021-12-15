@@ -1,7 +1,6 @@
 import {Component} from 'react';
 import './MainPage.css';
 import BANNER from './img/Main_banner.png'
-import PROFILE from './img/profile.png'
 
 import Header from '../Header/Header'
 
@@ -53,6 +52,7 @@ class MainPage extends Component {
 	}
 
 
+
 	render(){
 
 		const best_post_0 = this.state.postlist_0.slice(0,5);
@@ -61,7 +61,8 @@ class MainPage extends Component {
 		
 
 		return <div id = 'main_page'>
-			<Header/>
+			<Header
+			/>
 			<div className = 'banner'>
 				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
 			</div>
@@ -87,7 +88,8 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+									style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
 									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
@@ -118,7 +120,8 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+									style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 									{
 										item.blind? <p style={{margin: '16px 0px'}}>익명</p>
 										: <p style={{margin: '16px 0px'}}>{item.user.name}</p>
@@ -151,7 +154,8 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
-									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+									<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+									style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 									<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 									<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
 									<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>

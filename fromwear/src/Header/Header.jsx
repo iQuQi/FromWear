@@ -47,7 +47,7 @@ class Header extends Component{
 				   name: auth_user.username,
 				   email:auth_user.attributes.email,
 				   phone:auth_user.attributes.phone_number,
-				   profile_img: profile_skyblue,
+				   profile_img: "profile_skyblue.jpg",
 				   introduce: "자기소개를 입력해주세요",
 				   gender: "",
 				   adopted: 0,

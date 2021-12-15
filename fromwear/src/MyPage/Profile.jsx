@@ -344,7 +344,7 @@ export default class Profile extends Component {
             
                       <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img className='img_radius' style={{height:'80px', margin:'auto'}}
+                          <img className='img_radius' style={{borderRadius: "50%",height:'80px', margin:'auto',width:"80px"}}
                               src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
                               srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                               alt={item.name}
