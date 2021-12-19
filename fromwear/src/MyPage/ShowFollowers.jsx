@@ -77,7 +77,8 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
                     </div>      
                 : 
                     <div>
-                        <p>팔로워</p>
+                        팔로워
+                        <RecoBtn onClick={handleClose} style={{fontSize:'1em', position: 'absolute', right:'15px', marginTop:'5px'}}>✕</RecoBtn>
                     </div>
                 }
                 
