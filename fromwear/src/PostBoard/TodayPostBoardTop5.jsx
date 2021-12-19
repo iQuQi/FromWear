@@ -176,7 +176,7 @@ export default class TodayPostBoardTop5 extends Component {
                                                         ? <div>
                                                             <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
                                                                     style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
-                                                            <p className="profileName">익명</p>     
+                                                            <p  className="profileName postEllips" style={{textAlign:"left"}}>익명</p>     
                                                           </div>
                                                         :  <div>
                                                           <img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`} alt="프로필이미지" className="profileImg"
@@ -231,13 +231,13 @@ export default class TodayPostBoardTop5 extends Component {
                                                         ? <div>
                                                             <img src={defaultImg} alt="기본프로필이미지" className="profileImg"
                                                                     style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
-                                                            <p className="profileName">익명</p>     
+                                                            <p  className="profileName postEllips" style={{textAlign:"left"}}>익명</p>     
                                                           </div>
-                                                        :  <div>
-                                                          <img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`} alt="프로필이미지" className="profileImg"
-                                                                  style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
-                                                          <p className="profileName postEllips"  style={{textAlign:"left"}}>{post.user.name}</p>     
-                                                        </div>
+                                                        : <div>
+                                                            <img src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`} alt="프로필이미지" className="profileImg"
+                                                                    style={{width:"30px",height:"30px",borderRadius:"50%"}}/>
+                                                            <p className="profileName postEllips" style={{textAlign:"left"}}>{post.user.name}</p>     
+                                                          </div>
                                                         }
                                                      </div>   
                                                     <Box style={{width: '40px'}} className="box">
