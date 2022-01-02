@@ -51,6 +51,9 @@ class Select_button extends Component{
         if (this.props.writer_user !== prevProps.writer_user) {
           this.setState({writer_user: this.props.writer_user})
         }
+        if(this.props.now_user !== prevProps.now_user){
+            this.setState({now_user: this.props.now_user})
+        }
     }
 
 
@@ -69,6 +72,10 @@ class Select_button extends Component{
         })
     }
     
+    moveToWriterPage = () => {
+        window.location.href = "/userpage/" + this.state.writer_user.id
+    }
+    
 
     render() {
         let {select_button_is_checked, now_user, comment_list, post_writer, post_board, writer_user} = this.state;
@@ -79,15 +86,15 @@ class Select_button extends Component{
                 {
                     select_button_is_checked ?
                     <div className="selected_star_img">
-                        <img src={writer_user.profile_img} className="writer_img selected_img" /> 
+                        <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img selected_img move_to_userpage" onClick={this.moveToWriterPage} /> 
                     </div>
-                    :<img src={writer_user.profile_img} className="writer_img" /> 
+                    :<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img move_to_userpage" onClick={this.moveToWriterPage} /> 
                 
                 }
                 {
                     select_button_is_checked ?
-                    <div className="comment_user_name selected_name">{writer_user.name}</div>
-                    :<div className="comment_user_name ">{writer_user.name}</div>
+                    <div className="comment_user_name selected_name move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
+                    :<div className="comment_user_name  move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
                 }
                 <Thumb 
                         comment_list={comment_list}

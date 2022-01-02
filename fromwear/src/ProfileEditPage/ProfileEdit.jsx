@@ -35,7 +35,7 @@ class ProfileEdit extends Component{
             gender: props.user.gender,
             create_tag: false,
             create_tag: false,
-            file_key: '',
+            file_key: 'profile_skyblue.jpg',
 		}
 	}
     
@@ -183,6 +183,9 @@ class ProfileEdit extends Component{
                         }
                     })
                 })
+            })
+            .then(res=>{
+                window.location.reload();
             })
 
                 // tag_clicked_list.forEach((tag, index) => {

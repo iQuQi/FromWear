@@ -65,3 +65,10 @@
     font-weight: 600;
     font-size: 0.8em;
 }
+.innerdiv{
+    display: flex;
+}
+.innerdiv_margin{
+    display: flex;
+    margin-left: auto;
+}

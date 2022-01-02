@@ -228,9 +228,9 @@ export default class Profile extends Component {
         <Paper sx={{ p: 2, margin: 'auto', maxWidth: 880, flexGrow: 1, boxShadow: '0px 0px 0px 0px' }}>
           <Grid container spacing={2}>
             <Grid item>
-              <img style={{height:'300px', width:'300px'}}
-                src={`${user.profile_img}?w=248&fit=crop&auto=format`}
-                srcSet={`${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              <img className='img_radius' style={{height:'300px', width:'300px'}}
+                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format`}
+                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={user.name}
                 loading="lazy"
               />
@@ -312,7 +312,7 @@ export default class Profile extends Component {
               {
                 user.my_tag_list?
                   user.my_tag_list.items.length!=0?
-                  <p>#{user.my_tag_list.items[2].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[0].style_tag.value}</p>
+                  <p>#{user.my_tag_list.items[0].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[2].style_tag.value}</p>
                   :<p></p>    
                   :<p></p>    
               }
@@ -342,11 +342,11 @@ export default class Profile extends Component {
                   {tag_same_user_list.map((item) => (
                     <div>
             
-                      <a href={'/mypage/'+item.id}> 
+                      <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img style={{height:'80px', margin:'auto'}}
-                              src={`${item.profile_img}?w=248&fit=crop&auto=format`}
-                              srcSet={`${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
+                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
+                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                               alt={item.name}
                               loading="lazy"
                           />

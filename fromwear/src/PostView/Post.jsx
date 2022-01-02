@@ -88,7 +88,6 @@ class Post extends Component{
         });*/
     }
 
-
 	handle_user_info = (user) => {
         //console.log(user)
         if(this.state.now_user == 'noUser'){
@@ -413,6 +412,10 @@ class Post extends Component{
         }
         
     }
+    
+    moveToWriterPage = () => {
+        window.location.href = "/userpage/" + this.state.now_writer.id
+    }
 
     getTagList =() => {
         let {same1, same2, same3, now_post,} = this.state;
@@ -426,6 +429,7 @@ class Post extends Component{
 
                 //태그 필터링
                 let same = 0;
+                
                 post.tag_list.items.map((post_tag)=>{
                     now_post.tag_list.items.map(now_tag=>{
                         if(post_tag.tag_id == now_tag.tag_id) same++;
@@ -473,7 +477,6 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-        //console.log("now_post 태그@@@@@@", now_post.tag_list)
         return (
             <div className="post_page">
                 {
@@ -497,18 +500,13 @@ class Post extends Component{
                                         now_post.blind?
                                         <img className="post_writer_img" src={profile_skyblue} />
                                         :
-                                        <img className="post_writer_img" src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
-                                        //나중에 backgroundImg로 URL넘겨줄거면 div로 변경
-                                        //마찬가지로 바꿀 때 SingleComment의 53번째 line도 div로 변경
-                                        //div로 하면 src가 적용이 안됨 style에서 넘겨줘야할듯
-                                        //<img className="post_writer_img" src={now_writer.profile_img}/> //style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}
-                                        //style={{backgroundImage: 'URL('+now_post.img+')'}}
+                                        <img className="post_writer_img move_to_userpage" onClick={this.moveToWriterPage} src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
                                     }
                                     {
                                         now_post.blind?
                                         <div className="writer_name">익명</div>
                                         :
-                                        <div className="writer_name">{now_writer.name}</div>
+                                        <div className="writer_name move_to_userpage" onClick={this.moveToWriterPage}>{now_writer.name}</div>
                                     }
                                     {
                                         now_user.id == now_writer.id ?

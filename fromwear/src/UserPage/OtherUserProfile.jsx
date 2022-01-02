@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import Button from '@mui/material/Button';
 
-import CustomizedDialogs from './ShowFollowers.jsx';
+import CustomizedDialogs from '../MyPage/ShowFollowers.jsx';
 
 import { grey } from '@mui/material/colors';
 import { white } from 'jest-matcher-utils/node_modules/chalk';
@@ -16,8 +16,9 @@ import { white } from 'jest-matcher-utils/node_modules/chalk';
 import Slider from 'react-slick';
 import { API } from 'aws-amplify';
 import { listUsers } from '../graphql/queries.js';
+import { createFollowingFollower, deleteFollowingFollower } from '../graphql/mutations.js'
 
-import ShowFollowers from './ShowFollowers.jsx';
+import ShowFollowers from '../MyPage/ShowFollowers.jsx';
 
 const btn = grey[500];
 
@@ -68,24 +69,96 @@ export default class Profile extends Component {
     super();
 
     this.state = {
+      now_user: props.now_user,
       user: props.user,
       tag_user_is_checked: false,
       tag_same_user_list: [],
       following_is_checked: false,
       follower_is_checked: false,
+      follow_click: false,
     }
   }
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
+      console.log("업데이트1");
       this.setState({
         user: this.props.user,
-       })
+      })
+      this.state.user = this.props.user
+
+      if(this.state.user.follower_list){
+        console.log("업데이트2");
+        console.log(this.state.follow_click);
+        console.log(this.state.now_user);
+        console.log(this.state.user);
+        this.state.user.follower_list.items.map((data) => {
+          if(data.follower_id==this.state.now_user.id){
+            this.setState({
+              follow_click: true,
+            })
+          }
+        })
+      }
     }
+    /*if(this.state.user != this.props.user && this.state.user.follower_list){
+      this.state.user.follower_list.items.map((data) => {
+        if(data.follower_id==this.state.now_user.id){
+          this.setState({
+            follow_click: true,
+          })
+        }
+      })
+    }*/
+      
+    
+    if(this.props.now_user !== prevProps.now_user){
+      this.setState({
+        now_user: this.props.now_user
+      })
+      if(this.state.now_user.following_list){
+        this.state.now_user.following_list.items.map((data) => {
+          if(data.following_id==this.state.user.id){
+            this.setState({
+              follow_click: true,
+            })
+          }
+        })
+      }
+    }
+     
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.dialog_get_follow();
+    console.log("DIDMOUNT");
+    console.log(this.state.user);
+    if(this.state.user!=undefined)  {
+      this.find_from_follower_list();
+    }   
+  }
+
+  find_from_follower_list = () => {
+    let {user, now_user} = this.state;
+    if(now_user.following_list){
+      now_user.following_list.items.map((data) => {
+        if(data.following_id==user.id){
+          this.setState({
+            follow_click: true,
+          })
+        }
+      })
+    }
+    /*if(user.follower_list){
+      user.follower_list.items.map((data) => {
+        if(data.follower_id==now_user.id){
+          this.setState({
+            follow_click: true,
+          })
+        }
+      })
+    }*/
+    
   }
 
   find_same_tag_user = () => {
@@ -191,14 +264,56 @@ export default class Profile extends Component {
     
   }
 
+  handle_follow = () => {
+    if(this.state.follow_click==false){
+      API.graphql({
+        query: createFollowingFollower,
+        variables:{ input: { id:this.state.now_user.id+this.state.user.id, follower_id:this.state.now_user.id, following_id:this.state.user.id } }
+      })
+      .then(res => {
+        console.log("추가해보자");
+        this.setState({
+          follow_click: !this.state.follow_click
+        })
+      })
+      .then(res => {
+        window.location.reload();
+      })
+      .catch(e => console.log(e))
+      
+    }
+    if(this.state.follow_click==true){
+      API.graphql({
+        query: deleteFollowingFollower,
+        variables:{ input: { id:this.state.now_user.id+this.state.user.id } }
+      })
+      .then(res => {
+        console.log("삭제해보자");
+        this.setState({
+          follow_click: !this.state.follow_click
+        })
+      })
+      .then(res => {
+        window.location.reload();
+      })
+      .catch(e => console.log(e))
+    }
+    
+    
+  }
+
   render(){
+    console.log(this.state.follow_click);
+    console.log(this.state.now_user);
+    console.log(this.state.user);
+
     if(this.state.user.following_list || this.state.user.follower_list){
       console.log(this.state.user.follower_list.items.length);
     }
     
     console.log(this.state.user.my_tag_list);
 
-    let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked} = this.state;
+    let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked, follow_click} = this.state;
 
     let taglist = [];
     let postnum = 0;
@@ -228,9 +343,9 @@ export default class Profile extends Component {
         <Paper sx={{ p: 2, margin: 'auto', maxWidth: 880, flexGrow: 1, boxShadow: '0px 0px 0px 0px' }}>
           <Grid container spacing={2}>
             <Grid item>
-              <img style={{height:'300px', width:'300px'}}
-                src={`${user.profile_img}?w=248&fit=crop&auto=format`}
-                srcSet={`${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              <img className='img_radius' style={{height:'300px', width:'300px'}}
+                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format`}
+                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={user.name}
                 loading="lazy"
               />
@@ -243,8 +358,11 @@ export default class Profile extends Component {
                   </h1>
                 </Grid>
                 <Grid item xs={3} style={{  padding: '5px 5px 0px 5px'}}>
-                  <EditBtn variant='outlined'>
-                    프로필 편집
+                  <EditBtn variant='outlined' onClick={this.handle_follow}>
+                    {follow_click?'팔로우 취소'
+                    :'팔로우하기'
+                    }
+                    
                   </EditBtn>
                 </Grid>
                 <Grid item xs={12} style={{paddingTop:'0px', fontWeight:'border'}} > 
@@ -312,7 +430,7 @@ export default class Profile extends Component {
               {
                 user.my_tag_list?
                   user.my_tag_list.items.length!=0?
-                  <p>#{user.my_tag_list.items[2].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[0].style_tag.value}</p>
+                  <p>#{user.my_tag_list.items[0].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[2].style_tag.value}</p>
                   :<p></p>    
                   :<p></p>    
               }
@@ -342,11 +460,11 @@ export default class Profile extends Component {
                   {tag_same_user_list.map((item) => (
                     <div>
             
-                      <a href={'/mypage/'+item.id}> 
+                      <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img style={{height:'80px', margin:'auto'}}
-                              src={`${item.profile_img}?w=248&fit=crop&auto=format`}
-                              srcSet={`${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
+                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
+                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                               alt={item.name}
                               loading="lazy"
                           />

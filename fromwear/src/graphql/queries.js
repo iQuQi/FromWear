@@ -17,6 +17,16 @@ export const getUser = /* GraphQL */ `
           id
           following_id
           follower_id
+          following {
+            id
+            name
+            profile_img
+          }
+          follower {
+            id
+            name
+            profile_img
+          }
           createdAt
           updatedAt
         }
@@ -27,6 +37,16 @@ export const getUser = /* GraphQL */ `
           id
           following_id
           follower_id
+          following {
+            id
+            name
+            profile_img
+          }
+          follower {
+            id
+            name
+            profile_img
+          }
           createdAt
           updatedAt
         }
@@ -132,6 +152,14 @@ export const getUser = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      alarm_list{
+        items{
+          content
+          id
+          user_id
+          link
+        }
       }
       award_today
       award_week
@@ -315,6 +343,7 @@ export const listComments = /* GraphQL */ `
         like_user_list {
           items{
             id
+            user_id
           }
           nextToken
         }
@@ -475,6 +504,20 @@ export const listPosts = /* GraphQL */ `
           nextToken
         }
         tag_list {
+          items{
+            id
+            tag_id
+            post_id
+            style_tag{
+              id
+              value
+            }
+            post{
+              id
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         board_type
@@ -1237,4 +1280,3 @@ export const listPostStyleTags = /* GraphQL */ `
     }
   }
 `;
-

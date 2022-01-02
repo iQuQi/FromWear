@@ -19,6 +19,7 @@ import {API} from 'aws-amplify';
 import {listPosts} from '../graphql/queries.js';
 import {listStyleTags} from '../graphql/queries';
 
+import Footer from '../Footer/Footer.jsx';
 class WeeklyTagPage extends Component {
 
     constructor() {
@@ -70,10 +71,11 @@ class WeeklyTagPage extends Component {
 			<Header/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
-                    <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그</h1>
-                    <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 <u>#이번주태그</u> 를 걸고 랭킹에 도전하자!</h1>
+                    <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그&nbsp;<span style={{fontSize:'0.9em', color:'#F2CB61'}}>TOP4</span></h1>
+                    <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 <u>#이번주태그</u> 를 걸고 좋아요 랭킹에 도전하자!</h1>
 					<h1 style={{fontSize:'1.7em', fontWeight:'bolder', color:'#CC3D3D'}}>#{this.state.weekly_tag[0]} &nbsp;#{this.state.weekly_tag[1]}</h1>		
-                </div>
+					
+				</div>
 
                 <div className = 'banner_bestpost'>
 				
@@ -82,8 +84,8 @@ class WeeklyTagPage extends Component {
 								
 								(<ImageListItem key={item.img} className='weekly_image_list_item'>
 									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
-											src={`${item.img}?w=248&fit=crop&auto=format`}
-											srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+											src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+											srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 											alt={item.id}
 											loading="lazy"
 									/>
@@ -93,12 +95,20 @@ class WeeklyTagPage extends Component {
 									</a>
 									
 									<Stack direction="row" spacing={0} justifyContent="space-between" style={{width:'250px'}}>
-										<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
-										
-										<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-										<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-										<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-										<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+									
+										<div>
+											<div className='innerdiv'>
+												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											</div>
+										</div>
+										<div>
+											<div className='innerdiv_margin'>
+												<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
+												<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+											</div>
+										</div>
 									</Stack>				
 								</ImageListItem>)
 								
@@ -109,14 +119,15 @@ class WeeklyTagPage extends Component {
 			</div>
 
 			<div id = 'today_post' class = 'collection'>
-				<h3 className = 'title'>이번주 태그 랭킹</h3>
+				{/*<h3 className = 'title'>랭킹 5위~</h3>*/}
+				<br></br>
 				
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{ranking_posts.map((item) => (
 						<ImageListItem key={item.img} className='weekly_image_list_item'>
 							<img style={{height:'322.55px', borderRadius:16}}
-								src={`${item.img}?w=248&fit=crop&auto=format`}
-								srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+								src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+								srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.user}
 								loading="lazy"
 							/>
@@ -126,7 +137,8 @@ class WeeklyTagPage extends Component {
 							</a>
 
 							<Stack direction="row" spacing={0} justifyContent="space-between">
-								<img src={PROFILE} style={{margin: '7px 3px', width:'20px', height:'20px'}}/>
+								<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img}
+								 style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
 								<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
@@ -138,7 +150,7 @@ class WeeklyTagPage extends Component {
 			
 			</div>
 
-
+			<Footer/>
         </div>       
     }
 

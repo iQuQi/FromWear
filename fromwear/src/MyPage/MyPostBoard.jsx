@@ -54,11 +54,12 @@ export default class TodayPostBoardPosts extends Component {
         console.log("update");
         let {user,count} = this.state;
         if(user!=this.props.user){
-            console.log("업데이트");
+            
             this.setState({
                 user: this.props.user
             })
             if(this.props.user.my_post_list!=undefined){
+                console.log("업데이트");
                 if(this.props.board==1){
                     console.log("1일 때");
                     this.setState({
@@ -75,8 +76,10 @@ export default class TodayPostBoardPosts extends Component {
                         })
                     }) 
                 }
+                
             }
-            count++;
+            
+            
         }
         if(user=={}){
             this.setState({
@@ -85,11 +88,11 @@ export default class TodayPostBoardPosts extends Component {
             })
         }
         
+        
            
     }
-
+    
     componentDidMount(){
-        console.log("DidMount");
         this.get_posts(); 
     }
 
@@ -117,7 +120,7 @@ export default class TodayPostBoardPosts extends Component {
 
 		this.setState({
             post_state: 1,
-            post_list: this.state.post_list.sort(function(a,b){return b.like_user_num-a.like_user_num})
+            post_list: this.state.post_list.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length})
         })
 	}
 
@@ -164,22 +167,23 @@ export default class TodayPostBoardPosts extends Component {
         
         console.log("render ", this.state.post_list);
         
+
 		let {user, post_state, post_list} = this.state;
 
         return (<div id = 'contents'>
 
-            <form className="sort_font select_sort">
-                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
+            <form className="my_sort_font my_select_sort">
+                <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
                 <label htmlFor="sort_like">좋아요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
                 <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
+                <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
 
             </form>
-            
+            <br/>
             <div id = 'today_post' >
                 {post_list?
                     post_list?
@@ -189,8 +193,8 @@ export default class TodayPostBoardPosts extends Component {
                         
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
-                                src={`${post.img}?w=248&fit=crop&auto=format`}
-                                srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
+                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                 alt={user.name}
                                 loading="lazy"
                             />

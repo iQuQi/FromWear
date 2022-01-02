@@ -4,7 +4,7 @@ import './Comments.css';
 
 import { API } from 'aws-amplify';
 import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
-import  { createComment } from '../graphql/mutations';
+import  { createComment, getComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
 
@@ -44,21 +44,24 @@ class Comments extends Component {
             }
         })
         .then(res => {
+            console.log("#####test", res);
             this.setState({
-            comment_list: res.data.listComments.items
+                comment_list: res.data.listComments.items
             })
-            this.subscription = API.graphql({query: onCreateComment, variables: { post_id: this.state.post_id }})
+            
+            this.subscription = API.graphql({query: onCreateComment, variables: { input: {post_id: this.state.post_id }}})
             .subscribe({
                 next: newCreatedComment => {
-                    console.log(newCreatedComment)
-                    if(newCreatedComment.post_id === this.state.post_id)
+                    if(newCreatedComment.value.data.onCreateComment.post_id !== this.state.post_id)
                         return;
                     let {comment_list} = this.state;
                     this.setState({
                         comment_list: [...comment_list, newCreatedComment.value.data.onCreateComment]
                     });
                 }
-            });
+            })
+            .then(e => console.log(e));
+            
         })
         .catch(e => console.log(e));
 
@@ -123,10 +126,38 @@ class Comments extends Component {
     }
 
 
-    removeComment = (delete_id) => {
+    removeComment = (delete_comment) => {
+
+        console.log("delete하려고하는 것!!", delete_comment)
+        // delete_comment.like_user_list.items.map((like)=>{
+        //     API.graphql({
+        //         query: deleteCommentLikeUser, variables: {input:{id: like.id}}
+        //     })
+        //     .then(res => console.log(res))
+        //     .catch(e => console.log(e))
+        // })
+        /*
+        .then(e => {
+            API.graphql({
+                query: deleteComment, variables: {input:{id: delete_comment.id}}
+            })
+            .then(res => {
+                console.log(res)
+                const index = this.state.comment_list.findIndex(function(item){return item.id == delete_comment.id})
+                if(index > -1){
+                    this.state.comment_list.splice(index, 1)
+                }
+                this.setState({
+                    comment_list: this.state.comment_list
+                })
+            })
+        }   
+        )*/
         
-        API.graphql({
-            query: listCommentLikeUsers, variables: {input:{comment_id: delete_id}}
+        API.graphql({    
+            query: listCommentLikeUsers, variables: {filter:{
+                comment_id: {eq: delete_comment.id}
+            }}
         })
         .then(res => {
             res.data.listCommentLikeUsers.items.map((like)=>{
@@ -135,32 +166,33 @@ class Comments extends Component {
                 })
                 .then(res => console.log(res))
                 .catch(e => console.log(e))
+                .then(res => console.log(res))
+                .catch(e => console.log(e))
             })
         })
         .catch(e => console.log(e))
-
-
-        API.graphql({
-            query: deleteComment, variables: {input:{id: delete_id}}
-        })
-        .then(res => {
-            console.log(res)
-            const index = this.state.comment_list.findIndex(function(item){return item.id == delete_id})
-            if(index > -1){
-                this.state.comment_list.splice(index, 1)
-            }
-            this.setState({
-                comment_list: this.state.comment_list
+        .then(e => {
+            API.graphql({
+                query: deleteComment, variables: {input:{id: delete_comment.id}}
             })
+            /*
+            .then(res => {
+                console.log(res)
+                const index = this.state.comment_list.findIndex(function(item){return item.id == delete_comment.id})
+                if(index > -1){
+                    this.state.comment_list.splice(index, 1)
+                }
+                this.setState({
+                    comment_list: this.state.comment_list
+                })
+            })*/
+            .then(window.location.reload())
         })
-
-        
     }
     
 
     render(){
         let {comment_list, board_type, write_is_checked, now_user, post_writer} = this.state;
-        console.log("현재 댓글", comment_list)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         return (
             <div>
@@ -173,7 +205,7 @@ class Comments extends Component {
                                     <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                     {
                                         comment_list.user_id == now_user.id ?
-                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list.id)}>삭제</button>
+                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
                                         :
                                         <div></div>
                                     }

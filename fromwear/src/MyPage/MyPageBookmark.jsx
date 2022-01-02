@@ -49,18 +49,18 @@ export default class MyPageBookmark extends Component {
 
         return (
             <ImageList cols={3} gap={8} style={{clear: 'left', marginTop:'60px'}}>
-                    {
-                    user.my_bookmark_post_list.items.map((post) => (
+                    {user.my_bookmark_post_list?
+                    user.my_bookmark_post_list.items.map((item) => (
                         
-                        <ImageListItem key={post.id} className='mypage_image_list_item'>
+                        <ImageListItem key={item.post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
-                                src={`${post.img}?w=248&fit=crop&auto=format`}
-                                srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.post.img}?w=248&fit=crop&auto=format`}
+                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                 alt={user.name}
                                 loading="lazy"
                             />
-                            
-                            <a href={'/post/'+post.id}> 
+                            {console.log(item.post.img)}
+                            <a href={'/post/'+item.post.id}> 
                                 <span className='dimmed_layer'>	
                                     <span className='dimmed_info' >
                                         <Box style={{width: '40px'}}>
@@ -69,19 +69,24 @@ export default class MyPageBookmark extends Component {
                                                     <Item><FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                    <Item>{post.like_urgent_user_list.items.length}</Item>
+                                                    <Item>{item.post.like_urgent_user_list?
+                                                    item.post.like_urgent_user_list.items.length
+                                                    :''}</Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <Item><VisibilityIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                    <Item>{post.click_num}</Item>
+                                                    <Item>{item.post.click_num}</Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <Item><CommentIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
-                                                    <Item>{post.comment_list.items.length}
+                                                    <Item>
+                                                    {item.post.comment_list?
+                                                    item.post.comment_list.items.length
+                                                    :''}
                                                     </Item>
                                                 </Grid>
                                             </Grid>
@@ -94,7 +99,8 @@ export default class MyPageBookmark extends Component {
 
                             				
                         </ImageListItem>
-                    ))}
+                    ))
+                    :<p/>}
                 </ImageList>
         )
     }

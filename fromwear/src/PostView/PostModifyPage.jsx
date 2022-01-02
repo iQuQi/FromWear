@@ -7,14 +7,14 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Input from '@mui/material/Input';
 import TagData from '../SearchPage/TagData';
-import PostWriteTagList from '../SearchPage/TagList';
+import PostWriteTagList from '../PostWritePage/PostWriteTagList';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
-import {static_tag_data} from "../SearchPage/TagData"
+import {post_tag_data} from "../PostWritePage/PostTagData"
 import { API } from 'aws-amplify';
 import { updatePost, updatePostStyleTag } from '../graphql/mutations';
 
-var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
+var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
 
 class PostModifyPage extends Component {
@@ -103,7 +103,7 @@ class PostModifyPage extends Component {
         let changeContents = '';
         tag_clicked_list.forEach((tag, index) => {
             if(tag == 1) {
-                changeContents += `#${static_tag_data[index].name} `
+                changeContents += `#${post_tag_data[index].name} `
             }
         })
         this.setState({
@@ -249,6 +249,7 @@ class PostModifyPage extends Component {
                         })
                     })
                     .then(res => this.setState({create_post: true}))
+                    .then(window.location.reload())
                     .catch(e => console.log(e));
             }
         }

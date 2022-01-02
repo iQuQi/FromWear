@@ -19,7 +19,7 @@ import Grid from '@mui/material/Grid';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
-
+import MoodBadIcon from '@mui/icons-material/MoodBad';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -84,6 +84,7 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: this.props.user.my_post_list.items
             })
         }
+        
            
     }
 
@@ -167,14 +168,14 @@ export default class TodayPostBoardPosts extends Component {
 
         return (<div id = 'contents'>
 
-            <form className="sort_font select_sort">
-                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
-                <label htmlFor="sort_like">좋아요순</label>
+            <form className="my_sort_font my_select_sort">
+                <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
+                <label htmlFor="sort_like">급해요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
                 <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
+                <input type="radio" id="sort_latest" name="sort"  onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
 
             </form>
@@ -188,8 +189,8 @@ export default class TodayPostBoardPosts extends Component {
                         
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
-                                src={`${post.img}?w=248&fit=crop&auto=format`}
-                                srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
+                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                 alt={user.name}
                                 loading="lazy"
                             />
@@ -200,7 +201,7 @@ export default class TodayPostBoardPosts extends Component {
                                         <Box style={{width: '40px'}}>
                                             <Grid container rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 4 }} >
                                                 <Grid item xs={4}>
-                                                    <Item><FavoriteIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
+                                                    <Item><MoodBadIcon style={{color:'#ffffff'}} sx={{fontSize: '1.4rem'}}/></Item>
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <Item>{post.like_urgent_user_list.items.length}</Item>

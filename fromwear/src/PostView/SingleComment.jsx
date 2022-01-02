@@ -72,11 +72,15 @@ class SingleComment extends Component {
         });
     }
     */
+
+    moveToWriterPage = () => {
+        window.location.href = "/userpage/" + this.state.writer_user.id
+    }
     
 
     render(){
         let {comment_list, board_type, writer_user, now_user, post_writer} = this.state;
-        //console.log(comment_list)
+        
         return (
             <div>
                 <div>
@@ -94,8 +98,8 @@ class SingleComment extends Component {
                         </div>
                         :<div>
                                 <div>
-                                    <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img" /> 
-                                    <div className="comment_user_name">{writer_user.name}</div>
+                                    <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img move_to_userpage" onClick={this.moveToWriterPage} /> 
+                                    <div className="comment_user_name move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
                                     <Thumb 
                                     comment_list={comment_list}
                                     now_user={now_user}/>
