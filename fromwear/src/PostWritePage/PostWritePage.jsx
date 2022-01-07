@@ -72,6 +72,7 @@ class PostWritePage extends Component {
         e.target.value.split("#").forEach((data) => {
           split_tags = [...split_tags, data.split(" ").join("")];
         });
+        split_tags = split_tags.slice(1, split_tags.length);
 
         post_tag_data.forEach((static_tag, static_tag_index) => {
             tag_clicked_list[static_tag_index] = 0;
@@ -132,89 +133,98 @@ class PostWritePage extends Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log(this.state);
-        if(this.state.file == '') {
-            alert("사진을 등록해야 합니다.");
-        }
-        else if(this.state.total_tag_num != 3) {
-            alert("태그는 3개를 등록해야 합니다.");
-        }
-        else {
-            // 글 추가
-            let new_post_id = '';
-            if(this.state.board_type == 0) {
-                let current_board_type = (tag_clicked_list[36] == 1 ? 2 : 0);
-                API.graphql({
-                    query: createPost, variables: {
-                        input: 
-                        {
-                            board_type: current_board_type,
-                            click_num: "0",
-                            content: this.state.contents,
-                            img: this.state.file_key,
-                            user_id: this.state.user.id,
-                        } 
-                    }})
-                    .then(res => {
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                API.graphql({
-                                    query: createPostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            post_id: res.data.createPost.id,
-                                            tag_id: index+1,
-                                        } 
-                                }})
-                                .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
-                                .catch(e => console.log(e));
-                            }
-                        })
-                    })
-                    .then(res => this.setState({create_post: true}))
-                    .catch(e => console.log(e));
-            }
-            else {
-                API.graphql({
-                    query: createPost, variables: {
-                        input: 
-                        {
-                            board_type: 1,
-                            click_num: "0",
-                            content: this.state.contents,
-                            img: this.state.file_key,
-                            user_id: this.state.user.id,
-                            blind: this.state.blind,
-                        } 
-                    }})
-                    .then(res => {
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                API.graphql({
-                                    query: createPostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            post_id: res.data.createPost.id,
-                                            tag_id: index+1,
-                                        } 
-                                }})
-                                .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
-                                // .then(res => {
-                                //     API.graphql({
-                                //         query: UpdateStyleTag, variables:{
-                                //             input: {
 
-                                //             }
-                                //         }
-                                //     })
-                                // })
-                            }
-                        })
+        let split_tags = [];
+        let {tag_contents} = this.state;
+        tag_contents.split("#").forEach((data) => {
+          split_tags = [...split_tags, data.split(" ").join("")];
+        });
+        split_tags = split_tags.slice(1, split_tags.length);
+
+        if (this.state.file == "") {
+          alert("사진을 등록해야 합니다.");
+        } else if (split_tags.length != 3) {
+          alert("태그는 3개를 등록해야 합니다.");
+        } else {
+          // 글 추가
+          let new_post_id = "";
+          if (this.state.board_type == 0) {
+            let current_board_type = tag_clicked_list[36] == 1 ? 2 : 0;
+            API.graphql({
+              query: createPost,
+              variables: {
+                input: {
+                  board_type: current_board_type,
+                  click_num: "0",
+                  content: this.state.contents,
+                  img: this.state.file_key,
+                  user_id: this.state.user.id,
+                },
+              },
+            })
+              .then((res) => {
+                tag_clicked_list.forEach((tag, index) => {
+                  if (tag == 1) {
+                    API.graphql({
+                      query: createPostStyleTag,
+                      variables: {
+                        input: {
+                          post_id: res.data.createPost.id,
+                          tag_id: index + 1,
+                        },
+                      },
                     })
-                    .then(res => this.setState({create_post: true}))
-                    .catch(e => console.log(e));
-            }
+                      .then((res) => console.log(res))
+                      .then((res) => this.setState({ create_tag: true }))
+                      .catch((e) => console.log(e));
+                  }
+                });
+              })
+              .then((res) => this.setState({ create_post: true }))
+              .catch((e) => console.log(e));
+          } else {
+            API.graphql({
+              query: createPost,
+              variables: {
+                input: {
+                  board_type: 1,
+                  click_num: "0",
+                  content: this.state.contents,
+                  img: this.state.file_key,
+                  user_id: this.state.user.id,
+                  blind: this.state.blind,
+                },
+              },
+            })
+              .then((res) => {
+                tag_clicked_list.forEach((tag, index) => {
+                  if (tag == 1) {
+                    API.graphql({
+                      query: createPostStyleTag,
+                      variables: {
+                        input: {
+                          post_id: res.data.createPost.id,
+                          tag_id: index + 1,
+                        },
+                      },
+                    })
+                      .then((res) => console.log(res))
+                      .then((res) => this.setState({ create_tag: true }));
+                    // .then(res => {
+                    //     API.graphql({
+                    //         query: UpdateStyleTag, variables:{
+                    //             input: {
+
+                    //             }
+                    //         }
+                    //     })
+                    // })
+                  }
+                });
+              })
+              .then((res) => this.setState({ create_post: true }))
+              .catch((e) => console.log(e));
+          }
         }
     }
 
