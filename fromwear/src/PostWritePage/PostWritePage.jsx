@@ -24,20 +24,19 @@ class PostWritePage extends Component {
         super();
 
         this.state = {
-            file : '',
-            previewURL : '',
-            tag_click: false,
-			current_click_tag_num: 0,
-            total_tag_num: 0,
-            tag_contents: '', //tag contents
-            contents: '', //contents
-            board_type: props.board_type,
-            user: props.user,
-            blind: false,
-            create_post: false,
-            create_tag: false,
-            file_key: '',
-        }
+          file: "",
+          previewURL: "",
+          tag_click: false,
+          total_tag_num: 0,
+          tag_contents: "", //tag contents
+          contents: "", //contents
+          board_type: props.board_type,
+          user: props.user,
+          blind: false,
+          create_post: false,
+          create_tag: false,
+          file_key: "",
+        };
     }
     
     componentDidUpdate(prevProps) {
@@ -68,6 +67,24 @@ class PostWritePage extends Component {
         reader.readAsDataURL(file);
       }
 	
+    onChangeTag = e => {
+        let split_tags = [];
+        e.target.value.split("#").forEach((data) => {
+          split_tags = [...split_tags, data.split(" ").join("")];
+        });
+
+        post_tag_data.forEach((static_tag, static_tag_index) => {
+            tag_clicked_list[static_tag_index] = 0;
+            split_tags.forEach((current_tag) => {
+                if(static_tag.name === current_tag) {
+                    tag_clicked_list[static_tag_index] = 1;
+                }
+            })
+        });
+
+        this.setState({ tag_contents: e.target.value });
+    }
+
     onClickTag = e => {
         console.log("eeee:",e)
         this.setState({tag_click: !this.state.tag_click})
@@ -86,28 +103,23 @@ class PostWritePage extends Component {
         })
     }
 
-    handle_tag_button_click=(e,index)=>{
+    handle_tag_button_click=(e,index,name)=>{
 		if(!tag_clicked_list[index]) {
-            if(this.state.total_tag_num == 3) {
-                alert("태그는 3개를 등록해야 합니다.");
-                return;
-            } 
-
 			tag_clicked_list[index]= 1;
 			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num+1,
-                total_tag_num: this.state.total_tag_num + 1
+                tag_contents: this.state.tag_contents + `#${name}`,
+                // total_tag_num: this.state.total_tag_num + 1
 			})
 		}
 		else {
 			tag_clicked_list[index]=0;
 			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num-1,
-                total_tag_num: this.state.total_tag_num - 1
-			})
+                tag_contents: this.state.tag_contents.replaceAll(`#${name}`, ''),
+                // total_tag_num: this.state.total_tag_num - 1,
+            });
 		}
 
-        this.changeTagTextArea();
+        // this.changeTagTextArea();
         
 		//console.log("cur input tag7:"+this.state.current_input_tag);
 /*
@@ -242,79 +254,122 @@ class PostWritePage extends Component {
             window.location.reload();
         }
 
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.handleCloseButton.bind(this)}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                        <div className="image_file_input">
-                            {profile_preview}
-                            <input
-                                id="to_click_img" className="img_file_form"
-                                type='file' 
-                                accept='image/*' 
-                                name='profile_img' 
-                                onChange={this.handleFileOnChange}>
-                            </input>
-                        </div>
-                        <label htmlFor="to_click_img" className="click_img">클릭해서 업로드</label>
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text"
-                                 placeholder="내용을 입력해주세요" value={contents} onChange={this.changeTextArea.bind(this)}></textarea>
-                            </div>
-
-                            <h3>태그</h3>
-                            <div className="text_form tag_write">
-                                <Input value={tag_contents} 
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요"  
-                                  onClick={this.onClickTag}/>
-                            </div>
-                            {
-                                tag_click ?
-                                <div className="tag_area">
-                                    <PostWriteTagList
-                                    target_button={tag_clicked_list}
-                                    handle_tag_button_click={this.handle_tag_button_click}
-                                    />
-                                </div>
-                                :
-                                <div>
-
-                                </div>
-                            }
-                            {
-                                board_type == 1 ?
-                                <div>
-                                    <h3>익명 여부 선택</h3>
-                                    <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="1" onClick={this.checkBlind.bind(this)}/><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="2" onClick={this.checkBlind.bind(this)} defaultChecked/><span>아니오</span></label>
-                                    </div>
-                                </div>
-                                :
-                                <div>
-                                    </div>
-                            }
-                            
-                            <div className="submit_button">
-                                <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" onClick={this.handleSubmit.bind(this)}>등록</Button>
-                            </div>
-                        </div>
-                    
-
-
-                    </form>
-
-                </div>
+		return (
+      <div className="post_write_container">
+        <div className="post_write_content">
+          <Button
+            style={{
+              minWidth: 40,
+              height: 40,
+              margin: "0 5px 5px 20px",
+              fontSize: "30px",
+              fontWeight: 300,
+              color: "black",
+              position: "absolute",
+              top: 10,
+              left: -15,
+            }}
+            onClick={this.handleCloseButton.bind(this)}
+          >
+            <CloseIcon />
+          </Button>
+          <form action="doLogin" method="POST" className="loginForm">
+            <div className="image_file_input">
+              {profile_preview}
+              <input
+                id="to_click_img"
+                className="img_file_form"
+                type="file"
+                accept="image/*"
+                name="profile_img"
+                onChange={this.handleFileOnChange}
+              ></input>
             </div>
-        )
+            <label htmlFor="to_click_img" className="click_img">
+              클릭해서 업로드
+            </label>
+            <div className="post_text_input">
+              <h3>내용</h3>
+              <div className="text_form">
+                <textarea
+                  className="content_write"
+                  name=""
+                  type="text"
+                  placeholder="내용을 입력해주세요"
+                  value={contents}
+                  onChange={this.changeTextArea.bind(this)}
+                ></textarea>
+              </div>
+
+              <h3>태그</h3>
+              <div className="text_form tag_write">
+                <textarea
+                  value={tag_contents}
+                  style={{ margin: "10px 0", width: "100%" }}
+                  placeholder="태그를 입력해주세요"
+                  onChange={this.onChangeTag}
+                  onClick={this.onClickTag}
+                />
+              </div>
+              {tag_click ? (
+                <div className="tag_area">
+                  <PostWriteTagList
+                    target_button={tag_clicked_list}
+                    handle_tag_button_click={this.handle_tag_button_click}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+              {board_type == 1 ? (
+                <div>
+                  <h3>익명 여부 선택</h3>
+                  <div className="select_blind">
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="fruit"
+                        value="1"
+                        onClick={this.checkBlind.bind(this)}
+                      />
+                      <span>예</span>
+                    </label>
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="fruit"
+                        value="2"
+                        onClick={this.checkBlind.bind(this)}
+                        defaultChecked
+                      />
+                      <span>아니오</span>
+                    </label>
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
+
+              <div className="submit_button">
+                <Button
+                  type="submit"
+                  style={{
+                    margin: "auto",
+                    backgroundColor: "#d8c8b2",
+                    width: "100%",
+                    color: "black",
+                  }}
+                  variant="contained"
+                  onClick={this.handleSubmit.bind(this)}
+                >
+                  등록
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
     }	
 
 }
