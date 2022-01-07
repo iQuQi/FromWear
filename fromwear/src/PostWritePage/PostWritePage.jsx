@@ -68,22 +68,22 @@ class PostWritePage extends Component {
       }
 	
     onChangeTag = e => {
-        let split_tags = [];
-        e.target.value.split("#").forEach((data) => {
-          split_tags = [...split_tags, data.split(" ").join("")];
-        });
-        split_tags = split_tags.slice(1, split_tags.length);
+      let split_tags = [];
+      e.target.value.split("#").forEach((data) => {
+        split_tags = [...split_tags, data.split(" ").join("")];
+      });
+      split_tags = split_tags.slice(1, split_tags.length);
 
-        post_tag_data.forEach((static_tag, static_tag_index) => {
-            tag_clicked_list[static_tag_index] = 0;
-            split_tags.forEach((current_tag) => {
-                if(static_tag.name === current_tag) {
-                    tag_clicked_list[static_tag_index] = 1;
-                }
-            })
+      post_tag_data.forEach((static_tag, static_tag_index) => {
+        tag_clicked_list[static_tag_index] = 0;
+        split_tags.forEach((current_tag) => {
+          if (static_tag.name === current_tag) {
+            tag_clicked_list[static_tag_index] = 1;
+          }
         });
+      });
 
-        this.setState({ tag_contents: e.target.value });
+      this.setState({ tag_contents: e.target.value });
     }
 
     onClickTag = e => {
