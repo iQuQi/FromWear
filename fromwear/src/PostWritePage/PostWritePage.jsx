@@ -171,7 +171,7 @@ class PostWritePage extends Component {
         } else {
           // 글 추가          
           let current_board_type = this.state.board_type;
-          if(current_board_type === 0) {
+          if(current_board_type === "0") {
                 let match = 0;
                 weeklyTagList.forEach((weeklyTag) => {
                     dup_rmv_tags.forEach((tag) => {
@@ -196,16 +196,13 @@ class PostWritePage extends Component {
                 let current_post_id = res.data.createPost.id;
                 dup_rmv_tags.forEach((tag) => {
                   let currnet_tag_id;
-                  console.log(tag);
                   API.graphql({
                     query: listStyleTags,
                     variables: { filter: { value: { eq: tag } } },
                   })
                     .then((res) => {
-                      console.log(res.data.listStyleTags.items);
                       if (res.data.listStyleTags.items.length === 0) {
                         //없었던 태그
-                        console.log("tag생성");
                         API.graphql({
                           query: createStyleTag,
                           variables: {
@@ -214,8 +211,6 @@ class PostWritePage extends Component {
                         })
                           .then((res) => {
                             currnet_tag_id = res.data.createStyleTag.id;
-                            console.log("생성");
-                            console.log(currnet_tag_id);console.log(currnet_tag_id);
                             API.graphql({
                                 query: createPostStyleTag,
                                 variables: {
@@ -226,8 +221,6 @@ class PostWritePage extends Component {
                                 },
                             })
                             .then((res) => {
-                                console.log(currnet_tag_id);
-                                console.log(res.data.createPostStyleTag.style_tag.num);
                                 API.graphql({
                                     query: updateStyleTag,
                                     variables: {
@@ -245,8 +238,7 @@ class PostWritePage extends Component {
                           .catch((e) => console.log(e));
                       } else {
                         //존재하는 태그
-                        console.log("이미 있는 tag 사용");
-                        currnet_tag_id = res.data.listStyleTags.items[0].id;console.log(currnet_tag_id);
+                        currnet_tag_id = res.data.listStyleTags.items[0].id;
                         API.graphql({
                             query: createPostStyleTag,
                             variables: {
@@ -257,8 +249,6 @@ class PostWritePage extends Component {
                             },
                         })
                             .then((res) => {
-                            console.log(currnet_tag_id);
-                            console.log(res.data.createPostStyleTag.style_tag.num);
                             API.graphql({
                                 query: updateStyleTag,
                                 variables: {
