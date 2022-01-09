@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import './MainPage.css';
-import BANNER from './img/Main2.png'
+import BANNER from './img/Main.png'
 
 import Header from '../Header/Header'
 
