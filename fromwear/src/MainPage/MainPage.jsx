@@ -69,14 +69,14 @@ class MainPage extends Component {
 
 			<div className='contents'>
 				<div id = 'today_post' className = 'collection'>
-					<h3 className = 'title'>오늘의 착장</h3>
+					<h2 className = 'title'>오늘의 착장</h2>
 					<a className = 'seemore' href='/todayboard'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 						{best_post_0.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'ls
 							>
-								<img style={{borderRadius:16}}
+								<img style={{borderRadius:16, height:'322.55px'}}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.id}
@@ -113,13 +113,13 @@ class MainPage extends Component {
 				</div>
 
 				<div id = 'help_post' className = 'collection'>
-					<h3 className = 'title'>도움이 필요해</h3>
+					<h2 className = 'title'>도움이 필요해</h2>
 					<a className = 'seemore' href='/sosboard'>둘러보기</a>
 
 					<ImageList cols={5} gap={8}>
 						{best_post_1.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{borderRadius:16 }}
+								<img style={{borderRadius:16, height:'322.55px' }}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.id}
@@ -161,13 +161,13 @@ class MainPage extends Component {
 				</div>
 
 				<div id = 'weekly_best' className = 'collection'>
-					<h3 className = 'title'>이번주 태그 랭킹</h3>
+					<h2 className = 'title'>이번주 태그 랭킹</h2>
 					<a className = 'seemore' href='/weeklytag'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8}>
 						{best_post_2.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{borderRadius:16 }}
+								<img style={{borderRadius:16, height:'322.55px'}}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.user}

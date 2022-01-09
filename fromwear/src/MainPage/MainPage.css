@@ -22,11 +22,11 @@
     position: relative;
     width: 1080px;
     overflow-y: auto; 
-    margin: auto;
+    margin: 30px auto;
     padding: 10px;
     background-color: white;
 
-    text-align: left;
+    text-align: center;
 }
 .title{
     display: inline-block;
