@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 //import { Link } from 'react-router-dom';
 
+import Storage from '@aws-amplify/storage';
 import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
@@ -89,7 +90,6 @@ class Post extends Component{
     }
 
 	handle_user_info = (user) => {
-        //console.log(user)
         if(this.state.now_user == 'noUser'){
             this.setState({
                 now_user: user,
@@ -375,6 +375,7 @@ class Post extends Component{
 
         }
         
+        //태그 삭제
         this.state.now_post.tag_list.items.map((tag, index)=>{
             API.graphql({
                 query: deletePostStyleTag, variables:{input:{id: tag.id}}
@@ -386,13 +387,17 @@ class Post extends Component{
                 }
             })
         })
+
+        //이미지 s3 삭제
+        Storage.remove(this.state.now_post.img)
+        
         
     }
 
     removePost(){
         console.log("post삭제")
         API.graphql({
-            query: deletePost, variables: {input:{id: this.state.post_id}}
+            query: deletePost, variables: {input:{id: this.state.now_post.id}}
         })
         .then(res => this.setState({
             deleted_post: true,
@@ -400,7 +405,7 @@ class Post extends Component{
     }
 
     moveTo = () => {
-        console.log(this.state.now_post_board_type)
+        console.log("moveTo 실행")
         if(this.state.now_post_board_type == 0){
             window.location.href = "/todayboard"
         }
@@ -410,11 +415,15 @@ class Post extends Component{
         else if(this.state.now_post_board_type == 2){
             window.location.href = "/weeklytag"
         }
-        
     }
     
     moveToWriterPage = () => {
-        window.location.href = "/userpage/" + this.state.now_writer.id
+        if(this.state.now_writer.id == this.state.now_user.id) {
+            window.location.href = "/mypage"
+        }
+        else {
+            window.location.href = "/userpage/" + this.state.now_writer.id
+        }
     }
 
     getTagList =() => {

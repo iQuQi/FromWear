@@ -97,6 +97,7 @@ class PostModifyPage extends Component {
         }
         reader.readAsDataURL(file);
       }
+
 	
       onChangeTag = e => {
         let split_tags = [];
