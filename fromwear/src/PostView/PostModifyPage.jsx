@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Component} from 'react';
-import './PostModifyPage.css'
+import '../PostWritePage/PostWritePage.css'
 import Header from "../Header/Header"
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
