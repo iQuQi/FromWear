@@ -40,7 +40,31 @@ class ProfileEdit extends Component{
 	}
     
     componentDidMount(){
+        this.setState({
+            content_introduce: this.state.user.introduce,
+        })
+        this.set_tag_list();
 
+    }
+
+    set_tag_list = () => {
+        console.log("현재 유저 태그",this.state.user)
+        if(this.state.user.my_tag_list.items.length > 0){
+            var tmp_user_tag_list = this.state.user.my_tag_list.items;
+            if(tmp_user_tag_list[0].style_tag.id==102 && tmp_user_tag_list[1].style_tag.id==103 && tmp_user_tag_list[2].style_tag.id==101){
+                console.log("초기 상태") //초기 상태면 tag 아무것도 안넣어둠 (delete해야할 거 있나?)
+            }
+            else{
+                tmp_user_tag_list.map((tag)=>{
+                    tag_clicked_list[tag.style_tag.id-1] = 1
+                })
+                this.setState({
+                    contents: "#"+tmp_user_tag_list[0].style_tag.value+" #"+tmp_user_tag_list[1].style_tag.value +" #"+tmp_user_tag_list[2].style_tag.value,
+                    current_click_tag_num: 3,
+                    total_tag_num: 3,
+                })
+            }
+        }
     }
     
     componentDidUpdate(prevProps) {
@@ -53,6 +77,8 @@ class ProfileEdit extends Component{
             
         }
     }
+
+    
 
     changeIntroduceArea(e) {
         this.setState({content_introduce : e.target.value});
@@ -139,70 +165,100 @@ class ProfileEdit extends Component{
         e.preventDefault();
         console.log("현재 유저 :",this.state.user);
         console.log("현재 introduce :",this.state.content_introduce);
-        
         if(this.state.total_tag_num != 3) {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else {
-            API.graphql({
-                query: updateUser, variables:{input:{
-                    id: this.state.user.id,
-                    introduce: this.state.content_introduce,
-                    gender: this.state.gender,
-                    profile_img: this.state.file_key,
-                }}
-            })
-            .then(e => console.log(e))
-            .then(res => {
-                //현재 사용자의 tag list의 id 불러옴
-                var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
-                console.log("befsd", before_tag_list)
-
-                //check된 리스트
-                var tag_index = [];
-                tag_clicked_list.forEach((tag, index) => {
-                    if(tag == 1) {
-                        tag_index = [...tag_index, index+1]
-                    }
+            if(this.state.file==''){ //사진을 등록 X 또는 기본 사진 'profile_skyblue.jpg' 사용
+                API.graphql({
+                    query: updateUser, variables:{input:{
+                        id: this.state.user.id,
+                        introduce: this.state.content_introduce,
+                        gender: this.state.gender,
+                        //profile_img: this.state.file_key,
+                    }}
                 })
-
-                before_tag_list.map((origin_id, index)=>{
-                    API.graphql({
-                        query: updateUserStyleTag, variables: {
-                            input: 
-                            {
-                                id: origin_id,
-                                style_tag_id: tag_index[index],
-                            } 
-                    }})
-                    .then(res => {
-                        if(index == 2){
-                            this.setState({
-                                create_tag:true
-                            })
+                .then(e => console.log(e))
+                .then(res => {
+                    //현재 사용자의 tag list의 id 불러옴
+                    var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
+    
+                    //check된 리스트
+                    var tag_index = [];
+                    tag_clicked_list.forEach((tag, index) => {
+                        if(tag == 1) {
+                            tag_index = [...tag_index, index+1]
                         }
                     })
+    
+                    before_tag_list.map((origin_id, index)=>{
+                        API.graphql({
+                            query: updateUserStyleTag, variables: {
+                                input: 
+                                {
+                                    id: origin_id,
+                                    style_tag_id: tag_index[index],
+                                } 
+                        }})
+                        .then(res => {
+                            if(index == 2){
+                                this.setState({
+                                    create_tag:true
+                                })
+                            }
+                        })
+                    })
                 })
-            })
-            .then(res=>{
-                window.location.reload();
-            })
-
-                // tag_clicked_list.forEach((tag, index) => {
-                //     if(tag == 1) {
-                //         API.graphql({
-                //             query: updateUserStyleTag, variables: {
-                //                 input: 
-                //                 {
-                //                     user_id: this.state.user.id,
-                //                     style_tag_id: index+1,
-                //                 } 
-                //         }})
-                //         .then(res => console.log(res))
-                //         .then(res => this.setState({create_tag: true}))
-                //         .catch(e => console.log(e));
-                //     }
-                // })
+                .then(res=>{
+                    window.location.reload();
+                })
+            }
+            else{
+                API.graphql({
+                    query: updateUser, variables:{input:{
+                        id: this.state.user.id,
+                        introduce: this.state.content_introduce,
+                        gender: this.state.gender,
+                        profile_img: this.state.file_key,
+                    }}
+                })
+                .then(e => console.log(e))
+                .then(res => {
+                    //현재 사용자의 tag list의 id 불러옴
+                    var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
+                    console.log("befsd", before_tag_list)
+    
+                    //check된 리스트
+                    var tag_index = [];
+                    tag_clicked_list.forEach((tag, index) => {
+                        if(tag == 1) {
+                            tag_index = [...tag_index, index+1]
+                        }
+                    })
+    
+                    before_tag_list.map((origin_id, index)=>{
+                        API.graphql({
+                            query: updateUserStyleTag, variables: {
+                                input: 
+                                {
+                                    id: origin_id,
+                                    style_tag_id: tag_index[index],
+                                } 
+                        }})
+                        .then(res => {
+                            if(index == 2){
+                                this.setState({
+                                    create_tag:true
+                                })
+                            }
+                        })
+                    })
+                })
+                .then(res=>{
+                    window.location.reload();
+                })
+            }
+            
 
             console.log("프로필 업데이트 성공!");
             //window.location.reload();
@@ -219,13 +275,22 @@ class ProfileEdit extends Component{
         let {fileImage, setFileImage, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
 
-        let profile_preview = <img className='profile_original_img' 
-        style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover"}}/>;
-        if(this.state.file !== ''){
+        let profile_preview;
+        if(this.state.file == ''){
+            if(this.state.user.profile_img == 'profile_skyblue.jpg'){
+                console.log("프로필 : 기본 이미지")
+                profile_preview = <img className='profile_original_img' style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover"}}/>;
+            }
+            else{ //프로필 이미지는 s3에 어떻게 업로드 되는지 보고 파악하면 될듯
+                profile_preview = <img className='profile_original_img' style={{backgroundImage:"url("+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.profile_img+")",backgroundSize:"cover"}}/>;
+            }
+        }
+        else{
           profile_preview = <img className='profile_upload_img' 
           style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover"}}
           ></img>
         }
+   
         return <div className="profile_page_container" style={{ zIndex: 10000}}>
             <div className="profile_edit_page">
             <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
@@ -271,12 +336,29 @@ class ProfileEdit extends Component{
                             }
                              <div className="profile_gender">
                                     <h3>성별</h3>
-                                    <div className="select_blind">
-                                        <label className="profile_radio"><input type="radio" name="gender" value="1" onClick={this.checkGender} /><span>남자</span></label>
-                                        <label className="profile_radio"><input type="radio" name="gender" value="2" onClick={this.checkGender}/><span>여자</span></label>
-                                        <label className="profile_radio"><input type="radio" name="gender" value="3" defaultChecked onClick={this.checkGender}/><span>비공개</span></label>
-
-                                    </div>
+                                    {
+                                        !this.state.user.gender ? //null
+                                        <div className="select_blind">
+                                            <label className="profile_radio"><input type="radio" name="gender" value="1" onClick={this.checkGender} /><span>남자</span></label>
+                                            <label className="profile_radio"><input type="radio" name="gender" value="2" onClick={this.checkGender}/><span>여자</span></label>
+                                            <label className="profile_radio"><input type="radio" name="gender" value="3" defaultChecked onClick={this.checkGender}/><span>비공개</span></label>
+                                        </div>
+                                        :<div>
+                                            {
+                                            this.state.user.gender == 'M' ?
+                                            <div className="select_blind">
+                                            <label className="profile_radio"><input type="radio" name="gender" value="1" defaultChecked onClick={this.checkGender} /><span>남자</span></label>
+                                            <label className="profile_radio"><input type="radio" name="gender" value="2" onClick={this.checkGender}/><span>여자</span></label>
+                                            <label className="profile_radio"><input type="radio" name="gender" value="3" onClick={this.checkGender}/><span>비공개</span></label>
+                                            </div>
+                                            :<div className="select_blind">
+                                                <label className="profile_radio"><input type="radio" name="gender" value="1" onClick={this.checkGender} /><span>남자</span></label>
+                                                <label className="profile_radio"><input type="radio" name="gender" value="2" defaultChecked onClick={this.checkGender}/><span>여자</span></label>
+                                                <label className="profile_radio"><input type="radio" name="gender" value="3" onClick={this.checkGender}/><span>비공개</span></label>
+                                            </div>
+                                        }
+                                        </div>
+                                    }
                             </div>
                             <div className="profile_submit_button">
                                 <Button type="submit" style={{margin:"auto",backgroundColor:"white",width:"100%",color:"black",fontSize:18,

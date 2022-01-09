@@ -36,12 +36,14 @@ class PostModifyPage extends Component {
             create_tag: false,
             file_key: '',
             now_post:props.now_post,
+            before_img: '',
         }
     }
 
     componentDidMount(){        
         this.setState({
             contents: this.state.now_post.content,
+            before_img: 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img,
         })
         this.set_tag_list();
     }
@@ -145,7 +147,7 @@ class PostModifyPage extends Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log(this.state);
-        if(this.state.file == '') {
+        if(this.state.before_img=='' && this.state.file == ''){
             alert("사진을 등록해야 합니다.");
         }
         else if(this.state.total_tag_num != 3) {
@@ -156,15 +158,15 @@ class PostModifyPage extends Component {
             let new_post_id = '';
             if(this.state.board_type == 0) {
 
-                var tag_index = []
-                
+                if(this.state.file == ''){ //사진 수정 X
+                    var tag_index = []
                 API.graphql({
                     query: updatePost, variables: {
                         input: 
                         {
                             id: this.state.now_post.id,
                             content: this.state.contents,
-                            img: this.state.file_key,
+                            //img: this.state.file_key, img 수정 X
                         } 
                     }})
                     .then(res => {
@@ -179,9 +181,7 @@ class PostModifyPage extends Component {
                         console.log(tag_index)
                     })
                     .then(res => {
-                        //console.log("현재 태그???", this.state.now_post.tag_list)
                         var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                        //console.log(origin_post_id)
                         origin_post_id.map((origin_id, index)=>{
                                 API.graphql({
                                     query: updatePostStyleTag, variables: {
@@ -201,56 +201,150 @@ class PostModifyPage extends Component {
                     })
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
+                }
+                else{
+                    var tag_index = []
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                img: this.state.file_key,
+                            } 
+                        }})
+                        .then(res => {
+                            console.log(this.state.now_post.tag_list)
+                            console.log(tag_clicked_list)
+                            
+                            tag_clicked_list.forEach((tag, index) => {
+                                if(tag == 1) {
+                                    tag_index = [...tag_index, index+1]
+                                }
+                            })
+                            console.log(tag_index)
+                        })
+                        .then(res => {
+                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                            origin_post_id.map((origin_id, index)=>{
+                                    API.graphql({
+                                        query: updatePostStyleTag, variables: {
+                                            input: 
+                                            {
+                                                id: origin_id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: tag_index[index],
+                                            } 
+                                    }})
+                                    .then(res => {
+                                        if(index == 2){
+                                            this.setState({create_tag:true})
+                                        }
+                                    })
+                            })
+                        })
+                        .then(res => this.setState({create_post: true}))
+                        .catch(e => console.log(e));
+                }
             }
             else {
 
-                var tag_index = []
+                if(this.state.file == ''){
+                    var tag_index = []
                 
-                API.graphql({
-                    query: updatePost, variables: {
-                        input: 
-                        {
-                            id: this.state.now_post.id,
-                            content: this.state.contents,
-                            img: this.state.file_key,
-                            blind: this.state.blind,
-                        } 
-                    }})
-                    .then(res => {
-                        console.log(this.state.now_post.tag_list)
-                        console.log(tag_clicked_list)
-                        
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                tag_index = [...tag_index, index+1]
-                            }
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                //img: this.state.file_key,
+                                blind: this.state.blind,
+                            } 
+                        }})
+                        .then(res => {
+                            console.log(this.state.now_post.tag_list)
+                            console.log(tag_clicked_list)
+                            
+                            tag_clicked_list.forEach((tag, index) => {
+                                if(tag == 1) {
+                                    tag_index = [...tag_index, index+1]
+                                }
+                            })
+                            console.log(tag_index)
                         })
-                        console.log(tag_index)
-                    })
-                    .then(res => {
-                        console.log("현재 태그???", this.state.now_post.tag_list)
-                        var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                        //console.log(origin_post_id)
-                        origin_post_id.map((origin_id, index)=>{
-                                API.graphql({
-                                    query: updatePostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            id: origin_id,
-                                            post_id: this.state.now_post.id,
-                                            tag_id: tag_index[index],
-                                        } 
-                                }})
-                                .then(res => {
-                                    if(index == 2){
-                                        this.setState({create_tag:true})
-                                    }
-                                })
+                        .then(res => {
+                            console.log("현재 태그???", this.state.now_post.tag_list)
+                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                            origin_post_id.map((origin_id, index)=>{
+                                    API.graphql({
+                                        query: updatePostStyleTag, variables: {
+                                            input: 
+                                            {
+                                                id: origin_id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: tag_index[index],
+                                            } 
+                                    }})
+                                    .then(res => {
+                                        if(index == 2){
+                                            this.setState({create_tag:true})
+                                        }
+                                    })
+                            })
                         })
-                    })
-                    .then(res => this.setState({create_post: true}))
-                    .then(window.location.reload())
-                    .catch(e => console.log(e));
+                        .then(res => this.setState({create_post: true}))
+                        .then(window.location.reload())
+                        .catch(e => console.log(e));
+                }
+                else{
+                    var tag_index = []
+                
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                img: this.state.file_key,
+                                blind: this.state.blind,
+                            } 
+                        }})
+                        .then(res => {
+                            console.log(this.state.now_post.tag_list)
+                            console.log(tag_clicked_list)
+                            
+                            tag_clicked_list.forEach((tag, index) => {
+                                if(tag == 1) {
+                                    tag_index = [...tag_index, index+1]
+                                }
+                            })
+                            console.log(tag_index)
+                        })
+                        .then(res => {
+                            console.log("현재 태그???", this.state.now_post.tag_list)
+                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                            origin_post_id.map((origin_id, index)=>{
+                                    API.graphql({
+                                        query: updatePostStyleTag, variables: {
+                                            input: 
+                                            {
+                                                id: origin_id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: tag_index[index],
+                                            } 
+                                    }})
+                                    .then(res => {
+                                        if(index == 2){
+                                            this.setState({create_tag:true})
+                                        }
+                                    })
+                            })
+                        })
+                        .then(res => this.setState({create_post: true}))
+                        .then(window.location.reload())
+                        .catch(e => console.log(e));
+                }
             }
         }
     }
@@ -281,7 +375,6 @@ class PostModifyPage extends Component {
         }
         else {
             profile_preview = <img alt="preivew_img" className='upload_img' src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img}></img>;
-            //이게 진짜 profile_preivew라...보여주는 것만함...file에 넘겨줘야하는데..아님 사진에 변화가 있는지 체크하거나
         }
  
 

@@ -1,6 +1,5 @@
 @charset "utf-8";
 
-
 .whole_page {
     width: 1080px;
     margin: 0 auto;
@@ -107,8 +106,10 @@
     line-height: 1.4;
     height: 51px;
     overflow: scroll;
-    
+    -ms-overflow-style: none;
 }
+.writer_content::-webkit-scrollbar { display: none; }
+
 
 .comment {
     position: relative;
@@ -134,9 +135,6 @@
     padding-bottom: 5px;
 }
 
-.comment_content_last {
-    
-}
 
 .icons {
     width: 400px;
