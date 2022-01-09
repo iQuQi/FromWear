@@ -21,13 +21,13 @@
 } */
 .post_img {
     display: inline-block;
-    width: 400px;
+    width: 311.6px;
     height: 480px;
     margin-right: 10px;
     vertical-align: top;
     border: 1px solid #000;
     border-radius: 20px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     background-size: cover;
     background-color: #fff;
     background-position: center center;
@@ -40,7 +40,6 @@
     background-color: #fff;
     width: 400px;
     height: 480px;
-    box-sizing: border-box;
     border: 1px solid #000;
     border-radius: 20px;
     overflow: auto;
@@ -137,9 +136,10 @@
 
 
 .icons {
-    width: 400px;
+    width: 311.6px;
     text-align: left;
     line-height: 30px;
+    padding-left: 38.2px;
 }
 
 .post_list {
