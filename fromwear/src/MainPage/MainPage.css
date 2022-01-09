@@ -12,16 +12,16 @@
 .main_banner{
     position: relative;
     margin: auto;
-    height: 790px;
+    height: 850px;
     width: 100%;
     background-color: #c0e0f6;
     text-align: left;
     overflow-y: auto;
 }
 .banner_img{
-    position:absolute;
-    left: 50px;
     overflow-y: auto;
+    display: block;
+    margin: auto;
 }
 .banner_title{
     position: absolute;
