@@ -44,21 +44,24 @@ class Comments extends Component {
             }
         })
         .then(res => {
+            console.log("#####test", res);
             this.setState({
-            comment_list: res.data.listComments.items
+                comment_list: res.data.listComments.items
             })
-            this.subscription = API.graphql({query: onCreateComment, variables: { post_id: this.state.post_id }})
+            
+            this.subscription = API.graphql({query: onCreateComment, variables: { input: {post_id: this.state.post_id }}})
             .subscribe({
                 next: newCreatedComment => {
-                    console.log(newCreatedComment)
-                    if(newCreatedComment.post_id === this.state.post_id)
+                    if(newCreatedComment.value.data.onCreateComment.post_id !== this.state.post_id)
                         return;
                     let {comment_list} = this.state;
                     this.setState({
                         comment_list: [...comment_list, newCreatedComment.value.data.onCreateComment]
                     });
                 }
-            });
+            })
+            .then(e => console.log(e));
+            
         })
         .catch(e => console.log(e));
 

@@ -74,7 +74,12 @@ class SingleComment extends Component {
     */
 
     moveToWriterPage = () => {
-        window.location.href = "/userpage/" + this.state.writer_user.id
+        if(this.state.writer_user.id == this.state.now_user.id) {
+            window.location.href = "/mypage"
+        }
+        else {
+            window.location.href = "/userpage/" + this.state.writer_user.id
+        }
     }
     
 

@@ -6,7 +6,24 @@
 .comment_ul {
     height: 244px; /*270*/
     overflow: scroll;
+    -ms-overflow-style: none;
 }
+.comment_ul::-webkit-scrollbar { display: none; }
+
+/* .comment_ul::-webkit-scrollbar {
+    width: 10px;
+} 
+   
+.comment_ul::-webkit-scrollbar-track {
+    background: #eeeeee;
+    border-radius: 5px;
+}
+   
+.comment_ul::-webkit-scrollbar-thumb {
+    background: #64b3f4;
+    border-radius: 5px;
+} */
+
 
 .one_comment_and_remove_button {
     margin: 10px 0;

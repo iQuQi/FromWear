@@ -23,6 +23,7 @@ let SearchResult = ({post_data,current_next_post_page})=>
 										<span className={"dimmed_layer"}>
 											<span className="dimmed_info_writer">
 												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} alt="프로필" 
+													className="ellips"
 													style={{width:"30px",height:"30px",borderRadius:"50%", 
 													position: "relative",top:"8px", marginRight:"5px"}}/>
 												{item.user.name}

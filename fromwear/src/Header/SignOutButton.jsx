@@ -6,7 +6,7 @@ function SignOutButton() {
     const signOut = (e) => {
         e.preventDefault();
         Auth.signOut().then(()=>{
-            window.location.reload(false); 
+            window.location.href="/"; 
         });
     }
     return (

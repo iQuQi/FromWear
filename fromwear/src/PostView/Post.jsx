@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 //import { Link } from 'react-router-dom';
 
+import Storage from '@aws-amplify/storage';
 import './Post.css'
 import Comments from './Comments';
 import Bookmark from './Bookmark';
@@ -89,7 +90,6 @@ class Post extends Component{
     }
 
 	handle_user_info = (user) => {
-        //console.log(user)
         if(this.state.now_user == 'noUser'){
             this.setState({
                 now_user: user,
@@ -375,6 +375,7 @@ class Post extends Component{
 
         }
         
+        //태그 삭제
         this.state.now_post.tag_list.items.map((tag, index)=>{
             API.graphql({
                 query: deletePostStyleTag, variables:{input:{id: tag.id}}
@@ -386,13 +387,17 @@ class Post extends Component{
                 }
             })
         })
+
+        //이미지 s3 삭제
+        Storage.remove(this.state.now_post.img)
+        
         
     }
 
     removePost(){
         console.log("post삭제")
         API.graphql({
-            query: deletePost, variables: {input:{id: this.state.post_id}}
+            query: deletePost, variables: {input:{id: this.state.now_post.id}}
         })
         .then(res => this.setState({
             deleted_post: true,
@@ -400,7 +405,7 @@ class Post extends Component{
     }
 
     moveTo = () => {
-        console.log(this.state.now_post_board_type)
+        console.log("moveTo 실행")
         if(this.state.now_post_board_type == 0){
             window.location.href = "/todayboard"
         }
@@ -410,11 +415,15 @@ class Post extends Component{
         else if(this.state.now_post_board_type == 2){
             window.location.href = "/weeklytag"
         }
-        
     }
     
     moveToWriterPage = () => {
-        window.location.href = "/userpage/" + this.state.now_writer.id
+        if(this.state.now_writer.id == this.state.now_user.id) {
+            window.location.href = "/mypage"
+        }
+        else {
+            window.location.href = "/userpage/" + this.state.now_writer.id
+        }
     }
 
     getTagList =() => {
@@ -501,11 +510,6 @@ class Post extends Component{
                                         <img className="post_writer_img" src={profile_skyblue} />
                                         :
                                         <img className="post_writer_img move_to_userpage" onClick={this.moveToWriterPage} src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
-                                        //나중에 backgroundImg로 URL넘겨줄거면 div로 변경
-                                        //마찬가지로 바꿀 때 SingleComment의 53번째 line도 div로 변경
-                                        //div로 하면 src가 적용이 안됨 style에서 넘겨줘야할듯
-                                        //<img className="post_writer_img" src={now_writer.profile_img}/> //style={{backgroundImage: 'URL('+now_writer.profile_img+')'}}
-                                        //style={{backgroundImage: 'URL('+now_post.img+')'}}
                                     }
                                     {
                                         now_post.blind?

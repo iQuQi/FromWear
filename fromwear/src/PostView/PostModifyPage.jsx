@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Component} from 'react';
-import './PostModifyPage.css'
+import '../PostWritePage/PostWritePage.css'
 import Header from "../Header/Header"
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -36,12 +36,16 @@ class PostModifyPage extends Component {
             create_tag: false,
             file_key: '',
             now_post:props.now_post,
+            before_img: '',
+            tagLengthError: false,
+
         }
     }
 
     componentDidMount(){        
         this.setState({
             contents: this.state.now_post.content,
+            before_img: 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img,
         })
         this.set_tag_list();
     }
@@ -93,11 +97,32 @@ class PostModifyPage extends Component {
         }
         reader.readAsDataURL(file);
       }
+
 	
-    onClickTag = () => {
-        this.setState({tag_click: !this.state.tag_click})
-        console.log(this.state.tag_click)
-    }
+      onChangeTag = e => {
+        let split_tags = [];
+        e.target.value.split("#").forEach((data) => {
+          split_tags = [...split_tags, data.split(" ").join("")];
+          
+          
+        });
+        split_tags = split_tags.slice(1, split_tags.length);
+  
+        post_tag_data.forEach((static_tag, static_tag_index) => {
+          tag_clicked_list[static_tag_index] = 0;
+          split_tags.forEach((current_tag) => {
+            if (static_tag.name === current_tag) {
+              tag_clicked_list[static_tag_index] = 1;
+            }
+          });
+        });
+  
+        this.setState({ tag_contents: e.target.value });
+      }
+  
+      onFocusTag = e => {
+          this.setState({tag_click: !this.state.tag_click})
+      }
 
     changeTagTextArea() {
         let changeContents = '';
@@ -144,27 +169,45 @@ class PostModifyPage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
-        if(this.state.file == '') {
+        let split_tags = '';
+        let {tag_contents} = this.state;
+        let tagLengthErrorCheck = false;
+
+        tag_contents.split("#").forEach((data) => {
+          split_tags = [...split_tags, data.split(" ").join("")];
+          if ( data.split(" ").join("").length>5){
+            tagLengthErrorCheck = true
+          }
+        });
+        split_tags = split_tags.slice(1, split_tags.length);
+  
+  
+        let dup_rmv_tags = new Set(split_tags);
+        // if(dup_rmv_tags.size !== split_tags.length) {
+        //     alert("중복된 태그를 제거해주세요.");
+        // }
+
+        if(this.state.before_img=='' && this.state.file == ''){
             alert("사진을 등록해야 합니다.");
         }
-        else if(this.state.total_tag_num != 3) {
+        else if (dup_rmv_tags.size !== 3) {
             alert("태그는 3개를 등록해야 합니다.");
-        }
-        else {
+        }else if (tagLengthErrorCheck) {
+            alert("태그 길이를 5자 이하로 맞춰주세요");
+        }else {
             // 글 update
             let new_post_id = '';
             if(this.state.board_type == 0) {
 
-                var tag_index = []
-                
+                if(this.state.file == ''){ //사진 수정 X
+                    var tag_index = []
                 API.graphql({
                     query: updatePost, variables: {
                         input: 
                         {
                             id: this.state.now_post.id,
                             content: this.state.contents,
-                            img: this.state.file_key,
+                            //img: this.state.file_key, img 수정 X
                         } 
                     }})
                     .then(res => {
@@ -179,9 +222,7 @@ class PostModifyPage extends Component {
                         console.log(tag_index)
                     })
                     .then(res => {
-                        //console.log("현재 태그???", this.state.now_post.tag_list)
                         var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                        //console.log(origin_post_id)
                         origin_post_id.map((origin_id, index)=>{
                                 API.graphql({
                                     query: updatePostStyleTag, variables: {
@@ -201,55 +242,150 @@ class PostModifyPage extends Component {
                     })
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
+                }
+                else{
+                    var tag_index = []
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                img: this.state.file_key,
+                            } 
+                        }})
+                        .then(res => {
+                            console.log(this.state.now_post.tag_list)
+                            console.log(tag_clicked_list)
+                            
+                            tag_clicked_list.forEach((tag, index) => {
+                                if(tag == 1) {
+                                    tag_index = [...tag_index, index+1]
+                                }
+                            })
+                            console.log(tag_index)
+                        })
+                        .then(res => {
+                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                            origin_post_id.map((origin_id, index)=>{
+                                    API.graphql({
+                                        query: updatePostStyleTag, variables: {
+                                            input: 
+                                            {
+                                                id: origin_id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: tag_index[index],
+                                            } 
+                                    }})
+                                    .then(res => {
+                                        if(index == 2){
+                                            this.setState({create_tag:true})
+                                        }
+                                    })
+                            })
+                        })
+                        .then(res => this.setState({create_post: true}))
+                        .catch(e => console.log(e));
+                }
             }
             else {
 
-                var tag_index = []
+                if(this.state.file == ''){
+                    var tag_index = []
                 
-                API.graphql({
-                    query: updatePost, variables: {
-                        input: 
-                        {
-                            id: this.state.now_post.id,
-                            content: this.state.contents,
-                            img: this.state.file_key,
-                            blind: this.state.blind,
-                        } 
-                    }})
-                    .then(res => {
-                        console.log(this.state.now_post.tag_list)
-                        console.log(tag_clicked_list)
-                        
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                tag_index = [...tag_index, index+1]
-                            }
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                //img: this.state.file_key,
+                                blind: this.state.blind,
+                            } 
+                        }})
+                        .then(res => {
+                            console.log(this.state.now_post.tag_list)
+                            console.log(tag_clicked_list)
+                            
+                            tag_clicked_list.forEach((tag, index) => {
+                                if(tag == 1) {
+                                    tag_index = [...tag_index, index+1]
+                                }
+                            })
+                            console.log(tag_index)
                         })
-                        console.log(tag_index)
-                    })
-                    .then(res => {
-                        console.log("현재 태그???", this.state.now_post.tag_list)
-                        var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                        //console.log(origin_post_id)
-                        origin_post_id.map((origin_id, index)=>{
-                                API.graphql({
-                                    query: updatePostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            id: origin_id,
-                                            post_id: this.state.now_post.id,
-                                            tag_id: tag_index[index],
-                                        } 
-                                }})
-                                .then(res => {
-                                    if(index == 2){
-                                        this.setState({create_tag:true})
-                                    }
-                                })
+                        .then(res => {
+                            console.log("현재 태그???", this.state.now_post.tag_list)
+                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                            origin_post_id.map((origin_id, index)=>{
+                                    API.graphql({
+                                        query: updatePostStyleTag, variables: {
+                                            input: 
+                                            {
+                                                id: origin_id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: tag_index[index],
+                                            } 
+                                    }})
+                                    .then(res => {
+                                        if(index == 2){
+                                            this.setState({create_tag:true})
+                                        }
+                                    })
+                            })
                         })
-                    })
-                    .then(res => this.setState({create_post: true}))
-                    .catch(e => console.log(e));
+                        .then(res => this.setState({create_post: true}))
+                        .then(window.location.reload())
+                        .catch(e => console.log(e));
+                }
+                else{
+                    var tag_index = []
+                
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                img: this.state.file_key,
+                                blind: this.state.blind,
+                            } 
+                        }})
+                        .then(res => {
+                            console.log(this.state.now_post.tag_list)
+                            console.log(tag_clicked_list)
+                            
+                            tag_clicked_list.forEach((tag, index) => {
+                                if(tag == 1) {
+                                    tag_index = [...tag_index, index+1]
+                                }
+                            })
+                            console.log(tag_index)
+                        })
+                        .then(res => {
+                            console.log("현재 태그???", this.state.now_post.tag_list)
+                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
+                            origin_post_id.map((origin_id, index)=>{
+                                    API.graphql({
+                                        query: updatePostStyleTag, variables: {
+                                            input: 
+                                            {
+                                                id: origin_id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: tag_index[index],
+                                            } 
+                                    }})
+                                    .then(res => {
+                                        if(index == 2){
+                                            this.setState({create_tag:true})
+                                        }
+                                    })
+                            })
+                        })
+                        .then(res => this.setState({create_post: true}))
+                        .then(window.location.reload())
+                        .catch(e => console.log(e));
+                }
             }
         }
     }
@@ -280,7 +416,6 @@ class PostModifyPage extends Component {
         }
         else {
             profile_preview = <img alt="preivew_img" className='upload_img' src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img}></img>;
-            //이게 진짜 profile_preivew라...보여주는 것만함...file에 넘겨줘야하는데..아님 사진에 변화가 있는지 체크하거나
         }
  
 
@@ -323,10 +458,12 @@ class PostModifyPage extends Component {
 
                             <h3>태그</h3>
                             <div className="text_form tag_write">
-                                <Input value={tag_contents} 
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요"  
-                                  onClick={this.onClickTag}/>
+                            <Input value={tag_contents} 
+                                    style={{margin:"10px 0",width:"100%"}}
+                                    placeholder="태그를 입력해주세요"  
+                                    onChange={this.onChangeTag}
+                                    onClick={this.onFocusTag}
+                                    />
                             </div>
                             {
                                 tag_click ?
@@ -368,7 +505,15 @@ class PostModifyPage extends Component {
                             }
                             
                             <div className="submit_button">
-                                <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" onClick={this.handleSubmit.bind(this)}>수정 완료</Button>
+                                <Button type="submit" style={{
+                                    margin: "auto",
+                                    borderRadius: 30,
+                                    backgroundColor: "white",
+                                    padding: 10,
+                                    width: "100%",
+                                    color: "black",
+                                    border: '1px solid black'
+                                }} variant="contained" onClick={this.handleSubmit.bind(this)}>수정 완료</Button>
                             </div>
                         </div>
                     
@@ -384,135 +529,3 @@ class PostModifyPage extends Component {
 }
 
 export default PostModifyPage;
-
-/*
-
-let PostWritePage = () => {
-	const [fileImage, setFileImage] = useState(""); // 파일 저장
-    const saveFileImage = (e) => { setFileImage(URL.createObjectURL(e.target.files[0])); };
-
-    var tag_click = false;
-    const onClickTag = () => {
-        tag_click = !tag_click;
-        console.log(tag_click)
-    }
-
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                        <div className="image_file_input">
-                            {
-                            fileImage && ( <img alt="preivew_img" src={fileImage} className="upload_img" /> )
-                            }
-                            <input id="to_click_img" className="img_file_form" type="file" accept="image/*" onChange={saveFileImage} />
-                        </div>
-                        <label for="to_click_img" className="click_img">클릭해서 업로드</label>
-                        
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text" id=""
-                                 placeholder="내용을 입력해주세요" onKeyUp=""/>
-                            </div>
-
-                            <h3>태그</h3>
-                            <div className="text_form tag_write">
-                                <Input name="" type="" id=""
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요" onKeyUp="" onClick={onClickTag}/>
-                            </div>
-                            <PostWriteTag
-                                tag_click={tag_click}
-                            />
-                            {
-                                board_type == 1 ?
-                                <div>
-                                    <h3>익명 여부 선택</h3>
-                                    <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="예" /><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="아니오" checked="checked"/><span>아니오</span></label>
-                                    </div>
-                                </div>
-                                :
-                                <div>
-                                    </div>
-                            }
-                            
-
-                            <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >등록</Button>
-
-                        </div>
-                    
-
-
-                    </form>
-
-                </div>
-            </div>
-        )
-			
-		
-
-}
-
-export default PostWritePage;
-*/
-
-/*
-class PostWritePage extends Component{
-	constructor(){
-		super();
-	}
-    
-    onLoadFile= (e) => {
-        console.log(e.target.files)
-    }
-    const [fileImage, setFileImage] = useState("");
-    
-	render(){
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                    
-                        <div className="image_file_input">
-                            <input type="file" id="to_click_img" onChange={this.onLoadFile} accept='image/*' onClick="return callSub();" className="img_file_form" alt="X"
-                            />
-                            <label for="to_click_img" className="click_img">클릭해서 업로드</label>
-                        </div>
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text" id=""
-                                 placeholder="내용을 입력해주세요" onKeyUp=""/>
-                            </div>
-                            <h3>태그</h3>
-                            <div className="text_form">
-                                <Input name="" type="" id=""
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요" onKeyUp=""/>
-                            </div>
-                            <Button style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >저장</Button>
-                        </div>
-                    
-                    </form>
-                </div>
-            </div>
-        )
-			
-		
-	}
-}
-export default PostWritePage;
-*/

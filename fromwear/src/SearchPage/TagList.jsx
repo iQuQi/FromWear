@@ -16,8 +16,8 @@ let TagList = ({target_button,handle_tag_button_click}) => {
                     {static_tag_data.map((data,index) =>
                         <li>
                         <Button key={data.name+index} 
-                            style={{width: 90,height: 40,marginBottom:10,marginRight:8,fontSize: 13,float:"left", 
-                            color:  target_button[index]==0?"black":"white", backgroundColor: target_button[index]==0?"#d8c8b2":"#000000", borderRadius: "30px",boxShadow:"0 0 0 0"}} 
+                            style={{width: 95,height: 40,marginBottom:10,marginRight:8,fontSize: 13,float:"left", 
+                            color:  target_button[index]==0?"black":"white", backgroundColor: target_button[index]==0?"#D7DFF5":"#000000", borderRadius: "30px",boxShadow:"0 0 0 0"}} 
                             variant="contained"
                             onClick={e=>(handle_tag_button_click(e,index,data.name))}
                            
