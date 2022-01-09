@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import MyPostBoard from './MyPostBoard';
 
@@ -16,21 +17,23 @@ const EditBtn = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
     backgroundColor: white[500],
     
+    width: '70px',
     color: grey[700],
-    padding: '8px 20px',
+    padding: '8px 0px',
+    margin: '0px',
     '&:hover': {
       borderColor: grey[700],
       backgroundColor: grey[200],
     },
     '&:active': {
         boxShadow: 'none',
-        backgroundColor: '#0062cc',
-        borderColor: grey[200],
-        
+        backgroundColor: grey[700],
     },
     '&:focus': {
-        
+        borderBottom: '2px solid',
+        borderColor: grey[700]
     },
+   
     borderRadius: '0px',
     
   }));
@@ -39,7 +42,7 @@ const EditBtnGroup = styled(ButtonGroup)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
     backgroundColor: white[500],
     borderRight: 'none',
-    color: grey[700],
+    //color: grey[700],
     borderRadius: '0px',
     borderColor: grey[500],
     width: '310',
@@ -81,7 +84,7 @@ export default class MyPageButtonGroup extends Component{
             <div>
             <Box
               sx={{
-                borderBottom: 1, borderColor: 'divider', margin:'auto', width: '310px', height:'50px', color:'black',
+                borderBottom: 1, borderColor: 'divider', margin:'auto', width: '270px', height:'50px', color:'black',
                 padding: '0px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -91,13 +94,23 @@ export default class MyPageButtonGroup extends Component{
                 },
               }}
             >
-             
-              <EditBtnGroup variant="text" aria-label="text button group" style={{width: '310px'}}>
-                <EditBtn onClick={()=>this.set_btn(1)}>게시판</EditBtn>
+              <Stack direction={{ xs: 'column', sm: 'row' }} >
+              <EditBtn 
+                onClick={()=>this.set_btn(1)} 
+                sx={
+                  btn_clicked==0 || btn_clicked==1?{
+                    borderBottom:'2px solid', borderColor: 'grey'
+                  }:{}
+                }>
+                  게시판
+              </EditBtn>    
+                
+                
                 <EditBtn onClick={()=>this.set_btn(2)}>SOS</EditBtn>
                 <EditBtn onClick={()=>this.set_btn(3)}>댓글</EditBtn>
                 <EditBtn onClick={()=>this.set_btn(4)}>북마크</EditBtn>
-              </EditBtnGroup>
+              </Stack>
+
             </Box>
             {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20}/> : 
                 btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1}/> :
