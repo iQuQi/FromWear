@@ -37,6 +37,8 @@ class PostModifyPage extends Component {
             file_key: '',
             now_post:props.now_post,
             before_img: '',
+            tagLengthError: false,
+
         }
     }
 
@@ -96,10 +98,30 @@ class PostModifyPage extends Component {
         reader.readAsDataURL(file);
       }
 	
-    onClickTag = () => {
-        this.setState({tag_click: !this.state.tag_click})
-        console.log(this.state.tag_click)
-    }
+      onChangeTag = e => {
+        let split_tags = [];
+        e.target.value.split("#").forEach((data) => {
+          split_tags = [...split_tags, data.split(" ").join("")];
+          
+          
+        });
+        split_tags = split_tags.slice(1, split_tags.length);
+  
+        post_tag_data.forEach((static_tag, static_tag_index) => {
+          tag_clicked_list[static_tag_index] = 0;
+          split_tags.forEach((current_tag) => {
+            if (static_tag.name === current_tag) {
+              tag_clicked_list[static_tag_index] = 1;
+            }
+          });
+        });
+  
+        this.setState({ tag_contents: e.target.value });
+      }
+  
+      onFocusTag = e => {
+          this.setState({tag_click: !this.state.tag_click})
+      }
 
     changeTagTextArea() {
         let changeContents = '';
@@ -146,14 +168,32 @@ class PostModifyPage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
+        let split_tags = '';
+        let {tag_contents} = this.state;
+        let tagLengthErrorCheck = false;
+
+        tag_contents.split("#").forEach((data) => {
+          split_tags = [...split_tags, data.split(" ").join("")];
+          if ( data.split(" ").join("").length>5){
+            tagLengthErrorCheck = true
+          }
+        });
+        split_tags = split_tags.slice(1, split_tags.length);
+  
+  
+        let dup_rmv_tags = new Set(split_tags);
+        // if(dup_rmv_tags.size !== split_tags.length) {
+        //     alert("중복된 태그를 제거해주세요.");
+        // }
+
         if(this.state.before_img=='' && this.state.file == ''){
             alert("사진을 등록해야 합니다.");
         }
-        else if(this.state.total_tag_num != 3) {
+        else if (dup_rmv_tags.size !== 3) {
             alert("태그는 3개를 등록해야 합니다.");
-        }
-        else {
+        }else if (tagLengthErrorCheck) {
+            alert("태그 길이를 5자 이하로 맞춰주세요");
+        }else {
             // 글 update
             let new_post_id = '';
             if(this.state.board_type == 0) {
@@ -417,10 +457,12 @@ class PostModifyPage extends Component {
 
                             <h3>태그</h3>
                             <div className="text_form tag_write">
-                                <Input value={tag_contents} 
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요"  
-                                  onClick={this.onClickTag}/>
+                            <Input value={tag_contents} 
+                                    style={{margin:"10px 0",width:"100%"}}
+                                    placeholder="태그를 입력해주세요"  
+                                    onChange={this.onChangeTag}
+                                    onClick={this.onFocusTag}
+                                    />
                             </div>
                             {
                                 tag_click ?
@@ -462,7 +504,15 @@ class PostModifyPage extends Component {
                             }
                             
                             <div className="submit_button">
-                                <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" onClick={this.handleSubmit.bind(this)}>수정 완료</Button>
+                                <Button type="submit" style={{
+                                    margin: "auto",
+                                    borderRadius: 30,
+                                    backgroundColor: "white",
+                                    padding: 10,
+                                    width: "100%",
+                                    color: "black",
+                                    border: '1px solid black'
+                                }} variant="contained" onClick={this.handleSubmit.bind(this)}>수정 완료</Button>
                             </div>
                         </div>
                     
@@ -478,135 +528,3 @@ class PostModifyPage extends Component {
 }
 
 export default PostModifyPage;
-
-/*
-
-let PostWritePage = () => {
-	const [fileImage, setFileImage] = useState(""); // 파일 저장
-    const saveFileImage = (e) => { setFileImage(URL.createObjectURL(e.target.files[0])); };
-
-    var tag_click = false;
-    const onClickTag = () => {
-        tag_click = !tag_click;
-        console.log(tag_click)
-    }
-
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                        <div className="image_file_input">
-                            {
-                            fileImage && ( <img alt="preivew_img" src={fileImage} className="upload_img" /> )
-                            }
-                            <input id="to_click_img" className="img_file_form" type="file" accept="image/*" onChange={saveFileImage} />
-                        </div>
-                        <label for="to_click_img" className="click_img">클릭해서 업로드</label>
-                        
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text" id=""
-                                 placeholder="내용을 입력해주세요" onKeyUp=""/>
-                            </div>
-
-                            <h3>태그</h3>
-                            <div className="text_form tag_write">
-                                <Input name="" type="" id=""
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요" onKeyUp="" onClick={onClickTag}/>
-                            </div>
-                            <PostWriteTag
-                                tag_click={tag_click}
-                            />
-                            {
-                                board_type == 1 ?
-                                <div>
-                                    <h3>익명 여부 선택</h3>
-                                    <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="예" /><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="아니오" checked="checked"/><span>아니오</span></label>
-                                    </div>
-                                </div>
-                                :
-                                <div>
-                                    </div>
-                            }
-                            
-
-                            <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >등록</Button>
-
-                        </div>
-                    
-
-
-                    </form>
-
-                </div>
-            </div>
-        )
-			
-		
-
-}
-
-export default PostWritePage;
-*/
-
-/*
-class PostWritePage extends Component{
-	constructor(){
-		super();
-	}
-    
-    onLoadFile= (e) => {
-        console.log(e.target.files)
-    }
-    const [fileImage, setFileImage] = useState("");
-    
-	render(){
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                    
-                        <div className="image_file_input">
-                            <input type="file" id="to_click_img" onChange={this.onLoadFile} accept='image/*' onClick="return callSub();" className="img_file_form" alt="X"
-                            />
-                            <label for="to_click_img" className="click_img">클릭해서 업로드</label>
-                        </div>
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text" id=""
-                                 placeholder="내용을 입력해주세요" onKeyUp=""/>
-                            </div>
-                            <h3>태그</h3>
-                            <div className="text_form">
-                                <Input name="" type="" id=""
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요" onKeyUp=""/>
-                            </div>
-                            <Button style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >저장</Button>
-                        </div>
-                    
-                    </form>
-                </div>
-            </div>
-        )
-			
-		
-	}
-}
-export default PostWritePage;
-*/

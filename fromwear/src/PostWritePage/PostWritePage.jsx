@@ -89,6 +89,8 @@ class PostWritePage extends Component {
       let split_tags = [];
       e.target.value.split("#").forEach((data) => {
         split_tags = [...split_tags, data.split(" ").join("")];
+  
+        
       });
       split_tags = split_tags.slice(1, split_tags.length);
 
@@ -104,15 +106,18 @@ class PostWritePage extends Component {
       this.setState({ tag_contents: e.target.value });
     }
 
-    onClickTag = e => {
+    onFocusTag = e => {
         this.setState({tag_click: !this.state.tag_click})
     }
 
+  
+
     changeTagTextArea() {
-        let changeContents = '';
+        let changeContents = [];
         tag_clicked_list.forEach((tag, index) => {
             if(tag == 1) {
                 changeContents += `#${post_tag_data[index].name} `
+
             }
         })
         this.setState({
@@ -149,14 +154,18 @@ class PostWritePage extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        let split_tags = [];
+        let split_tags = '';
+        let tagLengthErrorCheck = false;
         let {tag_contents} = this.state;
-        tag_contents.split("#").forEach((data) => {
-          split_tags = [...split_tags, data.split(" ").join("")];
-        });
-        split_tags = split_tags.slice(1, split_tags.length);
-
-
+      
+      tag_contents.split("#").forEach((data) => {
+        split_tags = [...split_tags, data.split(" ").join("")];
+        if ( data.split(" ").join("").length>5){
+          tagLengthErrorCheck = true
+       } 
+      });
+      split_tags = split_tags.slice(1, split_tags.length);
+  
         let dup_rmv_tags = new Set(split_tags);
         // if(dup_rmv_tags.size !== split_tags.length) {
         //     alert("중복된 태그를 제거해주세요.");
@@ -168,6 +177,8 @@ class PostWritePage extends Component {
           alert("사진을 등록해야 합니다.");
         } else if (dup_rmv_tags.size !== 3) {
           alert("태그는 3개를 등록해야 합니다.");
+        } else if (tagLengthErrorCheck) {
+          alert("태그 길이를 5자 이하로 맞춰주세요");
         } else {
           // 글 추가          
           let current_board_type = this.state.board_type;
@@ -337,7 +348,7 @@ class PostWritePage extends Component {
                 accept="image/*"
                 name="profile_img"
                 onChange={this.handleFileOnChange}
-              ></input>
+            />사진을 업로드 해주세요
             </div>
             <label htmlFor="to_click_img" className="click_img">
               클릭해서 업로드
@@ -357,13 +368,13 @@ class PostWritePage extends Component {
 
               <h3>태그</h3>
               <div className="text_form tag_write">
-                <textarea
-                  value={tag_contents}
-                  style={{ margin: "10px 0", width: "100%" }}
-                  placeholder="태그를 입력해주세요"
-                  onChange={this.onChangeTag}
-                  onClick={this.onClickTag}
-                />
+                <Input value={tag_contents} 
+                                    style={{margin:"10px 0",width:"100%"}}
+                                    placeholder="태그를 입력해주세요"  
+                                    onChange={this.onChangeTag}
+                                    onClick={this.onFocusTag}
+                                    />
+
               </div>
               {tag_click ? (
                 <div className="tag_area">
@@ -409,9 +420,12 @@ class PostWritePage extends Component {
                   type="submit"
                   style={{
                     margin: "auto",
-                    backgroundColor: "#d8c8b2",
+                    borderRadius: 30,
+                    backgroundColor: "white",
+                    padding: 10,
                     width: "100%",
                     color: "black",
+                    border: '1px solid black'
                   }}
                   variant="contained"
                   onClick={this.handleSubmit.bind(this)}
