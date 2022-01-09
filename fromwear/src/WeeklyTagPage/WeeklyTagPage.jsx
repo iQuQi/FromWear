@@ -71,9 +71,9 @@ class WeeklyTagPage extends Component {
 			<Header/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
-                    <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그&nbsp;<span style={{fontSize:'0.9em', color:'#F2CB61'}}>TOP4</span></h1>
+                    <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그&nbsp;<span style={{fontSize:'0.9em', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>TOP4</span></h1>
                     <h1 style={{fontSize:'1.5em'}}>매주 바뀌는 태그에 맞춰서 <u>#이번주태그</u> 를 걸고 좋아요 랭킹에 도전하자!</h1>
-					<h1 style={{fontSize:'1.7em', fontWeight:'bolder', color:'#CC3D3D'}}>#{this.state.weekly_tag[0]} &nbsp;#{this.state.weekly_tag[1]}</h1>		
+					<h1 style={{fontSize:'1.7em', fontWeight:'bolder', color:'rgb(82 89 178)'}}>#{this.state.weekly_tag[0]} &nbsp;#{this.state.weekly_tag[1]}</h1>		
 					
 				</div>
 
