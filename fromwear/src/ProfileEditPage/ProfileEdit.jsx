@@ -282,7 +282,7 @@ class ProfileEdit extends Component{
                 profile_preview = <img className='profile_original_img' style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover"}}/>;
             }
             else{ //프로필 이미지는 s3에 어떻게 업로드 되는지 보고 파악하면 될듯
-                profile_preview = <img className='profile_original_img' style={{backgroundImage:"url("+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.profile_img+")",backgroundSize:"cover"}}/>;
+                profile_preview = <img className='profile_original_img' style={{backgroundImage:"url("+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.user.profile_img+")",backgroundSize:"cover"}}/>;
             }
         }
         else{
