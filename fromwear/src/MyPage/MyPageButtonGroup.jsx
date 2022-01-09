@@ -92,7 +92,7 @@ export default class MyPageButtonGroup extends Component{
               }}
             >
              
-              <EditBtnGroup variant="text" aria-label="text button group">
+              <EditBtnGroup variant="text" aria-label="text button group" style={{width: '310px'}}>
                 <EditBtn onClick={()=>this.set_btn(1)}>게시판</EditBtn>
                 <EditBtn onClick={()=>this.set_btn(2)}>SOS</EditBtn>
                 <EditBtn onClick={()=>this.set_btn(3)}>댓글</EditBtn>

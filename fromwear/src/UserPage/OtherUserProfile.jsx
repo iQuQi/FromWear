@@ -81,19 +81,26 @@ export default class Profile extends Component {
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
-      console.log("업데이트1");
       this.setState({
         user: this.props.user,
       })
       this.state.user = this.props.user
 
+      if(this.props.now_user !== prevProps.now_user){
+        this.setState({
+          now_user: this.props.now_user,
+        })
+        this.state.now_user = this.props.now_user
+      }
+
       if(this.state.user.follower_list){
-        console.log("업데이트2");
         console.log(this.state.follow_click);
         console.log(this.state.now_user);
         console.log(this.state.user);
         this.state.user.follower_list.items.map((data) => {
+          console.log(data);
           if(data.follower_id==this.state.now_user.id){
+            console.log("맞아");
             this.setState({
               follow_click: true,
             })
@@ -116,6 +123,7 @@ export default class Profile extends Component {
       this.setState({
         now_user: this.props.now_user
       })
+      this.state.now_user = this.props.now_user
       if(this.state.now_user.following_list){
         this.state.now_user.following_list.items.map((data) => {
           if(data.following_id==this.state.user.id){
