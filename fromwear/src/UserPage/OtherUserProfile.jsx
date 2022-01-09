@@ -108,15 +108,7 @@ export default class Profile extends Component {
         })
       }
     }
-    /*if(this.state.user != this.props.user && this.state.user.follower_list){
-      this.state.user.follower_list.items.map((data) => {
-        if(data.follower_id==this.state.now_user.id){
-          this.setState({
-            follow_click: true,
-          })
-        }
-      })
-    }*/
+    
       
     
     if(this.props.now_user !== prevProps.now_user){
