@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import './MainPage.css';
-import BANNER from './img/Main_banner.png'
+import BANNER from './img/Main.png'
 
 import Header from '../Header/Header'
 
@@ -17,6 +17,8 @@ import { API } from 'aws-amplify';
 import { listPosts } from '.././graphql/queries';
 
 import Footer from '../Footer/Footer.jsx';
+import { fontWeight } from '@mui/system';
+import Box from '@mui/material/Box';
 
 class MainPage extends Component {
 	constructor() {
@@ -58,25 +60,36 @@ class MainPage extends Component {
 		const best_post_0 = this.state.postlist_0.slice(0,5);
 		const best_post_1 = this.state.postlist_1.slice(0,5);
 		const best_post_2 = this.state.postlist_2.slice(0,5);
-		
+		//<Box className = 'banner' sx={{width:'100%', height:'780px', backgroundColor:'#F2F2F2'}}>
 
 		return <div id = 'main_page'>
-			<Header
-			/>
-			<div className = 'banner'>
-				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
+			<Header/>
+			<div className='main_banner'>	
+				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'780px'}}/>
+
+				<div className = 'banner_title'>
+					<p style={{fontSize: '10vmin', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
+					<p style={{fontSize: '6vmin', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
+				</div>
+
+				<div className = 'banner_title' style={{top: '450px'}}>
+					<p style={{fontSize: '2.5vmin', margin: '10px 0px'}}>착장 공유부터 스타일 조언까지,</p>
+					<p style={{fontSize: '2.5vmin', margin: '10px 0px'}}>프롬웨어와 함께 당신의 하루를 시작해요.</p>
+				</div>
+				
+				
 			</div>
 
 			<div className='contents'>
-				<div id = 'today_post' className = 'collection'>
-					<h3 className = 'title'>오늘의 착장</h3>
-					<a className = 'seemore' href='/todayboard'>둘러보기</a>
+				<div id = 'today_post' className = 'main_collection'>
+					<h2 className = 'main_title'>오늘의 착장</h2>
+					<a className = 'main_seemore' href='/todayboard'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 						{best_post_0.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'ls
 							>
-								<img style={{borderRadius:16}}
+								<img style={{borderRadius:16, height:'322.55px'}}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.id}
@@ -112,14 +125,14 @@ class MainPage extends Component {
 				
 				</div>
 
-				<div id = 'help_post' className = 'collection'>
-					<h3 className = 'title'>도움이 필요해</h3>
-					<a className = 'seemore' href='/sosboard'>둘러보기</a>
+				<div id = 'help_post' className = 'main_collection'>
+					<h2 className = 'main_title'>도움이 필요해</h2>
+					<a className = 'main_seemore' href='/sosboard'>둘러보기</a>
 
 					<ImageList cols={5} gap={8}>
 						{best_post_1.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{borderRadius:16 }}
+								<img style={{borderRadius:16, height:'322.55px' }}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.id}
@@ -160,14 +173,14 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 
-				<div id = 'weekly_best' className = 'collection'>
-					<h3 className = 'title'>이번주 태그 랭킹</h3>
-					<a className = 'seemore' href='/weeklytag'>둘러보기</a>
+				<div id = 'weekly_best' className = 'main_collection'>
+					<h2 className = 'main_title'>이번주 태그 랭킹</h2>
+					<a className = 'main_seemore' href='/weeklytag'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8}>
 						{best_post_2.map((item) => (
 							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{borderRadius:16 }}
+								<img style={{borderRadius:16, height:'322.55px'}}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.user}
