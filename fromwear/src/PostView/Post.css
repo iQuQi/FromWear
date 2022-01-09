@@ -106,6 +106,13 @@
     height: 51px;
     overflow: scroll;
     -ms-overflow-style: none;
+    /*overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 3 ;
+        -webkit-box-orient: vertical; */
 }
 .writer_content::-webkit-scrollbar { display: none; }
 

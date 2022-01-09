@@ -126,7 +126,7 @@ class Select_button extends Component{
         
         console.log(select_button_is_checked)
         return (
-            <div>
+            <div className="single_select">
                 {
                     select_button_is_checked ?
                     <div className="selected_star_img">

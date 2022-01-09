@@ -20,6 +20,10 @@
     border-radius: 50%;
 }
 
+.single_comment {
+    min-height: 69px;
+}
+
 .comment_user_name {
     cursor: pointer;
     font-weight: bold;
@@ -33,3 +37,4 @@
     /*margin-top: 10px;*/
     line-height: 1.4;
 }
+
