@@ -95,6 +95,7 @@ class PostModifyPage extends Component {
         }
         reader.readAsDataURL(file);
       }
+
 	
     onClickTag = () => {
         this.setState({tag_click: !this.state.tag_click})
