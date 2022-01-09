@@ -418,7 +418,12 @@ class Post extends Component{
     }
     
     moveToWriterPage = () => {
-        window.location.href = "/userpage/" + this.state.now_writer.id
+        if(this.state.now_writer.id == this.state.now_user.id) {
+            window.location.href = "/mypage"
+        }
+        else {
+            window.location.href = "/userpage/" + this.state.now_writer.id
+        }
     }
 
     getTagList =() => {
