@@ -9,13 +9,19 @@
     background-color: white;
    
 }
-.banner{
+.main_banner{
     position: relative;
     margin: auto;
-    height: 415px;
+    height: 790px;
     width: 100%;
-    background-color: #F2F2F2;
+    background-color: #c0e0f6;
     text-align: left;
+    overflow-y: auto;
+}
+.banner_img{
+    position:absolute;
+    left: 50px;
+    overflow-y: auto;
 }
 .banner_title{
     position: absolute;

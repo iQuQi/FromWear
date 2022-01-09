@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import './MainPage.css';
-import BANNER from './img/Main_banner.png'
+import BANNER from './img/Main2.png'
 
 import Header from '../Header/Header'
 
@@ -60,20 +60,25 @@ class MainPage extends Component {
 		const best_post_0 = this.state.postlist_0.slice(0,5);
 		const best_post_1 = this.state.postlist_1.slice(0,5);
 		const best_post_2 = this.state.postlist_2.slice(0,5);
-		
+		//<Box className = 'banner' sx={{width:'100%', height:'780px', backgroundColor:'#F2F2F2'}}>
 
 		return <div id = 'main_page'>
 			<Header/>
-			<Box className = 'banner' sx={{width:'100%', height:'780px', backgroundColor:'#F2F2F2'}}>
-				
+			<div className='main_banner'>	
+				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'780px'}}/>
 
 				<div className = 'banner_title'>
-					<p style={{fontSize: '10vmin', fontWeight: 'bold', marginBottom:'20px', color:'#005E75'}}>FROMWEAR</p>
+					<p style={{fontSize: '10vmin', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
 					<p style={{fontSize: '6vmin', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
+				</div>
+
+				<div className = 'banner_title' style={{top: '450px'}}>
+					<p style={{fontSize: '2.5vmin', margin: '10px 0px'}}>착장 공유부터 스타일 조언까지,</p>
+					<p style={{fontSize: '2.5vmin', margin: '10px 0px'}}>프롬웨어와 함께 당신의 하루를 시작해요.</p>
 				</div>
 				
 				
-			</Box>
+			</div>
 
 			<div className='contents'>
 				<div id = 'today_post' className = 'main_collection'>
