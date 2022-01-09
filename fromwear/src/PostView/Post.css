@@ -81,7 +81,7 @@
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: white;
+    background-color: white;/*여기 수정좀 했어*/
     border: 1px solid white;
     cursor: pointer;
     color: black;
@@ -96,7 +96,7 @@
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: white;
+    background-color: white;/*여기 수정좀 했어*/
     border: 1px solid white;
     cursor: pointer;
     color:black;
