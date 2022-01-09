@@ -3,7 +3,7 @@ import './Select_button.css';
 import Thumb from './Thumb';
 
 import { API } from 'aws-amplify';
-import { updateComment } from '../graphql/mutations';
+import { updateComment, updateUser } from '../graphql/mutations';
 
 class Select_button extends Component{
 
@@ -58,22 +58,66 @@ class Select_button extends Component{
 
 
     onClick = () => {
-        API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
-            adopted: !this.state.select_button_is_checked,
-            }}
-        })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
+        if(this.state.select_button_is_checked){ //true->false
+            console.log("@@@@@@@@ true->false")
+            API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
+                adopted: !this.state.select_button_is_checked,
+                }}
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
+    
+            this.setState((prev) => {
+                return{
+                    select_button_is_checked: !prev.select_button_is_checked,
+                }
+            })
 
-        this.setState((prev) => {
-            return{
-                select_button_is_checked: !prev.select_button_is_checked,
-            }
-        })
+            console.log("현재!!!", this.state.writer_user)
+            API.graphql({
+                query: updateUser, variables:{input: {id: this.state.writer_user.id,
+                    adopted: this.state.writer_user.adopted-1,
+                }}
+
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
+        }
+        else { //false->true
+            console.log("@@@@@@@@@ false->true")
+            API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
+                adopted: !this.state.select_button_is_checked,
+                }}
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
+    
+            this.setState((prev) => {
+                return{
+                    select_button_is_checked: !prev.select_button_is_checked,
+                }
+            })
+
+            console.log("현재!!!", this.state.writer_user)
+            API.graphql({
+                query: updateUser, variables:{input: {id: this.state.writer_user.id,
+                    adopted: this.state.writer_user.adopted+1,
+                }}
+
+            })
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
+        }
+        
     }
     
     moveToWriterPage = () => {
-        window.location.href = "/userpage/" + this.state.writer_user.id
+        if(this.state.writer_user.id == this.state.now_user.id) {
+            window.location.href = "/mypage"
+        }
+        else {
+            window.location.href = "/userpage/" + this.state.writer_user.id
+        }
     }
     
 
@@ -101,12 +145,14 @@ class Select_button extends Component{
                         now_user={now_user}/>
                 <div className="select_div">
                     {
-                        post_writer.id==now_user.id ?
+                        (post_writer.id==now_user.id)&&(now_user.id!=writer_user.id) ?
                         <div>
                         {
                             select_button_is_checked ?
-                            <div className="select_yes" onClick={this.onClick}>
-                                채택하기
+                            <div>
+                                <div className="select_yes" onClick={this.onClick}>
+                                    채택하기
+                                </div>
                             </div>
                             :
                             <div className="select_no" onClick={this.onClick}>
