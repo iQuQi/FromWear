@@ -17,6 +17,8 @@ import { API } from 'aws-amplify';
 import { listPosts } from '.././graphql/queries';
 
 import Footer from '../Footer/Footer.jsx';
+import { fontWeight } from '@mui/system';
+import Box from '@mui/material/Box';
 
 class MainPage extends Component {
 	constructor() {
@@ -61,16 +63,22 @@ class MainPage extends Component {
 		
 
 		return <div id = 'main_page'>
-			<Header
-			/>
-			<div className = 'banner'>
-				<img src = {BANNER} alt = 'Main Banner' style={{margin:'60px'}}/>
-			</div>
+			<Header/>
+			<Box className = 'banner' sx={{width:'100%', height:'780px', backgroundColor:'#F2F2F2'}}>
+				
+
+				<div className = 'banner_title'>
+					<p style={{fontSize: '10vmin', fontWeight: 'bold', marginBottom:'20px', color:'#005E75'}}>FROMWEAR</p>
+					<p style={{fontSize: '6vmin', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
+				</div>
+				
+				
+			</Box>
 
 			<div className='contents'>
-				<div id = 'today_post' className = 'collection'>
-					<h2 className = 'title'>오늘의 착장</h2>
-					<a className = 'seemore' href='/todayboard'>둘러보기</a>
+				<div id = 'today_post' className = 'main_collection'>
+					<h2 className = 'main_title'>오늘의 착장</h2>
+					<a className = 'main_seemore' href='/todayboard'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 						{best_post_0.map((item) => (
@@ -112,9 +120,9 @@ class MainPage extends Component {
 				
 				</div>
 
-				<div id = 'help_post' className = 'collection'>
-					<h2 className = 'title'>도움이 필요해</h2>
-					<a className = 'seemore' href='/sosboard'>둘러보기</a>
+				<div id = 'help_post' className = 'main_collection'>
+					<h2 className = 'main_title'>도움이 필요해</h2>
+					<a className = 'main_seemore' href='/sosboard'>둘러보기</a>
 
 					<ImageList cols={5} gap={8}>
 						{best_post_1.map((item) => (
@@ -160,9 +168,9 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 
-				<div id = 'weekly_best' className = 'collection'>
-					<h2 className = 'title'>이번주 태그 랭킹</h2>
-					<a className = 'seemore' href='/weeklytag'>둘러보기</a>
+				<div id = 'weekly_best' className = 'main_collection'>
+					<h2 className = 'main_title'>이번주 태그 랭킹</h2>
+					<a className = 'main_seemore' href='/weeklytag'>둘러보기</a>
 					
 					<ImageList cols={5} gap={8}>
 						{best_post_2.map((item) => (
