@@ -15,7 +15,6 @@
 .search_page_container{
     width: 100%;  
 	background-color:rgba(0, 0, 0, 0);
-	min-height: 100vh;
 	margin-bottom: 180px;
 	display: flex;
 	flex-direction: column;

@@ -14,37 +14,54 @@ import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import {post_tag_data} from "./PostTagData"
 import { API } from 'aws-amplify';
-import { createPost, createPostStyleTag, UpdateStyleTag } from '../graphql/mutations';
+import { listStyleTags } from "../graphql/queries.js";
+import {
+  createPost,
+  createStyleTag,
+  createPostStyleTag,
+  updateStyleTag,
+} from "../graphql/mutations";
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //37개 태그
 let uuid_ = uuid();
+let weeklyTagList = [];
 
 class PostWritePage extends Component {
     constructor(props){
         super();
 
         this.state = {
-            file : '',
-            previewURL : '',
-            tag_click: false,
-			current_click_tag_num: 0,
-            total_tag_num: 0,
-            tag_contents: '', //tag contents
-            contents: '', //contents
-            board_type: props.board_type,
-            user: props.user,
-            blind: false,
-            create_post: false,
-            create_tag: false,
-            file_key: '',
-        }
+          file: "",
+          previewURL: "",
+          tag_click: false,
+          total_tag_num: 0,
+          tag_contents: "", //tag contents
+          contents: "", //contents
+          board_type: props.board_type,
+          user: props.user,
+          blind: false,
+          create_post: false,
+          create_tag: false,
+          file_key: "",
+        };
     }
     
     componentDidUpdate(prevProps) {
         if(this.props.user !== prevProps.user){
             this.setState({user: this.props.user});
-            console.log(this.state.user);
         }
+
+        API.graphql({
+          query: listStyleTags,
+          variables: { filter: { is_weekly: { eq: true } } },
+        })
+          .then((res) =>
+              weeklyTagList = res.data.listStyleTags.items.map(
+                (data) => data.value
+              )
+          )
+          .catch((e) => console.log(e));
+
     }
 
     handleFileOnChange = (event) => {
@@ -68,17 +85,39 @@ class PostWritePage extends Component {
         reader.readAsDataURL(file);
       }
 	
-    onClickTag = e => {
-        console.log("eeee:",e)
-        this.setState({tag_click: !this.state.tag_click})
-        console.log(this.state.tag_click)
+    onChangeTag = e => {
+      let split_tags = [];
+      e.target.value.split("#").forEach((data) => {
+        split_tags = [...split_tags, data.split(" ").join("")];
+  
+        
+      });
+      split_tags = split_tags.slice(1, split_tags.length);
+
+      post_tag_data.forEach((static_tag, static_tag_index) => {
+        tag_clicked_list[static_tag_index] = 0;
+        split_tags.forEach((current_tag) => {
+          if (static_tag.name === current_tag) {
+            tag_clicked_list[static_tag_index] = 1;
+          }
+        });
+      });
+
+      this.setState({ tag_contents: e.target.value });
     }
 
+    onFocusTag = e => {
+        this.setState({tag_click: !this.state.tag_click})
+    }
+
+  
+
     changeTagTextArea() {
-        let changeContents = '';
+        let changeContents = [];
         tag_clicked_list.forEach((tag, index) => {
             if(tag == 1) {
                 changeContents += `#${post_tag_data[index].name} `
+
             }
         })
         this.setState({
@@ -86,28 +125,23 @@ class PostWritePage extends Component {
         })
     }
 
-    handle_tag_button_click=(e,index)=>{
+    handle_tag_button_click=(e,index,name)=>{
 		if(!tag_clicked_list[index]) {
-            if(this.state.total_tag_num == 3) {
-                alert("태그는 3개를 등록해야 합니다.");
-                return;
-            } 
-
 			tag_clicked_list[index]= 1;
 			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num+1,
-                total_tag_num: this.state.total_tag_num + 1
+                tag_contents: this.state.tag_contents + `#${name}`,
+                // total_tag_num: this.state.total_tag_num + 1
 			})
 		}
 		else {
 			tag_clicked_list[index]=0;
 			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num-1,
-                total_tag_num: this.state.total_tag_num - 1
-			})
+                tag_contents: this.state.tag_contents.replaceAll(`#${name}`, ''),
+                // total_tag_num: this.state.total_tag_num - 1,
+            });
 		}
 
-        this.changeTagTextArea();
+        // this.changeTagTextArea();
         
 		//console.log("cur input tag7:"+this.state.current_input_tag);
 /*
@@ -119,90 +153,133 @@ class PostWritePage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
-        if(this.state.file == '') {
-            alert("사진을 등록해야 합니다.");
-        }
-        else if(this.state.total_tag_num != 3) {
-            alert("태그는 3개를 등록해야 합니다.");
-        }
-        else {
-            // 글 추가
-            let new_post_id = '';
-            if(this.state.board_type == 0) {
-                let current_board_type = (tag_clicked_list[36] == 1 ? 2 : 0);
-                API.graphql({
-                    query: createPost, variables: {
-                        input: 
-                        {
-                            board_type: current_board_type,
-                            click_num: "0",
-                            content: this.state.contents,
-                            img: this.state.file_key,
-                            user_id: this.state.user.id,
-                        } 
-                    }})
-                    .then(res => {
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                API.graphql({
-                                    query: createPostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            post_id: res.data.createPost.id,
-                                            tag_id: index+1,
-                                        } 
-                                }})
-                                .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
-                                .catch(e => console.log(e));
-                            }
-                        })
-                    })
-                    .then(res => this.setState({create_post: true}))
-                    .catch(e => console.log(e));
-            }
-            else {
-                API.graphql({
-                    query: createPost, variables: {
-                        input: 
-                        {
-                            board_type: 1,
-                            click_num: "0",
-                            content: this.state.contents,
-                            img: this.state.file_key,
-                            user_id: this.state.user.id,
-                            blind: this.state.blind,
-                        } 
-                    }})
-                    .then(res => {
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                API.graphql({
-                                    query: createPostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            post_id: res.data.createPost.id,
-                                            tag_id: index+1,
-                                        } 
-                                }})
-                                .then(res => console.log(res))
-                                .then(res => this.setState({create_tag: true}))
-                                // .then(res => {
-                                //     API.graphql({
-                                //         query: UpdateStyleTag, variables:{
-                                //             input: {
 
-                                //             }
-                                //         }
-                                //     })
-                                // })
-                            }
-                        })
-                    })
-                    .then(res => this.setState({create_post: true}))
-                    .catch(e => console.log(e));
+        let split_tags = '';
+        let tagLengthErrorCheck = false;
+        let {tag_contents} = this.state;
+      
+      tag_contents.split("#").forEach((data) => {
+        split_tags = [...split_tags, data.split(" ").join("")];
+        if ( data.split(" ").join("").length>5){
+          tagLengthErrorCheck = true
+       } 
+      });
+      split_tags = split_tags.slice(1, split_tags.length);
+  
+        let dup_rmv_tags = new Set(split_tags);
+        // if(dup_rmv_tags.size !== split_tags.length) {
+        //     alert("중복된 태그를 제거해주세요.");
+        // }
+
+        
+
+        if (this.state.file == "") {
+          alert("사진을 등록해야 합니다.");
+        } else if (dup_rmv_tags.size !== 3) {
+          alert("태그는 3개를 등록해야 합니다.");
+        } else if (tagLengthErrorCheck) {
+          alert("태그 길이를 5자 이하로 맞춰주세요");
+        } else {
+          // 글 추가          
+          let current_board_type = this.state.board_type;
+          if(current_board_type === "0") {
+                let match = 0;
+                weeklyTagList.forEach((weeklyTag) => {
+                    dup_rmv_tags.forEach((tag) => {
+                        if (weeklyTag === tag) match += 1;
+                    });
+                });
+                if(match === 3) current_board_type = 2;
             }
+            API.graphql({
+              query: createPost,
+              variables: {
+                input: {
+                  board_type: current_board_type,
+                  click_num: "0",
+                  content: this.state.contents,
+                  img: this.state.file_key,
+                  user_id: this.state.user.id,
+                },
+              },
+            })
+              .then((res) => {
+                let current_post_id = res.data.createPost.id;
+                dup_rmv_tags.forEach((tag) => {
+                  let currnet_tag_id;
+                  API.graphql({
+                    query: listStyleTags,
+                    variables: { filter: { value: { eq: tag } } },
+                  })
+                    .then((res) => {
+                      if (res.data.listStyleTags.items.length === 0) {
+                        //없었던 태그
+                        API.graphql({
+                          query: createStyleTag,
+                          variables: {
+                            input: { num: 0, value: tag },
+                          },
+                        })
+                          .then((res) => {
+                            currnet_tag_id = res.data.createStyleTag.id;
+                            API.graphql({
+                                query: createPostStyleTag,
+                                variables: {
+                                input: {
+                                    post_id: current_post_id,
+                                    tag_id: currnet_tag_id,
+                                },
+                                },
+                            })
+                            .then((res) => {
+                                API.graphql({
+                                    query: updateStyleTag,
+                                    variables: {
+                                    input: {
+                                        id: currnet_tag_id,
+                                        num:
+                                        res.data.createPostStyleTag.style_tag.num + 1,
+                                    },
+                                    },
+                                }).catch((e) => console.log(e));
+                            })
+                            .then((res) => this.setState({ create_tag: true }))
+                            .catch((e) => console.log(e));
+                          })
+                          .catch((e) => console.log(e));
+                      } else {
+                        //존재하는 태그
+                        currnet_tag_id = res.data.listStyleTags.items[0].id;
+                        API.graphql({
+                            query: createPostStyleTag,
+                            variables: {
+                            input: {
+                                post_id: current_post_id,
+                                tag_id: currnet_tag_id,
+                            },
+                            },
+                        })
+                            .then((res) => {
+                            API.graphql({
+                                query: updateStyleTag,
+                                variables: {
+                                input: {
+                                    id: currnet_tag_id,
+                                    num:
+                                    res.data.createPostStyleTag.style_tag.num + 1,
+                                },
+                                },
+                            }).catch((e) => console.log(e));
+                            })
+                            .then((res) => this.setState({ create_tag: true }))
+                            .catch((e) => console.log(e));
+                        }
+                    })
+                    .catch((e) => console.log(e));
+                    });
+                })
+              .then((res) => this.setState({ create_post: true }))
+              .catch((e) => console.log(e));
         }
     }
 
@@ -242,213 +319,127 @@ class PostWritePage extends Component {
             window.location.reload();
         }
 
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.handleCloseButton.bind(this)}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                        <div className="image_file_input">
-                            {profile_preview}
-                            <input
-                                id="to_click_img" className="img_file_form"
-                                type='file' 
-                                accept='image/*' 
-                                name='profile_img' 
-                                onChange={this.handleFileOnChange}>
-                            </input>
-                        </div>
-                        <label htmlFor="to_click_img" className="click_img">클릭해서 업로드</label>
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text"
-                                 placeholder="내용을 입력해주세요" value={contents} onChange={this.changeTextArea.bind(this)}></textarea>
-                            </div>
-
-                            <h3>태그</h3>
-                            <div className="text_form tag_write">
-                                <Input value={tag_contents} 
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요"  
-                                  onClick={this.onClickTag}/>
-                            </div>
-                            {
-                                tag_click ?
-                                <div className="tag_area">
-                                    <PostWriteTagList
-                                    target_button={tag_clicked_list}
-                                    handle_tag_button_click={this.handle_tag_button_click}
-                                    />
-                                </div>
-                                :
-                                <div>
-
-                                </div>
-                            }
-                            {
-                                board_type == 1 ?
-                                <div>
-                                    <h3>익명 여부 선택</h3>
-                                    <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="1" onClick={this.checkBlind.bind(this)}/><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="2" onClick={this.checkBlind.bind(this)} defaultChecked/><span>아니오</span></label>
-                                    </div>
-                                </div>
-                                :
-                                <div>
-                                    </div>
-                            }
-                            
-                            <div className="submit_button">
-                                <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" onClick={this.handleSubmit.bind(this)}>등록</Button>
-                            </div>
-                        </div>
-                    
-
-
-                    </form>
-
-                </div>
+		return (
+      <div className="post_write_container">
+        <div className="post_write_content">
+          <Button
+            style={{
+              minWidth: 40,
+              height: 40,
+              margin: "0 5px 5px 20px",
+              fontSize: "30px",
+              fontWeight: 300,
+              color: "black",
+              position: "absolute",
+              top: 10,
+              left: -15,
+            }}
+            onClick={this.handleCloseButton.bind(this)}
+          >
+            <CloseIcon />
+          </Button>
+          <form action="doLogin" method="POST" className="loginForm">
+            <div className="image_file_input">
+              {profile_preview}
+              <input
+                id="to_click_img"
+                className="img_file_form"
+                type="file"
+                accept="image/*"
+                name="profile_img"
+                onChange={this.handleFileOnChange}
+            />사진을 업로드 해주세요
             </div>
-        )
+            <label htmlFor="to_click_img" className="click_img">
+              클릭해서 업로드
+            </label>
+            <div className="post_text_input">
+              <h3>내용</h3>
+              <div className="text_form">
+                <textarea
+                  className="content_write"
+                  name=""
+                  type="text"
+                  placeholder="내용을 입력해주세요"
+                  value={contents}
+                  onChange={this.changeTextArea.bind(this)}
+                ></textarea>
+              </div>
+
+              <h3>태그</h3>
+              <div className="text_form tag_write">
+                <Input value={tag_contents} 
+                                    style={{margin:"10px 0",width:"100%"}}
+                                    placeholder="태그를 입력해주세요"  
+                                    onChange={this.onChangeTag}
+                                    onClick={this.onFocusTag}
+                                    />
+
+              </div>
+              {tag_click ? (
+                <div className="tag_area">
+                  <PostWriteTagList
+                    target_button={tag_clicked_list}
+                    handle_tag_button_click={this.handle_tag_button_click}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+              {board_type == 1 ? (
+                <div>
+                  <h3>익명 여부 선택</h3>
+                  <div className="select_blind">
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="fruit"
+                        value="1"
+                        onClick={this.checkBlind.bind(this)}
+                      />
+                      <span>예</span>
+                    </label>
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="fruit"
+                        value="2"
+                        onClick={this.checkBlind.bind(this)}
+                        defaultChecked
+                      />
+                      <span>아니오</span>
+                    </label>
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
+
+              <div className="submit_button">
+                <Button
+                  type="submit"
+                  style={{
+                    margin: "auto",
+                    borderRadius: 30,
+                    backgroundColor: "white",
+                    padding: 10,
+                    width: "100%",
+                    color: "black",
+                    border: '1px solid black'
+                  }}
+                  variant="contained"
+                  onClick={this.handleSubmit.bind(this)}
+                >
+                  등록
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
     }	
 
 }
 
 export default PostWritePage;
-
-/*
-
-let PostWritePage = () => {
-	const [fileImage, setFileImage] = useState(""); // 파일 저장
-    const saveFileImage = (e) => { setFileImage(URL.createObjectURL(e.target.files[0])); };
-
-    var tag_click = false;
-    const onClickTag = () => {
-        tag_click = !tag_click;
-        console.log(tag_click)
-    }
-
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                        <div className="image_file_input">
-                            {
-                            fileImage && ( <img alt="preivew_img" src={fileImage} className="upload_img" /> )
-                            }
-                            <input id="to_click_img" className="img_file_form" type="file" accept="image/*" onChange={saveFileImage} />
-                        </div>
-                        <label for="to_click_img" className="click_img">클릭해서 업로드</label>
-                        
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text" id=""
-                                 placeholder="내용을 입력해주세요" onKeyUp=""/>
-                            </div>
-
-                            <h3>태그</h3>
-                            <div className="text_form tag_write">
-                                <Input name="" type="" id=""
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요" onKeyUp="" onClick={onClickTag}/>
-                            </div>
-                            <PostWriteTag
-                                tag_click={tag_click}
-                            />
-                            {
-                                board_type == 1 ?
-                                <div>
-                                    <h3>익명 여부 선택</h3>
-                                    <div className="select_blind">
-                                        <label className="radio"><input type="radio" name="fruit" value="예" /><span>예</span></label>
-                                        <label className="radio"><input type="radio" name="fruit" value="아니오" checked="checked"/><span>아니오</span></label>
-                                    </div>
-                                </div>
-                                :
-                                <div>
-                                    </div>
-                            }
-                            
-
-                            <Button type="submit" style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >등록</Button>
-
-                        </div>
-                    
-
-
-                    </form>
-
-                </div>
-            </div>
-        )
-			
-		
-
-}
-
-export default PostWritePage;
-*/
-
-/*
-class PostWritePage extends Component{
-	constructor(){
-		super();
-	}
-    
-    onLoadFile= (e) => {
-        console.log(e.target.files)
-    }
-    const [fileImage, setFileImage] = useState("");
-    
-	render(){
-		return(
-            <div className="post_write_container">
-                <div className="post_write_content">
-                    <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
-                    fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}}>
-							<CloseIcon/>	
-					</Button>
-                    <form action="doLogin" method="POST" className="loginForm">
-                    
-                        <div className="image_file_input">
-                            <input type="file" id="to_click_img" onChange={this.onLoadFile} accept='image/*' onClick="return callSub();" className="img_file_form" alt="X"
-                            />
-                            <label for="to_click_img" className="click_img">클릭해서 업로드</label>
-                        </div>
-                        <div className="post_text_input">
-                
-                            <h3>내용</h3>
-                            <div className="text_form">
-                                <textarea className= "content_write" name="" type="text" id=""
-                                 placeholder="내용을 입력해주세요" onKeyUp=""/>
-                            </div>
-                            <h3>태그</h3>
-                            <div className="text_form">
-                                <Input name="" type="" id=""
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요" onKeyUp=""/>
-                            </div>
-                            <Button style={{margin:"auto",backgroundColor:"#d8c8b2",width:"100%",color:"black"}} variant="contained" >저장</Button>
-                        </div>
-                    
-                    </form>
-                </div>
-            </div>
-        )
-			
-		
-	}
-}
-export default PostWritePage;
-*/

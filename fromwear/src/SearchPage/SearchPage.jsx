@@ -18,6 +18,7 @@ import {getPost, listPosts, listUsers} from '../graphql/queries.js';
 import { format } from "date-fns";
 import Footer from '../Footer/Footer';
 import { static_tag_data } from './TagData';
+import { Box } from '@mui/material';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
 var AWS = require('aws-sdk'); 
@@ -440,10 +441,13 @@ class SearchPage extends Component{
 					{post_data.length!=0?
 						
 						<div className={"search_page_content"}>
-							<SearchResult 
-							post_data={post_data}
-							current_next_post_page={current_next_post_page}
-							/>
+							<Box sx={{minHeight:'800px'}}>
+								<SearchResult 
+								post_data={post_data}
+								current_next_post_page={current_next_post_page}
+								/>
+							</Box>
+							
 							
 							<Button
 							variant="contained"
@@ -458,11 +462,14 @@ class SearchPage extends Component{
 							</Button>
 						</div>
 						:
-						<Typography 
-							style={{color:"black",position:"relative",top:-150,fontSize:15}}
+						<Box sx={{minHeight:'800px'}}>
+							<Typography 
+							style={{color:"black",position:"relative",top:400,fontSize:15}}
 							>
 							해당되는 게시물이 존재하지 않습니다.
-						</Typography>
+							</Typography>
+						</Box>
+						
 					}
 				
 					
