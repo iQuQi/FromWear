@@ -85,9 +85,9 @@ class PostModifyPage extends Component {
 
         this.setState({file_key: `${uuid_}.${filetype}`})
 
-        Storage.put(`${uuid_}.${filetype}`,file)
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
+        // Storage.put(`${uuid_}.${filetype}`,file)
+        // .then(res=>console.log(res))
+        // .catch(e=> console.log('onChange error',e));
 
         reader.onloadend = () => {
           this.setState({
@@ -194,11 +194,9 @@ class PostModifyPage extends Component {
             alert("태그는 3개를 등록해야 합니다.");
         }else if (tagLengthErrorCheck) {
             alert("태그 길이를 5자 이하로 맞춰주세요");
-        }else {
-            // 글 update
-            let new_post_id = '';
-            if(this.state.board_type == 0) {
+        }else {// 글 update
 
+            if(this.state.board_type == 0) {
                 if(this.state.file == ''){ //사진 수정 X
                     var tag_index = []
                 API.graphql({
@@ -243,7 +241,12 @@ class PostModifyPage extends Component {
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
                 }
-                else{
+                else{                    
+                    //최종 선택 이미지 s3 업로드    
+                    Storage.put(`${this.state.file_key}`, this.state.file)
+                    .then(res=>console.log(res))
+                    .catch(e=> console.log('onChange error',e));
+
                     var tag_index = []
                     API.graphql({
                         query: updatePost, variables: {
@@ -254,6 +257,7 @@ class PostModifyPage extends Component {
                                 img: this.state.file_key,
                             } 
                         }})
+                        .then(Storage.remove(this.state.now_post.img)) //기존 사진 삭제
                         .then(res => {
                             console.log(this.state.now_post.tag_list)
                             console.log(tag_clicked_list)
@@ -339,8 +343,12 @@ class PostModifyPage extends Component {
                         .catch(e => console.log(e));
                 }
                 else{
+                    //최종 선택 이미지 s3 업로드    
+                    Storage.put(`${this.state.file_key}`, this.state.file)
+                    .then(res=>console.log(res))
+                    .catch(e=> console.log('onChange error',e));
+
                     var tag_index = []
-                
                     API.graphql({
                         query: updatePost, variables: {
                             input: 
@@ -351,6 +359,7 @@ class PostModifyPage extends Component {
                                 blind: this.state.blind,
                             } 
                         }})
+                        .then(res => Storage.remove(this.state.now_post.img)) //기존 사진 삭제
                         .then(res => {
                             console.log(this.state.now_post.tag_list)
                             console.log(tag_clicked_list)
@@ -409,6 +418,10 @@ class PostModifyPage extends Component {
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
         let {tag_contents, contents, board_type, now_post} = this.state;
+
+        
+        console.log("사진 수정했음. 기존 사진은", this.state.now_post.img)
+        console.log("바뀐 사진은,",this.state.file_key)
 
         let profile_preview = null;
         if(this.state.file !== ''){
