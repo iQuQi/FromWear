@@ -206,7 +206,7 @@ class PostWritePage extends Component {
               .then((res) => {
                 let current_post_id = res.data.createPost.id;
                 dup_rmv_tags.forEach((tag) => {
-                  let currnet_tag_id;
+                  let current_tag_id;
                   API.graphql({
                     query: listStyleTags,
                     variables: { filter: { value: { eq: tag } } },
@@ -221,13 +221,13 @@ class PostWritePage extends Component {
                           },
                         })
                           .then((res) => {
-                            currnet_tag_id = res.data.createStyleTag.id;
+                            current_tag_id = res.data.createStyleTag.id;
                             API.graphql({
                                 query: createPostStyleTag,
                                 variables: {
                                 input: {
                                     post_id: current_post_id,
-                                    tag_id: currnet_tag_id,
+                                    tag_id: current_tag_id,
                                 },
                                 },
                             })
@@ -236,7 +236,7 @@ class PostWritePage extends Component {
                                     query: updateStyleTag,
                                     variables: {
                                     input: {
-                                        id: currnet_tag_id,
+                                        id: current_tag_id,
                                         num:
                                         res.data.createPostStyleTag.style_tag.num + 1,
                                     },
@@ -249,13 +249,13 @@ class PostWritePage extends Component {
                           .catch((e) => console.log(e));
                       } else {
                         //존재하는 태그
-                        currnet_tag_id = res.data.listStyleTags.items[0].id;
+                        current_tag_id = res.data.listStyleTags.items[0].id;
                         API.graphql({
                             query: createPostStyleTag,
                             variables: {
                             input: {
                                 post_id: current_post_id,
-                                tag_id: currnet_tag_id,
+                                tag_id: current_tag_id,
                             },
                             },
                         })
@@ -264,7 +264,7 @@ class PostWritePage extends Component {
                                 query: updateStyleTag,
                                 variables: {
                                 input: {
-                                    id: currnet_tag_id,
+                                    id: current_tag_id,
                                     num:
                                     res.data.createPostStyleTag.style_tag.num + 1,
                                 },
