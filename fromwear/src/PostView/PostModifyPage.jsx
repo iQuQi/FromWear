@@ -12,7 +12,14 @@ import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import {post_tag_data} from "../PostWritePage/PostTagData"
 import { API } from 'aws-amplify';
-import { updatePost, updatePostStyleTag } from '../graphql/mutations';
+import { listStyleTags } from "../graphql/queries.js";
+import {
+  updatePost,
+  updatePostStyleTag,
+  updateStyleTag,
+  deleteStyleTag,
+  createStyleTag,
+} from "../graphql/mutations";
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
@@ -136,29 +143,21 @@ class PostModifyPage extends Component {
         })
     }
 
-    handle_tag_button_click=(e,index)=>{
-		if(!tag_clicked_list[index]) {
-            if(this.state.total_tag_num == 3) {
-                alert("태그는 3개를 등록해야 합니다.");
-                return;
-            } 
+    handle_tag_button_click=(e,index,name)=>{
+        if (!tag_clicked_list[index]) {
+          tag_clicked_list[index] = 1;
+          this.setState({
+            tag_contents: this.state.tag_contents + `#${name}`,
+            // total_tag_num: this.state.total_tag_num + 1
+          });
+        } else {
+          tag_clicked_list[index] = 0;
+          this.setState({
+            tag_contents: this.state.tag_contents.replaceAll(`#${name}`, ""),
+            // total_tag_num: this.state.total_tag_num - 1,
+          });
+        }
 
-			tag_clicked_list[index]= 1;
-			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num+1,
-                total_tag_num: this.state.total_tag_num + 1
-			})
-		}
-		else {
-			tag_clicked_list[index]=0;
-			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num-1,
-                total_tag_num: this.state.total_tag_num - 1
-			})
-		}
-
-        this.changeTagTextArea();
-        
 		//console.log("cur input tag7:"+this.state.current_input_tag);
 /*
 		this.update_post_data(this.state.filter_day,this.state.filter_gender,
@@ -197,10 +196,10 @@ class PostModifyPage extends Component {
         }else {
             // 글 update
             let new_post_id = '';
-            if(this.state.board_type == 0) {
+            if(this.state.board_type != 1) {
 
                 if(this.state.file == ''){ //사진 수정 X
-                    var tag_index = []
+                    var tag_index = [];
                 API.graphql({
                     query: updatePost, variables: {
                         input: 
@@ -211,34 +210,115 @@ class PostModifyPage extends Component {
                         } 
                     }})
                     .then(res => {
-                        console.log(this.state.now_post.tag_list)
-                        console.log(tag_clicked_list)
-                        
-                        tag_clicked_list.forEach((tag, index) => {
-                            if(tag == 1) {
-                                tag_index = [...tag_index, index+1]
+                        //원래 tag들의 num을 -1
+                        let current_tag_id;
+                        this.state.now_post.tag_list.items.forEach((tag) => {
+                            current_tag_id = tag.style_tag.id;
+                            if(false && tag.style_tag.num == 1 && tag.style_tag.is_static == false && tag.style_tag.is_weekly == false) {
+                                //아예 style_tag 삭제
+                                //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                                API.graphql({
+                                    query: deleteStyleTag,
+                                    variables: {
+                                    input: {
+                                        id: current_tag_id,
+                                    },
+                                    },
+                                }).catch((e) => console.log(e));
+                            } else {
+                                API.graphql({
+                                    query: updateStyleTag,
+                                    variables: {
+                                    input: {
+                                        id: current_tag_id,
+                                        num: tag.style_tag.num - 1,
+                                    },
+                                    },
+                                })
+                                .catch((e) => console.log(e));
                             }
                         })
-                        console.log(tag_index)
                     })
                     .then(res => {
-                        var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                        origin_post_id.map((origin_id, index)=>{
-                                API.graphql({
-                                    query: updatePostStyleTag, variables: {
-                                        input: 
-                                        {
-                                            id: origin_id,
+
+                        // 새로운 tag들 num을 +1
+                        // post와 tag들 연결
+
+                        let current_post_id = this.state.now_post.id;
+                        [...dup_rmv_tags].forEach((tag, index) => {
+                            let current_tag_id;
+                            API.graphql({
+                                query: listStyleTags,
+                                variables: { filter: { value: { eq: tag } } },
+                            })
+                            .then((res) => {
+                                if (res.data.listStyleTags.items.length === 0) {
+                                    //없었던 태그
+                                    API.graphql({
+                                        query: createStyleTag,
+                                        variables: {
+                                            input: { num: 0, value: tag },
+                                        },
+                                    })
+                                    .then((res) => {
+                                        current_tag_id = res.data.createStyleTag.id;
+                                        API.graphql({
+                                            query: updatePostStyleTag,
+                                            variables: {
+                                                input: {
+                                                id: this.state.now_post.tag_list.items[index].id,
+                                                post_id: this.state.now_post.id,
+                                                tag_id: current_tag_id,
+                                                },
+                                            },
+                                        })
+                                        .then((res) => {
+                                            API.graphql({
+                                                query: updateStyleTag,
+                                                variables: {
+                                                input: {
+                                                    id: current_tag_id,
+                                                    num:
+                                                    res.data.updatePostStyleTag.style_tag.num + 1,
+                                                },
+                                                },
+                                            }).catch((e) => console.log(e));
+                                        })
+                                        .then((res) => this.setState({ create_tag: true }))
+                                        .catch((e) => console.log(e));
+                                    })
+                                    .catch((e) => console.log(e));
+                                } else {
+                                    //존재하는 태그
+                                    API.graphql({
+                                        query: updatePostStyleTag,
+                                        variables: {
+                                            input: {
+                                            id: this.state.now_post.tag_list.items[index].id,
                                             post_id: this.state.now_post.id,
-                                            tag_id: tag_index[index],
-                                        } 
-                                }})
-                                .then(res => {
-                                    if(index == 2){
-                                        this.setState({create_tag:true})
-                                    }
-                                })
-                        })
+                                            tag_id: current_tag_id,
+                                            },
+                                        },
+                                    })
+                                    .then((res) => {
+                                        API.graphql({
+                                            query: updateStyleTag,
+                                            variables: {
+                                            input: {
+                                                id: current_tag_id,
+                                                num:
+                                                res.data.updatePostStyleTag.style_tag.num + 1,
+                                            },
+                                            },
+                                        }).catch((e) => console.log(e));
+                                    })
+                                    .then((res) => this.setState({ create_tag: true }))
+                                    .catch((e) => console.log(e));
+                                }
+                            })
+                            .catch((e) => console.log(e));
+                        });
+
                     })
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
@@ -246,46 +326,139 @@ class PostModifyPage extends Component {
                 else{
                     var tag_index = []
                     API.graphql({
-                        query: updatePost, variables: {
-                            input: 
-                            {
-                                id: this.state.now_post.id,
-                                content: this.state.contents,
-                                img: this.state.file_key,
-                            } 
-                        }})
-                        .then(res => {
-                            console.log(this.state.now_post.tag_list)
-                            console.log(tag_clicked_list)
-                            
-                            tag_clicked_list.forEach((tag, index) => {
-                                if(tag == 1) {
-                                    tag_index = [...tag_index, index+1]
-                                }
-                            })
-                            console.log(tag_index)
-                        })
-                        .then(res => {
-                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                            origin_post_id.map((origin_id, index)=>{
+                      query: updatePost,
+                      variables: {
+                        input: {
+                          id: this.state.now_post.id,
+                          content: this.state.contents,
+                          img: this.state.file_key,
+                        },
+                      },
+                    })
+                      .then((res) => {
+                        //원래 tag들의 num을 -1
+                        let current_tag_id;
+                        this.state.now_post.tag_list.items.forEach((tag) => {
+                          current_tag_id = tag.style_tag.id;
+                          if (
+                            false &&
+                            tag.style_tag.num == 1 &&
+                            tag.style_tag.is_static == false &&
+                            tag.style_tag.is_weekly == false
+                          ) {
+                            //아예 style_tag 삭제
+                            //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                            API.graphql({
+                              query: deleteStyleTag,
+                              variables: {
+                                input: {
+                                  id: current_tag_id,
+                                },
+                              },
+                            }).catch((e) => console.log(e));
+                          } else {
+                            API.graphql({
+                              query: updateStyleTag,
+                              variables: {
+                                input: {
+                                  id: current_tag_id,
+                                  num: tag.style_tag.num - 1,
+                                },
+                              },
+                            }).catch((e) => console.log(e));
+                          }
+                        });
+                      })
+                      .then((res) => {
+                        // 새로운 tag들 num을 +1
+                        // post와 tag들 연결
+
+                        let current_post_id = this.state.now_post.id;
+                        [...dup_rmv_tags].forEach((tag, index) => {
+                          let current_tag_id;
+                          API.graphql({
+                            query: listStyleTags,
+                            variables: { filter: { value: { eq: tag } } },
+                          })
+                            .then((res) => {
+                              if (res.data.listStyleTags.items.length === 0) {
+                                //없었던 태그
+                                API.graphql({
+                                  query: createStyleTag,
+                                  variables: {
+                                    input: { num: 0, value: tag },
+                                  },
+                                })
+                                  .then((res) => {
+                                    current_tag_id = res.data.createStyleTag.id;
                                     API.graphql({
-                                        query: updatePostStyleTag, variables: {
-                                            input: 
-                                            {
-                                                id: origin_id,
-                                                post_id: this.state.now_post.id,
-                                                tag_id: tag_index[index],
-                                            } 
-                                    }})
-                                    .then(res => {
-                                        if(index == 2){
-                                            this.setState({create_tag:true})
-                                        }
+                                      query: updatePostStyleTag,
+                                      variables: {
+                                        input: {
+                                          id: this.state.now_post.tag_list
+                                            .items[index].id,
+                                          post_id: this.state.now_post.id,
+                                          tag_id: current_tag_id,
+                                        },
+                                      },
                                     })
+                                      .then((res) => {
+                                        API.graphql({
+                                          query: updateStyleTag,
+                                          variables: {
+                                            input: {
+                                              id: current_tag_id,
+                                              num:
+                                                res.data.updatePostStyleTag
+                                                  .style_tag.num + 1,
+                                            },
+                                          },
+                                        }).catch((e) => console.log(e));
+                                      })
+                                      .then((res) =>
+                                        this.setState({ create_tag: true })
+                                      )
+                                      .catch((e) => console.log(e));
+                                  })
+                                  .catch((e) => console.log(e));
+                              } else {
+                                //존재하는 태그
+                                API.graphql({
+                                  query: updatePostStyleTag,
+                                  variables: {
+                                    input: {
+                                      id: this.state.now_post.tag_list.items[
+                                        index
+                                      ].id,
+                                      post_id: this.state.now_post.id,
+                                      tag_id: current_tag_id,
+                                    },
+                                  },
+                                })
+                                  .then((res) => {
+                                    API.graphql({
+                                      query: updateStyleTag,
+                                      variables: {
+                                        input: {
+                                          id: current_tag_id,
+                                          num:
+                                            res.data.updatePostStyleTag
+                                              .style_tag.num + 1,
+                                        },
+                                      },
+                                    }).catch((e) => console.log(e));
+                                  })
+                                  .then((res) =>
+                                    this.setState({ create_tag: true })
+                                  )
+                                  .catch((e) => console.log(e));
+                              }
                             })
-                        })
-                        .then(res => this.setState({create_post: true}))
-                        .catch(e => console.log(e));
+                            .catch((e) => console.log(e));
+                        });
+                      })
+                      .then((res) => this.setState({ create_post: true }))
+                      .catch((e) => console.log(e));
                 }
             }
             else {
@@ -294,97 +467,282 @@ class PostModifyPage extends Component {
                     var tag_index = []
                 
                     API.graphql({
-                        query: updatePost, variables: {
-                            input: 
-                            {
-                                id: this.state.now_post.id,
-                                content: this.state.contents,
-                                //img: this.state.file_key,
-                                blind: this.state.blind,
-                            } 
-                        }})
-                        .then(res => {
-                            console.log(this.state.now_post.tag_list)
-                            console.log(tag_clicked_list)
-                            
-                            tag_clicked_list.forEach((tag, index) => {
-                                if(tag == 1) {
-                                    tag_index = [...tag_index, index+1]
-                                }
-                            })
-                            console.log(tag_index)
-                        })
-                        .then(res => {
-                            console.log("현재 태그???", this.state.now_post.tag_list)
-                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                            origin_post_id.map((origin_id, index)=>{
+                      query: updatePost,
+                      variables: {
+                        input: {
+                          id: this.state.now_post.id,
+                          content: this.state.contents,
+                          //img: this.state.file_key,
+                          blind: this.state.blind,
+                        },
+                      },
+                    })
+                      .then((res) => {
+                        //원래 tag들의 num을 -1
+                        let current_tag_id;
+                        this.state.now_post.tag_list.items.forEach((tag) => {
+                          current_tag_id = tag.style_tag.id;
+                          if (
+                            false &&
+                            tag.style_tag.num == 1 &&
+                            tag.style_tag.is_static == false &&
+                            tag.style_tag.is_weekly == false
+                          ) {
+                            //아예 style_tag 삭제
+                            //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                            API.graphql({
+                              query: deleteStyleTag,
+                              variables: {
+                                input: {
+                                  id: current_tag_id,
+                                },
+                              },
+                            }).catch((e) => console.log(e));
+                          } else {
+                            API.graphql({
+                              query: updateStyleTag,
+                              variables: {
+                                input: {
+                                  id: current_tag_id,
+                                  num: tag.style_tag.num - 1,
+                                },
+                              },
+                            }).catch((e) => console.log(e));
+                          }
+                        });
+                      })
+                      .then((res) => {
+                        // 새로운 tag들 num을 +1
+                        // post와 tag들 연결
+
+                        let current_post_id = this.state.now_post.id;
+                        [...dup_rmv_tags].forEach((tag, index) => {
+                          let current_tag_id;
+                          API.graphql({
+                            query: listStyleTags,
+                            variables: { filter: { value: { eq: tag } } },
+                          })
+                            .then((res) => {
+                              if (res.data.listStyleTags.items.length === 0) {
+                                //없었던 태그
+                                API.graphql({
+                                  query: createStyleTag,
+                                  variables: {
+                                    input: { num: 0, value: tag },
+                                  },
+                                })
+                                  .then((res) => {
+                                    current_tag_id = res.data.createStyleTag.id;
                                     API.graphql({
-                                        query: updatePostStyleTag, variables: {
-                                            input: 
-                                            {
-                                                id: origin_id,
-                                                post_id: this.state.now_post.id,
-                                                tag_id: tag_index[index],
-                                            } 
-                                    }})
-                                    .then(res => {
-                                        if(index == 2){
-                                            this.setState({create_tag:true})
-                                        }
+                                      query: updatePostStyleTag,
+                                      variables: {
+                                        input: {
+                                          id: this.state.now_post.tag_list
+                                            .items[index].id,
+                                          post_id: this.state.now_post.id,
+                                          tag_id: current_tag_id,
+                                        },
+                                      },
                                     })
+                                      .then((res) => {
+                                        API.graphql({
+                                          query: updateStyleTag,
+                                          variables: {
+                                            input: {
+                                              id: current_tag_id,
+                                              num:
+                                                res.data.updatePostStyleTag
+                                                  .style_tag.num + 1,
+                                            },
+                                          },
+                                        }).catch((e) => console.log(e));
+                                      })
+                                      .then((res) =>
+                                        this.setState({ create_tag: true })
+                                      )
+                                      .catch((e) => console.log(e));
+                                  })
+                                  .catch((e) => console.log(e));
+                              } else {
+                                //존재하는 태그
+                                API.graphql({
+                                  query: updatePostStyleTag,
+                                  variables: {
+                                    input: {
+                                      id: this.state.now_post.tag_list.items[
+                                        index
+                                      ].id,
+                                      post_id: this.state.now_post.id,
+                                      tag_id: current_tag_id,
+                                    },
+                                  },
+                                })
+                                  .then((res) => {
+                                    API.graphql({
+                                      query: updateStyleTag,
+                                      variables: {
+                                        input: {
+                                          id: current_tag_id,
+                                          num:
+                                            res.data.updatePostStyleTag
+                                              .style_tag.num + 1,
+                                        },
+                                      },
+                                    }).catch((e) => console.log(e));
+                                  })
+                                  .then((res) =>
+                                    this.setState({ create_tag: true })
+                                  )
+                                  .catch((e) => console.log(e));
+                              }
                             })
-                        })
-                        .then(res => this.setState({create_post: true}))
-                        .then(window.location.reload())
-                        .catch(e => console.log(e));
+                            .catch((e) => console.log(e));
+                        });
+                      })
+                      .then((res) => this.setState({ create_post: true }))
+                      .then(window.location.reload())
+                      .catch((e) => console.log(e));
                 }
                 else{
+                    //이건어떤부분?
                     var tag_index = []
                 
                     API.graphql({
-                        query: updatePost, variables: {
-                            input: 
-                            {
-                                id: this.state.now_post.id,
-                                content: this.state.contents,
-                                img: this.state.file_key,
-                                blind: this.state.blind,
-                            } 
-                        }})
-                        .then(res => {
-                            console.log(this.state.now_post.tag_list)
-                            console.log(tag_clicked_list)
-                            
-                            tag_clicked_list.forEach((tag, index) => {
-                                if(tag == 1) {
-                                    tag_index = [...tag_index, index+1]
-                                }
-                            })
-                            console.log(tag_index)
-                        })
-                        .then(res => {
-                            console.log("현재 태그???", this.state.now_post.tag_list)
-                            var origin_post_id = [this.state.now_post.tag_list.items[0].id, this.state.now_post.tag_list.items[1].id, this.state.now_post.tag_list.items[2].id]
-                            origin_post_id.map((origin_id, index)=>{
+                      query: updatePost,
+                      variables: {
+                        input: {
+                          id: this.state.now_post.id,
+                          content: this.state.contents,
+                          img: this.state.file_key,
+                          blind: this.state.blind,
+                        },
+                      },
+                    })
+                      .then((res) => {
+                        //원래 tag들의 num을 -1
+                        let current_tag_id;
+                        this.state.now_post.tag_list.items.forEach((tag) => {
+                          current_tag_id = tag.style_tag.id;
+                          if (
+                            false &&
+                            tag.style_tag.num == 1 &&
+                            tag.style_tag.is_static == false &&
+                            tag.style_tag.is_weekly == false
+                          ) {
+                            //아예 style_tag 삭제
+                            //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                            API.graphql({
+                              query: deleteStyleTag,
+                              variables: {
+                                input: {
+                                  id: current_tag_id,
+                                },
+                              },
+                            }).catch((e) => console.log(e));
+                          } else {
+                            API.graphql({
+                              query: updateStyleTag,
+                              variables: {
+                                input: {
+                                  id: current_tag_id,
+                                  num: tag.style_tag.num - 1,
+                                },
+                              },
+                            }).catch((e) => console.log(e));
+                          }
+                        });
+                      })
+                      .then((res) => {
+                        // 새로운 tag들 num을 +1
+                        // post와 tag들 연결
+
+                        let current_post_id = this.state.now_post.id;
+                        [...dup_rmv_tags].forEach((tag, index) => {
+                          let current_tag_id;
+                          API.graphql({
+                            query: listStyleTags,
+                            variables: { filter: { value: { eq: tag } } },
+                          })
+                            .then((res) => {
+                              if (res.data.listStyleTags.items.length === 0) {
+                                //없었던 태그
+                                API.graphql({
+                                  query: createStyleTag,
+                                  variables: {
+                                    input: { num: 0, value: tag },
+                                  },
+                                })
+                                  .then((res) => {
+                                    current_tag_id = res.data.createStyleTag.id;
                                     API.graphql({
-                                        query: updatePostStyleTag, variables: {
-                                            input: 
-                                            {
-                                                id: origin_id,
-                                                post_id: this.state.now_post.id,
-                                                tag_id: tag_index[index],
-                                            } 
-                                    }})
-                                    .then(res => {
-                                        if(index == 2){
-                                            this.setState({create_tag:true})
-                                        }
+                                      query: updatePostStyleTag,
+                                      variables: {
+                                        input: {
+                                          id: this.state.now_post.tag_list
+                                            .items[index].id,
+                                          post_id: this.state.now_post.id,
+                                          tag_id: current_tag_id,
+                                        },
+                                      },
                                     })
+                                      .then((res) => {
+                                        API.graphql({
+                                          query: updateStyleTag,
+                                          variables: {
+                                            input: {
+                                              id: current_tag_id,
+                                              num:
+                                                res.data.updatePostStyleTag
+                                                  .style_tag.num + 1,
+                                            },
+                                          },
+                                        }).catch((e) => console.log(e));
+                                      })
+                                      .then((res) =>
+                                        this.setState({ create_tag: true })
+                                      )
+                                      .catch((e) => console.log(e));
+                                  })
+                                  .catch((e) => console.log(e));
+                              } else {
+                                //존재하는 태그
+                                API.graphql({
+                                  query: updatePostStyleTag,
+                                  variables: {
+                                    input: {
+                                      id: this.state.now_post.tag_list.items[
+                                        index
+                                      ].id,
+                                      post_id: this.state.now_post.id,
+                                      tag_id: current_tag_id,
+                                    },
+                                  },
+                                })
+                                  .then((res) => {
+                                    API.graphql({
+                                      query: updateStyleTag,
+                                      variables: {
+                                        input: {
+                                          id: current_tag_id,
+                                          num:
+                                            res.data.updatePostStyleTag
+                                              .style_tag.num + 1,
+                                        },
+                                      },
+                                    }).catch((e) => console.log(e));
+                                  })
+                                  .then((res) =>
+                                    this.setState({ create_tag: true })
+                                  )
+                                  .catch((e) => console.log(e));
+                              }
                             })
-                        })
-                        .then(res => this.setState({create_post: true}))
-                        .then(window.location.reload())
-                        .catch(e => console.log(e));
+                            .catch((e) => console.log(e));
+                        });
+                      })
+                      .then((res) => this.setState({ create_post: true }))
+                      .then(window.location.reload())
+                      .catch((e) => console.log(e));
                 }
             }
         }
