@@ -445,6 +445,7 @@ export const getPost = /* GraphQL */ `
           style_tag{
             id
             value
+            num
           }
           post{
             id
