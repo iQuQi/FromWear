@@ -28,3 +28,5 @@
 `npm install` <br>
 `npm start`
 
+## 이미지 비율
+- 1 : 1.54

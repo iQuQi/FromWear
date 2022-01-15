@@ -81,10 +81,11 @@
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: #000;
-    border: 1px solid #000;
+    background-color: white;/*여기 수정좀 했어*/
+    border: 1px solid white;
     cursor: pointer;
-    color: #fff;
+    color: black;
+    padding: 0;
 }
 
 .remove_post {
@@ -95,10 +96,11 @@
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: #000;
-    border: 1px solid #000;
+    background-color: white;/*여기 수정좀 했어*/
+    border: 1px solid white;
     cursor: pointer;
-    color: #fff;
+    color:black;
+    padding: 0;
 }
 
 .writer_content {

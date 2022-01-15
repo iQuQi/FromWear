@@ -147,7 +147,7 @@ export const post_tag_data = [
    },
    {
     id: "37",
-    name: "이번주 태그"
+    name: "이번주태그"
   },
    ];
    
