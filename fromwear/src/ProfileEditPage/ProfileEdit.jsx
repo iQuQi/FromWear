@@ -52,7 +52,7 @@ class ProfileEdit extends Component{
         if(this.state.user.my_tag_list.items.length > 0){
             var tmp_user_tag_list = this.state.user.my_tag_list.items;
             if(tmp_user_tag_list[0].style_tag.id==102 && tmp_user_tag_list[1].style_tag.id==103 && tmp_user_tag_list[2].style_tag.id==101){
-                console.log("초기 상태") //초기 상태면 tag 아무것도 안넣어둠 (delete해야할 거 있나?)
+                console.log("초기 상태") //초기 상태면 tag 아무것도 안넣어둠
             }
             else{
                 tmp_user_tag_list.map((tag)=>{
@@ -91,10 +91,6 @@ class ProfileEdit extends Component{
         let filetype =file.name.split('.').pop();
 
         this.setState({file_key: `${uuid_}.${filetype}`})
-        
-        Storage.put(`${uuid_}.${filetype}`,file)
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
 
         reader.onloadend = () => {
           this.setState({
@@ -214,6 +210,13 @@ class ProfileEdit extends Component{
                 })
             }
             else{
+                        
+                Storage.put(`${this.state.file_key}`, this.state.file)
+                .then(res=>console.log(res))
+                .catch(e=> console.log('onChange error',e));
+
+                var before_user_img_delete = this.state.user.profile_img
+
                 API.graphql({
                     query: updateUser, variables:{input:{
                         id: this.state.user.id,
@@ -222,6 +225,12 @@ class ProfileEdit extends Component{
                         profile_img: this.state.file_key,
                     }}
                 })
+                .then(res => {
+                    Storage.put(`${this.state.file_key}`, this.state.file)
+                    .then(res=>console.log(res))
+                    .catch(e=> console.log('onChange error',e))}
+                )
+                .then(res => Storage.remove(before_user_img_delete)) // 기존 이미지 삭제
                 .then(e => console.log(e))
                 .then(res => {
                     //현재 사용자의 tag list의 id 불러옴

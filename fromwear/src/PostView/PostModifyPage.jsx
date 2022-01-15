@@ -241,13 +241,10 @@ class PostModifyPage extends Component {
                     .then(res => this.setState({create_post: true}))
                     .catch(e => console.log(e));
                 }
-                else{                    
-                    //최종 선택 이미지 s3 업로드    
-                    Storage.put(`${this.state.file_key}`, this.state.file)
-                    .then(res=>console.log(res))
-                    .catch(e=> console.log('onChange error',e));
-
+                else{                
                     var tag_index = []
+                    
+                    var before_img_delete = this.state.now_post.img
                     API.graphql({
                         query: updatePost, variables: {
                             input: 
@@ -257,7 +254,12 @@ class PostModifyPage extends Component {
                                 img: this.state.file_key,
                             } 
                         }})
-                        .then(Storage.remove(this.state.now_post.img)) //기존 사진 삭제
+                        .then(res => {
+                            Storage.put(`${this.state.file_key}`, this.state.file)
+                            .then(res=>console.log(res))
+                            .catch(e=> console.log('onChange error',e))}
+                        )
+                        .then(res => Storage.remove(before_img_delete)) //기존 사진 삭제
                         .then(res => {
                             console.log(this.state.now_post.tag_list)
                             console.log(tag_clicked_list)
@@ -339,16 +341,11 @@ class PostModifyPage extends Component {
                             })
                         })
                         .then(res => this.setState({create_post: true}))
-                        .then(window.location.reload())
                         .catch(e => console.log(e));
                 }
                 else{
-                    //최종 선택 이미지 s3 업로드    
-                    Storage.put(`${this.state.file_key}`, this.state.file)
-                    .then(res=>console.log(res))
-                    .catch(e=> console.log('onChange error',e));
-
                     var tag_index = []
+                    var before_img_delete = this.state.now_post.img
                     API.graphql({
                         query: updatePost, variables: {
                             input: 
@@ -359,7 +356,12 @@ class PostModifyPage extends Component {
                                 blind: this.state.blind,
                             } 
                         }})
-                        .then(res => Storage.remove(this.state.now_post.img)) //기존 사진 삭제
+                        .then(res => {
+                                Storage.put(`${this.state.file_key}`, this.state.file)
+                                .then(res=>console.log(res))
+                                .catch(e=> console.log('onChange error',e))
+                        })
+                        .then(res => Storage.remove(before_img_delete))
                         .then(res => {
                             console.log(this.state.now_post.tag_list)
                             console.log(tag_clicked_list)
@@ -392,7 +394,6 @@ class PostModifyPage extends Component {
                             })
                         })
                         .then(res => this.setState({create_post: true}))
-                        .then(window.location.reload())
                         .catch(e => console.log(e));
                 }
             }

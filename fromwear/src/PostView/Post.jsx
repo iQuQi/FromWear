@@ -486,7 +486,7 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-        console.log("현재 포스트의 이미지 : ",now_post.img)
+        console.log("현재 포스트 : ",now_post)
         return (
             <div className="post_page">
                 {
