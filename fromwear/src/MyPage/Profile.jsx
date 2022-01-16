@@ -257,6 +257,7 @@ export default class Profile extends Component {
                       following_is_checked && user.following_list? 
                       <ShowFollowers 
                         now_user = {user} 
+                        user = {user} 
                         open = {following_is_checked}
                         handleClose = {this.handleClose}
                         mode = 'following'
@@ -273,7 +274,8 @@ export default class Profile extends Component {
                     {
                       follower_is_checked && user.follower_list? 
                       <ShowFollowers 
-                        now_user = {user} 
+                        now_user = {user}
+                        user = {user} 
                         open = {follower_is_checked}
                         handleClose = {this.handleClose}
                         mode = 'follower'
