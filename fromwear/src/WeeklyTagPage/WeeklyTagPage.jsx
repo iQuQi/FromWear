@@ -81,7 +81,7 @@ class WeeklyTagPage extends Component {
 		const ranking_posts = posts.slice(4);
 	
         let {current_next_post_page} = this.state;
-		
+
 		return <div id = 'main_page'>
 			<Header/>
 			<div className = 'banner'>
@@ -139,7 +139,7 @@ class WeeklyTagPage extends Component {
 				
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{ranking_posts.map((item, index) => (
-						index<(current_next_post_page*25)?
+						index<(current_next_post_page*9)?
 						<ImageListItem key={item.img} className='weekly_image_list_item'>
 							<img style={{height:'322.55px', borderRadius:16}}
 								src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
