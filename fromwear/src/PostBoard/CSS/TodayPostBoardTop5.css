@@ -13,7 +13,9 @@
 }
 .today_background_wrap {
 	margin-top: 40px;
-	background-color: #F2F2F2;
+	background-color: rgba(157, 202, 235, 0.8);
+	/* background-image: linear-gradient(rgb(255, 255, 255), rgba(174, 225, 249, 0.8)); */
+	/* 315deg 0% 74%*/
     height: 600px;
 }
 
@@ -31,6 +33,8 @@
 
 .today_wear .title {
 	font-size: 50px;
+	margin: 0px;
+	margin-left: 60px;
 }
 
 .today_wear .title, .title_tag {

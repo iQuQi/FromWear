@@ -9,6 +9,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import ContactSupportOutlinedIcon from "@mui/icons-material/ContactSupportOutlined";
+
 import defaultImg from '../PostView/Imgs/profile_skyblue.jpg';
 
 import './CSS/TodayPostBoardTop5.css'
@@ -135,20 +138,21 @@ export default class TodayPostBoardTop5 extends Component {
         }
 	}
 
-   
-
     render() {
         let {post_top_list, board_type} = this.state;
 
 		const settings = {
-			className: "center",
-			centerMode: true,
-			infinite: true,
-			slidesToShow: 5,
-            beforeChange: this.handle_slider_index_before,
-            centerPadding: "0px",
-			speed: 700,
-		};
+      className: "center",
+      centerMode: true,
+      infinite: true,
+      slidesToShow: 5,
+      beforeChange: this.handle_slider_index_before,
+      centerPadding: "0px",
+      speed: 700,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      infinite: true,
+    };
         
 		return (
       <div className="today_background_wrap">
@@ -156,13 +160,61 @@ export default class TodayPostBoardTop5 extends Component {
         <article className="today_wear">
           {board_type == 0 ? (
             <div>
-              <h1 className="title">오늘의 착장</h1>
-              <p className="title_tag">#오늘의 #베스트드레서는 #나야나</p>
+              <AcUnitIcon
+                style={{
+                  fontSize: "6vmin",
+                  color: "rgb(3, 25, 68)",
+                  position: "absolute",
+                }}
+              />
+              <h1
+                className="title"
+                style={{
+                  fontSize: "6vmin",
+                  fontWeight: "bold",
+                  marginBottom: "20px",
+                  // color: "black",
+                  color: "#FFFFFF",
+                  textShadow: "3px 3px 3px black",
+                }}
+              >
+                오늘의 착장
+              </h1>
+              <p
+                className="title_tag"
+                style={{ fontSize: "2vmin", fontWeight: "bolder" }}
+              >
+                #오늘의 #베스트드레서는 #나야나
+              </p>
             </div>
           ) : (
             <div>
-              <h1 className="title">도움이 필요해</h1>
-              <p className="title_tag">#옷입는거 #어려워</p>
+              <ContactSupportOutlinedIcon
+                style={{
+                  fontSize: "6vmin",
+                  color: "rgb(3, 25, 68)",
+                  position: "absolute",
+                }}
+              />
+              <h1
+                className="title"
+                style={{
+                  fontSize: "6vmin",
+                  fontWeight: "bold",
+                  marginBottom: "20px",
+                  // color: "black",
+                  color: "#FFFFFF",
+                  textShadow: "3px 3px 3px black",
+                }}
+              >
+                도움이 필요해
+              </h1>
+              <p
+                className="title_tag"
+                style={{ fontSize: "2vmin", fontWeight: "bolder" }}
+              >
+                #옷입는거 #어려워
+              </p>
             </div>
           )}
           <div className="container">
