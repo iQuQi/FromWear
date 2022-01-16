@@ -139,7 +139,7 @@
 	display: inline-block;
 	position: relative;	
 	/* left: -55px; */
-	left: -90px;
+	left: -100px;
 	top: 30px;
 }
 .today_wear .slick-center:hover .dimmed_info .profileName {
@@ -147,7 +147,7 @@
 	position: relative;
 		
 	/* left: -45px; */
-	left: -7px;
+	left: -25px;
 	top: -3px;
 }
 
