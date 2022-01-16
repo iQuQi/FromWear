@@ -44,14 +44,20 @@ export default class TodayPostBoardPosts extends Component {
             user: props.user,
             board: props.board,
             post_list: [],
-            count: 0
+            count: 0,
+            current_next_post_page: 1,
 		}
         
 	}
 
-    
+    componentDidMount(){
+        this.get_posts(); 
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
     componentDidUpdate(){
-        console.log("update");
+        window.removeEventListener("scroll", this.handleScroll);
+        
         let {user,count} = this.state;
         if(user!=this.props.user){
             
@@ -78,23 +84,29 @@ export default class TodayPostBoardPosts extends Component {
                 }
                 
             }
-            
-            
+                
         }
         if(user=={}){
             this.setState({
                 user: this.props.user,
                 post_list: this.props.user.my_post_list.items
             })
-        }
-        
-        
-           
+        }  
     }
     
-    componentDidMount(){
-        this.get_posts(); 
-    }
+    
+
+    handleScroll = () => {
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
 
     get_posts = () => {
         if(this.state.user.my_post_list!=undefined){
@@ -168,7 +180,7 @@ export default class TodayPostBoardPosts extends Component {
         console.log("render ", this.state.post_list);
         
 
-		let {user, post_state, post_list} = this.state;
+		let {user, post_state, post_list, current_next_post_page} = this.state;
 
         return (<div id = 'contents'>
 
@@ -189,8 +201,8 @@ export default class TodayPostBoardPosts extends Component {
                     post_list?
                 <ImageList cols={3} gap={8} style={{clear: 'left'}}>
                     {
-                    post_list.map((post) => (
-                        
+                    post_list.map((post, index) => (
+                        index<(current_next_post_page * 9)?
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
@@ -228,11 +240,9 @@ export default class TodayPostBoardPosts extends Component {
                                     </span>
                                 
                                 </span>
-                            </a>
-
-
-                            				
+                            </a>				
                         </ImageListItem>
+                        : console.log(index + "pass")
                     ))}
                 </ImageList>
                 :<p></p>

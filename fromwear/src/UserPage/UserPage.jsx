@@ -20,6 +20,7 @@ class UserPage extends Component {
 			now_user: {},
             user_id: props.userid,
 			user: {},
+			current_next_post_page: 1,
 		};
 	}
 
