@@ -61,8 +61,9 @@ type StyleTag @model {
   id: ID!
   value: String!
   num: Int!
-  is_static: Boolean
-  is_weekly: Boolean
+  is_static: Boolean!
+  is_weekly: Boolean!
+  post_list: [PostStyleTag] @connection(keyName:"PostStyleTagByTag",fields:["id"])
   user_list: [UserStyleTag] @connection(keyName:"UserStyleTagByTag",fields:["id"])
 }
 
