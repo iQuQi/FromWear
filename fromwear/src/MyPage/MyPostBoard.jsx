@@ -45,7 +45,7 @@ export default class TodayPostBoardPosts extends Component {
             board: props.board,
             post_list: [],
             count: 0,
-            current_next_post_page: 1,
+            current_next_post_page: 1
 		}
         
 	}
@@ -54,11 +54,12 @@ export default class TodayPostBoardPosts extends Component {
         this.get_posts(); 
         window.addEventListener("scroll", this.handleScroll);
     }
+    componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
+	}
 
-    componentDidUpdate(){
-        window.removeEventListener("scroll", this.handleScroll);
-        
-        let {user,count} = this.state;
+    componentDidUpdate(){ 
+        let {user,count, current_next_post_page} = this.state;
         if(user!=this.props.user){
             
             this.setState({
@@ -94,13 +95,11 @@ export default class TodayPostBoardPosts extends Component {
         }  
     }
     
-    
-
     handleScroll = () => {
 		const scrollHeight = document.documentElement.scrollHeight;
 		const scrollTop = document.documentElement.scrollTop;
 		const clientHeight = document.documentElement.clientHeight;
-		if (scrollTop + clientHeight >= scrollHeight) {
+		if (scrollTop + clientHeight + 1 >= scrollHeight) {
 		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
 		  this.setState({
 			current_next_post_page: this.state.current_next_post_page+1
@@ -176,6 +175,7 @@ export default class TodayPostBoardPosts extends Component {
 
     render() {
         console.log(this.state.user);
+        console.log(this.state.current_next_post_page);
         
         console.log("render ", this.state.post_list);
         

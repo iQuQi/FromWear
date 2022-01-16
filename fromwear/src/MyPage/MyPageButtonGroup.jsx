@@ -56,17 +56,23 @@ export default class MyPageButtonGroup extends Component{
 
         this.state = {
             now_user: props.user,
-            btn_clicked: 0
+            btn_clicked: 0,
+            current_next_post_page:props.current_next_post_page,
         }
     }
     
     componentDidUpdate(prevProps){
-        let {now_user} = this.state;
+        let {now_user, current_next_post_page} = this.state;
         if(now_user!=this.props.user){
             this.setState({
                 now_user: this.props.user
             })
         }
+        if(current_next_post_page!=this.props.current_next_post_page){
+          this.setState({
+            current_next_post_page: this.props.current_next_post_page
+          })
+      }
     }
 
     set_btn = (i) => {
@@ -74,11 +80,34 @@ export default class MyPageButtonGroup extends Component{
             btn_clicked: i
         })
     }
-    
+    /*
+    componentDidMount(){
+      window.addEventListener("scroll", this.handleScroll);
+    }
+    componentWillUnmount(){
+      window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    handleScroll = () => {
+      console.log(this.state.current_next_post_page);
+      console.log("핸들 스크롤");
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        console.log("나와바");
+        alert("핸들 스크롤");
+        // 페이지 끝에 도달하면 추가 데이터를 받아온다
+        this.setState({
+        current_next_post_page: this.state.current_next_post_page+1
+        })
+      }
+    }*/
+
     render(){
         console.log(this.state.now_user);
 
-        let {now_user, btn_clicked} = this.state;
+        let {now_user, btn_clicked, current_next_post_page} = this.state;
 
         return (
             <div>
@@ -112,8 +141,8 @@ export default class MyPageButtonGroup extends Component{
               </Stack>
 
             </Box>
-            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20}/> : 
-                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1}/> :
+            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20} current_next_post_page={current_next_post_page}/> : 
+                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1} current_next_post_page={current_next_post_page}/> :
                 btn_clicked==3? <MyPageComments user={now_user}/> :
                 btn_clicked==4? <MyPageBookmark user={now_user}/> :
                 <MyPostBoard user={now_user} board={20}/>

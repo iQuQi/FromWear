@@ -22,10 +22,33 @@ class MyPage extends Component {
 			now_user_id: '',
 			now_user: {},
 			is_profile_edit: false,
+			//current_next_post_page: 1,
 		};
 	}
+/*	
+	componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
+	}
 
+	handleScroll = () => {
+		console.log(this.state.current_next_post_page);
+		console.log("핸들 스크롤");
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+			console.log("나와바");
+			alert("핸들 스크롤");
+			// 페이지 끝에 도달하면 추가 데이터를 받아온다
+			this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
+*/
     componentDidMount(){
+		//window.addEventListener("scroll", this.handleScroll);
+
 		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
 		.then( res => {
 			this.set_now_user(res.data.getUser);
@@ -49,6 +72,7 @@ class MyPage extends Component {
 			is_profile_edit: !this.state.is_profile_edit
 		})
 	}
+
 
     render(){
 		console.log(this.props.user);
