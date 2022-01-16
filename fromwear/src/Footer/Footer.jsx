@@ -31,7 +31,6 @@ class Footer extends Component{
                     <a href="/sosboard">도움이 필요해</a>
                     <a href="weeklytag">이번주 태그</a>
                 </Stack>
-                
             </div>
 		</div>
         )

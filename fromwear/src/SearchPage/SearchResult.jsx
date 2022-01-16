@@ -13,6 +13,7 @@ let SearchResult = ({post_data,current_next_post_page})=>
 						 <ImageListItem key={item.img+index} className = "image_list_item" style={{position:"relative"}}>
 							 {new_link = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.img}
                                 <img className="img_item" 
+								style={{height:'322.55px'}}
 								src={new_link}
 								srcSet={`${new_link}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.img+index}
