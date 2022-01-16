@@ -50,9 +50,9 @@
     position: relative;
 }
 
-.today_wear img {
+.today_wear img, .img_div {
     width: 180px;
-    height:322.55px;
+    height:277.2px;
     margin: 30px;
     position: relative;
     text-align: center;
@@ -73,7 +73,7 @@
 
 
 
-.today_wear .center .slick-active + .slick-active img {
+.today_wear .center .slick-active + .slick-active .img_div {
     z-index: 9;
     opacity: 1;
     -ms-transform: scale(1.15);
@@ -81,14 +81,14 @@
 }
 
 
-.today_wear .center .slick-current + .slick-active + .slick-active img{
+.today_wear .center .slick-current + .slick-active + .slick-active .img_div{
 	z-index: 8;
     opacity: 1;
     -ms-transform: scale(1);
     transform: scale(1);
 }
 
-.today_wear .center .slick-track .slick-current img {
+.today_wear .center .slick-track .slick-current .img_div {
     z-index: 11;
     opacity: 1;
     -ms-transform: scale(1.3);
@@ -96,7 +96,7 @@
 }
 
 
-.today_wear .center img {
+.today_wear .center .img_div {
     transition: all .3s ease;
 }
 
@@ -104,8 +104,10 @@
 .today_wear .slick-center:hover .dimmed_layer{
 	z-index: 40;
 	position: absolute;
-	top: 12px;
-	bottom: 28px;
+	/* top: 12px;
+	bottom: 28px; */
+	top: 18.4px;
+	bottom: 81px;
 	right: -57px;
 	left: 3px;
 
