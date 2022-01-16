@@ -72,10 +72,6 @@ class PostWritePage extends Component {
 
         this.setState({file_key: `${uuid_}.${filetype}`})
 
-        Storage.put(`${uuid_}.${filetype}`,file)
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
-
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -153,6 +149,11 @@ class PostWritePage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+
+        Storage.put(`${this.state.file_key}`, this.state.file)
+        .then(res => console.log(res))
+        .catch(e => console.log("onChange error", e));
+  
 
         let split_tags = '';
         let tagLengthErrorCheck = false;

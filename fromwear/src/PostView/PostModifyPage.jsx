@@ -92,10 +92,6 @@ class PostModifyPage extends Component {
 
         this.setState({file_key: `${uuid_}.${filetype}`})
 
-        Storage.put(`${uuid_}.${filetype}`,file)
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
-
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -200,14 +196,14 @@ class PostModifyPage extends Component {
 
                 if(this.state.file == ''){ //사진 수정 X
                     var tag_index = [];
-                API.graphql({
-                    query: updatePost, variables: {
-                        input: 
-                        {
-                            id: this.state.now_post.id,
-                            content: this.state.contents,
-                            //img: this.state.file_key, img 수정 X
-                        } 
+                    API.graphql({
+                        query: updatePost, variables: {
+                            input: 
+                            {
+                                id: this.state.now_post.id,
+                                content: this.state.contents,
+                                //img: this.state.file_key, img 수정 X
+                            } 
                     }})
                     .then(res => {
                         //원래 tag들의 num을 -1
@@ -327,6 +323,7 @@ class PostModifyPage extends Component {
                 }
                 else{
                     var tag_index = []
+                    var before_img_delete = this.state.now_post.img;
                     API.graphql({
                       query: updatePost,
                       variables: {
@@ -337,6 +334,12 @@ class PostModifyPage extends Component {
                         },
                       },
                     })
+                      .then((res) => {
+                        Storage.put(`${this.state.file_key}`, this.state.file)
+                          .then((res) => console.log(res))
+                          .catch((e) => console.log("onChange error", e));
+                      })
+                      .then(res => Storage.remove(before_img_delete))
                       .then((res) => {
                         //원래 tag들의 num을 -1
                         let current_tag_id;
@@ -425,8 +428,8 @@ class PostModifyPage extends Component {
                                   .catch((e) => console.log(e));
                               } else {
                                 //존재하는 태그
-                                    current_tag_id =
-                                      res.data.listStyleTags.items[0].id;
+                                current_tag_id =
+                                  res.data.listStyleTags.items[0].id;
                                 API.graphql({
                                   query: updatePostStyleTag,
                                   variables: {
@@ -610,8 +613,8 @@ class PostModifyPage extends Component {
                       .catch((e) => console.log(e));
                 }
                 else{
-                    //이건어떤부분?
                     var tag_index = []
+                    var before_img_delete = this.state.now_post.img;
                 
                     API.graphql({
                       query: updatePost,
@@ -624,6 +627,12 @@ class PostModifyPage extends Component {
                         },
                       },
                     })
+                      .then((res) => {
+                        Storage.put(`${this.state.file_key}`, this.state.file)
+                          .then((res) => console.log(res))
+                          .catch((e) => console.log("onChange error", e));
+                      })
+                      .then(res => Storage.remove(before_img_delete))
                       .then((res) => {
                         //원래 tag들의 num을 -1
                         let current_tag_id;
@@ -712,8 +721,8 @@ class PostModifyPage extends Component {
                                   .catch((e) => console.log(e));
                               } else {
                                 //존재하는 태그
-                                    current_tag_id =
-                                      res.data.listStyleTags.items[0].id;
+                                current_tag_id =
+                                  res.data.listStyleTags.items[0].id;
                                 API.graphql({
                                   query: updatePostStyleTag,
                                   variables: {
