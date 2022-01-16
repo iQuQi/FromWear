@@ -11,9 +11,9 @@ import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import { API } from 'aws-amplify';
-import { updateUser,createUserStyleTag,updateUserStyleTag } from '../graphql/mutations';
+import { updateUser,updateUserStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
-import zIndex from '@mui/material/styles/zIndex';
+import ProfileImgDialog from "./ProfileImgDialog"
 let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
@@ -32,7 +32,8 @@ class ProfileEdit extends Component{
             gender: props.user.gender,
             create_tag: false,
             create_tag: false,
-            file_key: 'profile_skyblue.jpg',
+            file_key: '',
+            isDialogOpen: false,
 		}
 	}
     
@@ -201,8 +202,8 @@ class ProfileEdit extends Component{
             }
             else{
 
-                var before_user_img_delete = this.state.user.profile_img
-
+                var before_user_img_delete = this.state.user.profile_img;
+                console.log("file key",this.state.file_key);
                 API.graphql({
                     query: updateUser, variables:{input:{
                         id: this.state.user.id,
@@ -259,19 +260,31 @@ class ProfileEdit extends Component{
             
         }
     }
-    handleCloseButton=(e)=> {
-        console.log("1");
-        //this.props.handle_write_page();
+
+
+    handleProfileUploadClickOpen=()=>{
+        this.setState({
+            isDialogOpen: true
+        })
+    }
+
+    handleDialogClose = ()=>{
+        this.setState({
+            isDialogOpen: false
+        })
+    }
+
+    handleChangetoDefault=()=>{
+        this.setState({file_key: "profile_skyblue.jpg", file: "default"})
     }
 
     render(){
-        let {fileImage, setFileImage, tag_click, content_introduce} = this.state;
+        let {isDialogOpen, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
 
         let profile_preview;
-        if(this.state.file == ''){
-            if(this.state.user.profile_img == 'profile_skyblue.jpg'){
-                console.log("프로필 : 기본 이미지")
+        if(this.state.file == ''||this.state.file == 'default'){
+            if(this.state.user.profile_img == 'profile_skyblue.jpg'||this.state.file_key=="profile_skyblue.jpg"){
                 profile_preview = <img className='profile_original_img' style={{backgroundImage:"url("+profile_skyblue+")",backgroundSize:"cover"}}/>;
             }
             else{ //프로필 이미지는 s3에 어떻게 업로드 되는지 보고 파악하면 될듯
@@ -292,15 +305,28 @@ class ProfileEdit extends Component{
 					</Button>
                     <form action="doLogin" method="POST" className="img_form">
                             {profile_preview} 
-                            <input
-                                id="to_click_img" className="img_file_form"
-                                type='file' 
-                                accept='image/*' 
-                                name='profile_img' 
-                                onChange={this.handleFileOnChange}>
-                            </input>
-                            <label htmlFor="to_click_img" className="profile_upload_button">프로필 업로드</label>
-                
+                           
+                            <Button variant="outlined"
+                            disableFocusRipple 
+                            sx={{position: 'absolute',
+                                top:'300px',
+                                left:'105px',
+                                border: '1px solid black',
+                                boxSizing: 'border-box',
+                                borderRadius: '30px',
+                                color: 'black', 
+                                '&:hover': {
+                                    borderColor: 'black'
+                                }}}
+                             onClick={this.handleProfileUploadClickOpen}>
+                                프로필 업로드
+                            </Button>
+                            <ProfileImgDialog
+                                isOpen={isDialogOpen}
+                                handleClose={this.handleDialogClose}
+                                handleFileOnChange={this.handleFileOnChange}
+                                handleChangetoDefault={this.handleChangetoDefault}
+                            />
                              <div className="profile_introduce">
                                 <h3>자기소개</h3>
                                 <textarea name="" type="text" className="profile_introduce_text"
