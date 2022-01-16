@@ -30,15 +30,10 @@ class ProfileEdit extends Component{
             user : props.user,
             content_introduce: '',  
             gender: props.user.gender,
-            create_tag: false,
-<<<<<<< HEAD
             img_upload: false,
-            file_key: 'profile_skyblue.jpg',
-=======
             create_tag: false,
             file_key: '',
             isDialogOpen: false,
->>>>>>> search_page
 		}
 	}
     
