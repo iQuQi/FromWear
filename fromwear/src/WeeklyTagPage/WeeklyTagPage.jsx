@@ -30,14 +30,26 @@ class WeeklyTagPage extends Component {
 			postlist_1: [],
 			postlist_2: [],
 			weekly_tag_id: [],
-			weekly_tag: []
+			weekly_tag: [],
+			current_next_post_page: 1,
 		};
 	}
 
-
+	handleScroll = () => {
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
 
 	componentDidMount(){
-		
+		window.addEventListener("scroll", this.handleScroll);
+
 		API.graphql({ query: listPosts, variables: { filter: {board_type: {eq: 2}} }})
 		.then( res => {
 			this.setState({ postlist_0: res.data.listPosts.items.sort(function(a,b){return b.like_urgent_user_list.items.length-a.like_urgent_user_list.items.length}) });
@@ -54,7 +66,9 @@ class WeeklyTagPage extends Component {
 		
 	}
 
-	
+	componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
+	}
 	
 	
 	
@@ -66,7 +80,8 @@ class WeeklyTagPage extends Component {
 		const best_posts = posts.slice(0,4);
 		const ranking_posts = posts.slice(4);
 	
-       
+        let {current_next_post_page} = this.state;
+
 		return <div id = 'main_page'>
 			<Header/>
 			<div className = 'banner'>
@@ -123,7 +138,8 @@ class WeeklyTagPage extends Component {
 				<br></br>
 				
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
-					{ranking_posts.map((item) => (
+					{ranking_posts.map((item, index) => (
+						index<(current_next_post_page * 9)?
 						<ImageListItem key={item.img} className='weekly_image_list_item'>
 							<img style={{height:'322.55px', borderRadius:16}}
 								src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
@@ -145,6 +161,7 @@ class WeeklyTagPage extends Component {
 								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 							</Stack>				
 						</ImageListItem>
+						: console.log(index + "pass")
 					))}
 				</ImageList>
 			

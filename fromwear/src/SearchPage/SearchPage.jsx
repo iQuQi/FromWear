@@ -30,6 +30,8 @@ AWS.config.update(
 	}
   );
   */
+
+
 const s3 = new AWS.S3();
 class SearchPage extends Component{
 	constructor(){
@@ -56,20 +58,29 @@ class SearchPage extends Component{
 		};
 	}
 
-	componentWillMount(){
-		console.log("searchpage will mount");
+	handleScroll = () => {
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
+
+
+	componentDidMount(){
+		window.addEventListener("scroll", this.handleScroll);
 		this.update_post_data(-1,"",this.state.current_input_tag,-1);
 		get_rank_tag(this.handle_rank_tag_data);
 
 	}
 
+	componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
 
-	
-
-	handle_post_more_on_click=e=>{
-		this.setState({
-			current_next_post_page: this.state.current_next_post_page+1
-		})
 	}
 
 	handle_tag_button_click=(e,index)=>{
@@ -89,8 +100,6 @@ class SearchPage extends Component{
 		this.setState({
 			target_tag_button: tag_clicked_list,
 		})
-
-		console.log("cur input tag7:"+this.state.current_input_tag);
 
 		this.update_post_data(this.state.filter_day,this.state.filter_gender,
 			this.state.current_input_tag,
@@ -447,19 +456,6 @@ class SearchPage extends Component{
 								current_next_post_page={current_next_post_page}
 								/>
 							</Box>
-							
-							
-							<Button
-							variant="contained"
-							style={{
-								width: "100%",height: 50,
-								marginTop:20, backgroundColor:"black"
-
-							}}
-							onClick={this.handle_post_more_on_click}
-							>   
-								<ArrowDropDownIcon style={{fontSize:40}}/>
-							</Button>
 						</div>
 						:
 						<Box sx={{minHeight:'800px'}}>
