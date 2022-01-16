@@ -14,13 +14,10 @@ import { API } from 'aws-amplify';
 import { updateUser,createUserStyleTag,updateUserStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 import zIndex from '@mui/material/styles/zIndex';
-
 let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
-
 class ProfileEdit extends Component{
-
     constructor(props){
 		super();
 		this.state = {
@@ -29,10 +26,9 @@ class ProfileEdit extends Component{
             tag_click: false,
 			current_click_tag_num: 0,
             total_tag_num: 0,
-            tag_contents: "",
             contents: '',
             user : props.user,
-            content_introduce: '',
+            content_introduce: '',  
             gender: props.user.gender,
             create_tag: false,
             create_tag: false,
@@ -45,9 +41,7 @@ class ProfileEdit extends Component{
             content_introduce: this.state.user.introduce,
         })
         this.set_tag_list();
-
     }
-
     set_tag_list = () => {
         console.log("현재 유저 태그",this.state.user)
         if(this.state.user.my_tag_list.items.length > 0){
@@ -60,10 +54,10 @@ class ProfileEdit extends Component{
                     tag_clicked_list[tag.style_tag.id-1] = 1
                 })
                 this.setState({
-                    tag_contents: "#"+tmp_user_tag_list[0].style_tag.value+" #"+tmp_user_tag_list[1].style_tag.value +" #"+tmp_user_tag_list[2].style_tag.value,
+                    contents: "#"+tmp_user_tag_list[0].style_tag.value+" #"+tmp_user_tag_list[1].style_tag.value +" #"+tmp_user_tag_list[2].style_tag.value,
                     current_click_tag_num: 3,
                     total_tag_num: 3,
-                })
+                })  
             }
         }
     }
@@ -78,25 +72,20 @@ class ProfileEdit extends Component{
             
         }
     }
-
     
-
     changeIntroduceArea(e) {
         this.setState({content_introduce : e.target.value});
     }
-
     handleFileOnChange = (event) => {
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
-
         this.setState({file_key: `${uuid_}.${filetype}`})
         
         Storage.put(`${uuid_}.${filetype}`,file)
         .then(res=>console.log(res))
         .catch(e=> console.log('onChange error',e));
-
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -105,50 +94,50 @@ class ProfileEdit extends Component{
         }
         reader.readAsDataURL(file);
       }
-	
-      onChangeTag = e => {
-        let split_tags = [];
-        e.target.value.split("#").forEach((data) => {
-          split_tags = [...split_tags, data.split(" ").join("")];
-    
-          
-        });
-        split_tags = split_tags.slice(1, split_tags.length);
-  
-        static_tag_data.forEach((static_tag, static_tag_index) => {
-          tag_clicked_list[static_tag_index] = 0;
-          split_tags.forEach((current_tag) => {
-            if (static_tag.name === current_tag) {
-              tag_clicked_list[static_tag_index] = 1;
-            }
-          });
-        });
-  
-        this.setState({ tag_contents: e.target.value });
-      }
-  
 
-    onFocusTag = e => {
+    onClickTag = () => {
         this.setState({tag_click: !this.state.tag_click})
+        console.log(this.state.tag_click)
     }
 
-    handle_tag_button_click=(e,index,name)=>{
+    changeTextArea=()=> {
+        let changeContents = '';
+        tag_clicked_list.forEach((tag, index) => {
+            if(tag == 1) {
+                changeContents += `#${static_tag_data[index].name} `
+            }
+        })
+        this.setState({
+            contents: changeContents
+        })
+    }
+
+    handle_tag_button_click=(e,index)=>{
 		if(!tag_clicked_list[index]) {
+            if(this.state.total_tag_num == 3) {
+                alert("태그는 3개를 등록해야 합니다.");
+                return;
+            } 
+
 			tag_clicked_list[index]= 1;
 			this.setState({
-                tag_contents: this.state.tag_contents + `#${name}`,
+				current_click_tag_num: this.state.current_click_tag_num+1,
+                total_tag_num: this.state.total_tag_num + 1
 			})
 		}
 		else {
 			tag_clicked_list[index]=0;
 			this.setState({
-                tag_contents: this.state.tag_contents.replaceAll(`#${name}`, ''),
-            });
+				current_click_tag_num: this.state.current_click_tag_num-1,
+                total_tag_num: this.state.total_tag_num - 1
+			})
 		}
 
+        this.changeTextArea();
+
 	}
-    
-    checkGender = e => {
+
+    checkGender = e => {  
         if(e.target.value == 1) {
             this.setState({gender : 'M'});
         }
@@ -164,24 +153,10 @@ class ProfileEdit extends Component{
 
     handleSubmit=(e)=> {
         e.preventDefault();
-        let split_tags = '';
-        let tagLengthErrorCheck = false;
-        let {tag_contents} = this.state;
-      
-        tag_contents.split("#").forEach((data) => {
-            split_tags = [...split_tags, data.split(" ").join("")];
-            if ( data.split(" ").join("").length>5){
-            tagLengthErrorCheck = true
-        } 
-        });
-        split_tags = split_tags.slice(1, split_tags.length);
-    
-        let dup_rmv_tags = new Set(split_tags);
-
-        if(dup_rmv_tags.size !== 3) {
+        console.log("현재 유저 :",this.state.user);
+        console.log("현재 introduce :",this.state.content_introduce);
+        if(this.state.total_tag_num != 3) {
             alert("태그는 3개를 등록해야 합니다.");
-        }else if (tagLengthErrorCheck) {
-            alert("태그 길이를 5자 이하로 맞춰주세요");
         }
         else {
             if(this.state.file==''){ //사진을 등록 X 또는 기본 사진 'profile_skyblue.jpg' 사용
@@ -274,21 +249,19 @@ class ProfileEdit extends Component{
                 })
             }
             
-
             console.log("프로필 업데이트 성공!");
             //window.location.reload();
             
         }
     }
-
     handleCloseButton=(e)=> {
         console.log("1");
         //this.props.handle_write_page();
     }
 
     render(){
-        let { tag_click, content_introduce} = this.state;
-        let {tag_contents} = this.state;
+        let {fileImage, setFileImage, tag_click, content_introduce} = this.state;
+        let {contents} = this.state;
 
         let profile_preview;
         if(this.state.file == ''){
@@ -331,13 +304,10 @@ class ProfileEdit extends Component{
 
                             <div className="profile_mytag">
                                 <h3>소개태그</h3>
-                                <Input value={tag_contents} 
+                                <Input value={contents} 
                                   style={{margin:"10px 0",width:"100%"}}
                                   placeholder="태그를 입력해주세요"  
-                                  onChange={this.onChangeTag}
-                                  onClick={this.onFocusTag}
-
-                                  />
+                                  onClick={this.onClickTag}/>
                             </div>
                             {
                                 tag_click ?
@@ -349,7 +319,6 @@ class ProfileEdit extends Component{
                                 </div>
                                 :
                                 <div>
-
                                 </div>
                             }
                              <div className="profile_gender">
@@ -383,13 +352,10 @@ class ProfileEdit extends Component{
                                 borderRadius:30,border:"1px solid black"
                             }} variant="contained" onClick={this.handleSubmit.bind(this)}>등록</Button>
                             </div>
-
                     </form>
             </div>
         </div>
     
     }
-
 }
-
 export default ProfileEdit;
