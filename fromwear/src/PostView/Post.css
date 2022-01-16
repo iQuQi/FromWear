@@ -48,6 +48,7 @@
 
 .writer {
     padding: 15px;
+    padding-left: 12.5px;
     border-bottom: 1px solid;
 }
 
@@ -62,6 +63,7 @@
     border: 1px solid;*/
     border-radius: 50%;
     background-size: cover;
+    border: 2px solid #fff;
 }
 
 .writer_name {
@@ -107,6 +109,7 @@
     line-height: 1.4;
     height: 51px;
     overflow: hidden;
+    padding-left:6px;
     /*-ms-overflow-style: none;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -131,6 +134,7 @@
 .comment {
     position: relative;
     padding: 10px 15px;
+    padding-left: 13.5px;
     padding-bottom: 0;
     box-sizing: border-box;
 }

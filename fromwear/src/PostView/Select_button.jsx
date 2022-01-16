@@ -130,14 +130,13 @@ class Select_button extends Component{
                 {
                     select_button_is_checked ?
                     <div className="selected_star_img">
-                        <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img selected_img move_to_userpage" onClick={this.moveToWriterPage} /> 
+                        <div className="writer_img selected_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
                     </div>
-                    :<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img move_to_userpage" onClick={this.moveToWriterPage} /> 
-                
+                    :<div className="writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />        
                 }
                 {
                     select_button_is_checked ?
-                    <div className="comment_user_name selected_name move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
+                    <div className="comment_user_name move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
                     :<div className="comment_user_name  move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
                 }
                 <Thumb 

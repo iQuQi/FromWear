@@ -510,7 +510,7 @@ class Post extends Component{
                                         now_post.blind?
                                         <img className="post_writer_img" src={profile_skyblue} />
                                         :
-                                        <img className="post_writer_img move_to_userpage" onClick={this.moveToWriterPage} src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img} />
+                                        <div className="post_writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
                                     }
                                     {
                                         now_post.blind?

@@ -26,14 +26,11 @@
 }
 
 .selected_img {
-    border: 3px solid rgb(244, 213, 92);
+    border: 2px solid rgb(244, 213, 92);
+    /* border: 3px solid rgb(244, 213, 92);
     box-sizing: unset;
     position: relative;
-    left: -3px;
-}
-
-.selected_name {
-    margin-left: 1px;
+    left: -3px; */
 }
 
 .single_select {
