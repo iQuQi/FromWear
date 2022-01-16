@@ -35,3 +35,7 @@
 .selected_name {
     margin-left: 1px;
 }
+
+.single_select {
+    min-height: 41px;
+}

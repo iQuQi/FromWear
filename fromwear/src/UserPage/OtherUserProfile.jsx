@@ -130,7 +130,6 @@ export default class Profile extends Component {
   }
 
   componentDidMount(){
-    this.dialog_get_follow();
     console.log("DIDMOUNT");
     console.log(this.state.user);
     if(this.state.user!=undefined)  {
@@ -258,11 +257,7 @@ export default class Profile extends Component {
       dialog_is_checked: false,
     })
   }
-  
-  dialog_get_follow = () => {
 
-    
-  }
 
   handle_follow = () => {
     if(this.state.follow_click==false){
@@ -326,7 +321,7 @@ export default class Profile extends Component {
     }
 
     if(user.my_post_list){
-      postnum = user.my_post_list.items.length;
+      postnum = user.my_post_list.items.filter((item)=>item.board_type==0 || item.board_type==2).length;
     }
     
 

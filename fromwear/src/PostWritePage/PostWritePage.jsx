@@ -106,21 +106,6 @@ class PostWritePage extends Component {
         this.setState({tag_click: !this.state.tag_click})
     }
 
-  
-
-    changeTagTextArea() {
-        let changeContents = [];
-        tag_clicked_list.forEach((tag, index) => {
-            if(tag == 1) {
-                changeContents += `#${post_tag_data[index].name} `
-
-            }
-        })
-        this.setState({
-            tag_contents: changeContents
-        })
-    }
-
     handle_tag_button_click=(e,index,name)=>{
 		if(!tag_clicked_list[index]) {
 			tag_clicked_list[index]= 1;
@@ -137,14 +122,6 @@ class PostWritePage extends Component {
             });
 		}
 
-        // this.changeTagTextArea();
-        
-		//console.log("cur input tag7:"+this.state.current_input_tag);
-/*
-		this.update_post_data(this.state.filter_day,this.state.filter_gender,
-			this.state.current_input_tag,
-			this.state.filter_board);
-*/
 	}
 
     handleSubmit(e) {
@@ -167,10 +144,7 @@ class PostWritePage extends Component {
       });
       split_tags = split_tags.slice(1, split_tags.length);
   
-        let dup_rmv_tags = new Set(split_tags);
-        // if(dup_rmv_tags.size !== split_tags.length) {
-        //     alert("중복된 태그를 제거해주세요.");
-        // }
+      let dup_rmv_tags = new Set(split_tags);
 
         
 

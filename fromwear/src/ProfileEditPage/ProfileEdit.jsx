@@ -14,13 +14,10 @@ import { API } from 'aws-amplify';
 import { updateUser,createUserStyleTag,updateUserStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 import zIndex from '@mui/material/styles/zIndex';
-
 let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
-
 class ProfileEdit extends Component{
-
     constructor(props){
 		super();
 		this.state = {
@@ -31,7 +28,7 @@ class ProfileEdit extends Component{
             total_tag_num: 0,
             contents: '',
             user : props.user,
-            content_introduce: '',
+            content_introduce: '',  
             gender: props.user.gender,
             create_tag: false,
             create_tag: false,
@@ -44,15 +41,13 @@ class ProfileEdit extends Component{
             content_introduce: this.state.user.introduce,
         })
         this.set_tag_list();
-
     }
-
     set_tag_list = () => {
         console.log("현재 유저 태그",this.state.user)
         if(this.state.user.my_tag_list.items.length > 0){
             var tmp_user_tag_list = this.state.user.my_tag_list.items;
             if(tmp_user_tag_list[0].style_tag.id==102 && tmp_user_tag_list[1].style_tag.id==103 && tmp_user_tag_list[2].style_tag.id==101){
-                console.log("초기 상태") //초기 상태면 tag 아무것도 안넣어둠 (delete해야할 거 있나?)
+                console.log("초기 상태") //초기 상태면 tag 아무것도 안넣어둠
             }
             else{
                 tmp_user_tag_list.map((tag)=>{
@@ -62,7 +57,7 @@ class ProfileEdit extends Component{
                     contents: "#"+tmp_user_tag_list[0].style_tag.value+" #"+tmp_user_tag_list[1].style_tag.value +" #"+tmp_user_tag_list[2].style_tag.value,
                     current_click_tag_num: 3,
                     total_tag_num: 3,
-                })
+                })  
             }
         }
     }
@@ -77,25 +72,16 @@ class ProfileEdit extends Component{
             
         }
     }
-
     
-
     changeIntroduceArea(e) {
         this.setState({content_introduce : e.target.value});
     }
-
     handleFileOnChange = (event) => {
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
-
         this.setState({file_key: `${uuid_}.${filetype}`})
-        
-        Storage.put(`${uuid_}.${filetype}`,file)
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
-
         reader.onloadend = () => {
           this.setState({
             file : file,
@@ -104,7 +90,7 @@ class ProfileEdit extends Component{
         }
         reader.readAsDataURL(file);
       }
-	
+
     onClickTag = () => {
         this.setState({tag_click: !this.state.tag_click})
         console.log(this.state.tag_click)
@@ -146,8 +132,8 @@ class ProfileEdit extends Component{
         this.changeTextArea();
 
 	}
-    
-    checkGender = e => {
+
+    checkGender = e => {  
         if(e.target.value == 1) {
             this.setState({gender : 'M'});
         }
@@ -214,6 +200,9 @@ class ProfileEdit extends Component{
                 })
             }
             else{
+
+                var before_user_img_delete = this.state.user.profile_img
+
                 API.graphql({
                     query: updateUser, variables:{input:{
                         id: this.state.user.id,
@@ -222,6 +211,12 @@ class ProfileEdit extends Component{
                         profile_img: this.state.file_key,
                     }}
                 })
+                .then(res => {
+                    Storage.put(`${this.state.file_key}`, this.state.file)
+                    .then(res=>console.log(res))
+                    .catch(e=> console.log('onChange error',e))}
+                )
+                .then(res => Storage.remove(before_user_img_delete)) // 기존 이미지 삭제
                 .then(e => console.log(e))
                 .then(res => {
                     //현재 사용자의 tag list의 id 불러옴
@@ -259,13 +254,11 @@ class ProfileEdit extends Component{
                 })
             }
             
-
             console.log("프로필 업데이트 성공!");
             //window.location.reload();
             
         }
     }
-
     handleCloseButton=(e)=> {
         console.log("1");
         //this.props.handle_write_page();
@@ -331,7 +324,6 @@ class ProfileEdit extends Component{
                                 </div>
                                 :
                                 <div>
-
                                 </div>
                             }
                              <div className="profile_gender">
@@ -365,13 +357,10 @@ class ProfileEdit extends Component{
                                 borderRadius:30,border:"1px solid black"
                             }} variant="contained" onClick={this.handleSubmit.bind(this)}>등록</Button>
                             </div>
-
                     </form>
             </div>
         </div>
     
     }
-
 }
-
 export default ProfileEdit;
