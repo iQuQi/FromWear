@@ -149,10 +149,6 @@ class PostWritePage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        
-        Storage.put(`${this.state.file_key}`, this.state.file)!!
-        .then(res=>console.log(res))
-        .catch(e=> console.log('onChange error',e));
 
         Storage.put(`${this.state.file_key}`, this.state.file)
         .then(res => console.log(res))
