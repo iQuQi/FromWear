@@ -41,6 +41,7 @@ class PostModifyPage extends Component {
             blind: false,
             create_post: false,
             create_tag: false,
+            img_upload: false,
             file_key: '',
             now_post:props.now_post,
             before_img: '',
@@ -334,13 +335,17 @@ class PostModifyPage extends Component {
                         },
                       },
                     })
-                      .then((res) => {
+                    .then((res) => {
                         Storage.put(`${this.state.file_key}`, this.state.file)
-                          .then((res) => console.log(res))
-                          .catch((e) => console.log("onChange error", e));
-                      })
-                      .then(res => Storage.remove(before_img_delete))
-                      .then((res) => {
+                        .then(res => {
+                            Storage.remove(before_img_delete)
+                            .then(res => this.setState({img_upload: true}))
+                            .catch((e) => console.log("onChange error", e));
+                        })
+                        .catch((e) => console.log("onChange error", e));
+                    })
+                    .catch((e) => console.log("onChange error", e))
+                    .then((res) => {
                         //원래 tag들의 num을 -1
                         let current_tag_id;
                         this.state.now_post.tag_list.items.forEach((tag) => {
@@ -609,7 +614,7 @@ class PostModifyPage extends Component {
                         });
                       })
                       .then((res) => this.setState({ create_post: true }))
-                      .then(window.location.reload())
+                      //.then(window.location.reload())
                       .catch((e) => console.log(e));
                 }
                 else{
@@ -627,12 +632,16 @@ class PostModifyPage extends Component {
                         },
                       },
                     })
-                      .then((res) => {
+                    .then((res) => {
                         Storage.put(`${this.state.file_key}`, this.state.file)
-                          .then((res) => console.log(res))
-                          .catch((e) => console.log("onChange error", e));
-                      })
-                      .then(res => Storage.remove(before_img_delete))
+                        .then(res => {
+                            Storage.remove(before_img_delete)
+                            .then(res => this.setState({img_upload: true}))
+                            .catch((e) => console.log("onChange error", e));
+                        })
+                        .catch((e) => console.log("onChange error", e));
+                    })
+                    .catch((e) => console.log("onChange error", e))
                       .then((res) => {
                         //원래 tag들의 num을 -1
                         let current_tag_id;
@@ -758,7 +767,7 @@ class PostModifyPage extends Component {
                         });
                       })
                       .then((res) => this.setState({ create_post: true }))
-                      .then(window.location.reload())
+                      //.then(window.location.reload())
                       .catch((e) => console.log(e));
                 }
             }
@@ -794,13 +803,13 @@ class PostModifyPage extends Component {
         }
  
 
-        if (this.state.create_post == true && this.state.create_tag == true) {
-            if(this.state.board_type == 0) {
-                window.location.href = './post/'+now_post.id;
-            }
-            else {
-                window.location.href = './sosboard';
-            }
+        if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true) {
+            // if(this.state.board_type == 0) {
+            //     window.location.href = './post/'+now_post.id;
+            // }
+            // else {
+            //     window.location.href = './sosboard';
+            // }
             window.location.reload();
         }
 

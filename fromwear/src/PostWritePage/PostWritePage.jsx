@@ -42,6 +42,7 @@ class PostWritePage extends Component {
           blind: false,
           create_post: false,
           create_tag: false,
+          img_upload: false,
           file_key: "",
         };
     }
@@ -128,7 +129,7 @@ class PostWritePage extends Component {
         e.preventDefault();
 
         Storage.put(`${this.state.file_key}`, this.state.file)
-        .then(res => console.log(res))
+        .then(res => this.setState({img_upload: true}))
         .catch(e => console.log("onChange error", e));
   
 
@@ -284,14 +285,14 @@ class PostWritePage extends Component {
         }
  
 
-        if (this.state.create_post == true && this.state.create_tag == true) {
+        if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true) {
             if(this.state.board_type == 0) {
                 window.location.href = './todayboard';
             }
             else {
                 window.location.href = './sosboard';
             }
-            window.location.reload();
+            //window.location.reload();
         }
 
 		return (

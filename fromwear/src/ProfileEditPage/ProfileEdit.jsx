@@ -31,7 +31,7 @@ class ProfileEdit extends Component{
             content_introduce: '',  
             gender: props.user.gender,
             create_tag: false,
-            create_tag: false,
+            img_upload: false,
             file_key: 'profile_skyblue.jpg',
 		}
 	}
@@ -189,20 +189,29 @@ class ProfileEdit extends Component{
                         .then(res => {
                             if(index == 2){
                                 this.setState({
-                                    create_tag:true
+                                    create_tag: true,
+                                    img_upload: true,
                                 })
+                                
                             }
                         })
                     })
                 })
-                .then(res=>{
-                    window.location.reload();
-                })
+                // .then(res=>{
+                //     window.location.reload();
+                // })
             }
+            // else {
+            //     console.log("현재 여기")
+            //     var before_user_img_delete = this.state.user.profile_img
+            //     console.log("삭제할 경로 : ", before_user_img_delete)
+            // }
             else{
 
                 var before_user_img_delete = this.state.user.profile_img
+                console.log("삭제할 경로 : ", before_user_img_delete)
 
+                
                 API.graphql({
                     query: updateUser, variables:{input:{
                         id: this.state.user.id,
@@ -211,13 +220,6 @@ class ProfileEdit extends Component{
                         profile_img: this.state.file_key,
                     }}
                 })
-                .then(res => {
-                    Storage.put(`${this.state.file_key}`, this.state.file)
-                    .then(res=>console.log(res))
-                    .catch(e=> console.log('onChange error',e))}
-                )
-                .then(res => Storage.remove(before_user_img_delete)) // 기존 이미지 삭제
-                .then(e => console.log(e))
                 .then(res => {
                     //현재 사용자의 tag list의 id 불러옴
                     var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
@@ -249,15 +251,26 @@ class ProfileEdit extends Component{
                         })
                     })
                 })
-                .then(res=>{
-                    window.location.reload();
+                // .then(res=>{
+                //     window.location.reload();
+                // })
+                .then((res) => {
+                    Storage.put(`${this.state.file_key}`, this.state.file)
+                    .then(res => {
+                        Storage.remove(before_user_img_delete)
+                        .then(res => this.setState({img_upload: true}))
+                        .catch((e) => console.log("onChange error", e));
+                    })
+                    .catch((e) => console.log("onChange error", e));
                 })
+                .catch((e) => console.log("onChange error", e))
             }
             
             console.log("프로필 업데이트 성공!");
             //window.location.reload();
             
         }
+
     }
     handleCloseButton=(e)=> {
         console.log("1");
@@ -267,6 +280,10 @@ class ProfileEdit extends Component{
     render(){
         let {fileImage, setFileImage, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
+
+        if(this.state.create_tag == true && this.state.img_upload == true) {
+            window.location.reload();
+        }
 
         let profile_preview;
         if(this.state.file == ''){
