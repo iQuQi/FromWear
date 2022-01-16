@@ -106,15 +106,24 @@
 .writer_content {
     line-height: 1.4;
     height: 51px;
-    overflow: scroll;
-    -ms-overflow-style: none;
-    /*overflow: hidden;
+    overflow: hidden;
+    /*-ms-overflow-style: none;
+    overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
         word-wrap: break-word;
         display: -webkit-box;
         -webkit-line-clamp: 3 ;
         -webkit-box-orient: vertical; */
+
+    white-space: normal;
+    line-height: 1.2;
+    height: 3.6em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .writer_content::-webkit-scrollbar { display: none; }
 
