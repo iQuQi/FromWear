@@ -67,14 +67,31 @@ export default class TodayPostBoardPosts extends Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
       this.setState({ user: this.props.user });
     }
   }
 
+  handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      // 페이지 끝에 도달하면 추가 데이터를 받아온다
+      this.setState({
+        current_next_post_page: this.state.current_next_post_page + 1,
+      });
+    }
+  };
+
   componentWillMount() {
     this.handleFilteredData(this.state.post_state);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   handleFilteredData = (sortVal) => {
@@ -601,30 +618,20 @@ export default class TodayPostBoardPosts extends Component {
                   )
                 )}
               </ImageList>
-              <Button
-                variant="contained"
-                style={{
-                  width: "100%",
-                  height: 50,
-                  marginTop: 20,
-                  backgroundColor: "black",
-                }}
-                onClick={this.handle_post_more_on_click}
-              >
-                <ArrowDropDownIcon style={{ fontSize: 40 }} />
-              </Button>
             </div>
           ) : (
-            <Typography
-              style={{
-                color: "black",
-                marginTop: "20px",
-                fontSize: 15,
-                textAlign: "center",
-              }}
-            >
-              해당되는 게시물이 존재하지 않습니다.
-            </Typography>
+            <Box sx={{ minHeight: "800px" }}>
+              <Typography
+                style={{
+                  color: "black",
+                  position: "relative",
+                  top: 400,
+                  fontSize: 15,
+                }}
+              >
+                해당되는 게시물이 존재하지 않습니다.
+              </Typography>
+            </Box>
           )}
         </div>
       </article>
