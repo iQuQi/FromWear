@@ -26,12 +26,14 @@
 }
 
 .comment_user_name {
+    width: 70%;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 650;
     display:inline-block;
     margin-left: 8px;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .comment_content {

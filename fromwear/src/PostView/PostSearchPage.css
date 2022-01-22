@@ -1,7 +1,7 @@
-@charset "utf-8";
+/* @charset "utf-8"; */
 
 /*header CSS*/
-.post_header_bar{
+/* .post_header_bar{
     position: fixed;
     top: 0;
     min-width: 1082px;
@@ -90,4 +90,56 @@
 
 .post_image_list_item:hover .post_dimmed_info_writer, .post_image_list_item:hover .post_dimmed_info_like{
 	display: block;
+} */
+
+@charset "utf-8";
+
+
+.post_dimmed_info_writer{
+	position: absolute;
+	bottom: 20px;
+	left: 10px;
+	display: none;
 }
+.post_dimmed_info_like{
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+	display: none;
+}
+
+.post_img_item{
+	border-radius:16px;
+	height:322.55px;
+
+}
+
+
+.post_image_list_item:hover .post_dimmed_layer{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+
+	padding: 33% 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 16px;
+
+    color: white;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.post_image_list_item:hover .post_dimmed_info_writer, .post_image_list_item:hover .post_dimmed_info_like{
+	display: block;
+	font-size: 13px;
+}
+/* 
+.post_image_list_item:hover .post_dimmed_info_writer {
+	width: 100%;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} */

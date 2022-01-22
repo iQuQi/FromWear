@@ -54,6 +54,7 @@ class Post extends Component{
             result_post:[],
 
             is_write_page:false,
+            current_next_post_page: 1,
         }
     }
 
@@ -74,19 +75,8 @@ class Post extends Component{
         
         .catch(e => console.log(e));
 
-        /*
-        this.subscription = API.graphql({query: onCreatePostLikeUrgentUser, variables: { id: this.state.user_id + this.state.post_id }})
-        .subscribe({
-            next: newCreated => {
-                console.log(newCreated)
-                if(newCreated.post_id === this.state.user_id + this.state.post_id) //이거 무슨 의민지 공부..
-                    return;
-                let {like_urgent_user_list} = this.state;
-                this.setState({
-                    like_urgent_user_list: [...like_urgent_user_list, newCreated.value.data.onCreatePostLikeUrgentUser]
-                });
-            }
-        });*/
+        window.addEventListener("scroll", this.handleScroll);
+
     }
 
 	handle_user_info = (user) => {
@@ -254,6 +244,24 @@ class Post extends Component{
 		})
         console.log("is",this.state.is_write_page)
 	}
+
+    handleScroll = () => {
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
+
+    componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
+
+	}
+
 
     removePostIcons = () => { 
         this.setState({
@@ -585,7 +593,8 @@ class Post extends Component{
                                         result_post.length!=0?
                                             <div className={"post_page_content"}>
                                                 <PostSearchResult
-                                                result_post={result_post} />
+                                                result_post={result_post}
+								                current_next_post_page={this.state.current_next_post_page} />
                                             </div>
                                             :
                                             <Typography className="post_page_tag_empty">
