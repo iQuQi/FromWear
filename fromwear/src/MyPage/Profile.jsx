@@ -314,9 +314,16 @@ export default class Profile extends Component {
               {
                 user.my_tag_list?
                   user.my_tag_list.items.length!=0?
-                  <p>#{user.my_tag_list.items[0].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[2].style_tag.value}</p>
+                  
+                  user.my_tag_list.items.sort((a,b)=>a.style_tag.id-b.style_tag.id).map(item=>
+                    <span>#{item.style_tag.value}&nbsp;</span> 
+                  )
+                  
                   :<p></p>    
                   :<p></p>    
+              }
+              {
+                console.log(user.my_tag_list)
               }
               
 
