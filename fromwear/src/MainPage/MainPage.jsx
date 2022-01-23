@@ -20,6 +20,14 @@ import Footer from '../Footer/Footer.jsx';
 import { fontWeight } from '@mui/system';
 import Box from '@mui/material/Box';
 
+let link = '';
+
+let link_change = (item, now_user) => {
+    item.user.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.user.id
+}
+
 class MainPage extends Component {
 	constructor() {
 		super();
@@ -28,6 +36,7 @@ class MainPage extends Component {
 			postlist_0: [],
 			postlist_1: [],
 			postlist_2: [],
+			now_user:{},
 		};
 	}
 
@@ -35,6 +44,12 @@ class MainPage extends Component {
 		for (let i = 0; i < 3; i++) {
 			this.getPosts(i);	
 		}
+	}
+
+	handle_user_info = (user) => {
+		
+		this.setState({ now_user: user });
+		
 	}
 
 	getPosts = (i) => {
@@ -62,8 +77,10 @@ class MainPage extends Component {
 		const best_post_2 = this.state.postlist_2.slice(0,5);
 		//<Box className = 'banner' sx={{width:'100%', height:'780px', backgroundColor:'#F2F2F2'}}>
 
+		let {now_user} = this.state;
+		
 		return <div id = 'main_page'>
-			<Header/>
+			<Header handle_user_info={this.handle_user_info}/>
 			<div className='main_banner'>	
 				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'780px'}}/>
 
@@ -99,13 +116,14 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
+									{link_change(item, now_user)}
 									<div>
 										<div className='innerdiv'>
-											<a href = {'/userpage/'+item.user.id}>
+											<a href = {link}>
 												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
 												style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
 											</a>
-											<a href = {'/userpage/'+item.user.id}>
+											<a href = {link}>
 												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 											</a>
 										</div>
@@ -141,13 +159,14 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
+									{link_change(item, now_user)}
 									<div>
 										<div className='innerdiv'>
 											{
 												item.blind? <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+'profile_skyblue.jpg'} 
 												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 												: 
-												<a href = {'/userpage/'+item.user.id}>
+												<a href = {link}>
 													<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
 													style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 												</a>
@@ -156,7 +175,7 @@ class MainPage extends Component {
 											{
 												item.blind? <p style={{margin: '16px 0px'}}>익명</p>
 												: 
-												<a href = {'/userpage/'+item.user.id}>
+												<a href = {link}>
 													<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 												</a>
 											}
@@ -193,13 +212,14 @@ class MainPage extends Component {
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
+									{link_change(item, now_user)}
 									<div>
 										<div className='innerdiv'>
-											<a href = {'/userpage/'+item.user.id}>
+											<a href = {link}>
 												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
 												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 											</a>
-											<a href = {'/userpage/'+item.user.id}>
+											<a href = {link}>
 												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 											</a>
 										</div>
