@@ -67,22 +67,11 @@ class MyPage extends Component {
 			}
 			
 			<div className='mypage_contents'>
-
-				<div id = 'profile' className = 'mypage_profile'>
-					
-				</div>
-				
 				<Profile user={now_user} handle_profile_edit={this.handle_profile_edit}/>
 				
-				
-
 				<div id = 'tab' className = 'mypage_collection'>
 					<MyPageButtonGroup user={now_user}/>
-				</div>
-
-				
-
-				
+				</div>		
             </div>
 
 			<Footer/>
