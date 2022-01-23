@@ -21,6 +21,14 @@
         "S3Trigger6b6ec516": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
           "s3Key": "amplify-builds/S3Trigger6b6ec516-6274483445636e497657-build.zip"
+        },
+        "cronjobWeekly": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/cronjobWeekly-514478634b6168446179-build.zip"
+        },
+        "cronjob": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/cronjob-576c612b59436e653265-build.zip"
         }
       },
       "auth": {
