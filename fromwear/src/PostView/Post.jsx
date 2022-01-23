@@ -21,6 +21,9 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 var AWS = require('aws-sdk'); 
 
 
+let is_ell = false;
+
+
 //board type 0 : 오늘의 착장 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
@@ -38,6 +41,7 @@ class Post extends Component{
             bookmark_click: false,
             first_click: false,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             btn_check: false,
+            ell_check: false,
 
             like_urgent_num: 0,
 
@@ -77,7 +81,6 @@ class Post extends Component{
         .catch(e => console.log(e));
 
         window.addEventListener("scroll", this.handleScroll);
-
     }
 
 	handle_user_info = (user) => {
@@ -260,13 +263,21 @@ class Post extends Component{
 
     componentWillUnmount(){
 		window.removeEventListener("scroll", this.handleScroll);
-
 	}
 
     check_button_click = () => {
+        
+        // if(this.state.btn_check){
+        //     document.getElementById("demo").innerHTML = '더보기'
+        // }
+        // else {
+        //     document.getElementById("demo").innerHTML = '숨기기'
+        // }
         this.setState({
             btn_check: !this.state.btn_check
         });
+
+        
     }
 
 
@@ -485,7 +496,7 @@ class Post extends Component{
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
-        console.log("현재 포스트의 내용 길이 ",String(now_post.content).length);
+        // console.log("현재 포스트의 내용 길이 ",String(now_post.content).length);
 
         //console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
@@ -503,7 +514,25 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-        console.log("현재 포스트 : ",now_post)
+
+        
+        let box = document.getElementById("post_content");
+        console.log("실행@@@@@@@@@@@@@@@@@@")
+        if(box == null){
+            console.log("null입니다.")
+        }
+        if(box !== null){
+           console.log("높이는!!!! ", box.offsetHeight)
+           if(box.offsetHeight >= 44){
+            console.log("초과맞음!!")
+            is_ell = true;
+            }
+        }
+
+        console.log("is_ell값은 현재@@@@@@@@@@@@@@", is_ell
+        )
+
+        // console.log("현재 포스트 : ",now_post)
         return (
             <div className="post_page">
                 {
@@ -551,24 +580,35 @@ class Post extends Component{
                                         :
                                         <div></div>
                                     }
-                                    {
-                                        String(now_post.content).length > 96 ?
-                                        <div>
-                                            {
-                                                this.state.btn_check ?
-                                                <div>
-                                                    <input id="check_btn" type="checkbox" />
-                                                    <div className="post_content">{now_post.content}</div>
-                                                    <label for="check_btn" className="check_button" onClick={this.check_button_click}>숨기기</label>
+
+                                    
+                                    <div>
+                                        <div id='post_content'>
+                                            <div className={is_ell ? 'part_ell' : '' }>
+                                                <div className={this.state.btn_check ? 'post_blind' : ''}>
+                                                    {now_post.content}
                                                 </div>
-                                                :<div>
-                                                    <input id="check_btn" type="checkbox" />
-                                                    <div className="post_content">{now_post.content}</div>
-                                                    <label for="check_btn" className="check_button" onClick={this.check_button_click}>더보기</label>
-                                                </div>
-                                            }
+                                            </div>
                                         </div>
-                                        :<div className="post_content post_content_only">{now_post.content}</div>
+                                    </div>
+
+                                    {
+                                        this.state.btn_check ?
+                                        <div> 
+                                            <div className="whole_post_content">
+                                                {now_post.content}
+                                            </div>
+                                            <input id="check_btn" type="checkbox" />
+                                            <label for="check_btn" className={is_ell ? "check_button" : "post_blind"} onClick={this.check_button_click}>
+                                                <span>숨기기</span>
+                                            </label>
+                                        </div>
+                                        :<div>
+                                            <input id="check_btn" type="checkbox" />
+                                            <label for="check_btn" className={is_ell ? "check_button" : "post_blind"} onClick={this.check_button_click}>
+                                                <span>더보기</span>
+                                            </label>
+                                        </div>
                                     }
                                 </div>
                                 <div className="comment">
@@ -639,6 +679,7 @@ class Post extends Component{
 
         );
     }
+
 }
 
 export default Post;

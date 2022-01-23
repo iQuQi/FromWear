@@ -10,7 +10,6 @@
 .main_box {
     width: 810px;
     margin: 50px auto;
-    /*background-color: red;*/
 }
 
 .post_page {
@@ -51,6 +50,8 @@
     padding: 15px;
     padding-left: 11.5px;
     border-bottom: 1px solid;
+    min-height: 126px;
+    box-sizing: border-box;
 }
 
 .post_writer_img { 
@@ -82,12 +83,10 @@
     cursor: pointer;
     float:right;
     margin-right: 5px;
-    /*position: relative;
-    left: 225px;*/
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: white;/*여기 수정좀 했어*/
+    background-color: white;
     border: 1px solid white;
     cursor: pointer;
     color: black;
@@ -97,31 +96,42 @@
 .remove_post {
     cursor: pointer;
     float: right;
-    /*position: relative;
-    left: 234px;*/
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: white;/*여기 수정좀 했어*/
+    background-color: white;
     border: 1px solid white;
     cursor: pointer;
     color:black;
     padding: 0;
 }
 
-.post_content {
-    min-height: 44px;
+#post_content {
     overflow: hidden;
     padding-left:6px;
 
     white-space: normal;
     line-height: 1.2;
-    /*height: 3.6em;*/
+}
+
+.whole_post_content {
+    padding-left:6px;
+
+    white-space: normal;
+    line-height: 1.2;
+}
+
+.part_ell {
     text-align: left;
     word-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+
+.post_blind {
+    display: none;
 }
 
 .post_content_only {
@@ -208,9 +218,10 @@
 }
 
 #check_btn { display: none; }
+/* 
 #check_btn:checked ~ .whole_content { display: block;}
 #check_btn:checked ~ .post_content {
     overflow: visible;
     display: block;
 }
-.whole_content { display: none; }
+.whole_content { display: none; } */
