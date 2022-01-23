@@ -62,7 +62,13 @@ const RecoBtn = styled(Button)(({ theme }) => ({
 }));
 
 
+let link = '';
 
+let link_change = (item, now_user) => {
+    item.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.id
+}
 
 export default class Profile extends Component {
   constructor(props){
@@ -458,8 +464,8 @@ export default class Profile extends Component {
                 <Slider {...settings}>
                   {tag_same_user_list.map((item) => (
                     <div>
-            
-                      <a href={'/userpage/'+item.id}> 
+                      {link_change(item, now_user)}
+                      <a href={link}> 
                         <span className='dimmed_layer'>	
                           <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
                               src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
