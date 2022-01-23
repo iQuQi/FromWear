@@ -552,23 +552,23 @@ class Post extends Component{
                                         <div></div>
                                     }
                                     {
-                                        String(now_post.content).length > 130 ?
+                                        String(now_post.content).length > 96 ?
                                         <div>
                                             {
                                                 this.state.btn_check ?
                                                 <div>
                                                     <input id="check_btn" type="checkbox" />
-                                                    <div className="writer_content">{now_post.content}</div>
+                                                    <div className="post_content">{now_post.content}</div>
                                                     <label for="check_btn" className="check_button" onClick={this.check_button_click}>숨기기</label>
                                                 </div>
                                                 :<div>
                                                     <input id="check_btn" type="checkbox" />
-                                                    <div className="writer_content">{now_post.content}</div>
+                                                    <div className="post_content">{now_post.content}</div>
                                                     <label for="check_btn" className="check_button" onClick={this.check_button_click}>더보기</label>
                                                 </div>
                                             }
                                         </div>
-                                        :<div className="writer_content">{now_post.content}</div>
+                                        :<div className="post_content post_content_only">{now_post.content}</div>
                                     }
                                 </div>
                                 <div className="comment">

@@ -137,9 +137,9 @@
 	font-size: 13px;
 }
 
-.post_image_list_item:hover .post_dimmed_info_writer {
+/* .post_image_list_item:hover .post_dimmed_info_writer {
 	width: 100%;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */

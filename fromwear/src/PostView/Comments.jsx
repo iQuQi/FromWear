@@ -17,7 +17,6 @@ class Comments extends Component {
             post_id: props.post_id,
             comment_list: [],
             board_type: props.board_type,
-            write_is_checked: false,
             post_writer: props.post_writer, //해당 post를 쓴 사람
             now_user: props.now_user, //현재 접속자
         }
@@ -77,19 +76,7 @@ class Comments extends Component {
     }
     
     onClick = () => {
-        if(this.state.now_user=='noUser'){
-            alert("로그인 후 댓글 쓰기가 가능합니다.")
-            return
-        }
-        this.state.write_is_checked?
-        this.setState({
-            write_is_checked:false,
-        })
-        :
-        this.setState({
-            write_is_checked:true,
-        })
-    
+        alert("로그인 후 댓글 쓰기가 가능합니다.")
     }
 
     addTweet = () => {
@@ -192,7 +179,7 @@ class Comments extends Component {
     
 
     render(){
-        let {comment_list, board_type, write_is_checked, now_user, post_writer} = this.state;
+        let {comment_list, board_type, now_user, post_writer} = this.state;
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         return (
             <div>
@@ -213,18 +200,25 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    <div className="comment_check">
+                    <div>
                         <div>
                         {
-                            write_is_checked ?
-                            <div className="writing_area">
+                            this.state.now_user=='noUser' ?
+                            <div>
+                                <div className="now_comment_user">방문자</div>
+                                    <div class="writing_content">
+                                        <textarea class="new_tweet_content" onClick={this.onClick}></textarea>
+                                        <button class="new_tweet_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                    </div>
+
+                            </div>
+                            :<div className="writing_area">
                                     <div className="now_comment_user">{now_user.name}</div>
                                     <div class="writing_content">
                                         <textarea class="new_tweet_content"></textarea>
                                         <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
                                     </div>
                             </div>
-                            :<div className="comment_no" onClick={this.onClick}>댓글 쓰기</div>
                         }
                         </div>
                     </div>

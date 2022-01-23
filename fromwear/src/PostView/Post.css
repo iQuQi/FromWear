@@ -109,9 +109,8 @@
     padding: 0;
 }
 
-.writer_content {
-    /* line-height: 1.4;
-    height: 51px; */
+.post_content {
+    min-height: 44px;
     overflow: hidden;
     padding-left:6px;
 
@@ -123,6 +122,10 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+.post_content_only {
+    min-height: 56px;
 }
 
 
@@ -206,7 +209,7 @@
 
 #check_btn { display: none; }
 #check_btn:checked ~ .whole_content { display: block;}
-#check_btn:checked ~ .writer_content {
+#check_btn:checked ~ .post_content {
     overflow: visible;
     display: block;
 }

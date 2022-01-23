@@ -5,7 +5,7 @@
 }
 
 .comment_ul {
-    height: 244px; /*270*/
+    height: 237px; /*237*/
     overflow: scroll;
     -ms-overflow-style: none;
 }
@@ -40,15 +40,8 @@
 
 /*comment*/
 
-.comment_check {
-    margin-top: 10px;
-}
-
-
 .writing_area {
-    margin: 5px 0 20px 0;
-    /*position: relative;
-    top: 130px;*/
+    margin: 9px 0 20px 0;
     
 }
 
@@ -87,13 +80,6 @@
     border-radius: 30px;
     cursor: pointer;
     color: black;
-}
-
-
-.comment_no {
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 20px;
 }
 
 .remove_comment {
