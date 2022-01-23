@@ -97,15 +97,14 @@ class WeeklyTagPage extends Component {
 						<Stack direction="row" spacing={1} justifyContent="center" style={{width:'1200px', margin:'auto'}}>
 							{best_posts.map((item) => 
 								
-								(<ImageListItem key={item.img} className='weekly_image_list_item'>
-									<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
+								(<ImageListItem key={item.img}>
+									<a className='dimmed' href={'/post/'+item.id}>  
+										<img className='banner_bestpost_photo' style={{width:'250px', height:'350px', borderRadius:16}}
 											src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 											srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 											alt={item.id}
 											loading="lazy"
-									/>
-									
-									<a href={'/post/'+item.id}>  
+										/>
 										<span className='dimmed_layer'>	</span>
 									</a>
 									
@@ -113,9 +112,13 @@ class WeeklyTagPage extends Component {
 									
 										<div>
 											<div className='innerdiv'>
-												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												<a href={'/userpage/'+item.user.id}>
+													<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+													style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+												</a>
+												<a href={'/userpage/'+item.user.id}>
+													<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												</a>
 											</div>
 										</div>
 										<div>
@@ -140,25 +143,35 @@ class WeeklyTagPage extends Component {
 				<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 					{ranking_posts.map((item, index) => (
 						index<(current_next_post_page * 25)?
-						<ImageListItem key={item.img} className='weekly_image_list_item'>
-							<img style={{height:'322.55px', borderRadius:16}}
-								src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
-								srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-								alt={item.user}
-								loading="lazy"
-							/>
-							
-							<a href={'/post/'+item.id}>  
+						<ImageListItem key={item.img}>
+							<a className='dimmed' href={'/post/'+item.id}>  
+								<img style={{height:'322.55px', borderRadius:16}}
+									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+									alt={item.user}
+									loading="lazy"
+								/>
 								<span className='dimmed_layer'>	</span>
 							</a>
 
 							<Stack direction="row" spacing={0} justifyContent="space-between">
-								<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img}
-								 style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-								<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-								<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-								<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-								<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+									<div>
+										<div className='innerdiv'>
+											<a href = {'/userpage/'+item.user.id}>
+												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+											</a>
+											<a href = {'/userpage/'+item.user.id}>
+												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											</a>
+										</div>
+									</div>
+									<div>
+										<div className='innerdiv_margin'>
+											<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
+											<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+										</div>
+									</div>
 							</Stack>				
 						</ImageListItem>
 						: console.log(index + "pass")
