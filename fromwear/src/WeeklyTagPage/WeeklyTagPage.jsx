@@ -20,6 +20,15 @@ import {listPosts} from '../graphql/queries.js';
 import {listStyleTags} from '../graphql/queries';
 
 import Footer from '../Footer/Footer.jsx';
+
+let link = '';
+
+let link_change = (item, now_user) => {
+    item.user.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.user.id
+}
+
 class WeeklyTagPage extends Component {
 
     constructor() {
@@ -32,6 +41,7 @@ class WeeklyTagPage extends Component {
 			weekly_tag_id: [],
 			weekly_tag: [],
 			current_next_post_page: 1,
+			now_user:{},
 		};
 	}
 
@@ -45,6 +55,12 @@ class WeeklyTagPage extends Component {
 			current_next_post_page: this.state.current_next_post_page+1
 			})
 		}
+	}
+
+	handle_user_info = (user) => {
+		
+		this.setState({ now_user: user });
+		
 	}
 
 	componentDidMount(){
@@ -80,10 +96,10 @@ class WeeklyTagPage extends Component {
 		const best_posts = posts.slice(0,4);
 		const ranking_posts = posts.slice(4);
 	
-        let {current_next_post_page} = this.state;
+        let {current_next_post_page, now_user} = this.state;
 
 		return <div id = 'main_page'>
-			<Header/>
+			<Header handle_user_info={this.handle_user_info}/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
                     <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그&nbsp;<span style={{fontSize:'0.9em', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>TOP4</span></h1>
@@ -109,14 +125,14 @@ class WeeklyTagPage extends Component {
 									</a>
 									
 									<Stack direction="row" spacing={0} justifyContent="space-between" style={{width:'250px'}}>
-									
+										{link_change(item, now_user)}
 										<div>
 											<div className='innerdiv'>
-												<a href={'/userpage/'+item.user.id}>
+												<a href={link}>
 													<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
 													style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 												</a>
-												<a href={'/userpage/'+item.user.id}>
+												<a href={link}>
 													<p style={{margin: '16px 0px'}}>{item.user.name}</p>
 												</a>
 											</div>
@@ -155,23 +171,24 @@ class WeeklyTagPage extends Component {
 							</a>
 
 							<Stack direction="row" spacing={0} justifyContent="space-between">
-									<div>
-										<div className='innerdiv'>
-											<a href = {'/userpage/'+item.user.id}>
-												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-											</a>
-											<a href = {'/userpage/'+item.user.id}>
-												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
-											</a>
-										</div>
+								{link_change(item, now_user)}
+								<div>
+									<div className='innerdiv'>
+										<a href = {link}>
+											<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+											style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+										</a>
+										<a href = {link}>
+											<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+										</a>
 									</div>
-									<div>
-										<div className='innerdiv_margin'>
-											<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-											<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
-										</div>
+								</div>
+								<div>
+									<div className='innerdiv_margin'>
+										<p style={{margin: '16px 0px'}}>{item.like_urgent_user_list.items.length}</p>
+										<FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 									</div>
+								</div>
 							</Stack>				
 						</ImageListItem>
 						: console.log(index + "pass")
