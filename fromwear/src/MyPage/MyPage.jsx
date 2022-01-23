@@ -50,6 +50,7 @@ class MyPage extends Component {
 		})
 	}
 
+
     render(){
 		console.log(this.props.user);
 		console.log(this.state.now_user);
@@ -66,22 +67,11 @@ class MyPage extends Component {
 			}
 			
 			<div className='mypage_contents'>
-
-				<div id = 'profile' className = 'mypage_profile'>
-					
-				</div>
-				
 				<Profile user={now_user} handle_profile_edit={this.handle_profile_edit}/>
 				
-				
-
 				<div id = 'tab' className = 'mypage_collection'>
 					<MyPageButtonGroup user={now_user}/>
-				</div>
-
-				
-
-				
+				</div>		
             </div>
 
 			<Footer/>
