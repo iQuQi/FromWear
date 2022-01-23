@@ -41,7 +41,7 @@ class Post extends Component{
             bookmark_click: false,
             first_click: false,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             btn_check: false,
-            ell_check: false,
+            create_post_time: '',
 
             like_urgent_num: 0,
 
@@ -73,6 +73,7 @@ class Post extends Component{
             like_urgent_user_list: res.data.getPost.like_urgent_user_list.items,
             tag_list: res.data.getPost.tag_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list.items,
+            create_post_time: res.data.getPost.createdAt.substring(0, 10),
         }))
         .then(res => this.set_like_urgent(this.state.like_urgent_user_list))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
@@ -496,8 +497,6 @@ class Post extends Component{
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
-        // console.log("현재 포스트의 내용 길이 ",String(now_post.content).length);
-
         //console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
@@ -517,20 +516,12 @@ class Post extends Component{
 
         
         let box = document.getElementById("post_content");
-        console.log("실행@@@@@@@@@@@@@@@@@@")
-        if(box == null){
-            console.log("null입니다.")
-        }
+        
         if(box !== null){
-           console.log("높이는!!!! ", box.offsetHeight)
            if(box.offsetHeight >= 44){
-            console.log("초과맞음!!")
             is_ell = true;
             }
         }
-
-        console.log("is_ell값은 현재@@@@@@@@@@@@@@", is_ell
-        )
 
         // console.log("현재 포스트 : ",now_post)
         return (
@@ -566,21 +557,19 @@ class Post extends Component{
                                     }
                                     {
                                         now_user.id == now_writer.id ?
+                                        <div>
                                             <button className="remove_post" onClick={this.removePostIcons}>
                                                 삭제
                                             </button>
-                                        :
-                                        <div></div>
-                                    }
-                                    {
-                                        now_user.id == now_writer.id ?
                                             <button className="modify_post" onClick={this.modifyPost}>
                                                 수정
                                             </button>
-                                        :
-                                        <div></div>
+                                            <div className="post_create_time">{this.state.create_post_time}</div>
+                                        </div>
+                                        :<div>
+                                            <div className="post_create_time_other">{this.state.create_post_time}</div>
+                                        </div>
                                     }
-
                                     
                                     <div>
                                         <div id='post_content'>

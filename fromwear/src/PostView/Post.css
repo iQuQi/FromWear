@@ -46,7 +46,26 @@
 }
 .content_box::-webkit-scrollbar { display: none; }
 
+.post_create_time {
+    display: inline-block;
+    position: absolute;
+    top: 26.5px;
+    right: 89px;
+    color: gray;
+    font-size: 5px;
+}
+
+.post_create_time_other {
+    display: inline-block;
+    position: absolute;
+    top: 26.5px;
+    right: 22px;
+    color: gray;
+    font-size: 5px;
+}
+
 .writer {
+    position: relative;
     padding: 15px;
     padding-left: 11.5px;
     border-bottom: 1px solid;
@@ -69,7 +88,7 @@
 }
 
 .writer_name {
-    width:70%;
+    width:30%;
     font-weight: 650;
     margin-left: 8px;
     display:inline-block;
@@ -81,21 +100,22 @@
 
 .modify_post {
     cursor: pointer;
-    float:right;
-    margin-right: 5px;
+    position: absolute;
+    top: 20.5px;
+    right: 50px;
     height: 21px;
-    margin-top: 5px;
     box-sizing: border-box;
     background-color: white;
     border: 1px solid white;
     cursor: pointer;
     color: black;
-    padding: 0;
 }
 
 .remove_post {
     cursor: pointer;
-    float: right;
+    position: absolute;
+    top: 15.5px;
+    right: 19px;
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
@@ -103,7 +123,7 @@
     border: 1px solid white;
     cursor: pointer;
     color:black;
-    padding: 0;
+    
 }
 
 #post_content {
