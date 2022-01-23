@@ -82,7 +82,7 @@
     height: 30px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: white; /*여기 수정좀 했어*/
+    background-color: white; 
     border: 1px solid black; 
     border-radius: 30px;
     cursor: pointer;
@@ -103,7 +103,7 @@
     height: 21px;
     margin-top: 5px;
     box-sizing: border-box;
-    background-color: white; /*여기 수정좀 했어*/
+    background-color: white; 
     border: 1px solid white; 
     cursor: pointer;
     color: black;
