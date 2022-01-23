@@ -1281,3 +1281,80 @@ export const listPostStyleTags = /* GraphQL */ `
     }
   }
 `;
+
+
+export const getBoard = /* GraphQL */ `
+  query GetBoard($id: ID!) {
+    getBoard(id: $id) {
+      id
+      name
+      rank_post_list {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listBoards = /* GraphQL */ `
+  query ListBoards(
+    $filter: ModelBoardFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBoards(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        rank_post_list {
+          id
+          img
+          content
+          user_id
+          board_type
+          click_num
+          blind
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

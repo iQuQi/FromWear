@@ -982,6 +982,147 @@ export const onDeleteStyleTag = /* GraphQL */ `
     }
   }
 `;
+export const onCreateBoard = /* GraphQL */ `
+  subscription OnCreateBoard {
+    onCreateBoard {
+      id
+      name
+      rank_post_list {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateBoard = /* GraphQL */ `
+  subscription OnUpdateBoard {
+    onUpdateBoard {
+      id
+      name
+      rank_post_list {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteBoard = /* GraphQL */ `
+  subscription OnDeleteBoard {
+    onDeleteBoard {
+      id
+      name
+      rank_post_list {
+        id
+        comment_list {
+          nextToken
+        }
+        img
+        content
+        user_id
+        user {
+          id
+          name
+          email
+          phone
+          profile_img
+          introduce
+          gender
+          adopted
+          award_today
+          award_week
+          createdAt
+          updatedAt
+        }
+        bookmark_user_list {
+          nextToken
+        }
+        like_urgent_user_list {
+          nextToken
+        }
+        tag_list {
+          nextToken
+        }
+        board_type
+        click_num
+        blind
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateUserBookmarkPost = /* GraphQL */ `
   subscription OnCreateUserBookmarkPost {
     onCreateUserBookmarkPost {

@@ -41,7 +41,8 @@ type Comment @model
 }
 
 
-type Post @model @key(name: "postByUser", fields: ["user_id"]) {
+type Post @model 
+@key(name: "postByUser", fields: ["user_id"]) {
   id: ID!
   comment_list: [Comment] @connection(keyName: "commentByPost", fields: ["id"])
   img: String!
@@ -67,7 +68,11 @@ type StyleTag @model {
   user_list: [UserStyleTag] @connection(keyName:"UserStyleTagByTag",fields:["id"])
 }
 
-
+type Board @model{
+  id: ID!
+  name: String!
+  rank_post_list: [Post]
+}
 
 type UserBookmarkPost @model
 @key(name: "UserBookmarkPostByUser",fields:["user_id"])
