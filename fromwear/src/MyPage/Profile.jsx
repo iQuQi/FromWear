@@ -228,9 +228,7 @@ export default class Profile extends Component {
         <Paper sx={{ p: 2, margin: 'auto', maxWidth: 880, flexGrow: 1, boxShadow: '0px 0px 0px 0px' }}>
           <Grid container spacing={2}>
             <Grid item>
-              <img className='img_radius' style={{height:'300px', width:'300px'}}
-                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format`}
-                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${user.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              <img className='img_radius' style={{height:'300px', width:'300px', backgroundImage:"url("+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.user.profile_img+")",backgroundSize:"cover"}}
                 alt={user.name}
                 loading="lazy"
               />
