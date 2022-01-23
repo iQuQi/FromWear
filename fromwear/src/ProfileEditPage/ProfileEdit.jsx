@@ -82,7 +82,7 @@ class ProfileEdit extends Component{
         let reader = new FileReader();
         let file = event.target.files[0];
         let filetype =file.name.split('.').pop();
-        this.setState({file_key: `${uuid_}.${filetype}`})
+        this.setState({file_key: `${uuid_}.${filetype}`,isDialogOpen: false})
         reader.onloadend = () => {
           this.setState({
             file : file,
