@@ -36,7 +36,8 @@ class Post extends Component{
             now_user: 'noUser',
             bookmark_user_list: [],
             bookmark_click: false,
-            first_click: false,
+            first_click: false,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            btn_check: false,
 
             like_urgent_num: 0,
 
@@ -262,6 +263,12 @@ class Post extends Component{
 
 	}
 
+    check_button_click = () => {
+        this.setState({
+            btn_check: !this.state.btn_check
+        });
+    }
+
 
     removePostIcons = () => { 
         this.setState({
@@ -478,6 +485,8 @@ class Post extends Component{
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
+        console.log("현재 포스트의 내용 길이 ",String(now_post.content).length);
+
         //console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
@@ -542,7 +551,25 @@ class Post extends Component{
                                         :
                                         <div></div>
                                     }
-                                    <div className="writer_content">{now_post.content}</div>
+                                    {
+                                        String(now_post.content).length > 130 ?
+                                        <div>
+                                            {
+                                                this.state.btn_check ?
+                                                <div>
+                                                    <input id="check_btn" type="checkbox" />
+                                                    <div className="writer_content">{now_post.content}</div>
+                                                    <label for="check_btn" className="check_button" onClick={this.check_button_click}>숨기기</label>
+                                                </div>
+                                                :<div>
+                                                    <input id="check_btn" type="checkbox" />
+                                                    <div className="writer_content">{now_post.content}</div>
+                                                    <label for="check_btn" className="check_button" onClick={this.check_button_click}>더보기</label>
+                                                </div>
+                                            }
+                                        </div>
+                                        :<div className="writer_content">{now_post.content}</div>
+                                    }
                                 </div>
                                 <div className="comment">
                                     <Comments

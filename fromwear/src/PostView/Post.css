@@ -45,6 +45,7 @@
     overflow: auto;
     text-align: left;
 }
+.content_box::-webkit-scrollbar { display: none; }
 
 .writer {
     padding: 15px;
@@ -109,29 +110,20 @@
 }
 
 .writer_content {
-    line-height: 1.4;
-    height: 51px;
+    /* line-height: 1.4;
+    height: 51px; */
     overflow: hidden;
     padding-left:6px;
-    /*-ms-overflow-style: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-        word-wrap: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 3 ;
-        -webkit-box-orient: vertical; */
 
     white-space: normal;
     line-height: 1.2;
-    height: 3.6em;
+    /*height: 3.6em;*/
     text-align: left;
     word-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
-.writer_content::-webkit-scrollbar { display: none; }
 
 
 .comment {
@@ -203,3 +195,19 @@
     cursor: pointer;
 
 }
+
+.check_button {
+    color: gray;
+    padding-left: 6px;
+}
+.check_button:hover {
+    cursor: pointer;
+}
+
+#check_btn { display: none; }
+#check_btn:checked ~ .whole_content { display: block;}
+#check_btn:checked ~ .writer_content {
+    overflow: visible;
+    display: block;
+}
+.whole_content { display: none; }

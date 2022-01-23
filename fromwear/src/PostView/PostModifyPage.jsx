@@ -196,6 +196,7 @@ class PostModifyPage extends Component {
             if(this.state.board_type != 1) {
 
                 if(this.state.file == ''){ //사진 수정 X
+                    this.setState({img_upload: true,})
                     var tag_index = [];
                     API.graphql({
                         query: updatePost, variables: {
@@ -476,8 +477,8 @@ class PostModifyPage extends Component {
             else {
 
                 if(this.state.file == ''){
+                    this.setState({img_upload: true,})
                     var tag_index = []
-                
                     API.graphql({
                       query: updatePost,
                       variables: {
@@ -767,7 +768,6 @@ class PostModifyPage extends Component {
                         });
                       })
                       .then((res) => this.setState({ create_post: true }))
-                      //.then(window.location.reload())
                       .catch((e) => console.log(e));
                 }
             }
