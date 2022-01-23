@@ -493,108 +493,112 @@ export default class TodayPostBoardPosts extends Component {
             <div>
               <ImageList cols={5} gap={8} style={{ clear: "left" }}>
                 {post_list.map((post, index) =>
-                    index < (current_next_post_page*25) ?
+                  index < current_next_post_page * 25 ? (
                     <ImageListItem
-                        key={post.id}
-                        className="today_image_list_item"
+                      key={post.id}
+                      className="today_image_list_item"
                     >
-                    <img
-                      style={{ height: "322.55px", borderRadius: 16 }}
-                      src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
-                      srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                      alt={post.user.name}
-                      loading="lazy"
-                    />
-                    <a href={"/post/" + post.id}>
-                      <span className="dimmed_layer"> </span>
-                    </a>
-                    <Stack direction="row" spacing={0}>
-                      <div className="user_profile">
-                        {board_type == 1 && post.blind == true ? (
-                          <div>
-                            <img
-                              src={defaultImg}
-                              alt="기본프로필이미지"
-                              style={{
-                                margin: "7px 3px 7px 5px",
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "50%",
-                              }}
-                            />
-                            <p style={{ margin: "16px 0px" }}>익명</p>
-                          </div>
-                        ) : (
-                          <div>
-                            <img
-                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`}
-                              alt="프로필이미지"
-                              style={{
-                                margin: "7px 3px 7px 5px",
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "50%",
-                              }}
-                            />
-                            <p style={{ margin: "16px 0px" }}>
-                              {post.user.name}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      {(post_state == 1 || post_state == 4) && (
-                        <div className="user_like">
-                          <p style={{ margin: "16px 0px" }}>
-                            {post.like_urgent_user_list.items.length}
-                          </p>
-                          {board_type == "0" ? (
-                            <FavoriteBorderIcon
-                              style={{
-                                margin: "7px 5px 7px 3px",
-                                color: "#000000",
-                              }}
-                              sx={{ fontSize: "1.1rem" }}
-                            />
+                      <img
+                        style={{ height: "318.18px", borderRadius: 16 }}
+                        src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
+                        srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={post.user.name}
+                        loading="lazy"
+                      />
+                      <a href={"/post/" + post.id}>
+                        <span className="dimmed_layer"> </span>
+                      </a>
+                      <Stack direction="row" spacing={0}>
+                        <div className="user_profile">
+                          {board_type == 1 && post.blind == true ? (
+                            <div>
+                              <img
+                                src={defaultImg}
+                                alt="기본프로필이미지"
+                                style={{
+                                  margin: "7px 3px 7px 5px",
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                              <p style={{ margin: "16px 0px" }}>익명</p>
+                            </div>
                           ) : (
-                            <MoodBadIcon
-                              style={{
-                                margin: "7px 5px 7px 3px",
-                                color: "#000000",
-                              }}
-                              sx={{ fontSize: "1.1rem" }}
-                            />
+                            <div>
+                              <img
+                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`}
+                                alt="프로필이미지"
+                                style={{
+                                  margin: "7px 3px 7px 5px",
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                              <p style={{ margin: "16px 0px" }}>
+                                {post.user.name}
+                              </p>
+                            </div>
                           )}
                         </div>
-                      )}
-                      {post_state == 2 && (
-                        <div className="user_like">
-                          <p style={{ margin: "16px 0px" }}>{post.click_num}</p>
-                          <VisibilityIcon
-                            style={{
-                              margin: "7px 5px 7px 3px",
-                              color: "#000000",
-                            }}
-                            sx={{ fontSize: "1.1rem" }}
-                          />
-                        </div>
-                      )}
-                      {post_state == 3 && (
-                        <div className="user_like">
-                          <p style={{ margin: "16px 0px" }}>
-                            {post.comment_list.items.length}
-                          </p>
-                          <CommentIcon
-                            style={{
-                              margin: "7px 5px 7px 3px",
-                              color: "#000000",
-                            }}
-                            sx={{ fontSize: "1.1rem" }}
-                          />
-                        </div>
-                      )}
-                    </Stack>
-                  </ImageListItem>
-                  : console.log(index+": pass")
+                        {(post_state == 1 || post_state == 4) && (
+                          <div className="user_like">
+                            <p style={{ margin: "16px 0px" }}>
+                              {post.like_urgent_user_list.items.length}
+                            </p>
+                            {board_type == "0" ? (
+                              <FavoriteBorderIcon
+                                style={{
+                                  margin: "7px 5px 7px 3px",
+                                  color: "#000000",
+                                }}
+                                sx={{ fontSize: "1.1rem" }}
+                              />
+                            ) : (
+                              <MoodBadIcon
+                                style={{
+                                  margin: "7px 5px 7px 3px",
+                                  color: "#000000",
+                                }}
+                                sx={{ fontSize: "1.1rem" }}
+                              />
+                            )}
+                          </div>
+                        )}
+                        {post_state == 2 && (
+                          <div className="user_like">
+                            <p style={{ margin: "16px 0px" }}>
+                              {post.click_num}
+                            </p>
+                            <VisibilityIcon
+                              style={{
+                                margin: "7px 5px 7px 3px",
+                                color: "#000000",
+                              }}
+                              sx={{ fontSize: "1.1rem" }}
+                            />
+                          </div>
+                        )}
+                        {post_state == 3 && (
+                          <div className="user_like">
+                            <p style={{ margin: "16px 0px" }}>
+                              {post.comment_list.items.length}
+                            </p>
+                            <CommentIcon
+                              style={{
+                                margin: "7px 5px 7px 3px",
+                                color: "#000000",
+                              }}
+                              sx={{ fontSize: "1.1rem" }}
+                            />
+                          </div>
+                        )}
+                      </Stack>
+                    </ImageListItem>
+                  ) : (
+                    console.log(index + ": pass")
+                  )
                 )}
               </ImageList>
               <Button

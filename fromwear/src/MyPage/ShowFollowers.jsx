@@ -49,13 +49,25 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
+let link = '';
 
+let link_follower = (item, now_user) => {
+    item.follower.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.follower.id
+}
+let link_following = (item, now_user) => {
+    item.following.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.following.id
+}
 
-export default function ShowFollowers({now_user, open, handleClose, mode}) {
+export default function ShowFollowers({now_user, user, open, handleClose, mode}) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
-    console.log(now_user.following_list);
+
+
+    console.log(now_user);
   return(
     <div>
         <Dialog
@@ -86,10 +98,11 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
             <DialogContent dividers={scroll === 'paper'}>
                 <Grid container spacing={2} style={{padding:'15px'}}>
                 {mode=='following'?
-                    now_user.following_list.items.map((item) => (
+                    user.following_list.items.map((item) => (
                         <Grid style={{padding:'10px', paddingBottom:'0px'}}>
                             <Stack style={{textAlign:'center'}}>
-                                <a href={'/userpage/'+item.following.id}> 
+                                {link_following(item, now_user)}
+                                <a href={link}> 
                                     <span className='dimmed_layer'>	
                                         <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
                                             src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}?w=248&fit=crop&auto=format`}
@@ -106,10 +119,11 @@ export default function ShowFollowers({now_user, open, handleClose, mode}) {
                         </Grid>
                     ))
                     :
-                    now_user.follower_list.items.map((item) => (
+                    user.follower_list.items.map((item) => (
                         <Grid style={{padding:'10px', paddingBottom:'0px'}}>
                             <Stack style={{textAlign:'center'}}>
-                                <a href={'/userpage/'+item.follower.id}> 
+                                {link_follower(item, now_user)}
+                                <a href={link}> 
                                     <span className='dimmed_layer'>	
                                         <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
                                             src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}?w=248&fit=crop&auto=format`}

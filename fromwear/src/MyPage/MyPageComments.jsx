@@ -17,19 +17,37 @@ export default class MyPageComments extends Component{
 
         this.state = {
             user: props.user,
+            current_next_post_page: 1
         }
     }
 
     componentDidMount(){
-        
+      window.addEventListener("scroll", this.handleScroll);
     }
+    componentWillUnmount(){
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight + 1 >= scrollHeight) {
+        // 페이지 끝에 도달하면 추가 데이터를 받아온다
+        this.setState({
+        current_next_post_page: this.state.current_next_post_page+1
+        })
+      }
+    }
+
     render(){
-        let {user} = this.state;
+        let {user, current_next_post_page} = this.state;
         console.log(user.my_comment_list);
         return(
         <List sx={{ margin: '50px 30px', width: '100%', maxWidth: 840, bgcolor: 'background.paper' }}>
         
-        {user.my_comment_list.items.map((item)=> (
+        {user.my_comment_list.items.map((item, index)=> (
+          index < (current_next_post_page * 7)?
             <div>
             <ListItem alignItems="flex-start">
             <ListItemAvatar>
@@ -58,6 +76,7 @@ export default class MyPageComments extends Component{
           </ListItem>
           <Divider />
           </div>
+          : console.log(index + "pass")
         ))}
         
         

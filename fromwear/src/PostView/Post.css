@@ -48,20 +48,22 @@
 
 .writer {
     padding: 15px;
+    padding-left: 12.5px;
     border-bottom: 1px solid;
 }
 
 .post_writer_img { 
     vertical-align:middle;
     display:inline-block;
-    box-sizing: border-box;
     width: 30px;
     height: 30px;
     margin-bottom: 5px;
     margin-left: 3px;
-    border: 1px solid;
+    /*box-sizing: border-box;
+    border: 1px solid;*/
     border-radius: 50%;
     background-size: cover;
+    border: 2px solid #fff;
 }
 
 .writer_name {
@@ -106,8 +108,25 @@
 .writer_content {
     line-height: 1.4;
     height: 51px;
-    overflow: scroll;
-    -ms-overflow-style: none;
+    overflow: hidden;
+    padding-left:6px;
+    /*-ms-overflow-style: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 3 ;
+        -webkit-box-orient: vertical; */
+
+    white-space: normal;
+    line-height: 1.2;
+    height: 3.6em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .writer_content::-webkit-scrollbar { display: none; }
 
@@ -115,6 +134,7 @@
 .comment {
     position: relative;
     padding: 10px 15px;
+    padding-left: 13.5px;
     padding-bottom: 0;
     box-sizing: border-box;
 }

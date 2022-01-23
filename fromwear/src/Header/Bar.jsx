@@ -151,17 +151,13 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
       onClose={handleAlarmClose}
       style={{zIndex:140000}}
     >
-    
     {
-    
-    user.alarm_list?
-      user.alarm_list.items.map((item,index)=>{        
+     user.alarm_list?.items.map((item,index)=>{        
         console.log(item.link);
         const new_link='/'+item.link;
         return <a href={new_link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>;
       })
-    :""
-    }
+   }
     
 
 
@@ -213,7 +209,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             >                
               <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
-                badgeContent={user.alarm_list?user.alarm_list.items.length:0} 
+                badgeContent={user.alarm_list?.items.length>999?"999+":user.alarm_list?.items.length} 
                 color="primary"
                 style={{position:"relative",top:-10}}
 
@@ -250,7 +246,10 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
+      {console.log('user alarm list length',user)}
+      {console.log('user alarm list length',user.alarm_list?.length)}
+
+      {user.alarm_list?.items.length===0?"":renderAlarm}
       {renderMenu}
     </div>
   )

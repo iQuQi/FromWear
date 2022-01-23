@@ -56,17 +56,22 @@ export default class MyPageButtonGroup extends Component{
 
         this.state = {
             now_user: props.user,
-            btn_clicked: 0
+            btn_clicked: 0,
         }
     }
     
     componentDidUpdate(prevProps){
-        let {now_user} = this.state;
+        let {now_user, current_next_post_page} = this.state;
         if(now_user!=this.props.user){
             this.setState({
                 now_user: this.props.user
             })
         }
+        if(current_next_post_page!=this.props.current_next_post_page){
+          this.setState({
+            current_next_post_page: this.props.current_next_post_page
+          })
+      }
     }
 
     set_btn = (i) => {
@@ -74,11 +79,11 @@ export default class MyPageButtonGroup extends Component{
             btn_clicked: i
         })
     }
-    
+
     render(){
         console.log(this.state.now_user);
 
-        let {now_user, btn_clicked} = this.state;
+        let {now_user, btn_clicked, current_next_post_page} = this.state;
 
         return (
             <div>
@@ -112,8 +117,8 @@ export default class MyPageButtonGroup extends Component{
               </Stack>
 
             </Box>
-            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20}/> : 
-                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1}/> :
+            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20} current_next_post_page={current_next_post_page}/> : 
+                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1} current_next_post_page={current_next_post_page}/> :
                 btn_clicked==3? <MyPageComments user={now_user}/> :
                 btn_clicked==4? <MyPageBookmark user={now_user}/> :
                 <MyPostBoard user={now_user} board={20}/>

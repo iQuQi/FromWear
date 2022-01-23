@@ -58,32 +58,7 @@ class Select_button extends Component{
 
 
     onClick = () => {
-        if(this.state.select_button_is_checked){ //true->false
-            console.log("@@@@@@@@ true->false")
-            API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
-                adopted: !this.state.select_button_is_checked,
-                }}
-            })
-            .then(res => console.log(res))
-            .catch(e => console.log(e))
-    
-            this.setState((prev) => {
-                return{
-                    select_button_is_checked: !prev.select_button_is_checked,
-                }
-            })
-
-            console.log("현재!!!", this.state.writer_user)
-            API.graphql({
-                query: updateUser, variables:{input: {id: this.state.writer_user.id,
-                    adopted: this.state.writer_user.adopted-1,
-                }}
-
-            })
-            .then(res => console.log(res))
-            .catch(e => console.log(e))
-        }
-        else { //false->true
+        if(!this.state.select_button_is_checked){ //false->true
             console.log("@@@@@@@@@ false->true")
             API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
                 adopted: !this.state.select_button_is_checked,
@@ -107,7 +82,34 @@ class Select_button extends Component{
             })
             .then(res => console.log(res))
             .catch(e => console.log(e))
+            
         }
+        // else { //false->true
+            
+        //     console.log("@@@@@@@@ true->false")
+        // API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
+            //     adopted: !this.state.select_button_is_checked,
+            //     }}
+            // })
+            // .then(res => console.log(res))
+            // .catch(e => console.log(e))
+    
+            // this.setState((prev) => {
+            //     return{
+            //         select_button_is_checked: !prev.select_button_is_checked,
+            //     }
+            // })
+
+            // console.log("현재!!!", this.state.writer_user)
+            // API.graphql({
+            //     query: updateUser, variables:{input: {id: this.state.writer_user.id,
+            //         adopted: this.state.writer_user.adopted-1,
+            //     }}
+
+            // })
+            // .then(res => console.log(res))
+            // .catch(e => console.log(e))
+        // }
         
     }
     
@@ -126,18 +128,17 @@ class Select_button extends Component{
         
         console.log(select_button_is_checked)
         return (
-            <div>
+            <div className="single_select">
                 {
                     select_button_is_checked ?
                     <div className="selected_star_img">
-                        <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img selected_img move_to_userpage" onClick={this.moveToWriterPage} /> 
+                        <div className="writer_img selected_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
                     </div>
-                    :<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img} className="writer_img move_to_userpage" onClick={this.moveToWriterPage} /> 
-                
+                    :<div className="writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+writer_user.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />        
                 }
                 {
                     select_button_is_checked ?
-                    <div className="comment_user_name selected_name move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
+                    <div className="comment_user_name move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
                     :<div className="comment_user_name  move_to_userpage" onClick={this.moveToWriterPage}>{writer_user.name}</div>
                 }
                 <Thumb 
