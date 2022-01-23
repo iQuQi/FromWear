@@ -16,11 +16,11 @@
       "function": {
         "fromwear9ee2f3c2PostConfirmation": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-723937684f5935554c70-build.zip"
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-35377777336b564e4b64-build.zip"
         },
         "S3Trigger6b6ec516": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/S3Trigger6b6ec516-4f762b4775744463434c-build.zip"
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-6274483445636e497657-build.zip"
         }
       },
       "auth": {

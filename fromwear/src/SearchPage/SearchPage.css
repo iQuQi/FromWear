@@ -97,6 +97,7 @@
 	position: absolute;
 	bottom: 20px;
 	left: 10px;
+	
 	display: none;
 }
 .dimmed_info_like{
@@ -109,7 +110,6 @@
 .img_item{
 	border-radius:16px;
 	height:322.55px;
-
 }
 
 

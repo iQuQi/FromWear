@@ -891,6 +891,16 @@ export const onCreateStyleTag = /* GraphQL */ `
       num
       is_static
       is_weekly
+      post_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       user_list {
         items {
           id
@@ -914,6 +924,16 @@ export const onUpdateStyleTag = /* GraphQL */ `
       num
       is_static
       is_weekly
+      post_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       user_list {
         items {
           id
@@ -937,6 +957,16 @@ export const onDeleteStyleTag = /* GraphQL */ `
       num
       is_static
       is_weekly
+      post_list {
+        items {
+          id
+          tag_id
+          post_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       user_list {
         items {
           id
@@ -1491,6 +1521,9 @@ export const onCreateUserStyleTag = /* GraphQL */ `
         num
         is_static
         is_weekly
+        post_list {
+          nextToken
+        }
         user_list {
           nextToken
         }
@@ -1549,6 +1582,9 @@ export const onUpdateUserStyleTag = /* GraphQL */ `
         num
         is_static
         is_weekly
+        post_list {
+          nextToken
+        }
         user_list {
           nextToken
         }
@@ -1607,6 +1643,9 @@ export const onDeleteUserStyleTag = /* GraphQL */ `
         num
         is_static
         is_weekly
+        post_list {
+          nextToken
+        }
         user_list {
           nextToken
         }
@@ -2128,6 +2167,9 @@ export const onCreatePostStyleTag = /* GraphQL */ `
         num
         is_static
         is_weekly
+        post_list {
+          nextToken
+        }
         user_list {
           nextToken
         }
@@ -2188,6 +2230,9 @@ export const onUpdatePostStyleTag = /* GraphQL */ `
         num
         is_static
         is_weekly
+        post_list {
+          nextToken
+        }
         user_list {
           nextToken
         }
@@ -2248,6 +2293,9 @@ export const onDeletePostStyleTag = /* GraphQL */ `
         num
         is_static
         is_weekly
+        post_list {
+          nextToken
+        }
         user_list {
           nextToken
         }
