@@ -87,25 +87,27 @@ class MainPage extends Component {
 					
 					<ImageList cols={5} gap={8} style={{clear: 'left'}}>
 						{best_post_0.map((item) => (
-							<ImageListItem key={item.img} className='weekly_image_list_item'ls
-							>
-								<img style={{borderRadius:16, height:'322.55px'}}
-									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-									alt={item.id}
-									loading="lazy"
-								/>
-
-								<a href={'/post/'+item.id}> 
+							<ImageListItem key={item.img} >		
+								<a className='dimmed' href={'/post/'+item.id}> 
+									<img style={{borderRadius:16, width:'209.6px', height:'322.55px'}}
+										src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+										srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+										alt={item.id}
+										loading="lazy"
+									/>
 									<span className='dimmed_layer'>	</span>
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
 									<div>
 										<div className='innerdiv'>
-											<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-											style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
-											<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											<a href = {'/userpage/'+item.user.id}>
+												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+												style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
+											</a>
+											<a href = {'/userpage/'+item.user.id}>
+												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											</a>
 										</div>
 									</div>
 									<div>
@@ -114,10 +116,6 @@ class MainPage extends Component {
 											<FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
 										</div>
 									</div>
-									
-									
-									
-									
 								</Stack>				
 							</ImageListItem>
 						))}
@@ -131,15 +129,14 @@ class MainPage extends Component {
 
 					<ImageList cols={5} gap={8}>
 						{best_post_1.map((item) => (
-							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{borderRadius:16, height:'322.55px' }}
-									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-									alt={item.id}
-									loading="lazy"
-								/>
-
-								<a href={'/post/'+item.id}> 
+							<ImageListItem key={item.img}>
+								<a className='dimmed' href={'/post/'+item.id}> 
+									<img style={{borderRadius:16, width:'209.6px', height:'322.55px' }}
+										src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+										srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+										alt={item.id}
+										loading="lazy"
+									/>
 									<span className='dimmed_layer'>	</span>
 								</a>
 
@@ -150,13 +147,18 @@ class MainPage extends Component {
 												item.blind? <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+'profile_skyblue.jpg'} 
 												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 												: 
-												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+												<a href = {'/userpage/'+item.user.id}>
+													<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+													style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+												</a>
 											}
 											
 											{
 												item.blind? <p style={{margin: '16px 0px'}}>익명</p>
-												: <p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												: 
+												<a href = {'/userpage/'+item.user.id}>
+													<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												</a>
 											}
 										</div>
 									</div>	
@@ -179,24 +181,27 @@ class MainPage extends Component {
 					
 					<ImageList cols={5} gap={8}>
 						{best_post_2.map((item) => (
-							<ImageListItem key={item.img} className='weekly_image_list_item'>
-								<img style={{borderRadius:16, height:'322.55px'}}
-									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
-									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-									alt={item.user}
-									loading="lazy"
-								/>
-
-								<a href={'/post/'+item.id}> 
+							<ImageListItem key={item.img}>
+								<a className='dimmed' href={'/post/'+item.id}> 
+									<img style={{borderRadius:16, width:'209.6px', height:'322.55px'}}
+										src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+										srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+										alt={item.user}
+										loading="lazy"
+									/>
 									<span className='dimmed_layer'>	</span>
 								</a>
 
 								<Stack direction="row" spacing={0} justifyContent="space-between">
 									<div>
 										<div className='innerdiv'>
-											<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-											style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
-											<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											<a href = {'/userpage/'+item.user.id}>
+												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
+												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+											</a>
+											<a href = {'/userpage/'+item.user.id}>
+												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											</a>
 										</div>
 									</div>
 									<div>

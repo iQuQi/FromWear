@@ -57,7 +57,7 @@
     font-weight: 600;
     font-size: 0.8em;
 }
-.weekly_image_list_item:hover .dimmed_layer{
+.dimmed:hover .dimmed_layer{
 	position: absolute;
 	top: 0;
 	bottom: 34px;
