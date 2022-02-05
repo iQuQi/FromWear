@@ -46,7 +46,7 @@
 }
 .content_box::-webkit-scrollbar { display: none; }
 
-.post_create_time {
+/* .post_create_time {
     display: inline-block;
     position: absolute;
     top: 26.5px;
@@ -60,6 +60,15 @@
     position: absolute;
     top: 26.5px;
     right: 22px;
+    color: gray;
+    font-size: 5px;
+} */
+
+.post_create_time {
+    display: inline-block;
+    position: absolute;
+    bottom: 4px;
+    right: 6px; /*18px*/
     color: gray;
     font-size: 5px;
 }

@@ -564,10 +564,10 @@ class Post extends Component{
                                             <button className="modify_post" onClick={this.modifyPost}>
                                                 수정
                                             </button>
-                                            <div className="post_create_time">{this.state.create_post_time}</div>
+                                            {/* <div className="post_create_time">{this.state.create_post_time}</div> */}
                                         </div>
                                         :<div>
-                                            <div className="post_create_time_other">{this.state.create_post_time}</div>
+                                            {/* <div className="post_create_time_other">{this.state.create_post_time}</div> */}
                                         </div>
                                     }
                                     
@@ -597,6 +597,25 @@ class Post extends Component{
                                             <label for="check_btn" className={is_ell ? "check_button" : "post_blind"} onClick={this.check_button_click}>
                                                 <span>더보기</span>
                                             </label>
+                                        </div>
+                                    }
+                                
+                                
+                                    {
+                                        this.state.btn_check ?
+                                        <div>
+                                            {
+                                                this.state.is_ell ?
+                                                <div>경우1</div>
+                                                :<div className="post_create_time">{this.state.create_post_time}</div> //긴 내용이 전부 나오는 상태
+                                            }
+                                        </div>
+                                        :<div>
+                                            {
+                                                this.state.is_ell ?
+                                                <div>경우2</div>
+                                                :<div className="post_create_time">{this.state.create_post_time}</div> //내용 숨겨진 상태, 애초에 안 넘는 상태
+                                            }
                                         </div>
                                     }
                                 </div>
