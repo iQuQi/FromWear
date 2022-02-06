@@ -130,6 +130,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
       <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
       <MenuItem  onClick={handleLogout}><SignOutButton/></MenuItem>
+      <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>고객센터</MenuItem></a>
     </Menu>
   );
 
@@ -173,7 +174,12 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
         
            <a href="/"><img src={logo} alt="logo" className ="logo_img"/></a>
          
-
+           <Button
+            className="header_login"
+            style={{color:"black"}}
+            onClick={handle_login_click}
+          >로그인</Button>
+          
           <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
           borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >

@@ -28,7 +28,7 @@
         },
         "cronjob": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/cronjob-576c612b59436e653265-build.zip"
+          "s3Key": "amplify-builds/cronjob-4e4870676f3855324b2b-build.zip"
         }
       },
       "auth": {
