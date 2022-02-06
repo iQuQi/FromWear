@@ -51,7 +51,6 @@ class Post extends Component{
             deleted_bookmark:false,
             deleted_post:false,
             deleted_tag:false,
-            icon_delete_once:false,
             now_post_board_type:0, //delete할때 board_type담아둘것
 
             same1:[],
@@ -297,7 +296,7 @@ class Post extends Component{
         })
         .then(res => {
             if(res.data.listComments.items.length == 0){
-                console.log("이미 댓글 없어서 댓글 삭제, 댓글 따봉 true로 변경")
+                console.log("이미 댓글 없어서 true로 변경")
                 this.setState({
                     deleted_comment: true, //이미 null이라 삭제안해도됨
                     deleted_comment_like: true,
@@ -350,78 +349,74 @@ class Post extends Component{
                 })
             }
         })
-        .catch(e => console.log(e))
-        .then(res => {
-                
-            if(this.state.like_urgent_num == 0){
-                console.log("이미 좋아요 없어서 true로 변경")
-                this.setState({
-                    deleted_like_urgent: true,
-                })
-            }
-            else {
-                API.graphql({
-                    query: listPostLikeUrgentUsers, variables: {filter:
-                        {
-                            post_id: {eq: this.state.post_id}
-                        }
-                    }
-                })
-                .then(res => {
-                    res.data.listPostLikeUrgentUsers.items.map((like)=>{
-                        API.graphql({
-                            query: deletePostLikeUrgentUser, variables:{input:{id: like.id}}
-                        })
-                        .then(e => console.log(e))
-                    })
-                })
-                .then(e => this.setState({deleted_like_urgent: true,}))
-            }
+        .catch(e => console.log(e));
 
-            if(this.state.now_post.bookmark_user_list.items.length == 0 && this.state.bookmark_click == false){
-                console.log("이미 북마크 없어서 true로 변경")
-                this.setState({
-                    deleted_bookmark: true,
-                })
-            }
-            else {
-                API.graphql({
-                    query: listUserBookmarkPosts, variables: {filter:
-                        {
-                            post_id: {eq: this.state.post_id}
-                        }
+        if(this.state.like_urgent_num == 0){
+            console.log("이미 좋아요 없어서 true로 변경")
+            this.setState({
+                deleted_like_urgent: true,
+            })
+        }
+        else {
+            API.graphql({
+                query: listPostLikeUrgentUsers, variables: {filter:
+                    {
+                        post_id: {eq: this.state.post_id}
                     }
-                })
-                .then(res => {
-                    res.data.listUserBookmarkPosts.items.map((bookmark)=>{
-                        API.graphql({
-                            query: deleteUserBookmarkPost, variables:{input:{id: bookmark.id}}
-                        })
-                        .then(e => console.log(e))
+                }
+            })
+            .then(res => {
+                res.data.listPostLikeUrgentUsers.items.map((like)=>{
+                    API.graphql({
+                        query: deletePostLikeUrgentUser, variables:{input:{id: like.id}}
                     })
-                })
-                .then(res => this.setState({deleted_bookmark: true,}))
-
-            }
-            
-            //태그 삭제
-            this.state.now_post.tag_list.items.map((tag, index)=>{
-                API.graphql({
-                    query: deletePostStyleTag, variables:{input:{id: tag.id}}
-                })
-                .then(res=>{
-                    if(index == 2){
-                        console.log("tag last", tag);
-                        this.setState({deleted_tag:true,});
-                    }
+                    .then(e => console.log(e))
                 })
             })
+            .then(e => this.setState({deleted_like_urgent: true,}))
+        }
 
-            //이미지 s3 삭제
-            Storage.remove(this.state.now_post.img)
-            
+        if(this.state.now_post.bookmark_user_list.items.length == 0 && this.state.bookmark_click == false){
+            console.log("이미 북마크 없어서 true로 변경")
+            this.setState({
+                deleted_bookmark: true,
+            })
+        }
+        else {
+            API.graphql({
+                query: listUserBookmarkPosts, variables: {filter:
+                    {
+                        post_id: {eq: this.state.post_id}
+                    }
+                }
+            })
+            .then(res => {
+                res.data.listUserBookmarkPosts.items.map((bookmark)=>{
+                    API.graphql({
+                        query: deleteUserBookmarkPost, variables:{input:{id: bookmark.id}}
+                    })
+                    .then(e => console.log(e))
+                })
+            })
+            .then(res => this.setState({deleted_bookmark: true,}))
+
+        }
+        
+        //태그 삭제
+        this.state.now_post.tag_list.items.map((tag, index)=>{
+            API.graphql({
+                query: deletePostStyleTag, variables:{input:{id: tag.id}}
+            })
+            .then(res=>{
+                if(index == 2){
+                    console.log("tag last", tag);
+                    this.setState({deleted_tag:true,});
+                }
+            })
         })
-        .then(res => this.setState({icon_delete_once:true,}))
+
+        //이미지 s3 삭제
+        Storage.remove(this.state.now_post.img)
         
         
     }
@@ -433,18 +428,20 @@ class Post extends Component{
         })
         .then(res => this.setState({
             deleted_post: true,
-        }))
-        .then(res => {
-            if(this.state.now_post_board_type == 0){
-                window.location.href = "/todayboard"
-            }
-            else if(this.state.now_post_board_type == 1){
-                window.location.href = "/sosboard"
-            }
-            else if(this.state.now_post_board_type == 2){
-                window.location.href = "/weeklytag"
-            }
-        });
+        }));
+    }
+
+    moveTo = () => {
+        console.log("moveTo 실행")
+        if(this.state.now_post_board_type == 0){
+            window.location.href = "/todayboard"
+        }
+        else if(this.state.now_post_board_type == 1){
+            window.location.href = "/sosboard"
+        }
+        else if(this.state.now_post_board_type == 2){
+            window.location.href = "/weeklytag"
+        }
     }
     
     moveToWriterPage = () => {
@@ -505,10 +502,12 @@ class Post extends Component{
             this.setClickNum(now_post.click_num);
         }
 
-        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.deleted_tag && !this.state.icon_delete_once){
-
-            this.removePost();
+        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.deleted_tag){
             console.log("아이콘 다지워짐!!")
+            this.removePost();
+        }
+        if(this.state.deleted_post){
+            this.moveTo();
         }
 
         let img_src123 = now_post.img
@@ -547,7 +546,8 @@ class Post extends Component{
                                     {
                                         now_post.blind?
                                         <img className="post_writer_img" src={profile_skyblue} />
-                                        :<div className="post_writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
+                                        :
+                                        <div className="post_writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
                                     }
                                     {
                                         now_post.blind?
