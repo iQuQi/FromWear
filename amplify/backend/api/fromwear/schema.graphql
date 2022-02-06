@@ -41,7 +41,8 @@ type Comment @model
 }
 
 
-type Post @model @key(name: "postByUser", fields: ["user_id"]) {
+type Post @model 
+@key(name: "postByUser", fields: ["user_id"]) {
   id: ID!
   comment_list: [Comment] @connection(keyName: "commentByPost", fields: ["id"])
   img: String!
@@ -61,12 +62,17 @@ type StyleTag @model {
   id: ID!
   value: String!
   num: Int!
-  is_static: Boolean
-  is_weekly: Boolean
+  is_static: Boolean!
+  is_weekly: Boolean!
+  post_list: [PostStyleTag] @connection(keyName:"PostStyleTagByTag",fields:["id"])
   user_list: [UserStyleTag] @connection(keyName:"UserStyleTagByTag",fields:["id"])
 }
 
-
+type Board @model{
+  id: ID!
+  name: String!
+  rank_post_list: [Post]
+}
 
 type UserBookmarkPost @model
 @key(name: "UserBookmarkPostByUser",fields:["user_id"])
