@@ -46,7 +46,7 @@ export default class MyPageComments extends Component{
         return(
         <List sx={{ margin: '50px 30px', width: '100%', maxWidth: 840, bgcolor: 'background.paper' }}>
         
-        {user.my_comment_list.items.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)}).map((item, index)=> (
+        {user.my_comment_list.items.map((item, index)=> (
           index < (current_next_post_page * 7)?
             <div>
             <ListItem alignItems="flex-start">
