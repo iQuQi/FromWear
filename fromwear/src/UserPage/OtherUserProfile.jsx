@@ -62,7 +62,13 @@ const RecoBtn = styled(Button)(({ theme }) => ({
 }));
 
 
+let link = '';
 
+let link_change = (item, now_user) => {
+    item.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.id
+}
 
 export default class Profile extends Component {
   constructor(props){
@@ -427,7 +433,9 @@ export default class Profile extends Component {
               {
                 user.my_tag_list?
                   user.my_tag_list.items.length!=0?
-                  <p>#{user.my_tag_list.items[0].style_tag.value} &nbsp;#{user.my_tag_list.items[1].style_tag.value} &nbsp;#{user.my_tag_list.items[2].style_tag.value}</p>
+                  user.my_tag_list.items.sort((a,b)=>a.style_tag.id-b.style_tag.id).map(item=>
+                    <span>#{item.style_tag.value}&nbsp;</span> 
+                  )
                   :<p></p>    
                   :<p></p>    
               }
@@ -456,8 +464,8 @@ export default class Profile extends Component {
                 <Slider {...settings}>
                   {tag_same_user_list.map((item) => (
                     <div>
-            
-                      <a href={'/userpage/'+item.id}> 
+                      {link_change(item, now_user)}
+                      <a href={link}> 
                         <span className='dimmed_layer'>	
                           <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
                               src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}

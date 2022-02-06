@@ -53,6 +53,7 @@ export default class TodayPostBoardPosts extends Component {
     componentDidMount(){
         this.get_posts(); 
         window.addEventListener("scroll", this.handleScroll);
+        console.log(this.state.post_list);
     }
     componentWillUnmount(){
 		window.removeEventListener("scroll", this.handleScroll);
@@ -80,19 +81,29 @@ export default class TodayPostBoardPosts extends Component {
                     this.setState({
                         post_list : this.props.user.my_post_list.items.filter((item)=>{
                             return item.board_type!=1
-                        })
-                    }) 
+                        }).sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
+                    })
+                    
                 }
                 
             }
                 
         }
         if(user=={}){
+            console.log("여기는?");
             this.setState({
                 user: this.props.user,
                 post_list: this.props.user.my_post_list.items
             })
-        }  
+        }
+        if(this.state.post_list!=user.my_post_list){
+            console.log("이거는?");
+            console.log(user.my_post_list);
+            console.log(this.state.post_list);
+            this.state.post_list = this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
+            console.log(this.state.post_list);
+        }
+          
     }
     
     handleScroll = () => {
@@ -113,14 +124,14 @@ export default class TodayPostBoardPosts extends Component {
                 this.setState({
                     post_list : this.state.user.my_post_list.items.filter((item)=>{
                         return item.board_type==1
-                    })
+                    }).sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
                 })         
             }
             else{
                 this.setState({
                     post_list : this.state.user.my_post_list.items.filter((item)=>{
                         return item.board_type!=1
-                    })
+                    }).sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
                 }) 
             }
         }
@@ -183,15 +194,14 @@ export default class TodayPostBoardPosts extends Component {
 		let {user, post_state, post_list, current_next_post_page} = this.state;
 
         return (<div id = 'contents'>
-
             <form className="my_sort_font my_select_sort">
-                <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
+                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
                 <label htmlFor="sort_like">좋아요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
                 <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort" onChange={this.handleSortLatest}></input>
+                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
 
             </form>
@@ -240,7 +250,8 @@ export default class TodayPostBoardPosts extends Component {
                                     </span>
                                 
                                 </span>
-                            </a>				
+                            </a>
+                            {console.log(post)}				
                         </ImageListItem>
                         : console.log(index + "pass")
                     ))}

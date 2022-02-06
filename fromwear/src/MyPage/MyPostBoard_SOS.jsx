@@ -64,7 +64,7 @@ export default class TodayPostBoardPosts extends Component {
                     this.setState({
                         post_list : this.props.user.my_post_list.items.filter((item)=>{
                             return item.board_type==1
-                        })
+                        }).sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
                     })         
                 }
                 else{
@@ -115,14 +115,14 @@ export default class TodayPostBoardPosts extends Component {
                 this.setState({
                     post_list : this.state.user.my_post_list.items.filter((item)=>{
                         return item.board_type==1
-                    })
+                    }).sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
                 })         
             }
             else{
                 this.setState({
                     post_list : this.state.user.my_post_list.items.filter((item)=>{
                         return item.board_type!=1
-                    })
+                    }).sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
                 }) 
             }
         }
@@ -185,13 +185,13 @@ export default class TodayPostBoardPosts extends Component {
         return (<div id = 'contents'>
 
             <form className="my_sort_font my_select_sort">
-                <input type="radio" id="sort_like" name="sort" defaultChecked onChange={this.handleSortLike}></input>
+                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
                 <label htmlFor="sort_like">급해요순</label>
                 <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
                 <label htmlFor="sort_view">조회수순</label>
                 <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
                 <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort"  onChange={this.handleSortLatest}></input>
+                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
                 <label htmlFor="sort_latest">최신순</label>
 
             </form>
