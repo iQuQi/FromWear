@@ -67,8 +67,8 @@
 .post_create_time {
     display: inline-block;
     position: absolute;
-    bottom: 4px;
-    right: 6px; /*18px*/
+    bottom: 15px; /*4px*/
+    right: 21px; /*6px*/
     color: gray;
     font-size: 5px;
 }

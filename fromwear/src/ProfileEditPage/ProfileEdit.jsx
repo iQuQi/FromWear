@@ -210,6 +210,10 @@ class ProfileEdit extends Component{
 
                 var before_user_img_delete = this.state.user.profile_img
                 console.log("삭제할 경로 : ", before_user_img_delete)
+                if(before_user_img_delete == 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/profile_skyblue.jpg'){
+                    console.log("기본 이미지는 s3 삭제 X")
+                    before_user_img_delete = '';
+                }
 
                 
                 API.graphql({
