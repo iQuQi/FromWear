@@ -14,6 +14,7 @@ let PostSearchResult = ({result_post})=>
 								}
 								<img className="img_item" 
 								src={new_link}
+								style={{height:'322.55px'}}
 								srcSet={`${new_link}?w=248&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.img+index}
 								loading="lazy"

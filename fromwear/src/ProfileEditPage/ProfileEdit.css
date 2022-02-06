@@ -130,3 +130,22 @@
     right: -535px;
     width: 300px;
   }
+
+  .dialog_img_file_form{
+    width: 400px;
+    height: 480px;
+    cursor: pointer;
+    color:white;
+    position: absolute;
+    top:0;left: 0;
+    display: none;
+    
+  }
+
+  .dialog_img_label{
+    padding-top: 10px; 
+  }
+  
+  .dialog_img_label:hover{
+    cursor: pointer; 
+  }
