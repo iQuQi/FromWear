@@ -9,9 +9,7 @@ import Login from "./Login";
 import API from '@aws-amplify/api';
 import {createUser,createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
-import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
 
-import { Button } from '@mui/material';
 
 class Header extends Component{
 	constructor(){
@@ -24,10 +22,7 @@ class Header extends Component{
 	}
 
 	componentDidMount(){
-		console.log("will mount");
-		console.log(this.state.user);
-		let auth_user ;
-	
+		let auth_user ;	
 
 		Auth.currentAuthenticatedUser()
 		.then(res=>{
@@ -39,7 +34,6 @@ class Header extends Component{
 			  variables: {id: auth_user.attributes.sub}
 		  }).then(res=>{
 			  if(res.data.getUser==null){
-				console.log("create new user!");
 				API.graphql({
 					query: createUser,
 					variables:{ input:{
@@ -88,7 +82,7 @@ class Header extends Component{
 					return res;
 				})
 				.then(
-					res=>{console.log(res,"new user get!!");
+					res=>{
 					API.graphql({
 						query: getUser,
 						variables: {id: auth_user.attributes.sub}
@@ -99,7 +93,6 @@ class Header extends Component{
 				})
 				.catch(e=>console.log(e));
 			  }else{
-			  console.log("already exist user");
 			  this.handle_get_user(res.data.getUser);
 			  }
 			 
@@ -113,7 +106,8 @@ class Header extends Component{
 			
 		});
 
-		{get_rank_tag(this.handle_rank_data)}
+		get_rank_tag(this.handle_rank_data)
+	
 
 	}
 
@@ -142,7 +136,6 @@ class Header extends Component{
 		if(this.props.handle_user_info!=undefined){
 			this.props.handle_user_info(user);
 		}
-		console.log("user set complete",user);
 	}
 
 	

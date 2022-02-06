@@ -63,7 +63,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
-  //console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -131,6 +130,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
       <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
       <MenuItem  onClick={handleLogout}><SignOutButton/></MenuItem>
+      <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>고객센터</MenuItem></a>
     </Menu>
   );
 
@@ -174,7 +174,12 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
         
            <a href="/"><img src={logo} alt="logo" className ="logo_img"/></a>
          
-
+           <Button
+            className="header_login"
+            style={{color:"black"}}
+            onClick={handle_login_click}
+          >로그인</Button>
+          
           <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
           borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >
@@ -246,9 +251,6 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {console.log('user alarm list length',user)}
-      {console.log('user alarm list length',user.alarm_list?.length)}
-
       {user.alarm_list?.items.length===0?"":renderAlarm}
       {renderMenu}
     </div>
