@@ -30,20 +30,23 @@ let RankTag = ({is_tag_more,handle_rank_tag_button_click,target_button,rank_tag_
 ;
 
 export let get_rank_tag =(handle_rank_tag_data)=>{
+    console.log('rank1');
+
     var style_tags;
     API.graphql({
       query: listStyleTags,
     })
     .then(res=>{
+      console.log('rank2',res);
       style_tags = res.data.listStyleTags.items;
-      
       return style_tags.sort(function(a,b){return b.num-a.num});
 
     })
     .then((res)=>
-       handle_rank_tag_data(res.slice(0,10))
+        {console.log('rank3',res);
+       handle_rank_tag_data(res.slice(0,10));}
     )
-    .catch(e=>console.log(e))
+    .catch(e=>console.log('rank error',e))
 
 
 }

@@ -63,7 +63,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
   handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
-  //console.log(user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -131,6 +130,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
       <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
       <MenuItem  onClick={handleLogout}><SignOutButton/></MenuItem>
+      <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>고객센터</MenuItem></a>
     </Menu>
   );
 
@@ -151,17 +151,13 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
       onClose={handleAlarmClose}
       style={{zIndex:140000}}
     >
-    
     {
-    
-    user.alarm_list?
-      user.alarm_list.items.map((item,index)=>{        
+     user.alarm_list?.items.map((item,index)=>{        
         console.log(item.link);
         const new_link='/'+item.link;
         return <a href={new_link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>;
       })
-    :""
-    }
+   }
     
 
 
@@ -178,7 +174,12 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
         
            <a href="/"><img src={logo} alt="logo" className ="logo_img"/></a>
          
-
+           <Button
+            className="header_login"
+            style={{color:"black"}}
+            onClick={handle_login_click}
+          >로그인</Button>
+          
           <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
           borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >
@@ -213,7 +214,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             >                
               <NotificationsIcon style={{fontSize:25}}/>
               <Badge 
-                badgeContent={user.alarm_list?user.alarm_list.items.length:0} 
+                badgeContent={user.alarm_list?.items.length>999?"999+":user.alarm_list?.items.length} 
                 color="primary"
                 style={{position:"relative",top:-10}}
 
@@ -250,7 +251,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           }
         </Toolbar>
       </AppBar>
-      {user.alarm_list&&user.alarm_list.length!=0?renderAlarm:""}
+      {user.alarm_list?.items.length===0?"":renderAlarm}
       {renderMenu}
     </div>
   )

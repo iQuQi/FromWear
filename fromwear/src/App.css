@@ -37,3 +37,8 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "NanumGothic";
+  src: url("./fonts/NanumGothic.woff2");
+}

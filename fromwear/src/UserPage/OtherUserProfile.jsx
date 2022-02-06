@@ -308,7 +308,7 @@ export default class Profile extends Component {
     
     console.log(this.state.user.my_tag_list);
 
-    let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked, follow_click} = this.state;
+    let {user, now_user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked, follow_click} = this.state;
 
     let taglist = [];
     let postnum = 0;
@@ -369,7 +369,8 @@ export default class Profile extends Component {
                     {
                       following_is_checked && user.following_list? 
                       <ShowFollowers 
-                        now_user = {user} 
+                        now_user = {now_user} 
+                        user = {user}
                         open = {following_is_checked}
                         handleClose = {this.handleClose}
                         mode = 'following'
@@ -386,7 +387,8 @@ export default class Profile extends Component {
                     {
                       follower_is_checked && user.follower_list? 
                       <ShowFollowers 
-                        now_user = {user} 
+                        now_user = {now_user} 
+                        user = {user}
                         open = {follower_is_checked}
                         handleClose = {this.handleClose}
                         mode = 'follower'

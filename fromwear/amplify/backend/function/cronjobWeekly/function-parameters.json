@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "api": {
+      "fromwear": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    },
+    "storage": {
+      "User:@model(appsync)": [
+        "read",
+        "update"
+      ],
+      "Post:@model(appsync)": [
+        "read",
+        "update"
+      ],
+      "StyleTag:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "Board:@model(appsync)": [
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
