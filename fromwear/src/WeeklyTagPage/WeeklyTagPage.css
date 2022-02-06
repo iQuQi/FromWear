@@ -38,7 +38,7 @@
     display: inline-block;
     margin: 12px;
 }
-.weekly_image_list_item:hover .dimmed_layer{
+.dimmed:hover .dimmed_layer{
 	position: absolute;
 	top: 0;
 	bottom: 34px;
