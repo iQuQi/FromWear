@@ -16,19 +16,19 @@
       "function": {
         "fromwear9ee2f3c2PostConfirmation": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-35377777336b564e4b64-build.zip"
+          "s3Key": "amplify-builds/fromwear9ee2f3c2PostConfirmation-75725766564166554a6b-build.zip"
         },
         "S3Trigger6b6ec516": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/S3Trigger6b6ec516-6274483445636e497657-build.zip"
-        },
-        "cronjobWeekly": {
-          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/cronjobWeekly-514478634b6168446179-build.zip"
+          "s3Key": "amplify-builds/S3Trigger6b6ec516-78677578545731594d53-build.zip"
         },
         "cronjob": {
           "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
-          "s3Key": "amplify-builds/cronjob-4e4870676f3855324b2b-build.zip"
+          "s3Key": "amplify-builds/cronjob-70635642574833316936-build.zip"
+        },
+        "cronjobWeekly": {
+          "deploymentBucketName": "amplify-fromwear-dev-174201-deployment",
+          "s3Key": "amplify-builds/cronjobWeekly-637474595849636f6b76-build.zip"
         }
       },
       "auth": {
