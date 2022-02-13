@@ -54,10 +54,14 @@
 
 .profile_my_tag_list{
     position: absolute;
-    top: 530px;
+    top: 260px;
+    /* top: 530px; */
 
-    width:100%;
+    width: 92.1%;
+    /* width:100%; */
     z-index: 1000;
+
+    left: 47px;
 
     background-color: white;
     border-radius: 30px;
