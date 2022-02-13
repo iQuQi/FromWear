@@ -9,9 +9,11 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 
+import { Box } from '@mui/system';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import CreateIcon from '@mui/icons-material/Create';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
@@ -20,6 +22,7 @@ import {listPosts} from '../graphql/queries.js';
 import {listStyleTags} from '../graphql/queries';
 
 import Footer from '../Footer/Footer.jsx';
+import PostWritePage from '../PostWritePage/PostWritePage';
 
 let link = '';
 
@@ -41,7 +44,9 @@ class WeeklyTagPage extends Component {
 			weekly_tag_id: [],
 			weekly_tag: [],
 			current_next_post_page: 1,
-			now_user:{},
+			now_user: 'noUser',
+
+			is_write_page: false,
 		};
 	}
 
@@ -86,7 +91,20 @@ class WeeklyTagPage extends Component {
 		window.removeEventListener("scroll", this.handleScroll);
 	}
 	
-	
+	handleWriteButton = (e) => {
+		console.log(this.state.now_user);
+		if (this.state.now_user == "noUser") {
+		  alert("로그인이 필요합니다.");
+		  return;
+		}
+		this.handle_write_page();
+	};
+
+	handle_write_page = ()=> {
+		this.setState({
+			is_write_page: !this.state.is_write_page
+		})
+	};
 	
 	
 
@@ -96,9 +114,17 @@ class WeeklyTagPage extends Component {
 		const best_posts = posts.slice(0,4);
 		const ranking_posts = posts.slice(4);
 	
-        let {current_next_post_page, now_user} = this.state;
+        let {current_next_post_page, now_user, is_write_page} = this.state;
 
 		return <div id = 'main_page'>
+			{ is_write_page 
+				? <PostWritePage 
+					board_type='2'
+					user={now_user}
+					handle_write_page={this.handle_write_page} 
+					/>
+				: null
+			}
 			<Header handle_user_info={this.handle_user_info}/>
 			<div className = 'banner'>
                 <div className = 'banner_text'>
@@ -152,6 +178,39 @@ class WeeklyTagPage extends Component {
                 </div>
 			</div>
 
+			<div
+				style={{
+					verticalAlign: "center",
+					width: "900px",
+					height: "50px",
+					lineHeight: "50px",
+					margin: "auto",
+					paddingTop: '15px',
+				}}>
+				<Box >
+					<Button
+					variant="contained"
+					sx={{ m: 1.2, minWidth: 100 }}
+					endIcon={<CreateIcon />}
+					onClick={this.handleWriteButton}
+					style={{
+						height: "35px",
+						fontSize: 14,
+						textAlign: "center",
+						borderRadius: "30px",
+						fontFamily:
+						"'나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif",
+						fontWeight: "bold",
+						color: "white",
+						borderColor: "#253861",
+						backgroundColor: "#253861",
+					}}
+					>
+					도전하기
+					</Button>
+				</Box>
+			</div>
+
 			<div id = 'today_post' class = 'collection'>
 				{/*<h3 className = 'title'>랭킹 5위~</h3>*/}
 				<br></br>
@@ -161,7 +220,7 @@ class WeeklyTagPage extends Component {
 						index<(current_next_post_page * 25)?
 						<ImageListItem key={item.img}>
 							<a className='dimmed' href={'/post/'+item.id}>  
-								<img style={{height:'322.55px', borderRadius:16}}
+								<img style={{height:'322.55px', width:'209.6px', borderRadius:16}}
 									src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
 									srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
 									alt={item.user}

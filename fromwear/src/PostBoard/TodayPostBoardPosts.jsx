@@ -81,7 +81,7 @@ export default class TodayPostBoardPosts extends Component {
     if (this.state.board_type == "0") {
       API.graphql({
         query: listPosts,
-        variables: { filter: { board_type: { ne: 1 } } },
+        variables: { filter: { board_type: { eq: 0 } } },
       })
         .then((res) => {
           let posts = res.data.listPosts.items.filter((post) => {

@@ -842,12 +842,20 @@ class PostModifyPage extends Component {
 
                             <h3>태그</h3>
                             <div className="text_form tag_write">
-                            <Input value={tag_contents} 
+                              {
+                                board_type == 2
+                                ? <Input value={tag_contents} 
+                                  style={{margin:"10px 0",width:"100%"}}
+                                  placeholder={tag_contents}  
+                                  />
+                                : <Input value={tag_contents} 
                                     style={{margin:"10px 0",width:"100%"}}
                                     placeholder="태그를 입력해주세요"  
                                     onChange={this.onChangeTag}
                                     onClick={this.onFocusTag}
-                                    />
+                                  />
+                              }
+                            
                             </div>
                             {
                                 tag_click ?
