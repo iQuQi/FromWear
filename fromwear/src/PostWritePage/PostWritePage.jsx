@@ -130,8 +130,9 @@ class PostWritePage extends Component {
 
         Storage.put(`${this.state.file_key}`, this.state.file)
         .then(res => this.setState({img_upload: true}))
-        .catch(e => console.log("onChange error", e));
+        .catch(e => console.log("img upload error", e));
   
+        this.setState({img_upload: true})
 
         let split_tags = '';
         let tagLengthErrorCheck = false;
@@ -147,6 +148,7 @@ class PostWritePage extends Component {
   
       let dup_rmv_tags = new Set(split_tags);
 
+      // console.log("dup_rmv_tags: ",dup_rmv_tags)
         
 
         if (this.state.file == "") {
@@ -193,7 +195,12 @@ class PostWritePage extends Component {
                         API.graphql({
                           query: createStyleTag,
                           variables: {
-                            input: { num: 0, value: tag },
+                            input: {
+                              num: 1,
+                              value: tag,
+                              is_static: false,
+                              is_weekly: false, 
+                            },
                           },
                         })
                           .then((res) => {
@@ -207,18 +214,18 @@ class PostWritePage extends Component {
                                 },
                                 },
                             })
-                            .then((res) => {
-                                API.graphql({
-                                    query: updateStyleTag,
-                                    variables: {
-                                    input: {
-                                        id: current_tag_id,
-                                        num:
-                                        res.data.createPostStyleTag.style_tag.num + 1,
-                                    },
-                                    },
-                                }).catch((e) => console.log(e));
-                            })
+                            // .then((res) => {
+                            //     API.graphql({
+                            //         query: updateStyleTag,
+                            //         variables: {
+                            //         input: {
+                            //             id: current_tag_id,
+                            //             num:
+                            //             res.data.createPostStyleTag.style_tag.num + 1,
+                            //         },
+                            //         },
+                            //     }).catch((e) => console.log(e));
+                            // })
                             .then((res) => this.setState({ create_tag: true }))
                             .catch((e) => console.log(e));
                           })
@@ -285,14 +292,17 @@ class PostWritePage extends Component {
         }
  
 
+        console.log("1 : ",this.state.create_post)
+        console.log("2 : ",this.state.create_tag)
+        console.log("3 : ",this.state.img_upload)
         if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true) {
-            if(this.state.board_type == 0) {
-                window.location.href = './todayboard';
-            }
-            else {
-                window.location.href = './sosboard';
-            }
-            //window.location.reload();
+            // if(this.state.board_type == 0) {
+            //     window.location.href = './todayboard';
+            // }
+            // else {
+            //     window.location.href = './sosboard';
+            // }
+            window.location.reload();
         }
 
 		return (

@@ -350,7 +350,6 @@ class Post extends Component{
                 })
             }
         })
-        .catch(e => console.log(e))
         .then(res => {
                 
             if(this.state.like_urgent_num == 0){
@@ -405,23 +404,31 @@ class Post extends Component{
             }
             
             //태그 삭제
-            this.state.now_post.tag_list.items.map((tag, index)=>{
-                API.graphql({
-                    query: deletePostStyleTag, variables:{input:{id: tag.id}}
+            if(this.state.now_post.tag_list.items.length == 0){
+                console.log("tag list가 null")
+                this.setState({deleted_tag: true,})
+            }
+            else {
+                this.state.now_post.tag_list.items.map((tag, index)=>{
+                    API.graphql({
+                        query: deletePostStyleTag, variables:{input:{id: tag.id}}
+                    })
+                    .then(res=>{
+                        if(index == 2){
+                            console.log("tag last", tag);
+                            this.setState({deleted_tag:true,});
+                        }
+                    })
+                    .then(console.log("tag 삭제 완료"))
                 })
-                .then(res=>{
-                    if(index == 2){
-                        console.log("tag last", tag);
-                        this.setState({deleted_tag:true,});
-                    }
-                })
-            })
+            }
 
             //이미지 s3 삭제
             Storage.remove(this.state.now_post.img)
             
         })
         .then(res => this.setState({icon_delete_once:true,}))
+        .then(console.log("현재 상태 여기임"))
         
         
     }
@@ -433,6 +440,7 @@ class Post extends Component{
         })
         .then(res => this.setState({
             deleted_post: true,
+            icon_delete_once: false,
         }))
         .then(res => {
             if(this.state.now_post_board_type == 0){
@@ -508,7 +516,7 @@ class Post extends Component{
             this.setClickNum(now_post.click_num);
         }
 
-        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.deleted_tag && !this.state.icon_delete_once){
+        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.deleted_tag && this.state.icon_delete_once){
 
             this.removePost();
             console.log("아이콘 다지워짐!!")

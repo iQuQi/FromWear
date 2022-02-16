@@ -255,7 +255,12 @@ class PostModifyPage extends Component {
                                     API.graphql({
                                         query: createStyleTag,
                                         variables: {
-                                            input: { num: 0, value: tag },
+                                            input: { 
+                                              num: 1,
+                                              value: tag,
+                                              is_static: false,
+                                              is_weekly: false,
+                                            },
                                         },
                                     })
                                     .then((res) => {
@@ -373,7 +378,7 @@ class PostModifyPage extends Component {
                               variables: {
                                 input: {
                                   id: current_tag_id,
-                                  num: tag.style_tag.num - 1,
+                                  num: tag.style_tag.num - 1, //수정한 값에 대해 -1
                                 },
                               },
                             }).catch((e) => console.log(e));

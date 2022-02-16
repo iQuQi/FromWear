@@ -161,9 +161,9 @@
 
   .tag_area {
     position: absolute;
-    top:550px;
+    /* top:550px; */
     right: -40px;
-    width: 910px; /*340*/
+    width: 868px; /*910*/
     height: 200px;
     background-color: white;
     border: 1px solid gray;
@@ -171,7 +171,6 @@
     z-index: 1;
     padding: 20px;
     overflow-y: scroll;
-    text-align: center; /*이게 center가 안먹힘..*/
     box-sizing: border-box;
   }
 /* 
