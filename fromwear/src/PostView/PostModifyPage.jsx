@@ -32,7 +32,7 @@ class PostModifyPage extends Component {
             file : '',
             previewURL : '',
             tag_click: false,
-			current_click_tag_num: 0,
+			      current_click_tag_num: 0,
             total_tag_num: 0,
             tag_contents: '', //tag contents
             contents: '', //contents
@@ -191,10 +191,32 @@ class PostModifyPage extends Component {
         }else if (tagLengthErrorCheck) {
             alert("태그 길이를 5자 이하로 맞춰주세요");
         }else {
+
+          let today = new Date();   
+
+          //오늘 날짜
+          let year = today.getFullYear();
+          let month = today.getMonth() + 1;  
+          let date = today.getDate(); 
+  
+          console.log("오늘 날짜 : ", year, month, date)
+  
+          //포스트 생성 날짜
+          let now_post_created_year = String(now_post.createdAt).substr(0,4);
+          let now_post_created_month = String(now_post.createdAt).substr(5,2);
+          let now_post_created_date = String(now_post.createdAt).substr(8,2);
+          
+          console.log("지금 현재 포스트 생성년도 : ", now_post_created_year, now_post_created_month, now_post_created_date)
+  
+          var datetime_same = false;
+          if(year == now_post_created_year && month == now_post_created_month && date == now_post_created_date){
+            console.log("오늘 날짜와 생성 날짜가 같음")
+            datetime_same = true;
+          }
+
             // 글 update
             let new_post_id = '';
             if(this.state.board_type != 1) {
-
                 if(this.state.file == ''){ //사진 수정 X
                     this.setState({img_upload: true,})
                     var tag_index = [];
@@ -208,33 +230,46 @@ class PostModifyPage extends Component {
                             } 
                     }})
                     .then(res => {
-                        //원래 tag들의 num을 -1
+                        //포스트의 생성날짜가 오늘이면, 원래 tag들의 num을 -1
                         let current_tag_id;
                         this.state.now_post.tag_list.items.forEach((tag) => {
                             current_tag_id = tag.style_tag.id;
-                            if(false && tag.style_tag.num == 1 && tag.style_tag.is_static == false && tag.style_tag.is_weekly == false) {
-                                //아예 style_tag 삭제
-                                //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
-                                API.graphql({
-                                    query: deleteStyleTag,
-                                    variables: {
-                                    input: {
-                                        id: current_tag_id,
-                                    },
-                                    },
-                                }).catch((e) => console.log(e));
-                            } else {
-                                API.graphql({
-                                    query: updateStyleTag,
-                                    variables: {
-                                    input: {
-                                        id: current_tag_id,
-                                        num: tag.style_tag.num - 1,
-                                    },
-                                    },
-                                })
-                                .catch((e) => console.log(e));
+                            if(datetime_same){
+                              console.log("날짜가 동일하므로 num -1")
+                              API.graphql({
+                                query: updateStyleTag,
+                                variables: {
+                                  input: {
+                                    id: current_tag_id,
+                                    num: tag.style_tag.num - 1,
+                                  },
+                                },
+                              })
+                              .catch((e) => console.log(e));
                             }
+                            // if(false && tag.style_tag.num == 1 && tag.style_tag.is_static == false && tag.style_tag.is_weekly == false) {
+                            //     //아예 style_tag 삭제
+                            //     //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                            //     API.graphql({
+                            //         query: deleteStyleTag,
+                            //         variables: {
+                            //         input: {
+                            //             id: current_tag_id,
+                            //         },
+                            //         },
+                            //     }).catch((e) => console.log(e));
+                            // } else {
+                            //     API.graphql({
+                            //         query: updateStyleTag,
+                            //         variables: {
+                            //         input: {
+                            //             id: current_tag_id,
+                            //             num: tag.style_tag.num - 1,
+                            //         },
+                            //         },
+                            //     })
+                            //     .catch((e) => console.log(e));
+                            // }
                         })
                     })
                     .then(res => {
@@ -294,7 +329,7 @@ class PostModifyPage extends Component {
                                 } else {
                                     //존재하는 태그
                                     current_tag_id =
-                                      res.data.listStyleTags.items[0].id;
+                                    res.data.listStyleTags.items[0].id;
                                     API.graphql({
                                         query: updatePostStyleTag,
                                         variables: {
@@ -306,6 +341,8 @@ class PostModifyPage extends Component {
                                         },
                                     })
                                     .then((res) => {
+                                      if(datetime_same){
+                                        console.log("날짜가 같으므로 num +1")
                                         API.graphql({
                                             query: updateStyleTag,
                                             variables: {
@@ -316,6 +353,7 @@ class PostModifyPage extends Component {
                                             },
                                             },
                                         }).catch((e) => console.log(e));
+                                      }
                                     })
                                     .then((res) => this.setState({ create_tag: true }))
                                     .catch((e) => console.log(e));
@@ -356,33 +394,46 @@ class PostModifyPage extends Component {
                         let current_tag_id;
                         this.state.now_post.tag_list.items.forEach((tag) => {
                           current_tag_id = tag.style_tag.id;
-                          if (
-                            false &&
-                            tag.style_tag.num == 1 &&
-                            tag.style_tag.is_static == false &&
-                            tag.style_tag.is_weekly == false
-                          ) {
-                            //아예 style_tag 삭제
-                            //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
-                            API.graphql({
-                              query: deleteStyleTag,
-                              variables: {
-                                input: {
-                                  id: current_tag_id,
-                                },
-                              },
-                            }).catch((e) => console.log(e));
-                          } else {
+                          if(datetime_same){
+                            console.log("날짜가 동일하므로 num -1")
                             API.graphql({
                               query: updateStyleTag,
                               variables: {
                                 input: {
                                   id: current_tag_id,
-                                  num: tag.style_tag.num - 1, //수정한 값에 대해 -1
+                                  num: tag.style_tag.num - 1,
                                 },
                               },
-                            }).catch((e) => console.log(e));
+                            })
+                            .catch((e) => console.log(e));
                           }
+                          // if (
+                          //   false &&
+                          //   tag.style_tag.num == 1 &&
+                          //   tag.style_tag.is_static == false &&
+                          //   tag.style_tag.is_weekly == false
+                          // ) {
+                          //   //아예 style_tag 삭제
+                          //   //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                          //   API.graphql({
+                          //     query: deleteStyleTag,
+                          //     variables: {
+                          //       input: {
+                          //         id: current_tag_id,
+                          //       },
+                          //     },
+                          //   }).catch((e) => console.log(e));
+                          // } else {
+                          //   API.graphql({
+                          //     query: updateStyleTag,
+                          //     variables: {
+                          //       input: {
+                          //         id: current_tag_id,
+                          //         num: tag.style_tag.num - 1, //수정한 값에 대해 -1
+                          //       },
+                          //     },
+                          //   }).catch((e) => console.log(e));
+                          // }
                         });
                       })
                       .then((res) => {
@@ -454,17 +505,20 @@ class PostModifyPage extends Component {
                                   },
                                 })
                                   .then((res) => {
-                                    API.graphql({
-                                      query: updateStyleTag,
-                                      variables: {
-                                        input: {
-                                          id: current_tag_id,
-                                          num:
-                                            res.data.updatePostStyleTag
-                                              .style_tag.num + 1,
+                                    if(datetime_same){
+                                      console.log("날짜가 같으므로 num +1")
+                                      API.graphql({
+                                        query: updateStyleTag,
+                                        variables: {
+                                          input: {
+                                            id: current_tag_id,
+                                            num:
+                                              res.data.updatePostStyleTag
+                                                .style_tag.num + 1,
+                                          },
                                         },
-                                      },
-                                    }).catch((e) => console.log(e));
+                                      }).catch((e) => console.log(e));
+                                    }
                                   })
                                   .then((res) =>
                                     this.setState({ create_tag: true })
@@ -500,23 +554,8 @@ class PostModifyPage extends Component {
                         let current_tag_id;
                         this.state.now_post.tag_list.items.forEach((tag) => {
                           current_tag_id = tag.style_tag.id;
-                          if (
-                            false &&
-                            tag.style_tag.num == 1 &&
-                            tag.style_tag.is_static == false &&
-                            tag.style_tag.is_weekly == false
-                          ) {
-                            //아예 style_tag 삭제
-                            //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
-                            API.graphql({
-                              query: deleteStyleTag,
-                              variables: {
-                                input: {
-                                  id: current_tag_id,
-                                },
-                              },
-                            }).catch((e) => console.log(e));
-                          } else {
+                          if(datetime_same){
+                            console.log("날짜가 동일하므로 num -1")
                             API.graphql({
                               query: updateStyleTag,
                               variables: {
@@ -525,8 +564,36 @@ class PostModifyPage extends Component {
                                   num: tag.style_tag.num - 1,
                                 },
                               },
-                            }).catch((e) => console.log(e));
+                            })
+                            .catch((e) => console.log(e));
                           }
+                          // if (
+                          //   false &&
+                          //   tag.style_tag.num == 1 &&
+                          //   tag.style_tag.is_static == false &&
+                          //   tag.style_tag.is_weekly == false
+                          // ) {
+                          //   //아예 style_tag 삭제
+                          //   //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                          //   API.graphql({
+                          //     query: deleteStyleTag,
+                          //     variables: {
+                          //       input: {
+                          //         id: current_tag_id,
+                          //       },
+                          //     },
+                          //   }).catch((e) => console.log(e));
+                          // } else {
+                          //   API.graphql({
+                          //     query: updateStyleTag,
+                          //     variables: {
+                          //       input: {
+                          //         id: current_tag_id,
+                          //         num: tag.style_tag.num - 1,
+                          //       },
+                          //     },
+                          //   }).catch((e) => console.log(e));
+                          // }
                         });
                       })
                       .then((res) => {
@@ -598,17 +665,20 @@ class PostModifyPage extends Component {
                                   },
                                 })
                                   .then((res) => {
-                                    API.graphql({
-                                      query: updateStyleTag,
-                                      variables: {
-                                        input: {
-                                          id: current_tag_id,
-                                          num:
-                                            res.data.updatePostStyleTag
-                                              .style_tag.num + 1,
+                                    if(datetime_same){
+                                      console.log("날짜가 같으므로 num +1")
+                                      API.graphql({
+                                        query: updateStyleTag,
+                                        variables: {
+                                          input: {
+                                            id: current_tag_id,
+                                            num:
+                                              res.data.updatePostStyleTag
+                                                .style_tag.num + 1,
+                                          },
                                         },
-                                      },
-                                    }).catch((e) => console.log(e));
+                                      }).catch((e) => console.log(e));
+                                    }
                                   })
                                   .then((res) =>
                                     this.setState({ create_tag: true })
@@ -653,23 +723,8 @@ class PostModifyPage extends Component {
                         let current_tag_id;
                         this.state.now_post.tag_list.items.forEach((tag) => {
                           current_tag_id = tag.style_tag.id;
-                          if (
-                            false &&
-                            tag.style_tag.num == 1 &&
-                            tag.style_tag.is_static == false &&
-                            tag.style_tag.is_weekly == false
-                          ) {
-                            //아예 style_tag 삭제
-                            //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
-                            API.graphql({
-                              query: deleteStyleTag,
-                              variables: {
-                                input: {
-                                  id: current_tag_id,
-                                },
-                              },
-                            }).catch((e) => console.log(e));
-                          } else {
+                          if(datetime_same){
+                            console.log("날짜가 동일하므로 num -1")
                             API.graphql({
                               query: updateStyleTag,
                               variables: {
@@ -678,8 +733,36 @@ class PostModifyPage extends Component {
                                   num: tag.style_tag.num - 1,
                                 },
                               },
-                            }).catch((e) => console.log(e));
+                            })
+                            .catch((e) => console.log(e));
                           }
+                          // if (
+                          //   false &&
+                          //   tag.style_tag.num == 1 &&
+                          //   tag.style_tag.is_static == false &&
+                          //   tag.style_tag.is_weekly == false
+                          // ) {
+                          //   //아예 style_tag 삭제
+                          //   //현재는 막아놓음, is_static이 제대로 사용되면 풀면될듯
+                          //   API.graphql({
+                          //     query: deleteStyleTag,
+                          //     variables: {
+                          //       input: {
+                          //         id: current_tag_id,
+                          //       },
+                          //     },
+                          //   }).catch((e) => console.log(e));
+                          // } else {
+                          //   API.graphql({
+                          //     query: updateStyleTag,
+                          //     variables: {
+                          //       input: {
+                          //         id: current_tag_id,
+                          //         num: tag.style_tag.num - 1,
+                          //       },
+                          //     },
+                          //   }).catch((e) => console.log(e));
+                          // }
                         });
                       })
                       .then((res) => {
@@ -751,17 +834,20 @@ class PostModifyPage extends Component {
                                   },
                                 })
                                   .then((res) => {
-                                    API.graphql({
-                                      query: updateStyleTag,
-                                      variables: {
-                                        input: {
-                                          id: current_tag_id,
-                                          num:
-                                            res.data.updatePostStyleTag
-                                              .style_tag.num + 1,
+                                    if(datetime_same){
+                                      console.log("날짜가 같으므로 num +1")
+                                      API.graphql({
+                                        query: updateStyleTag,
+                                        variables: {
+                                          input: {
+                                            id: current_tag_id,
+                                            num:
+                                              res.data.updatePostStyleTag
+                                                .style_tag.num + 1,
+                                          },
                                         },
-                                      },
-                                    }).catch((e) => console.log(e));
+                                      }).catch((e) => console.log(e));
+                                    }
                                   })
                                   .then((res) =>
                                     this.setState({ create_tag: true })
@@ -798,6 +884,27 @@ class PostModifyPage extends Component {
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
         let {tag_contents, contents, board_type, now_post} = this.state;
+
+        
+        let today = new Date();   
+
+        //오늘 날짜
+        let year = today.getFullYear();
+        let month = today.getMonth() + 1;  
+        let date = today.getDate(); 
+
+        console.log("오늘 날짜 : ", year, month, date)
+
+        //포스트 생성 날짜
+        let now_post_created_year = String(now_post.createdAt).substr(0,4);
+        let now_post_created_month = String(now_post.createdAt).substr(5,2);
+        let now_post_created_date = String(now_post.createdAt).substr(8,2);
+        
+        console.log("지금 현재 포스트 생성년도 : ", now_post_created_year, now_post_created_month, now_post_created_date)
+
+        if(year == now_post_created_year && month == now_post_created_month && date == now_post_created_date){
+          console.log("오늘 날짜와 생성 날짜가 같음")
+        }
 
         let profile_preview = null;
         if(this.state.file !== ''){
