@@ -549,6 +549,11 @@ export const getStyleTag = /* GraphQL */ `
         }
         nextToken
       }
+      post_list {
+        items {
+          id
+        }
+      }
       createdAt
       updatedAt
     }
