@@ -570,6 +570,11 @@ export const listStyleTags = /* GraphQL */ `
         user_list {
           nextToken
         }
+        post_list {
+          items {
+            id
+          }
+        }
         createdAt
         updatedAt
       }
