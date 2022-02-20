@@ -306,11 +306,7 @@ class SearchPage extends Component{
 				  if(new Date(post.createdAt)<basis) return false;
 				}
 				else if(filter_day==30){//한달
-					console.log("created:"+ new Date(post.createdAt));
-
 					basis.setMonth(basis.getMonth() - 1);
-					console.log("basis: " +basis);
-					console.log(new Date(post.createdAt)<basis);
 
 				  if(new Date(post.createdAt)<basis) return false;
 				}

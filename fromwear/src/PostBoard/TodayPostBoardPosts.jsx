@@ -31,24 +31,6 @@ import MoodBadIcon from '@mui/icons-material/MoodBad';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 
-/*
-post_list : [
-                {
-                    id: "",
-                    img: "",
-                    like_user_num: "",
-                    click_num: "",
-                    comment_list:{
-                        items: "",
-                    },
-                    createdAt: "",
-                    user : {
-                        name: "",
-                        profile_img: "",
-                    },
-                },
-            ],
-*/
 export default class TodayPostBoardPosts extends Component {
   constructor(props) {
     super();
@@ -73,9 +55,30 @@ export default class TodayPostBoardPosts extends Component {
     }
   }
 
+  componentDidMount(){
+		window.addEventListener("scroll", this.handleScroll);
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
+
+	}
+
   componentWillMount() {
     this.handleFilteredData(this.state.post_state);
   }
+
+  handleScroll = () => {
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
 
   handleFilteredData = (sortVal) => {
     if (this.state.board_type == "0") {
@@ -116,13 +119,9 @@ export default class TodayPostBoardPosts extends Component {
               //일주일
               basis.setDate(basis.getDate() - 7);
               if (new Date(post.createdAt) < basis) return false;
-            } else if (this.state.ilter_day == 30) {
+            } else if (this.state.filter_day == 30) {
               //한달
-              console.log("created:" + new Date(post.createdAt));
-
               basis.setMonth(basis.getMonth() - 1);
-              console.log("basis: " + basis);
-              console.log(new Date(post.createdAt) < basis);
 
               if (new Date(post.createdAt) < basis) return false;
             } else if (this.state.filter_day == 40) {
@@ -340,12 +339,6 @@ export default class TodayPostBoardPosts extends Component {
       return;
     }
     this.props.handle_write_page();
-  };
-
-  handle_post_more_on_click = (e) => {
-    this.setState({
-      current_next_post_page: this.state.current_next_post_page + 1,
-    });
   };
 
   render() {
@@ -601,18 +594,6 @@ export default class TodayPostBoardPosts extends Component {
                   )
                 )}
               </ImageList>
-              <Button
-                variant="contained"
-                style={{
-                  width: "100%",
-                  height: 50,
-                  marginTop: 20,
-                  backgroundColor: "black",
-                }}
-                onClick={this.handle_post_more_on_click}
-              >
-                <ArrowDropDownIcon style={{ fontSize: 40 }} />
-              </Button>
             </div>
           ) : (
             <Typography
