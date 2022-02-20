@@ -28,7 +28,6 @@ function App() {
               <Route path="/mypage" element={<MyPage/>} exact/>
               <Route path="/userpage/:userid" element={<UserPagePath/>} exact/>
               <Route path="/profileedit" element={<ProfileEdit/>} exact/>
-
             </Routes>
           </BrowserRouter>
       </div>

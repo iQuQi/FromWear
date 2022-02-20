@@ -130,7 +130,6 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
       <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>마이페이지</MenuItem></a>
       <MenuItem  onClick={handleLogout}><SignOutButton/></MenuItem>
-      <a href="/mypage"><MenuItem style={{fontSize:13,paddingLeft:20}} onClick={handleMenuClose}>고객센터</MenuItem></a>
     </Menu>
   );
 
