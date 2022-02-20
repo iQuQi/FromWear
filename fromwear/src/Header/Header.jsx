@@ -226,9 +226,7 @@ class Header extends Component{
 			
 		  ];
 		  console.log('step',steps);
-		  this.setState({
-			chatbot_open: true,
-		})
+		 
 		return <div className="header_bar">		
 				<PrimarySearchAppBar 
 				handle_inputbase_on_change={this.props.handle_inputbase_on_change}
@@ -248,9 +246,7 @@ class Header extends Component{
 						floating={true} 
 						steps={steps}
 						handleEnd={(result)=>{
-							this.setState({
-								chatbot_open: false,
-							})
+							
 							if(result.values[2]==='yes'){
 								console.log('email test',result.values[1]);
 							}
