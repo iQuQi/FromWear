@@ -202,9 +202,9 @@ class PostModifyPage extends Component {
           console.log("오늘 날짜 : ", year, month, date)
   
           //포스트 생성 날짜
-          let now_post_created_year = String(now_post.createdAt).substr(0,4);
-          let now_post_created_month = String(now_post.createdAt).substr(5,2);
-          let now_post_created_date = String(now_post.createdAt).substr(8,2);
+          let now_post_created_year = String(this.state.now_post.createdAt).substr(0,4);
+          let now_post_created_month = String(this.state.now_post.createdAt).substr(5,2);
+          let now_post_created_date = String(this.state.now_post.createdAt).substr(8,2);
           
           console.log("지금 현재 포스트 생성년도 : ", now_post_created_year, now_post_created_month, now_post_created_date)
   
@@ -291,7 +291,7 @@ class PostModifyPage extends Component {
                                         query: createStyleTag,
                                         variables: {
                                             input: { 
-                                              num: 1,
+                                              num: 0,
                                               value: tag,
                                               is_static: false,
                                               is_weekly: false,

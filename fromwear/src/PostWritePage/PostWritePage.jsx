@@ -302,7 +302,7 @@ class PostWritePage extends Component {
             // else {
             //     window.location.href = './sosboard';
             // }
-            window.location.reload();
+            // window.location.reload();
         }
 
 		return (
