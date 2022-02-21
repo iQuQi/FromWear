@@ -157,6 +157,13 @@ class Header extends Component{
 	}
 	
 	
+	handle_chatbot_end=()=>{
+		this.setState({
+			chatbot_open: false,
+		})
+		
+	}
+	
 	
 	render(){
 	
@@ -174,52 +181,73 @@ class Header extends Component{
 				id: '1',
 				options: [
 				  { value: 'suggestion', label: '건의사항', trigger: '2' },
-				  { value: 'bug', label: '버그신고', trigger: '2' },
-				  { value: 'etc', label: '기타', trigger: '2' },
+				  { value: 'bug', label: '버그신고', trigger: '3' },
+				  { value: 'etc', label: '기타', trigger: '4' },
 				],
 			},
 			{
 				id: '2',
 				message: '어떤 점을 건의하고 싶으신가요?',
-				trigger: '3',
-			},
-			{
-				id: '3',
-				user: true,
-				trigger: '4',
-			},
-			{
-				id: '4',
-				message: '해당 내용을 전송하시겠습니까?',
 				trigger: '5',
 			},
 			{
-				id: '5',
-				options: [
-					{ value: 'yes', label: '네', trigger: '6' },
-					{ value: 'no', label: '아니요', trigger: '7' },
-				],
+				id: '3',
+				message: '어떤 점을 건의하고 싶으신가요?',
+				trigger: '6',
 			},
 			{
-			  id: '6',
-			  message: '불편함을 드려 죄송합니다. 해당 내용은 신속하게 처리해드리겠습니다.',
-			  trigger: '7',
+				id: '4',
+				message: '어떤 점을 건의하고 싶으신가요?',
+				trigger: '7',
+			},
+			{
+				id: '5',
+				user: true,
+				validator: (value) => {
+					console.log('값1',value);
+					return true;
+				  },
+				trigger: '8',
+			},
+			{
+				id: '6',
+				user: true,
+				validator: (value) => {
+					console.log('값2',value);
+					return true;
+				  },
+				trigger: '8',
 			},
 			{
 				id: '7',
-				message: '추가로 건의하실 사항이 있으신가요?',
+				user: true,
+				validator: (value) => {
+					console.log('값3',value);
+					return true;
+				  },
 				trigger: '8',
+			},
+			{
+			  id: '8',
+			  message: '불편함을 드려 죄송합니다. 해당 내용은 신속하게 처리해드리겠습니다.',
+			 
+			  trigger: '9',
+			},
+			{
+				id: '9',
+				message: '추가로 건의하실 사항이 있으신가요?',
+				trigger: '10',
 		
 			},
 			{
-				id: '8',
+				id: '10',
 				options: [
 					{ value: 'yes', label: '네', trigger: '1' },
-					{ value: 'no', label: '아니요', trigger: '9' },
+					{ value: 'no', label: '아니요', trigger: '11' },
 				],				
 			  },
 			{
-				id: '9',
+				id: '11',
 				message: '저희 Fromwear를 사용해주셔서 감사합니다 :)',
 				end: true,
 			},
@@ -242,14 +270,14 @@ class Header extends Component{
 				<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 
+						opened ={chatbot_open}
 						headerTitle='고객문의'
 						floating={true} 
 						steps={steps}
 						handleEnd={(result)=>{
-							
-							if(result.values[2]==='yes'){
-								console.log('email test',result.values[1]);
-							}
+							console.log('result',result);
+							this.handle_chatbot_end();
+
 						}}
 						floatingStyle={{left:true}}
 					/>  }

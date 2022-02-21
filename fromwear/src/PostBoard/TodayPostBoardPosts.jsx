@@ -30,6 +30,13 @@ import { integerPropType } from '@mui/utils';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
 
+let link = '';
+
+let link_change = (item, now_user) => {
+    item.user.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.user.id
+}
 
 export default class TodayPostBoardPosts extends Component {
   constructor(props) {
@@ -502,6 +509,8 @@ export default class TodayPostBoardPosts extends Component {
                         <span className="dimmed_layer"> </span>
                       </a>
                       <Stack direction="row" spacing={0}>
+                      {link_change(post, user)}
+
                         <div className="user_profile">
                           {board_type == 1 && post.blind == true ? (
                             <div>
@@ -519,6 +528,7 @@ export default class TodayPostBoardPosts extends Component {
                             </div>
                           ) : (
                             <div>
+                              <a href = {link}>
                               <img
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`}
                                 alt="프로필이미지"
@@ -529,9 +539,12 @@ export default class TodayPostBoardPosts extends Component {
                                   borderRadius: "50%",
                                 }}
                               />
+                              </a>
+                              <a href = {link}>
                               <p style={{ margin: "16px 0px" }}>
                                 {post.user.name}
                               </p>
+                              </a>
                             </div>
                           )}
                         </div>

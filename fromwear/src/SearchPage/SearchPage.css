@@ -95,7 +95,7 @@
 
 .dimmed_info_writer{
 	position: absolute;
-	bottom: 20px;
+	bottom: 10px;
 	left: 10px;
 	
 	display: none;
@@ -133,4 +133,11 @@
 .image_list_item:hover .dimmed_info_writer, .image_list_item:hover .dimmed_info_like{
 	display: block;
 	font-size: 13px;
+}
+
+
+.ellips{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }

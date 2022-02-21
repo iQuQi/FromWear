@@ -96,7 +96,7 @@ class SearchPage extends Component{
 				current_click_tag_num: this.state.current_click_tag_num-1
 			})
 		}
-
+		
 		this.setState({
 			target_tag_button: tag_clicked_list,
 		})
