@@ -470,8 +470,13 @@ class PostModifyPage extends Component {
                                 API.graphql({
                                   query: createStyleTag,
                                   variables: {
-                                    input: { num: 0, value: tag },
-                                  },
+                                    input: { 
+                                      num: 0,
+                                      value: tag,
+                                      is_static: false,
+                                      is_weekly: false,
+                                    },
+                                },
                                 })
                                   .then((res) => {
                                     current_tag_id = res.data.createStyleTag.id;
@@ -631,8 +636,13 @@ class PostModifyPage extends Component {
                                 API.graphql({
                                   query: createStyleTag,
                                   variables: {
-                                    input: { num: 0, value: tag },
-                                  },
+                                    input: { 
+                                      num: 0,
+                                      value: tag,
+                                      is_static: false,
+                                      is_weekly: false,
+                                    },
+                                },
                                 })
                                   .then((res) => {
                                     current_tag_id = res.data.createStyleTag.id;
@@ -799,8 +809,13 @@ class PostModifyPage extends Component {
                                 API.graphql({
                                   query: createStyleTag,
                                   variables: {
-                                    input: { num: 0, value: tag },
-                                  },
+                                    input: { 
+                                      num: 0,
+                                      value: tag,
+                                      is_static: false,
+                                      is_weekly: false,
+                                    },
+                                },
                                 })
                                   .then((res) => {
                                     current_tag_id = res.data.createStyleTag.id;

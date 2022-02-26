@@ -131,8 +131,6 @@ class PostWritePage extends Component {
         Storage.put(`${this.state.file_key}`, this.state.file)
         .then(res => this.setState({img_upload: true}))
         .catch(e => console.log("img upload error", e));
-  
-        this.setState({img_upload: true})
 
         let split_tags = '';
         let tagLengthErrorCheck = false;

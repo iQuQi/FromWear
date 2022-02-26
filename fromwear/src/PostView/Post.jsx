@@ -377,8 +377,9 @@ class Post extends Component{
         .then(res => {
             //이미지 s3 삭제
             Storage.remove(this.state.now_post.img)
+            .then(this.setState({delete_img: true,}))
+            .catch((e) => console.log("onChange error", e));
         })
-        .then(res => this.setState({delete_img: true,}))
         .then(res => {
                 
             if(this.state.like_urgent_num == 0){
@@ -575,6 +576,7 @@ class Post extends Component{
 
     render(){
 
+        console.log("현재 게시글 정보", this.state.now_post)
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
