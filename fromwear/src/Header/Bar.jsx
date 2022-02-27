@@ -184,7 +184,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
 
             <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
-              style={{ color: "black", fontSize: "14px",width: "40%",height:35}}
+              style={{ color: "black", fontSize: "14px",width: "50%",height:35, position:'relative', left: '-30px'}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}
