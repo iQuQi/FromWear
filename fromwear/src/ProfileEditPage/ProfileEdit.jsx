@@ -424,7 +424,9 @@ class ProfileEdit extends Component{
                                 <Input value={contents} 
                                   style={{margin:"10px 0",width:"100%"}}
                                   placeholder="태그를 입력해주세요"  
-                                  onClick={this.onClickTag}/>
+                                  onClick={this.onClickTag}
+                                  />
+                                
                             </div>
                             {
                                 tag_click ?
