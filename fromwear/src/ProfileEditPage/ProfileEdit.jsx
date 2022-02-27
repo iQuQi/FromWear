@@ -34,6 +34,7 @@ class ProfileEdit extends Component{
             create_tag: false,
             file_key: '',
             isDialogOpen: false,
+            basicImg: false,
 		}
 	}
     
@@ -155,8 +156,67 @@ class ProfileEdit extends Component{
         if(this.state.total_tag_num != 3) {
             alert("태그는 3개를 등록해야 합니다.");
         }
+        else if(this.state.basicImg) { //basicImg가 True (기본 이미지로 변경 버튼 클릭 O)
+            console.log("file: ", this.state.file)
+            console.log("file_key: ", this.state.file_key)
+            console.log("basicImg: ",this.state.basicImg)
+            var before_user_img_delete = this.state.user.profile_img
+            console.log("삭제할 경로 : ", before_user_img_delete)
+
+            if(before_user_img_delete == 'profile_skyblue.jpg'){
+                console.log("기본 이미지는 s3 삭제 X")
+                before_user_img_delete = '';
+            }
+            else {
+                console.log("기존 이미지 삭제함")
+                Storage.remove(before_user_img_delete)
+            }
+
+            API.graphql({
+                query: updateUser, variables:{input:{
+                    id: this.state.user.id,
+                    introduce: this.state.content_introduce,
+                    gender: this.state.gender,
+                    profile_img: 'profile_skyblue.jpg',
+                }}
+            })
+            .then(res => {
+                //현재 사용자의 tag list의 id 불러옴
+                var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
+
+                //check된 리스트
+                var tag_index = [];
+                tag_clicked_list.forEach((tag, index) => {
+                    if(tag == 1) {
+                        tag_index = [...tag_index, index+1]
+                    }
+                })
+
+                before_tag_list.map((origin_id, index)=>{
+                    API.graphql({
+                        query: updateUserStyleTag, variables: {
+                            input: 
+                            {
+                                id: origin_id,
+                                style_tag_id: tag_index[index],
+                            } 
+                    }})
+                    .then(res => {
+                        if(index == 2){
+                            this.setState({
+                                create_tag: true,
+                                img_upload: true,
+                            })
+                            
+                        }
+                    })
+                })
+            })
+                
+
+        }
         else {
-            if(this.state.file==''){ //사진을 등록 X 또는 기본 사진 'profile_skyblue.jpg' 사용
+            if(this.state.file==''){ //사진을 등록 X 또는 기본 사진 'profile_skyblue.jpg' 사용 (기본 이미지로 변경 X, 사진 변경을 아예 안 함)
                 API.graphql({
                     query: updateUser, variables:{input:{
                         id: this.state.user.id,
@@ -211,7 +271,7 @@ class ProfileEdit extends Component{
 
                 var before_user_img_delete = this.state.user.profile_img
                 console.log("삭제할 경로 : ", before_user_img_delete)
-                if(before_user_img_delete == 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/profile_skyblue.jpg'){
+                if(before_user_img_delete == 'profile_skyblue.jpg'){
                     console.log("기본 이미지는 s3 삭제 X")
                     before_user_img_delete = '';
                 }
@@ -291,12 +351,18 @@ class ProfileEdit extends Component{
     }
 
     handleChangetoDefault=()=>{
-        this.setState({file_key: "profile_skyblue.jpg", file: "default"})
+        // this.setState({file_key: "profile_skyblue.jpg", file: "default"})
+        this.setState({
+            file: '',
+            file_key: '',
+            basicImg: true})
     }
 
     render(){
         let {isDialogOpen, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
+
+        console.log("현재 프로필 편집!! 현재 유저는", this.state.user)
 
         if(this.state.create_tag == true && this.state.img_upload == true) {
             window.location.reload();
