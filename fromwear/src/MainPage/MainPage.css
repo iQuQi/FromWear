@@ -80,3 +80,11 @@
     display: flex;
     margin-left: auto;
 }
+.user_name{
+    display: block;
+    width: 105px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: left;
+}
