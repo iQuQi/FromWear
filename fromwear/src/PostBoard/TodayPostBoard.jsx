@@ -11,6 +11,7 @@ import './CSS/PostBoard.css';
 import { set } from 'date-fns';
 import PostWritePage from '../PostWritePage/PostWritePage';
 
+
 class TodayPostBoard extends Component { 
 
 	constructor(props) {

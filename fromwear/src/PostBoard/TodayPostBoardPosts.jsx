@@ -30,25 +30,14 @@ import { integerPropType } from '@mui/utils';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
 
+let link = '';
 
-/*
-post_list : [
-                {
-                    id: "",
-                    img: "",
-                    like_user_num: "",
-                    click_num: "",
-                    comment_list:{
-                        items: "",
-                    },
-                    createdAt: "",
-                    user : {
-                        name: "",
-                        profile_img: "",
-                    },
-                },
-            ],
-*/
+let link_change = (item, now_user) => {
+    item.user.id == now_user.id ?
+    link = '/mypage':
+    link = '/userpage/'+item.user.id
+}
+
 export default class TodayPostBoardPosts extends Component {
   constructor(props) {
     super();
@@ -73,15 +62,36 @@ export default class TodayPostBoardPosts extends Component {
     }
   }
 
+  componentDidMount(){
+		window.addEventListener("scroll", this.handleScroll);
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener("scroll", this.handleScroll);
+
+	}
+
   componentWillMount() {
     this.handleFilteredData(this.state.post_state);
   }
+
+  handleScroll = () => {
+		const scrollHeight = document.documentElement.scrollHeight;
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		if (scrollTop + clientHeight >= scrollHeight) {
+		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  this.setState({
+			current_next_post_page: this.state.current_next_post_page+1
+			})
+		}
+	}
 
   handleFilteredData = (sortVal) => {
     if (this.state.board_type == "0") {
       API.graphql({
         query: listPosts,
-        variables: { filter: { board_type: { ne: 1 } } },
+        variables: { filter: { board_type: { eq: 0 } } },
       })
         .then((res) => {
           let posts = res.data.listPosts.items.filter((post) => {
@@ -116,13 +126,9 @@ export default class TodayPostBoardPosts extends Component {
               //일주일
               basis.setDate(basis.getDate() - 7);
               if (new Date(post.createdAt) < basis) return false;
-            } else if (this.state.ilter_day == 30) {
+            } else if (this.state.filter_day == 30) {
               //한달
-              console.log("created:" + new Date(post.createdAt));
-
               basis.setMonth(basis.getMonth() - 1);
-              console.log("basis: " + basis);
-              console.log(new Date(post.createdAt) < basis);
 
               if (new Date(post.createdAt) < basis) return false;
             } else if (this.state.filter_day == 40) {
@@ -342,12 +348,6 @@ export default class TodayPostBoardPosts extends Component {
     this.props.handle_write_page();
   };
 
-  handle_post_more_on_click = (e) => {
-    this.setState({
-      current_next_post_page: this.state.current_next_post_page + 1,
-    });
-  };
-
   render() {
     let { post_state, post_list, user } = this.state;
     let { genderVal, dayVal, board_type, current_next_post_page } = this.state;
@@ -509,6 +509,8 @@ export default class TodayPostBoardPosts extends Component {
                         <span className="dimmed_layer"> </span>
                       </a>
                       <Stack direction="row" spacing={0}>
+                      {link_change(post, user)}
+
                         <div className="user_profile">
                           {board_type == 1 && post.blind == true ? (
                             <div>
@@ -526,6 +528,7 @@ export default class TodayPostBoardPosts extends Component {
                             </div>
                           ) : (
                             <div>
+                              <a href = {link}>
                               <img
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`}
                                 alt="프로필이미지"
@@ -536,9 +539,12 @@ export default class TodayPostBoardPosts extends Component {
                                   borderRadius: "50%",
                                 }}
                               />
+                              </a>
+                              <a href = {link}>
                               <p style={{ margin: "16px 0px" }}>
                                 {post.user.name}
                               </p>
+                              </a>
                             </div>
                           )}
                         </div>
@@ -601,18 +607,6 @@ export default class TodayPostBoardPosts extends Component {
                   )
                 )}
               </ImageList>
-              <Button
-                variant="contained"
-                style={{
-                  width: "100%",
-                  height: 50,
-                  marginTop: 20,
-                  backgroundColor: "black",
-                }}
-                onClick={this.handle_post_more_on_click}
-              >
-                <ArrowDropDownIcon style={{ fontSize: 40 }} />
-              </Button>
             </div>
           ) : (
             <Typography

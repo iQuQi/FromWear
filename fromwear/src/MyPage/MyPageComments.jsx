@@ -88,4 +88,3 @@ export default class MyPageComments extends Component{
 
 
 
-

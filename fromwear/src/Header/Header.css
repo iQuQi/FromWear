@@ -55,7 +55,9 @@ a{
 	text-decoration: none;
 }
 
-
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 
 /*header CSS*/
 .header_bar{
@@ -89,7 +91,7 @@ a{
 
 .move_to_top{
 	position: fixed;
-	bottom: 40px;
+	bottom: 100px;
 	right: 40px;
 	width: 40px;
 	height: 40px;
@@ -145,4 +147,8 @@ a{
 	overflow: hidden;
 	word-break: normal;
 	display: inline-block;
+}
+
+.igVJyN {
+	padding: 0 50px;
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Component} from 'react';
+import { Box } from '@mui/material';
 import './Header.css'
 import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
@@ -9,6 +10,21 @@ import Login from "./Login";
 import API from '@aws-amplify/api';
 import {createUser,createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
+import ChatBot from 'react-simple-chatbot';
+import { ThemeProvider } from 'styled-components';
+
+// all available props
+const theme = {
+  background: '#f5f8fb',
+  fontFamily: 'Helvetica Neue',
+  headerBgColor: '#000',
+  headerFontColor: '#fff',
+  headerFontSize: '15px',
+  botBubbleColor: '#000',
+  botFontColor: '#fff',
+  userBubbleColor: '#fff',
+  userFontColor: '#4a4a4a',
+};
 
 
 class Header extends Component{
@@ -18,6 +34,8 @@ class Header extends Component{
 			rank_1:"",
 			login_popup:false,
 			user :"noUser",
+			chatbot_open: false,
+			
 		}
 	}
 
@@ -137,12 +155,106 @@ class Header extends Component{
 			this.props.handle_user_info(user);
 		}
 	}
-
+	
+	
+	handle_chatbot_end=()=>{
+		this.setState({
+			chatbot_open: false,
+		})
+		
+	}
+	
 	
 	render(){
 	
 	
-		let {rank_1,user,login_popup} = this.state;
+		let {rank_1,user,login_popup, chatbot_open} = this.state;
+		console.log(user.name);
+		const steps= [
+			{
+			  id: '0',
+			  message: `안녕하세요  ${user.name}님!
+			  무엇을 도와드릴까요?`,
+			  trigger: '1',
+			},
+			{
+				id: '1',
+				options: [
+				  { value: 'suggestion', label: '건의사항', trigger: '2' },
+				  { value: 'bug', label: '버그신고', trigger: '3' },
+				  { value: 'etc', label: '기타', trigger: '4' },
+				],
+			},
+			{
+				id: '2',
+				message: '어떤 점을 건의하고 싶으신가요?',
+				trigger: '5',
+			},
+			{
+				id: '3',
+				message: '어떤 점을 건의하고 싶으신가요?',
+				trigger: '6',
+			},
+			{
+				id: '4',
+				message: '어떤 점을 건의하고 싶으신가요?',
+				trigger: '7',
+			},
+			{
+				id: '5',
+				user: true,
+				validator: (value) => {
+					console.log('값1',value);
+					return true;
+				  },
+				trigger: '8',
+			},
+			{
+				id: '6',
+				user: true,
+				validator: (value) => {
+					console.log('값2',value);
+					return true;
+				  },
+				trigger: '8',
+			},
+			{
+				id: '7',
+				user: true,
+				validator: (value) => {
+					console.log('값3',value);
+					return true;
+				  },
+				trigger: '8',
+			},
+			{
+			  id: '8',
+			  message: '불편함을 드려 죄송합니다. 해당 내용은 신속하게 처리해드리겠습니다.',
+			 
+			  trigger: '9',
+			},
+			{
+				id: '9',
+				message: '추가로 건의하실 사항이 있으신가요?',
+				trigger: '10',
+		
+			},
+			{
+				id: '10',
+				options: [
+					{ value: 'yes', label: '네', trigger: '1' },
+					{ value: 'no', label: '아니요', trigger: '11' },
+				],				
+			  },
+			{
+				id: '11',
+				message: '저희 Fromwear를 사용해주셔서 감사합니다 :)',
+				end: true,
+			},
+			
+		  ];
+		  console.log('step',steps);
+		 
 		return <div className="header_bar">		
 				<PrimarySearchAppBar 
 				handle_inputbase_on_change={this.props.handle_inputbase_on_change}
@@ -155,7 +267,24 @@ class Header extends Component{
 				/>
 				{login_popup?<Login 
 				handle_login_complete={this.handle_login_complete}/>:<br/>}
+				<ThemeProvider theme={theme}>
+					{user?.name && 
+					<ChatBot 
+						opened ={chatbot_open}
+						headerTitle='고객문의'
+						floating={true} 
+						steps={steps}
+						handleEnd={(result)=>{
+							console.log('result',result);
+							this.handle_chatbot_end();
+
+						}}
+						floatingStyle={{left:true}}
+					/>  }
+					
+				</ThemeProvider>
 				<MoveToTop/>
+
 		</div>
 	}	
 }

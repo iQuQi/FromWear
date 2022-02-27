@@ -46,7 +46,13 @@ class PostWritePage extends Component {
           file_key: "",
         };
     }
-    
+    componentDidMount() {
+      if(this.state.board_type==2){
+        this.setState({
+          tag_contents: `#이번주 태그 #귀여운 #러블리`,
+        })
+      }
+    }
     componentDidUpdate(prevProps) {
         if(this.props.user !== prevProps.user){
             this.setState({user: this.props.user});
@@ -108,22 +114,26 @@ class PostWritePage extends Component {
     }
 
     handle_tag_button_click=(e,index,name)=>{
-		if(!tag_clicked_list[index]) {
-			tag_clicked_list[index]= 1;
-			this.setState({
-                tag_contents: this.state.tag_contents + `#${name}`,
-                // total_tag_num: this.state.total_tag_num + 1
-			})
-		}
-		else {
-			tag_clicked_list[index]=0;
-			this.setState({
-                tag_contents: this.state.tag_contents.replaceAll(`#${name}`, ''),
-                // total_tag_num: this.state.total_tag_num - 1,
-            });
-		}
+      if(!tag_clicked_list[index]) {
+        tag_clicked_list[index]= 1;
+        this.setState({
+                  tag_contents: this.state.tag_contents + `#${name}`,
+                  // total_tag_num: this.state.total_tag_num + 1
+        })
+      }
+      else {
+        tag_clicked_list[index]=0;
+        this.setState({
+                  tag_contents: this.state.tag_contents.replaceAll(`#${name}`, ''),
+                  // total_tag_num: this.state.total_tag_num - 1,
+              });
+      }
 
-	}
+    }
+
+    WeeklyTag = () => {
+      
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -352,13 +362,19 @@ class PostWritePage extends Component {
 
               <h3>태그</h3>
               <div className="text_form tag_write">
-                <Input value={tag_contents} 
-                                    style={{margin:"10px 0",width:"100%"}}
-                                    placeholder="태그를 입력해주세요"  
-                                    onChange={this.onChangeTag}
-                                    onClick={this.onFocusTag}
-                                    />
-
+                {
+                  board_type == 2
+                  ? <Input value={tag_contents} 
+                    style={{margin:"10px 0",width:"100%"}}
+                    placeholder={tag_contents}  
+                    />
+                  : <Input value={tag_contents} 
+                    style={{margin:"10px 0",width:"100%"}}
+                    placeholder="태그를 입력해주세요"  
+                    onChange={this.onChangeTag}
+                    onClick={this.onFocusTag}
+                    />
+                }
               </div>
               {tag_click ? (
                 <div className="tag_area">
