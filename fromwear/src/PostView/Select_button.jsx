@@ -152,7 +152,7 @@ class Select_button extends Component{
                             select_button_is_checked ?
                             <div>
                                 <div className="select_yes" onClick={this.onClick}>
-                                    채택하기
+                                    채택된 댓글
                                 </div>
                             </div>
                             :

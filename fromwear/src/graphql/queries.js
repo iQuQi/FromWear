@@ -549,6 +549,11 @@ export const getStyleTag = /* GraphQL */ `
         }
         nextToken
       }
+      post_list {
+        items {
+          id
+        }
+      }
       createdAt
       updatedAt
     }
@@ -569,6 +574,11 @@ export const listStyleTags = /* GraphQL */ `
         is_weekly
         user_list {
           nextToken
+        }
+        post_list {
+          items {
+            id
+          }
         }
         createdAt
         updatedAt

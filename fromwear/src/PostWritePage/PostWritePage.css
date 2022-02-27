@@ -160,9 +160,16 @@
   }
 
   .tag_area {
+<<<<<<< HEAD
     position: relative;
     top: -20px;
     width: 440px; /*340*/
+=======
+    position: absolute;
+    /* top:550px; */
+    right: -40px;
+    width: 868px; /*910*/
+>>>>>>> 08a7aebb92a57f985dec698c4e0c36f058898702
     height: 200px;
     background-color: white;
     border: 1px solid gray;
@@ -170,7 +177,6 @@
     z-index: 1;
     padding: 20px;
     overflow-y: scroll;
-    text-align: center; /*이게 center가 안먹힘..*/
     box-sizing: border-box;
   }
 /* 
