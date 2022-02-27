@@ -160,10 +160,9 @@
   }
 
   .tag_area {
-    position: absolute;
-    top:550px;
-    right: -40px;
-    width: 910px; /*340*/
+    position: relative;
+    top: -20px;
+    width: 440px; /*340*/
     height: 200px;
     background-color: white;
     border: 1px solid gray;

@@ -25,7 +25,7 @@ const theme = {
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',
 };
-
+let msg='테스트';
 
 class Header extends Component{
 	constructor(){
@@ -35,7 +35,6 @@ class Header extends Component{
 			login_popup:false,
 			user :"noUser",
 			chatbot_open: false,
-			
 		}
 	}
 
@@ -164,6 +163,7 @@ class Header extends Component{
 		
 	}
 	
+	aRef = document.getElementById('emailTo');
 	
 	render(){
 	
@@ -204,7 +204,9 @@ class Header extends Component{
 				id: '5',
 				user: true,
 				validator: (value) => {
-					console.log('값1',value);
+					console.log('값1',this.aRef);
+					msg='값1';
+					this.aRef.click();
 					return true;
 				  },
 				trigger: '8',
@@ -213,7 +215,11 @@ class Header extends Component{
 				id: '6',
 				user: true,
 				validator: (value) => {
-					console.log('값2',value);
+					console.log('값2',this.aRef);
+					msg='값2';
+
+					this.aRef.click();
+					
 					return true;
 				  },
 				trigger: '8',
@@ -222,7 +228,10 @@ class Header extends Component{
 				id: '7',
 				user: true,
 				validator: (value) => {
-					console.log('값3',value);
+					console.log('값3',this.aRef);
+					msg='값3';
+
+					this.aRef.click();
 					return true;
 				  },
 				trigger: '8',
@@ -284,6 +293,9 @@ class Header extends Component{
 					
 				</ThemeProvider>
 				<MoveToTop/>
+				<div style={{height: '300px'}}></div>
+				<a href='mailto:kidscop99@naver.com' id='emailTo'>테스트</a>
+
 
 		</div>
 	}	
