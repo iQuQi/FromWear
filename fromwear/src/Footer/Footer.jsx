@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import './Footer.css'
-import logo from './image/logo.png';
+import logo from './image/closet-black.png';
 import { Stack } from '@mui/material';
 import { Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
@@ -19,7 +19,7 @@ class Footer extends Component{
         <div className="footer_div">
             <div className ="footer_wrap">            
                 <img className="footer_img" src={logo} alt="로고" />
-                <p className="fromwear_typ">FROMWEAR</p>
+                <p className="fromwear_typ">프롬웨어</p>
                 <Stack 
                 direction="row"  
                 spacing={3} 

@@ -12,7 +12,9 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css'
-import logo from './image/logo.png';
+import logo from './image/logo3.png';
+import closet from './image/closet.png';
+
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
@@ -171,13 +173,10 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
         <Toolbar>
         
-           <a href="/"><img src={logo} alt="logo" className ="logo_img"/></a>
-         
-           <Button
-            className="header_login"
-            style={{color:"black"}}
-            onClick={handle_login_click}
-          >로그인</Button>
+           <a href="/">
+            <img src={closet} alt="closet" className ="closet_img"/>
+             <img src={logo} alt="logo" className ="logo_img"/>
+             </a>
           
           <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
           borderRadius: 10,position:"relative",top:-10}}>
