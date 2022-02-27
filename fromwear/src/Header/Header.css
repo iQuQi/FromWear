@@ -65,7 +65,10 @@ html::-webkit-scrollbar {
     top: 0;
     min-width: 1082px;
     width: 100%;
+	height: 45px;
 	z-index: 10000;
+	background-color: white;
+	border-bottom: solid 1px lightgray;
 
 }
 
