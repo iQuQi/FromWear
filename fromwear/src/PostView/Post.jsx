@@ -18,6 +18,7 @@ import { API } from 'aws-amplify';
 import { getPost, getStyleTag, listPosts, listComments, listCommentLikeUsers, listPostLikeUrgentUsers, listUserBookmarkPosts } from '../graphql/queries';
 import { updatePost, deletePost, createUserBookmarkPost, deleteUserBookmarkPost, createPostLikeUrgentUser, deletePostLikeUrgentUser, deleteComment, deleteCommentLikeUser, deletePostStyleTag, createAlarm, updateStyleTag, deleteStyleTag } from '../graphql/mutations';
 import profile_skyblue from './Imgs/profile_skyblue.jpg';
+
 var AWS = require('aws-sdk'); 
 
 
@@ -51,6 +52,7 @@ class Post extends Component{
             deleted_bookmark:false,
             deleted_post:false,
             deleted_tag:false,
+            completely_deleted_tag:false,
             delete_img: false,
             deleted_styletag: false,
             icon_delete_once:false,
@@ -76,10 +78,10 @@ class Post extends Component{
             like_urgent_user_list: res.data.getPost.like_urgent_user_list.items,
             tag_list: res.data.getPost.tag_list.items,
             bookmark_user_list: res.data.getPost.bookmark_user_list.items,
-            create_post_time: res.data.getPost.createdAt.substring(0, 10),
         }))
         .then(res => this.set_like_urgent(this.state.like_urgent_user_list))
         .then(res => this.set_bookmark(this.state.bookmark_user_list))
+        .then(res => this.getCreateTime())
         .then(res => this.getTagList())
         
         .catch(e => console.log(e));
@@ -295,9 +297,11 @@ class Post extends Component{
         let date = today.getDate(); 
   
         //포스트 생성 날짜
-        let now_post_created_year = String(this.state.now_post.createdAt).substr(0,4);
-        let now_post_created_month = String(this.state.now_post.createdAt).substr(5,2);
-        let now_post_created_date = String(this.state.now_post.createdAt).substr(8,2);
+        let post_created_time = new Date(this.state.now_post.createdAt)
+
+        let now_post_created_year = post_created_time.getFullYear();
+        let now_post_created_month = post_created_time.getMonth() + 1;
+        let now_post_created_date = post_created_time.getDate();
           
         var datetime_same = false;
         if(year == now_post_created_year && month == now_post_created_month && date == now_post_created_date){
@@ -377,9 +381,8 @@ class Post extends Component{
         .then(res => {
             //이미지 s3 삭제
             Storage.remove(this.state.now_post.img)
-            .then(this.setState({delete_img: true,}))
-            .catch((e) => console.log("onChange error", e));
         })
+        .then(this.setState({delete_img: true,}))
         .then(res => {
                 
             if(this.state.like_urgent_num == 0){
@@ -454,7 +457,7 @@ class Post extends Component{
             //태그 삭제
             if(this.state.now_post.tag_list.items.length == 0){
                 console.log("tag list가 null")
-                this.setState({deleted_tag: true,})
+                this.setState({deleted_tag: true, completely_deleted_tag: true})
             }
             else {
                 this.state.now_post.tag_list.items.map((tag, index)=>{
@@ -472,18 +475,16 @@ class Post extends Component{
             }
         })
         .then(res => {
-            tag_id_list.forEach((delete_tag)=>{
-                // console.log("@@@:",delete_tag)
+            tag_id_list.forEach((delete_tag, index)=>{
+                console.log("####3index : ",index)
                 API.graphql({
                 query: getStyleTag,
                 variables: {id: delete_tag}
                 })
                 .then(res=>{
-                    // console.log("현재 post", this.state.now_post)
-                    // console.log("현재 delete_tag의 정보", res.data.getStyleTag)
-                    // console.log("post_list 길이", res.data.getStyleTag.post_list.items.length)
+                    console.log("#################3", res.data.getStyleTag.post_list.items.length)
                     if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_list.items.length == 0)){
-                        console.log("태그 삭제!!")
+                        console.log("태그 삭제!!", index)
                         API.graphql({
                         query: deleteStyleTag,
                         variables : {
@@ -492,6 +493,12 @@ class Post extends Component{
                             }
                         }
                         })
+                    }
+                })
+                .then(res=>{
+                    if(index == 2){
+                        console.log("tag 삭제 last");
+                        this.setState({completely_deleted_tag:true,});
                     }
                 })
                 .catch((e) => console.log("onChange error", e));
@@ -534,7 +541,16 @@ class Post extends Component{
         }
     }
 
-    getTagList =() => {
+    getCreateTime = () => {
+        let post_create_time = new Date(this.state.now_post.createdAt)
+
+        let create_time = String(post_create_time.getFullYear()) + '-' + String(post_create_time.getMonth() + 1) + '-' + String(post_create_time.getDate());
+        this.setState({
+            create_post_time: create_time
+        });
+    }
+    
+    getTagList = () => {
         let {same1, same2, same3, now_post,} = this.state;
         API.graphql({
             query: listPosts, variables: { filter: {board_type: {ne: 1}}} //이번주태그 페이지도 보여줘도되나?
@@ -577,6 +593,7 @@ class Post extends Component{
     render(){
 
         console.log("현재 게시글 정보", this.state.now_post)
+        
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
@@ -585,7 +602,7 @@ class Post extends Component{
             this.setClickNum(now_post.click_num);
         }
 
-        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.delete_img && this.state.deleted_styletag && this.state.deleted_tag && this.state.icon_delete_once){
+        if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.delete_img && this.state.deleted_styletag && this.state.deleted_tag && this.state.completely_deleted_tag && this.state.icon_delete_once){
 
             this.removePost();
             console.log("아이콘 다지워짐!!")

@@ -215,9 +215,11 @@ class PostModifyPage extends Component {
           let date = today.getDate(); 
   
           //포스트 생성 날짜
-          let now_post_created_year = String(this.state.now_post.createdAt).substr(0,4);
-          let now_post_created_month = String(this.state.now_post.createdAt).substr(5,2);
-          let now_post_created_date = String(this.state.now_post.createdAt).substr(8,2);
+          let post_created_time = new Date(this.state.now_post.createdAt)
+
+          let now_post_created_year = post_created_time.getFullYear();
+          let now_post_created_month = post_created_time.getMonth() + 1;
+          let now_post_created_date = post_created_time.getDate();
           
           var datetime_same = false;
           if(year == now_post_created_year && month == now_post_created_month && date == now_post_created_date){
