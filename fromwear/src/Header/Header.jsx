@@ -293,8 +293,7 @@ class Header extends Component{
 					
 				</ThemeProvider>
 				<MoveToTop/>
-				<div style={{height: '300px'}}></div>
-				<a href='mailto:kidscop99@naver.com' id='emailTo'>테스트</a>
+
 
 
 		</div>
