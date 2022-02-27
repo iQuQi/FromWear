@@ -204,9 +204,7 @@ class Header extends Component{
 				id: '5',
 				user: true,
 				validator: (value) => {
-					console.log('값1',this.aRef);
-					msg='값1';
-					this.aRef.click();
+				
 					return true;
 				  },
 				trigger: '8',
@@ -215,11 +213,7 @@ class Header extends Component{
 				id: '6',
 				user: true,
 				validator: (value) => {
-					console.log('값2',this.aRef);
-					msg='값2';
-
-					this.aRef.click();
-					
+				
 					return true;
 				  },
 				trigger: '8',
@@ -228,10 +222,7 @@ class Header extends Component{
 				id: '7',
 				user: true,
 				validator: (value) => {
-					console.log('값3',this.aRef);
-					msg='값3';
-
-					this.aRef.click();
+					
 					return true;
 				  },
 				trigger: '8',
