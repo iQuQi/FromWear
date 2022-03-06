@@ -287,6 +287,15 @@ class Post extends Component{
     }
 
 
+    checkRemovePost = () => {
+        if (window.confirm("게시글을 삭제하시겠습니까?")) {
+            console.log("삭제 실행")
+            this.removePostIcons();
+          } else {
+            console.log("삭제 취소");
+          }
+    }
+
     removePostIcons = () => { 
 
         let today = new Date();   
@@ -544,7 +553,16 @@ class Post extends Component{
     getCreateTime = () => {
         let post_create_time = new Date(this.state.now_post.createdAt)
 
-        let create_time = String(post_create_time.getFullYear()) + '-' + String(post_create_time.getMonth() + 1) + '-' + String(post_create_time.getDate());
+        var tmp_month = String(post_create_time.getMonth() + 1);
+        var tmp_date = String(post_create_time.getDate());
+        if(tmp_month.length === 1){
+            tmp_month = '0' + tmp_month;
+        }
+        if(tmp_date.length === 1){
+            tmp_date = '0' + tmp_date;
+        }
+
+        let create_time = String(post_create_time.getFullYear()) + '-' + tmp_month + '-' + tmp_date;
         this.setState({
             create_post_time: create_time
         });
@@ -655,7 +673,7 @@ class Post extends Component{
                                     {
                                         now_user.id == now_writer.id ?
                                         <div>
-                                            <button className="remove_post" onClick={this.removePostIcons}>
+                                            <button className="remove_post" onClick={this.checkRemovePost}>
                                                 삭제
                                             </button>
                                             <button className="modify_post" onClick={this.modifyPost}>
@@ -720,7 +738,6 @@ class Post extends Component{
                                     <Comments
                                     post_id = {post_id}
                                     board_type = {now_post.board_type}
-                                    post_id = {post_id}
                                     post_writer = {now_writer}
                                     now_user = {now_user}
                                     />
