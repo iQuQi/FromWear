@@ -3,6 +3,8 @@ import './MainPage.css';
 import BANNER from './img/Main.png'
 
 import Header from '../Header/Header'
+import FeedPage from '../FeedPage/FeedPage.jsx'
+import Footer from '../Footer/Footer.jsx';
 
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
@@ -16,7 +18,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { API } from 'aws-amplify';
 import { listPosts } from '.././graphql/queries';
 
-import Footer from '../Footer/Footer.jsx';
 import { fontWeight } from '@mui/system';
 import Box from '@mui/material/Box';
 
@@ -237,6 +238,7 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 			</div>
+			<FeedPage/>
 			<Footer/>
 		</div>
 	}
