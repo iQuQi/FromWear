@@ -256,7 +256,8 @@ class Header extends Component{
 		  console.log('step',steps);
 		 
 		return <div className="header_bar">		
-				<PrimarySearchAppBar 
+		<div style={{width:'1082px', margin:'auto'}}>	
+		<PrimarySearchAppBar 
 				handle_inputbase_on_change={this.props.handle_inputbase_on_change}
 				handle_select_day={this.props.handle_select_day}
 				handle_select_gender={this.props.handle_select_gender}
@@ -285,7 +286,8 @@ class Header extends Component{
 				</ThemeProvider>
 				<MoveToTop/>
 
-
+</div>
+			
 
 		</div>
 	}	
