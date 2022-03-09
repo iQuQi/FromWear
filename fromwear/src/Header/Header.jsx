@@ -25,7 +25,7 @@ const theme = {
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',
 };
-
+let msg='테스트';
 
 class Header extends Component{
 	constructor(){
@@ -35,7 +35,6 @@ class Header extends Component{
 			login_popup:false,
 			user :"noUser",
 			chatbot_open: false,
-			
 		}
 	}
 
@@ -164,6 +163,7 @@ class Header extends Component{
 		
 	}
 	
+	aRef = document.getElementById('emailTo');
 	
 	render(){
 	
@@ -204,7 +204,7 @@ class Header extends Component{
 				id: '5',
 				user: true,
 				validator: (value) => {
-					console.log('값1',value);
+				
 					return true;
 				  },
 				trigger: '8',
@@ -213,7 +213,7 @@ class Header extends Component{
 				id: '6',
 				user: true,
 				validator: (value) => {
-					console.log('값2',value);
+				
 					return true;
 				  },
 				trigger: '8',
@@ -222,7 +222,7 @@ class Header extends Component{
 				id: '7',
 				user: true,
 				validator: (value) => {
-					console.log('값3',value);
+					
 					return true;
 				  },
 				trigger: '8',
@@ -256,7 +256,8 @@ class Header extends Component{
 		  console.log('step',steps);
 		 
 		return <div className="header_bar">		
-				<PrimarySearchAppBar 
+		<div style={{width:'1082px', margin:'auto'}}>	
+		<PrimarySearchAppBar 
 				handle_inputbase_on_change={this.props.handle_inputbase_on_change}
 				handle_select_day={this.props.handle_select_day}
 				handle_select_gender={this.props.handle_select_gender}
@@ -284,6 +285,9 @@ class Header extends Component{
 					
 				</ThemeProvider>
 				<MoveToTop/>
+
+</div>
+			
 
 		</div>
 	}	

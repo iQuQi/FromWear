@@ -424,7 +424,9 @@ class ProfileEdit extends Component{
                                 <Input value={contents} 
                                   style={{margin:"10px 0",width:"100%"}}
                                   placeholder="태그를 입력해주세요"  
-                                  onClick={this.onClickTag}/>
+                                  onClick={this.onClickTag}
+                                  />
+                                
                             </div>
                             {
                                 tag_click ?
@@ -433,6 +435,11 @@ class ProfileEdit extends Component{
                                     target_button={tag_clicked_list}
                                     handle_tag_button_click={this.handle_tag_button_click}
                                     />
+                                    <Button
+                                    onClick={()=>this.setState({tag_click: false})}
+                                    sx={{color:'black',backgroundColor: 'white', marginBottom: '10px', width: '100%',
+                                    border: 'solid 1px black', borderRadius: '30px', position:'relative',top:'10px'}}
+                                    >닫기</Button>
                                 </div>
                                 :
                                 <div>

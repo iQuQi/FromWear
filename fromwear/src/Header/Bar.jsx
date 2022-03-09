@@ -12,7 +12,9 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import './Header.css'
-import logo from './image/logo.png';
+import logo from './image/logo3.png';
+import closet from './image/closet.png';
+
 import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
@@ -29,10 +31,9 @@ const Search = styled('div')(({ theme }) => ({
   marginRight: theme.spacing(2),
   marginLeft: 0,
   height: 35,
-  width: '100%',
+  width: '700px',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
   },
 }));
 
@@ -168,18 +169,14 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
 
   return (
     <div >
-      <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45,borderBottom:"1px solid gray"}} position="static">
+      <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45}} position="static">
         <Toolbar>
         
-           <a href="/"><img src={logo} alt="logo" className ="logo_img"/></a>
-         
-           <Button
-            className="header_login"
-            style={{color:"black"}}
-            onClick={handle_login_click}
-          >로그인</Button>
+           <a href="/">
+            <img src={closet} alt="closet" className ="closet_img"/><img src={logo} alt="logo" className ="logo_img"/>
+             </a>
           
-          <Search style={{ backgroundColor: "#f2f2f2" , width: "80%",minWidth:"1082px",
+          <Search style={{ backgroundColor: "#f2f2f2" , width: "730px",minWidth:"600px",
           borderRadius: 10,position:"relative",top:-10}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
@@ -187,7 +184,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
 
             <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
             <StyledInputBase
-              style={{ color: "black", fontSize: "14px",width: "70%",height:35}}
+              style={{ color: "black", fontSize: "14px",width: "50%",height:35, position:'relative', left: '-30px'}}
               placeholder={"#오늘의 #태그는 #"+rank_1}
               inputProps={{ 'aria-label': 'search' }}
               onChange={handle_inputbase_on_change}

@@ -81,8 +81,9 @@ class MainPage extends Component {
 		
 		return <div id = 'main_page'>
 			<Header handle_user_info={this.handle_user_info}/>
+			<div style={{width: '100%',backgroundColor: '#c0e0f6',}}>
 			<div className='main_banner'>	
-				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'780px'}}/>
+				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'650px',width:'1082px',position:'relative',top:'30px'}}/>
 
 				<div className = 'banner_title'>
 					<p style={{fontSize: '10vmin', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
@@ -95,6 +96,7 @@ class MainPage extends Component {
 				</div>
 				
 				
+			</div>
 			</div>
 
 			<div className='contents'>

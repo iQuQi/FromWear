@@ -382,6 +382,11 @@ class PostWritePage extends Component {
                     target_button={tag_clicked_list}
                     handle_tag_button_click={this.handle_tag_button_click}
                   />
+                  <Button
+                    onClick={()=>this.setState({tag_click: false})}
+                    sx={{color:'black',backgroundColor: 'white', marginBottom: '20px', width: '100%',
+                    border: 'solid 1px black', borderRadius: '30px', position:'relative',top:'30px'}}
+                    >닫기</Button>
                 </div>
               ) : (
                 <div></div>
