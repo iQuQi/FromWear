@@ -87,13 +87,13 @@ class MainPage extends Component {
 				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'650px',width:'1082px',position:'relative',top:'30px'}}/>
 
 				<div className = 'banner_title'>
-					<p style={{fontSize: '8vmin', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
-					<p style={{fontSize: '4vmin', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
+					<p style={{fontSize: '5em', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
+					<p style={{fontSize: '2em', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
 				</div>
 
 				<div className = 'banner_title' style={{top: '450px'}}>
-					<p style={{fontSize: '2vmin', margin: '10px 0px'}}>착장 공유부터 스타일 조언까지,</p>
-					<p style={{fontSize: '2vmin', margin: '10px 0px'}}>프롬웨어와 함께 당신의 하루를 시작해요.</p>
+					<p style={{fontSize: '1.3em', margin: '10px 0px'}}>착장 공유부터 스타일 조언까지,</p>
+					<p style={{fontSize: '1.3em', margin: '10px 0px'}}>프롬웨어와 함께 당신의 하루를 시작해요.</p>
 				</div>
 				
 				
