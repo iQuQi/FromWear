@@ -4,8 +4,6 @@ React+AWS 웹 풀스텍 개발 프로젝트
 
 
 ## 스크린샷
-![image](https://user-images.githubusercontent.com/67469315/157883701-66c64224-3ea0-4201-9853-1861a922a49f.png)
-
 
 
 ## Git 사용법 ⭐중요중요⭐
