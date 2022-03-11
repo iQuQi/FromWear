@@ -17,7 +17,7 @@ React+AWS 웹 풀스텍 개발 프로젝트
   <img src='https://user-images.githubusercontent.com/67469315/157889102-9912887d-b143-4be4-89d3-43f95ec9e46c.png' width='500' margin='auto'>
 </p>
 <p float='left' align='center'>
-  문의 / 알림<br/>
+  문의 챗봇 / 알림<br/>
   <img src='https://user-images.githubusercontent.com/67469315/157889387-6480821c-614f-4b38-9e4a-023b64446eb2.PNG' height='300' margin='auto'>
   <img src='https://user-images.githubusercontent.com/67469315/157889401-ffdfdc29-e5f1-4a26-a47d-9c43c95d5a9e.PNG' height='300' margin='auto'>
 </p>
