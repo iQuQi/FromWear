@@ -5,10 +5,13 @@ React+AWS 웹 풀스텍 개발 프로젝트
 
 ## 스크린샷
 <p float='left' align='center'>
+  메인 / 게시판<br/>
   <img src='https://user-images.githubusercontent.com/67469315/157887848-bccbb84e-31a8-41b5-8d81-6191b9212cf7.PNG' width='500' margin='auto'>
   <img src='https://user-images.githubusercontent.com/67469315/157888218-7ad0f4fb-7ee2-413e-a31b-fa316d33b90a.png' width='500' margin='auto'>
   <img src='https://user-images.githubusercontent.com/67469315/157888432-743b37c6-7dfd-4a95-82c8-b7a8ff398882.PNG' width='500' margin='auto'>
   <img src='https://user-images.githubusercontent.com/67469315/157888648-e51db232-3777-41fd-8b29-48bb9dc2649e.PNG' width='500' margin='auto'>
+  
+  글쓰기 / 게시물<br/>
   <img src='https://user-images.githubusercontent.com/67469315/157889051-9427db84-828e-4fb1-a573-8644fe17193d.png' width='500' margin='auto'>
   <img src='https://user-images.githubusercontent.com/67469315/157889102-9912887d-b143-4be4-89d3-43f95ec9e46c.png' width='500' margin='auto'>
   
