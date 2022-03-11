@@ -1,6 +1,12 @@
 # FromWear
 ## 옷으로 시작되는 하루
-소프트웨어 스튜디오2 React+AWS 웹 풀스텍 개발 프로젝트
+React+AWS 웹 풀스텍 개발 프로젝트
+
+
+## 스크린샷
+![image](https://user-images.githubusercontent.com/67469315/157883701-66c64224-3ea0-4201-9853-1861a922a49f.png)
+
+
 
 ## Git 사용법 ⭐중요중요⭐
 - git branch : 현재 브랜치 확인<br>
