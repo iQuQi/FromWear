@@ -240,7 +240,7 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 			</div>
-			<FeedPage/>
+			<FeedPage now_user={now_user}/>
 			<Footer/>
 		</div>
 	}

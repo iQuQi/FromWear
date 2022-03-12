@@ -21,6 +21,39 @@ export const getUser = /* GraphQL */ `
             id
             name
             profile_img
+            my_post_list {
+              items {
+                id
+                img
+                content
+                user_id
+                board_type
+                click_num
+                blind
+                createdAt
+                updatedAt
+                user {
+                  id
+                  name
+                  profile_img
+                  createdAt
+                  updatedAt
+                }
+                like_urgent_user_list {
+                  items {
+                    id
+                  }
+                  nextToken
+                }
+                comment_list {
+                  items {
+                    id
+                  }
+                  nextToken
+                }
+              }
+              nextToken
+            }
           }
           follower {
             id
@@ -736,6 +769,29 @@ export const getFollowingFollower = /* GraphQL */ `
           nextToken
         }
         my_post_list {
+          items {
+            id
+            img
+            content
+            user_id
+            board_type
+            click_num
+            blind
+            createdAt
+            updatedAt
+            like_urgent_user_list {
+              items {
+                id
+              }
+              nextToken
+            }
+            comment_list {
+              items {
+                id
+              }
+              nextToken
+            }
+          }
           nextToken
         }
         my_bookmark_post_list {

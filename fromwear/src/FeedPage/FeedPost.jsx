@@ -6,30 +6,53 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 
-export default function TitlebarImageList() {
-  return (
+
+// 현재 사용자의 -> following_list의 -> 유저의 게시물 중 
+//-> 도움이 필요해의 익명 글만 빼고 전부 가져오기 -> 근데 이제 followingfollower의 createdAt보다 나중꺼만
+
+export default function FeedPost({user}) {
+
+    let now_user = user; 
+    let postlist = [];
+    console.log(now_user.following_list);
+
+    if(now_user.following_list){
+        now_user.following_list.items.map((item) => (
+            item.following.my_post_list.items.map((post) => (
+                postlist = [...postlist, post]
+            ))
+        ));
+    }
+    
+    postlist.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)});
+
+    console.log(postlist);
+    return (
     <ImageList cols={1} sx={{ width: 390 }}>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.title}
-            subtitle={item.author}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
-              >
-                <InfoIcon />
-              </IconButton>
-            }
-          />
-        </ImageListItem>
+      {postlist.map((post) => (
+          
+            <ImageListItem key={post.img}>
+                {console.log(post)}
+            <img
+                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
+                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                alt={post.user.name}
+                loading="lazy"
+            />
+            <ImageListItemBar
+                title={post.user.name}
+                subtitle={post.user.name}
+                actionIcon={
+                <IconButton
+                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                    aria-label={`info about ${post.id}`}
+                >
+                    <InfoIcon />
+                </IconButton>
+                }
+            />
+            </ImageListItem>
+          
       ))}
     </ImageList>
   );

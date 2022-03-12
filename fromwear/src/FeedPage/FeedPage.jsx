@@ -22,12 +22,17 @@ import './FeedPage.css';
 import MainPage from '../MainPage/MainPage';
 import MyPage from '../MyPage/MyPage';
 import FeedPost from './FeedPost';
+import TitlebarImageList from './FeedPost';
+
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import InfoIcon from '@mui/icons-material/Info';
+
+import { Auth, API } from 'aws-amplify';
+import { getUser } from '../graphql/queries';
 
 const drawerWidth = 390;
 
@@ -116,9 +121,11 @@ const itemData = [
   },
 ];
 
-export default function PersistentDrawerRight() {
+export default function FeedPage({now_user}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  let user = now_user;
+  console.log(user);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -127,6 +134,7 @@ export default function PersistentDrawerRight() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -163,7 +171,7 @@ export default function PersistentDrawerRight() {
         </DrawerHeader>
         <Divider />
         
-        <FeedPost />
+        <FeedPost user={user}/>
   
 
 
