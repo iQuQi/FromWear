@@ -60,7 +60,6 @@ export default class MyPageComments extends Component{
             </ListItemAvatar>
             <ListItemText className='prewrap' sx={{marginLeft:'30px', marginTop:'30px'}}
               primary={`${item.post.user.name}님의 게시물`}
-              secondary={`\n`}
               secondary={
                 <React.Fragment>
                   {item.content}
