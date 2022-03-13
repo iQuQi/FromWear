@@ -72,6 +72,10 @@ html::-webkit-scrollbar {
 
 }
 
+.header_bar_tag_div_on{
+	box-shadow: none;
+}
+
 
 
 .logo_button:hover{
@@ -132,6 +136,7 @@ html::-webkit-scrollbar {
 	height: 120%;
 	position: fixed;
 	top: -50px;
+	margin:auto;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 9999999;
 	padding-top: 50px;

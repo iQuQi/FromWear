@@ -255,7 +255,8 @@ class Header extends Component{
 		  ];
 		  console.log('step',steps);
 		 
-		return <div className="header_bar">		
+		return <div className={`header_bar 
+		${window.location.pathname==("/search"||"/search#"||"/search/")?' header_bar_tag_div_on':''}`}>		
 		<div style={{width:'1082px', margin:'auto'}}>	
 		<PrimarySearchAppBar 
 				handle_inputbase_on_change={this.props.handle_inputbase_on_change}
@@ -266,8 +267,7 @@ class Header extends Component{
 				rank_1 ={rank_1}
 				user={user}
 				/>
-				{login_popup?<Login 
-				handle_login_complete={this.handle_login_complete}/>:<br/>}
+				
 				<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 
@@ -286,9 +286,10 @@ class Header extends Component{
 				</ThemeProvider>
 				<MoveToTop/>
 
-</div>
+			</div>
 			
-
+		{login_popup?<Login 
+		handle_login_complete={this.handle_login_complete}/>:<br/>}
 		</div>
 	}	
 }
