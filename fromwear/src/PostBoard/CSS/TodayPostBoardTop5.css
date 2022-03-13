@@ -149,6 +149,8 @@
 .today_wear .slick-center:hover .dimmed_info .profileName {
 	display: inline-block;
 	position: relative;
+	height: 30px;
+	line-height: 30px;
 		
 	/* left: -45px; */
 	left: -25px;
