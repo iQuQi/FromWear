@@ -64,7 +64,7 @@ export default function FeedPage({now_user}) {
   
 
   return (
-    <Box sx={{ display: 'flex',zIndex:-1 }}>
+    <Box sx={{ display: 'flex'}}>
         <Toolbar>
           <div className='feed_open'>
             <button className = 'btn_feed_open'
@@ -86,12 +86,11 @@ export default function FeedPage({now_user}) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
           },
-          '& .css-naohwv':{
-            margin:0,
-            height:'45px',
-            minHeight:'45px',
+          '.MuiDrawer-paperAnchorDockedRight > div':{
+            height:'52px',
+            borderTop:'solid 7px lightgray',
+            minHeight:'52px',
           },
-          zIndex:10000,
         }}
         variant="persistent"
         anchor="right"

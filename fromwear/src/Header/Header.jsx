@@ -291,8 +291,8 @@ class Header extends Component{
 					
 			</ThemeProvider>
 			<MoveToTop/>
-			{login_popup?<Login 
-			handle_login_complete={this.handle_login_complete}/>:<br/>}
+			{login_popup&&<Login 
+			handle_login_complete={this.handle_login_complete}/>}
 			</>
 	}	
 }

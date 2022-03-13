@@ -168,9 +168,9 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
  
 
   return (
-    <div style={{width:'1082px', margin:'auto',zIndex:1000000}}>
+    <div style={{width:'1082px', margin:'auto',height:'45px',}}>
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45}} position="static">
-        <Toolbar>
+        <Toolbar >
         
            <a href="/">
             <img src={closet} alt="closet" className ="closet_img"/><img src={logo} alt="logo" className ="logo_img"/>
