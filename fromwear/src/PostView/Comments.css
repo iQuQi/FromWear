@@ -49,6 +49,7 @@
 .now_comment_user {
     width: 30%;
     font-weight: bold;
+    line-height: 1.1;
     padding-bottom: 2px;
     padding-left: 4px;
     white-space: nowrap;
