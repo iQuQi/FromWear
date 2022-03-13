@@ -44,7 +44,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-start',
   marginTop: '40px',
-  zIndex: '20005',
+  zIndex: '200',
 }));
 
 
@@ -64,7 +64,7 @@ export default function FeedPage({now_user}) {
   
 
   return (
-    <Box sx={{ display: 'flex'}}>
+    <Box sx={{ display: 'flex' }}>
         <Toolbar>
           <div className='feed_open'>
             <button className = 'btn_feed_open'
