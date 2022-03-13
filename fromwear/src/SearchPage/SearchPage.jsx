@@ -409,7 +409,7 @@ class SearchPage extends Component{
 				
 				<div className="search_page_container">	
 				
-					<div className = "tag_div" >
+					<div className = {is_tag_more?'tag_div_on':"tag_div_off"} >
 						<Stack direction="row">
 							<Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", fontWeight: 300, color: "black"}}>
 								<CloseIcon onClick={this.handle_x_button_on_click}/>	
