@@ -109,6 +109,7 @@ class SingleComment extends Component {
                                     comment_list={comment_list}
                                     now_user={now_user}/>
                                     <p className="comment_content">{comment_list.content}</p>
+                                    
                                 </div>
                         </div>
                     }
