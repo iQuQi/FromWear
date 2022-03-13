@@ -919,10 +919,11 @@ class PostModifyPage extends Component {
 
         let profile_preview = null;
         if(this.state.file !== ''){
-          profile_preview = <img alt="preivew_img" className='upload_img' src={this.state.previewURL}></img>
+          profile_preview = <div className='upload_img' style={{backgroundImage:`url(${this.state.previewURL})`}}></div>
         }
         else {
-            profile_preview = <img alt="preivew_img" className='upload_img' src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img}></img>;
+            profile_preview = <div className='upload_img' 
+            style={{backgroundImage:'url(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img+')'}}></div>;
         }
  
 

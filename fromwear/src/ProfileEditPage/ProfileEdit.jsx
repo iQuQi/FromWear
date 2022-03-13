@@ -379,7 +379,7 @@ class ProfileEdit extends Component{
         }
         else{
           profile_preview = <img className='profile_upload_img' 
-          style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover"}}
+          style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover", backgroundPosition:'center'}}
           ></img>
         }
    
