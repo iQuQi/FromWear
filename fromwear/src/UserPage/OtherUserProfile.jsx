@@ -125,6 +125,7 @@ export default class Profile extends Component {
       if(this.state.now_user.following_list){
         this.state.now_user.following_list.items.map((data) => {
           if(data.following_id==this.state.user.id){
+            console.log("맞아2");
             this.setState({
               follow_click: true,
             })

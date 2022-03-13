@@ -1,6 +1,41 @@
 # FromWear
 ## 옷으로 시작되는 하루
-소프트웨어 스튜디오2 React+AWS 웹 풀스텍 개발 프로젝트
+React+AWS 웹 풀스텍 개발 프로젝트
+
+
+## 스크린샷
+<p float='left' align='center'>
+  메인 / 게시판<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/157887848-bccbb84e-31a8-41b5-8d81-6191b9212cf7.PNG' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157888218-7ad0f4fb-7ee2-413e-a31b-fa316d33b90a.png' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157888432-743b37c6-7dfd-4a95-82c8-b7a8ff398882.PNG' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157888648-e51db232-3777-41fd-8b29-48bb9dc2649e.PNG' width='500' margin='auto'>
+</p>
+<p float='left' align='center'>
+  글쓰기 / 게시물<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/157889051-9427db84-828e-4fb1-a573-8644fe17193d.png' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157889102-9912887d-b143-4be4-89d3-43f95ec9e46c.png' width='500' margin='auto'>
+</p>
+<p float='left' align='center'>
+  문의 챗봇 / 알림<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/157889387-6480821c-614f-4b38-9e4a-023b64446eb2.PNG' height='300' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157889401-ffdfdc29-e5f1-4a26-a47d-9c43c95d5a9e.PNG' height='300' margin='auto'>
+</p>
+<p float='left' align='center'>
+  검색<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/157885815-6958ac39-fea7-474e-aa8a-b203d9f298ce.png' width='500' margin='auto'>
+</p>
+<p float='left' align='center'>
+  마이페이지<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/157889301-f5fbf07d-20cf-44f9-9b37-aee9e6c96197.PNG' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157889334-250dd3de-7e7a-4baf-99f4-555e828fb1f7.PNG' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157885073-7d536a8c-9762-49a4-905b-b61cdb0f43ae.png' width='500' margin='auto'>
+</p>
+<p float='left' align='center'>
+  유저페이지<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/157885484-7afe71dd-eb10-4b78-a6fb-747a620ad2e3.png' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/157885343-353cedc7-0738-41d2-8d30-29d46f6bbe55.png' width='500' margin='auto'>
+</p>
 
 ## Git 사용법 ⭐중요중요⭐
 - git branch : 현재 브랜치 확인<br>
