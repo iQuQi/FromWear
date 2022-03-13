@@ -12,6 +12,7 @@ import {createUser,createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
+import FeedPage from '../FeedPage/FeedPage.jsx'
 
 // all available props
 const theme = {
@@ -267,7 +268,7 @@ class Header extends Component{
 				rank_1 ={rank_1}
 				user={user}
 				/>
-				
+				<FeedPage now_user={user}/>
 				<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 

@@ -1,9 +1,10 @@
 .feed_open{
     position: fixed;
-    top: 80px;
+    top: 130px;
     right: -5px;
     width: 105px;
     height: 40px;
+    border: solid 1px lightgray;
 }
 .btn_feed_open{
     background-color: white;
