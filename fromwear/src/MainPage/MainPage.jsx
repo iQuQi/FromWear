@@ -126,8 +126,8 @@ class MainPage extends Component {
 												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
 												style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
 											</a>
-											<a href = {link} className='user_name'>
-												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											<a href = {link}>
+												<p className='user_name' style={{margin: '9px 0px'}}>{item.user.name}</p>
 											</a>
 										</div>
 									</div>
@@ -176,10 +176,10 @@ class MainPage extends Component {
 											}
 											
 											{
-												item.blind? <p style={{margin: '16px 0px'}}>익명</p>
+												item.blind? <p className='user_name' style={{margin: '8px 0px'}}>익명</p>
 												: 
-												<a href = {link}  className='user_name'>
-													<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												<a href = {link} >
+													<p className='user_name' style={{margin: '8px 0px'}}>{item.user.name}</p>
 												</a>
 											}
 										</div>
@@ -222,8 +222,8 @@ class MainPage extends Component {
 												<img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
 												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 											</a>
-											<a href = {link} className='user_name'>
-												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+											<a href = {link}>
+												<p className='user_name' style={{margin: '8px 0px'}}>{item.user.name}</p>
 											</a>
 										</div>
 									</div>

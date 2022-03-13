@@ -6,8 +6,13 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Stack from '@mui/material/Stack';
+
+import './FeedPost.css';
 
 // 현재 사용자의 -> following_list의 -> 유저의 게시물 중 
 //-> 도움이 필요해의 익명 글만 빼고 전부 가져오기 -> 근데 이제 followingfollower의 createdAt보다 나중꺼만
@@ -18,6 +23,9 @@ let link_change = (item, now_user) => {
     item.user.id == now_user.id ?
     link = '/mypage':
     link = '/userpage/'+item.user.id
+}
+let link_post = (item) => {
+    link = '/post/' + item.id
 }
 
 export default function FeedPost({user}) {
@@ -41,10 +49,10 @@ export default function FeedPost({user}) {
     <ImageList cols={1} sx={{ width: 390 }}>
       {postlist.map((post) => (
           
-            <ImageListItem key={post.img}>
+            <ImageListItem key={post.img} >
                 {console.log(post)}
             <img
-                height = '390px'
+                style={{height:'600px'}}
                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
                 srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={post.user.name}
@@ -58,32 +66,31 @@ export default function FeedPost({user}) {
                     <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+post.user.profile_img} 
                     style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
                   </a>
-                  <a href = {link} className='user_name'>
-                    <p style={{margin: '16px 0px'}}>{post.user.name}</p>
+                  <a href = {link}>
+                    <p className='user_name' style={{margin: '10px 5px 7px 0px', fontSize: '1rem'}}>{post.user.name}</p>
                   </a>
                 </div>
               </div>
               <div>
                 <div className='innerdiv_margin'>
-                  <p style={{margin: '16px 0px'}}>{post.like_urgent_user_list.items.length}</p>
-                  <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                  <BookmarkBorderIcon style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                  <FavoriteBorderIcon style={{margin: '7px 2px 7px 3px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                  <p style={{margin: '19px 5px 7px 0px', fontSize: '1.1rem'}}>
+                    {post.like_urgent_user_list.items.length>1000?
+                      post.like_urgent_user_list.items.length/1000 + '.k'
+                      : post.like_urgent_user_list.items.length}</p>
                 </div>
               </div>
             </Stack>
+            <div>
+              {link_post(post)}
+              <a href = {link}>
+                <p className='post_ellipsis'>{post.content}</p>
+              </a>
+            </div>
          
 
-            <ImageListItemBar
-                title={post.user.name}
-                subtitle={post.user.name}
-                actionIcon={
-                <IconButton
-                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                    aria-label={`info about ${post.id}`}
-                >
-                    <InfoIcon />
-                </IconButton>
-                }
-            />
+            
             </ImageListItem>
           
       ))}

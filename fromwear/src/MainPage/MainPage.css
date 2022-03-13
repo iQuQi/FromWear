@@ -82,9 +82,10 @@
 }
 .user_name{
     display: block;
-    width: 105px; 
+    width: 120px; 
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis; 
     text-align: left;
+    line-height: normal;
 }
