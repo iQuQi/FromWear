@@ -86,6 +86,12 @@ export default function FeedPage({now_user}) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
           },
+          '& .css-naohwv':{
+            margin:0,
+            height:'45px',
+            minHeight:'45px',
+          },
+          margin:0,
         }}
         variant="persistent"
         anchor="right"
