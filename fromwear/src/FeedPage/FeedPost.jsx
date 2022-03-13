@@ -64,7 +64,7 @@ export default function FeedPost({user}) {
                 <div className='innerdiv'>
                   <a href = {link}>
                     <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+post.user.profile_img} 
-                    style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
+                    style={{borderRadius:"50%",margin: '7px 5px 7px 5px', width:'20px', height:'20px'}}/>
                   </a>
                   <a href = {link}>
                     <p className='user_name' style={{margin: '10px 5px 7px 0px', fontSize: '1rem'}}>{post.user.name}</p>
