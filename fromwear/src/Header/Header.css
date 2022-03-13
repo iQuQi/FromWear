@@ -103,6 +103,7 @@ html::-webkit-scrollbar {
 
 .move_to_top{
 	position: fixed;
+	z-index: 1000;
 	bottom: 100px;
 	right: 40px;
 	width: 40px;
@@ -117,6 +118,7 @@ html::-webkit-scrollbar {
 	background-color: lightgray;
 	border: 0px;
 	font-size: 13px;
+	z-index: 1000;
 }
 
 .top_button:hover{
