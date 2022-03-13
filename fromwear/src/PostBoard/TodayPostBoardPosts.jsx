@@ -506,14 +506,14 @@ export default class TodayPostBoardPosts extends Component {
                         loading="lazy"
                       />
                       <a href={"/post/" + post.id}>
-                        <span className="dimmed_layer"> </span>
+                        <span className="dimmed_layer" > </span>
                       </a>
                       <Stack direction="row" spacing={0}>
                       {link_change(post, user)}
 
                         <div className="user_profile">
                           {board_type == 1 && post.blind == true ? (
-                            <div>
+                            <span className='ellips' style={{width:'150px',height: '40px',textAlign:'left' }}>
                               <img
                                 src={defaultImg}
                                 alt="기본프로필이미지"
@@ -524,28 +524,26 @@ export default class TodayPostBoardPosts extends Component {
                                   borderRadius: "50%",
                                 }}
                               />
-                              <p style={{ margin: "16px 0px" }}>익명</p>
-                            </div>
+                              <span style={{position:'relative',bottom:'13px'}}>익명</span>
+                            </span>
                           ) : (
-                            <div>
-                              <a href = {link}>
+                            <span className='ellips' style={{width:'150px',height: '40px',textAlign:'left' }}  >
+                              <a href = {link} style={{width:'100px'}}>
                               <img
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`}
                                 alt="프로필이미지"
                                 style={{
-                                  margin: "7px 3px 7px 5px",
+                                  margin: "0 3px 0 5px",
                                   width: "20px",
                                   height: "20px",
                                   borderRadius: "50%",
+                                  position:'relative',
+                                  top:'5px',
                                 }}
                               />
+                               {post.user.name}
                               </a>
-                              <a href = {link}>
-                              <p style={{ margin: "16px 0px" }}>
-                                {post.user.name}
-                              </p>
-                              </a>
-                            </div>
+                            </span>
                           )}
                         </div>
                         {(post_state == 1 || post_state == 4) && (

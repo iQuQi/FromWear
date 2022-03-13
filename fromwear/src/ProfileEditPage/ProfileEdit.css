@@ -20,6 +20,8 @@
     position: absolute;
     left : 40px;
     top: 35px;
+    background-size:cover;
+    background-position:center;
   }
 
 .profile_upload_button{
