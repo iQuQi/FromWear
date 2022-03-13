@@ -88,6 +88,11 @@ export default function FeedPost({user}) {
                 <p className='post_ellipsis'>{post.content}</p>
               </a>
             </div>
+            <div>
+                <p className='post_date' style={{textAlign: 'right', margin: '0px 10px 10px 10px', fontSize: '0.6rem', lineHeight:'normal'}}>
+                  {String(post.createdAt).substring(0,10)}
+                </p>
+            </div>
          
 
             
