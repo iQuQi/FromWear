@@ -64,7 +64,7 @@ export default function FeedPage({now_user}) {
   
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex',zIndex:-1 }}>
         <Toolbar>
           <div className='feed_open'>
             <button className = 'btn_feed_open'
@@ -91,11 +91,12 @@ export default function FeedPage({now_user}) {
             height:'45px',
             minHeight:'45px',
           },
-          margin:0,
+          zIndex:10000,
         }}
         variant="persistent"
         anchor="right"
         open={open}
+      
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>

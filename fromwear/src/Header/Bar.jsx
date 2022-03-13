@@ -168,7 +168,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
  
 
   return (
-    <div >
+    <div style={{width:'1082px', margin:'auto',zIndex:1000000}}>
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45}} position="static">
         <Toolbar>
         
