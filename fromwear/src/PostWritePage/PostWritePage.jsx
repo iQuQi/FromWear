@@ -296,7 +296,7 @@ class PostWritePage extends Component {
 
         let profile_preview = null;
         if(this.state.file !== ''){
-          profile_preview = <img alt="preivew_img" className='upload_img' src={this.state.previewURL}></img>
+          profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+this.state.previewURL+')'}}></div>
         }
  
 

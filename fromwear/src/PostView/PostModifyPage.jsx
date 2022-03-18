@@ -54,6 +54,7 @@ class PostModifyPage extends Component {
     componentDidMount(){        
         this.setState({
             contents: this.state.now_post.content,
+            blind: this.state.now_post.blind,
             before_img: 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img,
         })
         this.set_tag_list();
@@ -195,9 +196,6 @@ class PostModifyPage extends Component {
           }
         })
 
-
-
-
         if(this.state.before_img=='' && this.state.file == ''){
             alert("사진을 등록해야 합니다.");
         }
@@ -295,7 +293,6 @@ class PostModifyPage extends Component {
                         // 새로운 tag들 num을 +1
                         // post와 tag들 연결
 
-                        let current_post_id = this.state.now_post.id;
                         [...dup_rmv_tags].forEach((tag, index) => {
                             let current_tag_id;
                             API.graphql({
@@ -459,7 +456,6 @@ class PostModifyPage extends Component {
                         // 새로운 tag들 num을 +1
                         // post와 tag들 연결
 
-                        let current_post_id = this.state.now_post.id;
                         [...dup_rmv_tags].forEach((tag, index) => {
                           let current_tag_id;
                           API.graphql({
@@ -625,7 +621,6 @@ class PostModifyPage extends Component {
                         // 새로운 tag들 num을 +1
                         // post와 tag들 연결
 
-                        let current_post_id = this.state.now_post.id;
                         [...dup_rmv_tags].forEach((tag, index) => {
                           let current_tag_id;
                           API.graphql({
@@ -798,7 +793,6 @@ class PostModifyPage extends Component {
                         // 새로운 tag들 num을 +1
                         // post와 tag들 연결
 
-                        let current_post_id = this.state.now_post.id;
                         [...dup_rmv_tags].forEach((tag, index) => {
                           let current_tag_id;
                           API.graphql({
@@ -921,10 +915,10 @@ class PostModifyPage extends Component {
 
         let profile_preview = null;
         if(this.state.file !== ''){
-          profile_preview = <img alt="preivew_img" className='upload_img' src={this.state.previewURL}></img>
+          profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+this.state.previewURL+')'}}></div>
         }
         else {
-            profile_preview = <img alt="preivew_img" className='upload_img' src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img}></img>;
+            profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img+')'}}></div>;
         }
  
 

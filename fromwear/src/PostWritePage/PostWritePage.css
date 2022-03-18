@@ -36,10 +36,14 @@
   .image_file_input{
       position: relative;
       text-align: center;
-      line-height: 400px;
+      line-height: 452.1px;
       width: 293.5px;
-      height: 450px;
+      height: 452.1px;
+      /* line-height: 480px;
+      width: 311.6px;
+      height: 480px; */
       background-color: lightgray;
+      background-position: center center;
       border: 1px solid white;
       border-radius: 30px;
 
@@ -84,11 +88,14 @@
 
   .upload_img {
     width: 293.5px;
-    height: 450px;
+    height: 452.1px;
+    /* width: 311.6px;
+    height: 480px; */
     border-radius: 30px;
-    box-sizing: border-box;
+    background-size: cover;
+    background-position: center center;
+    /* box-sizing: border-box; */
     border: 1px solid gray;
-
   }
 
   .delete_img {
