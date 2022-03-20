@@ -213,6 +213,7 @@ class PostWritePage extends Component {
                         })
                           .then((res) => {
                             current_tag_id = res.data.createStyleTag.id;
+                            console.log("current_tag_id:",current_tag_id)
                             API.graphql({
                                 query: createPostStyleTag,
                                 variables: {
@@ -222,6 +223,7 @@ class PostWritePage extends Component {
                                 },
                                 },
                             })
+                            .then(res => console.log(res))
                             // .then((res) => {
                             //     API.graphql({
                             //         query: updateStyleTag,
@@ -260,7 +262,9 @@ class PostWritePage extends Component {
                                     res.data.createPostStyleTag.style_tag.num + 1,
                                 },
                                 },
-                            }).catch((e) => console.log(e));
+                            })
+                            .then(res => console.log(res))
+                            .catch((e) => console.log(e));
                             })
                             .then((res) => this.setState({ create_tag: true }))
                             .catch((e) => console.log(e));

@@ -191,7 +191,7 @@ class PostModifyPage extends Component {
             //console.log("기존과 바뀐 태그 모두 있는 것 (변동 X)")
           }
           else {
-            //console.log("삭제되는 태그 (변동O)")
+            //console.log("삭제 태될 수도 있는 태그 (변동O)")
             return tag;
           }
         })
@@ -306,7 +306,7 @@ class PostModifyPage extends Component {
                                         query: createStyleTag,
                                         variables: {
                                             input: { 
-                                              num: 0,
+                                              num: 1,
                                               value: tag,
                                               is_static: false,
                                               is_weekly: false,
@@ -325,18 +325,18 @@ class PostModifyPage extends Component {
                                                 },
                                             },
                                         })
-                                        .then((res) => {
-                                            API.graphql({
-                                                query: updateStyleTag,
-                                                variables: {
-                                                input: {
-                                                    id: current_tag_id,
-                                                    num:
-                                                    res.data.updatePostStyleTag.style_tag.num + 1,
-                                                },
-                                                },
-                                            }).catch((e) => console.log(e));
-                                        })
+                                        // .then((res) => {
+                                        //     API.graphql({
+                                        //         query: updateStyleTag,
+                                        //         variables: {
+                                        //         input: {
+                                        //             id: current_tag_id,
+                                        //             num:
+                                        //             res.data.updatePostStyleTag.style_tag.num + 1,
+                                        //         },
+                                        //         },
+                                        //     }).catch((e) => console.log(e));
+                                        // })
                                         .then((res) => this.setState({ create_tag: true }))
                                         .catch((e) => console.log(e));
                                     })
@@ -469,7 +469,7 @@ class PostModifyPage extends Component {
                                   query: createStyleTag,
                                   variables: {
                                     input: { 
-                                      num: 0,
+                                      num: 1,
                                       value: tag,
                                       is_static: false,
                                       is_weekly: false,
@@ -489,19 +489,19 @@ class PostModifyPage extends Component {
                                         },
                                       },
                                     })
-                                      .then((res) => {
-                                        API.graphql({
-                                          query: updateStyleTag,
-                                          variables: {
-                                            input: {
-                                              id: current_tag_id,
-                                              num:
-                                                res.data.updatePostStyleTag
-                                                  .style_tag.num + 1,
-                                            },
-                                          },
-                                        }).catch((e) => console.log(e));
-                                      })
+                                      // .then((res) => {
+                                      //   API.graphql({
+                                      //     query: updateStyleTag,
+                                      //     variables: {
+                                      //       input: {
+                                      //         id: current_tag_id,
+                                      //         num:
+                                      //           res.data.updatePostStyleTag
+                                      //             .style_tag.num + 1,
+                                      //       },
+                                      //     },
+                                      //   }).catch((e) => console.log(e));
+                                      // })
                                       .then((res) =>
                                         this.setState({ create_tag: true })
                                       )
@@ -634,7 +634,7 @@ class PostModifyPage extends Component {
                                   query: createStyleTag,
                                   variables: {
                                     input: { 
-                                      num: 0,
+                                      num: 1,
                                       value: tag,
                                       is_static: false,
                                       is_weekly: false,
@@ -654,19 +654,19 @@ class PostModifyPage extends Component {
                                         },
                                       },
                                     })
-                                      .then((res) => {
-                                        API.graphql({
-                                          query: updateStyleTag,
-                                          variables: {
-                                            input: {
-                                              id: current_tag_id,
-                                              num:
-                                                res.data.updatePostStyleTag
-                                                  .style_tag.num + 1,
-                                            },
-                                          },
-                                        }).catch((e) => console.log(e));
-                                      })
+                                      // .then((res) => {
+                                      //   API.graphql({
+                                      //     query: updateStyleTag,
+                                      //     variables: {
+                                      //       input: {
+                                      //         id: current_tag_id,
+                                      //         num:
+                                      //           res.data.updatePostStyleTag
+                                      //             .style_tag.num + 1,
+                                      //       },
+                                      //     },
+                                      //   }).catch((e) => console.log(e));
+                                      // })
                                       .then((res) =>
                                         this.setState({ create_tag: true })
                                       )
@@ -806,7 +806,7 @@ class PostModifyPage extends Component {
                                   query: createStyleTag,
                                   variables: {
                                     input: { 
-                                      num: 0,
+                                      num: 1,
                                       value: tag,
                                       is_static: false,
                                       is_weekly: false,
@@ -826,19 +826,19 @@ class PostModifyPage extends Component {
                                         },
                                       },
                                     })
-                                      .then((res) => {
-                                        API.graphql({
-                                          query: updateStyleTag,
-                                          variables: {
-                                            input: {
-                                              id: current_tag_id,
-                                              num:
-                                                res.data.updatePostStyleTag
-                                                  .style_tag.num + 1,
-                                            },
-                                          },
-                                        }).catch((e) => console.log(e));
-                                      })
+                                      // .then((res) => {
+                                      //   API.graphql({
+                                      //     query: updateStyleTag,
+                                      //     variables: {
+                                      //       input: {
+                                      //         id: current_tag_id,
+                                      //         num:
+                                      //           res.data.updatePostStyleTag
+                                      //             .style_tag.num + 1,
+                                      //       },
+                                      //     },
+                                      //   }).catch((e) => console.log(e));
+                                      // })
                                       .then((res) =>
                                         this.setState({ create_tag: true })
                                       )
