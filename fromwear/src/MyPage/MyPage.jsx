@@ -12,7 +12,7 @@ import MyPostBoard from './MyPostBoard';
 import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 
 import Footer from '../Footer/Footer.jsx';
-
+import FeedPage from '../FeedPage/FeedPage.jsx';
 
 class MyPage extends Component {
     constructor(props) {
@@ -73,6 +73,10 @@ class MyPage extends Component {
 					<MyPageButtonGroup user={now_user}/>
 				</div>		
             </div>
+
+			<FeedPage 
+				now_user={now_user} 						
+			/>
 
 			<Footer/>
 			
