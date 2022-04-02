@@ -302,11 +302,16 @@ class PostModifyPage extends Component {
                             .then((res) => {
                                 if (res.data.listStyleTags.items.length === 0) {
                                     //없었던 태그
+                                    let create_num = 0;
+                                    if(datetime_same){
+                                      console.log("날짜가 같으므로 생성 num = 1")
+                                      create_num = 1;
+                                    }
                                     API.graphql({
                                         query: createStyleTag,
                                         variables: {
                                             input: { 
-                                              num: 1,
+                                              num: create_num,
                                               value: tag,
                                               is_static: false,
                                               is_weekly: false,
@@ -465,11 +470,16 @@ class PostModifyPage extends Component {
                             .then((res) => {
                               if (res.data.listStyleTags.items.length === 0) {
                                 //없었던 태그
+                                let create_num = 0;
+                                if(datetime_same){
+                                  console.log("날짜가 같으므로 생성 num = 1")
+                                  create_num = 1;
+                                }
                                 API.graphql({
                                   query: createStyleTag,
                                   variables: {
                                     input: { 
-                                      num: 1,
+                                      num: create_num,
                                       value: tag,
                                       is_static: false,
                                       is_weekly: false,
@@ -630,11 +640,16 @@ class PostModifyPage extends Component {
                             .then((res) => {
                               if (res.data.listStyleTags.items.length === 0) {
                                 //없었던 태그
+                                let create_num = 0;
+                                if(datetime_same){
+                                  console.log("날짜가 같으므로 생성 num = 1")
+                                  create_num = 1;
+                                }
                                 API.graphql({
                                   query: createStyleTag,
                                   variables: {
                                     input: { 
-                                      num: 1,
+                                      num: create_num,
                                       value: tag,
                                       is_static: false,
                                       is_weekly: false,
@@ -802,11 +817,16 @@ class PostModifyPage extends Component {
                             .then((res) => {
                               if (res.data.listStyleTags.items.length === 0) {
                                 //없었던 태그
+                                let create_num = 0;
+                                if(datetime_same){
+                                  console.log("날짜가 같으므로 생성 num = 1")
+                                  create_num = 1;
+                                }
                                 API.graphql({
                                   query: createStyleTag,
                                   variables: {
                                     input: { 
-                                      num: 1,
+                                      num: create_num,
                                       value: tag,
                                       is_static: false,
                                       is_weekly: false,
