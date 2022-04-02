@@ -87,6 +87,7 @@
   }
 
   .upload_img {
+    display: inline-block;
     width: 293.5px;
     height: 452.1px;
     /* width: 311.6px;

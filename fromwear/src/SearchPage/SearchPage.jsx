@@ -54,6 +54,7 @@ class SearchPage extends Component{
 			current_next_post_page: 1,
 			current_input_tag: [],
 			current_click_tag_num: 0,
+			tag_div_on_to_off: false,
 
 		};
 	}
@@ -133,12 +134,14 @@ class SearchPage extends Component{
 	handle_tag_more_button=e=>{
 		if(this.state.is_tag_more){
 		this.setState({
-			is_tag_more:false
+			is_tag_more:false,
+			tag_div_on_to_off: true
 		})
 		}
 		else{
 			this.setState({
-				is_tag_more:true
+				is_tag_more:true,
+				tag_div_on_to_off: true
 			})
 		}
 	}
@@ -394,7 +397,7 @@ class SearchPage extends Component{
 	  }
 
 	render(){
-		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,
+		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,tag_div_on_to_off,
 		current_next_post_page} = this.state;
 
 		return(
@@ -409,12 +412,14 @@ class SearchPage extends Component{
 				
 				<div className="search_page_container">	
 				
-					<div className = "tag_div" >
+					<div className = {is_tag_more?'tag_div_on': tag_div_on_to_off?'tag_div_on_to_off':"tag_div_off"} >
 						<Stack direction="row">
+							
 							<Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", fontWeight: 300, color: "black"}}>
-								<CloseIcon onClick={this.handle_x_button_on_click}/>	
-							</Button>
-							<div className={is_tag_more?"tag_more_list_on":"tag_more_list_off"}>
+							{is_tag_more&&<CloseIcon onClick={this.handle_x_button_on_click}/>}	
+							</Button> 
+							
+							<div className={"tag_more_list"}>
 								<TagList
 								target_button={target_tag_button}
 								handle_tag_button_click={this.handle_tag_button_click}

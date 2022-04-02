@@ -250,8 +250,7 @@ export default class TodayPostBoardPosts extends Component {
                                     </span>
                                 
                                 </span>
-                            </a>
-                            {console.log(post)}				
+                            </a>			
                         </ImageListItem>
                         : console.log(index + "pass")
                     ))}
@@ -259,6 +258,11 @@ export default class TodayPostBoardPosts extends Component {
                 :<p></p>
                 : <p></p>
                 }
+
+                {post_list.length>0? console.log("포스트 이써") 
+                : <p style={{margin:'150px 0px', textAlign:'center'}}>게시물이 없습니다.</p>
+                }
+
             </div>
         </div>)
     }

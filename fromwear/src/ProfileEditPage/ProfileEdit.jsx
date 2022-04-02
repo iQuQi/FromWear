@@ -151,24 +151,17 @@ class ProfileEdit extends Component{
 
     handleSubmit=(e)=> {
         e.preventDefault();
-        console.log("현재 유저 :",this.state.user);
-        console.log("현재 introduce :",this.state.content_introduce);
         if(this.state.total_tag_num != 3) {
             alert("태그는 3개를 등록해야 합니다.");
         }
         else if(this.state.basicImg) { //basicImg가 True (기본 이미지로 변경 버튼 클릭 O)
-            console.log("file: ", this.state.file)
-            console.log("file_key: ", this.state.file_key)
-            console.log("basicImg: ",this.state.basicImg)
+
             var before_user_img_delete = this.state.user.profile_img
-            console.log("삭제할 경로 : ", before_user_img_delete)
 
             if(before_user_img_delete == 'profile_skyblue.jpg'){
-                console.log("기본 이미지는 s3 삭제 X")
                 before_user_img_delete = '';
             }
             else {
-                console.log("기존 이미지 삭제함")
                 Storage.remove(before_user_img_delete)
             }
 
@@ -351,10 +344,9 @@ class ProfileEdit extends Component{
     }
 
     handleChangetoDefault=()=>{
-        // this.setState({file_key: "profile_skyblue.jpg", file: "default"})
         this.setState({
             file: '',
-            file_key: '',
+            file_key: 'profile_skyblue.jpg',
             basicImg: true})
     }
 
@@ -379,7 +371,7 @@ class ProfileEdit extends Component{
         }
         else{
           profile_preview = <img className='profile_upload_img' 
-          style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover"}}
+          style={{backgroundImage:"url("+this.state.previewURL+")",backgroundSize:"cover", backgroundPosition:'center'}}
           ></img>
         }
    

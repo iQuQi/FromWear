@@ -168,9 +168,9 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
  
 
   return (
-    <div >
+    <div style={{width:'1082px', margin:'auto',height:'45px',}}>
       <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45}} position="static">
-        <Toolbar>
+        <Toolbar >
         
            <a href="/">
             <img src={closet} alt="closet" className ="closet_img"/><img src={logo} alt="logo" className ="logo_img"/>
@@ -230,10 +230,10 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             >
               <span className="bar_user_name ellips" >{user.name}</span>
               <span className="bar_user_name">님</span>
-              <img 
-									style={{backgroundImage:"url(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+user.profile_img+")"
-                  ,width:"30px",height:"30px",borderRadius:"50%", backgroundSize:"cover",
-                  position: "relative", marginRight:"5px"}}/>
+              <div 
+									style={{backgroundImage:"URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+user.profile_img+")"
+                  ,width:"30px",height:"30px",backgroundSize:"cover",backgroundPosition: 'center', display:'inline-block',borderRadius:'50%',
+                  marginRight:"5px"}}/>
 
             </IconButton>)
             

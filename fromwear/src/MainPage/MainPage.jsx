@@ -3,6 +3,8 @@ import './MainPage.css';
 import BANNER from './img/Main.png'
 
 import Header from '../Header/Header'
+import FeedPage from '../FeedPage/FeedPage.jsx'
+import Footer from '../Footer/Footer.jsx';
 
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
@@ -16,7 +18,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { API } from 'aws-amplify';
 import { listPosts } from '.././graphql/queries';
 
-import Footer from '../Footer/Footer.jsx';
 import { fontWeight } from '@mui/system';
 import Box from '@mui/material/Box';
 
@@ -81,20 +82,22 @@ class MainPage extends Component {
 		
 		return <div id = 'main_page'>
 			<Header handle_user_info={this.handle_user_info}/>
+			<div style={{width: '100%',backgroundColor: '#c0e0f6',}}>
 			<div className='main_banner'>	
-				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'780px'}}/>
+				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'650px',width:'1082px',position:'relative',top:'30px'}}/>
 
 				<div className = 'banner_title'>
-					<p style={{fontSize: '10vmin', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
-					<p style={{fontSize: '6vmin', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
+					<p style={{fontSize: '5em', fontWeight: 'bold', marginBottom:'20px', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>FROMWEAR</p>
+					<p style={{fontSize: '2em', fontWeight:'bolder'}}>옷으로 시작되는 하루</p>
 				</div>
 
 				<div className = 'banner_title' style={{top: '450px'}}>
-					<p style={{fontSize: '2.5vmin', margin: '10px 0px'}}>착장 공유부터 스타일 조언까지,</p>
-					<p style={{fontSize: '2.5vmin', margin: '10px 0px'}}>프롬웨어와 함께 당신의 하루를 시작해요.</p>
+					<p style={{fontSize: '1.3em', margin: '10px 0px'}}>착장 공유부터 스타일 조언까지,</p>
+					<p style={{fontSize: '1.3em', margin: '10px 0px'}}>프롬웨어와 함께 당신의 하루를 시작해요.</p>
 				</div>
 				
 				
+			</div>
 			</div>
 
 			<div className='contents'>
@@ -124,7 +127,7 @@ class MainPage extends Component {
 												style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
 											</a>
 											<a href = {link}>
-												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												<p className='user_name' style={{margin: '9px 0px'}}>{item.user.name}</p>
 											</a>
 										</div>
 									</div>
@@ -173,10 +176,10 @@ class MainPage extends Component {
 											}
 											
 											{
-												item.blind? <p style={{margin: '16px 0px'}}>익명</p>
+												item.blind? <p className='user_name' style={{margin: '8px 0px'}}>익명</p>
 												: 
-												<a href = {link}>
-													<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												<a href = {link} >
+													<p className='user_name' style={{margin: '8px 0px'}}>{item.user.name}</p>
 												</a>
 											}
 										</div>
@@ -220,7 +223,7 @@ class MainPage extends Component {
 												style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
 											</a>
 											<a href = {link}>
-												<p style={{margin: '16px 0px'}}>{item.user.name}</p>
+												<p className='user_name' style={{margin: '8px 0px'}}>{item.user.name}</p>
 											</a>
 										</div>
 									</div>
@@ -237,6 +240,7 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 			</div>
+			<FeedPage now_user={now_user}/>
 			<Footer/>
 		</div>
 	}

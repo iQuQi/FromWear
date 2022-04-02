@@ -6,14 +6,15 @@
     width: 100%;
     margin: auto;
     overflow-y: auto;
+    top:-30px;
     background-color: white;   
 }
 
 .main_banner{
     position: relative;
     margin: auto;
-    height: 850px;
-    width: 100%;
+    height: 720px;
+    width: 1082px;
     background-color: #c0e0f6;
     text-align: left;
     overflow-y: auto;
@@ -26,7 +27,7 @@
 .banner_title{
     position: absolute;
     top: 250px;
-    left: 180px;
+    left: 50px;
 }
 .contents{
 	overflow: auto;
@@ -79,4 +80,13 @@
 .innerdiv_margin{
     display: flex;
     margin-left: auto;
+}
+.user_name{
+    display: block;
+    width: 120px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: left;
+    line-height: normal;
 }

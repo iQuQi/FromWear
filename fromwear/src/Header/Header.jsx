@@ -12,6 +12,7 @@ import {createUser,createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
+import FeedPage from '../FeedPage/FeedPage.jsx'
 
 // all available props
 const theme = {
@@ -255,20 +256,25 @@ class Header extends Component{
 		  ];
 		  console.log('step',steps);
 		 
-		return <div className="header_bar">		
-		<div style={{width:'1082px', margin:'auto'}}>	
-		<PrimarySearchAppBar 
-				handle_inputbase_on_change={this.props.handle_inputbase_on_change}
-				handle_select_day={this.props.handle_select_day}
-				handle_select_gender={this.props.handle_select_gender}
-				handle_select_board={this.props.handle_select_board}
-				handle_login_click={this.handle_login_click}
-				rank_1 ={rank_1}
-				user={user}
-				/>
-				{login_popup?<Login 
-				handle_login_complete={this.handle_login_complete}/>:<br/>}
-				<ThemeProvider theme={theme}>
+		return <>
+		<div className={`header_bar 
+			${window.location.pathname==("/search"||"/search#"||"/search/")?' header_bar_tag_div_on':''}`}>		
+			<PrimarySearchAppBar 
+					handle_inputbase_on_change={this.props.handle_inputbase_on_change}
+					handle_select_day={this.props.handle_select_day}
+					handle_select_gender={this.props.handle_select_gender}
+					handle_select_board={this.props.handle_select_board}
+					handle_login_click={this.handle_login_click}
+					rank_1 ={rank_1}
+					user={user}
+					
+			/>
+			
+			</div>
+				<FeedPage 
+					now_user={user} 						
+				/>	
+			<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 
 						opened ={chatbot_open}
@@ -283,13 +289,11 @@ class Header extends Component{
 						floatingStyle={{left:true}}
 					/>  }
 					
-				</ThemeProvider>
-				<MoveToTop/>
-
-</div>
-			
-
-		</div>
+			</ThemeProvider>
+			<MoveToTop/>
+			{login_popup&&<Login 
+			handle_login_complete={this.handle_login_complete}/>}
+			</>
 	}	
 }
 
