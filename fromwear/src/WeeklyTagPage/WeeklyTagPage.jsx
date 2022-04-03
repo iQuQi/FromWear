@@ -117,6 +117,7 @@ class WeeklyTagPage extends Component {
         let {current_next_post_page, now_user, is_write_page} = this.state;
 
 		return <div id = 'main_page'>
+			<Header handle_user_info={this.handle_user_info}/>
 			{ is_write_page 
 				? <PostWritePage 
 					board_type='2'
@@ -125,7 +126,7 @@ class WeeklyTagPage extends Component {
 					/>
 				: null
 			}
-			<Header handle_user_info={this.handle_user_info}/>
+			
 			<div className = 'banner'>
                 <div className = 'banner_text'>
                     <h1 style={{margin:'50px 0px 0px 0px', fontSize:'4em', lineHeight:'2em'}}>이번주 태그&nbsp;<span style={{fontSize:'0.9em', color:'#FFFFFF', textShadow:'3px 3px 3px black'}}>TOP4</span></h1>
