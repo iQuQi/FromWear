@@ -136,15 +136,15 @@ class PostWritePage extends Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
+      e.preventDefault();
 
-        Storage.put(`${this.state.file_key}`, this.state.file)
-        .then(res => this.setState({img_upload: true}))
-        .catch(e => console.log("img upload error", e));
+      Storage.put(`${this.state.file_key}`, this.state.file)
+      .then(res => this.setState({img_upload: true}))
+      .catch(e => console.log("img upload error", e));
 
-        let split_tags = '';
-        let tagLengthErrorCheck = false;
-        let {tag_contents} = this.state;
+      let split_tags = '';
+      let tagLengthErrorCheck = false;
+      let {tag_contents} = this.state;
       
       tag_contents.split("#").forEach((data) => {
         split_tags = [...split_tags, data.split(" ").join("")];
@@ -155,127 +155,135 @@ class PostWritePage extends Component {
       split_tags = split_tags.slice(1, split_tags.length);
   
       let dup_rmv_tags = new Set(split_tags);
-
-      // console.log("dup_rmv_tags: ",dup_rmv_tags)
-        
-
-        if (this.state.file == "") {
-          alert("사진을 등록해야 합니다.");
-        } else if (dup_rmv_tags.size !== 3) {
-          alert("태그는 3개를 등록해야 합니다.");
-        } else if (tagLengthErrorCheck) {
-          alert("태그 길이를 5자 이하로 맞춰주세요");
-        } else {
-          // 글 추가          
-          let current_board_type = this.state.board_type;
-          if(current_board_type === "0") {
-                let match = 0;
-                weeklyTagList.forEach((weeklyTag) => {
-                    dup_rmv_tags.forEach((tag) => {
-                        if (weeklyTag === tag) match += 1;
-                    });
-                });
-                if(match === 3) current_board_type = 2;
-            }
-            API.graphql({
-              query: createPost,
-              variables: {
-                input: {
-                  board_type: current_board_type,
-                  click_num: "0",
-                  content: this.state.contents,
-                  img: this.state.file_key,
-                  user_id: this.state.user.id,
-                },
-              },
-            })
-              .then((res) => {
-                let current_post_id = res.data.createPost.id;
-                dup_rmv_tags.forEach((tag) => {
-                  let current_tag_id;
-                  API.graphql({
-                    query: listStyleTags,
-                    variables: { filter: { value: { eq: tag } } },
-                  })
-                    .then((res) => {
-                      if (res.data.listStyleTags.items.length === 0) {
-                        //없었던 태그
-                        API.graphql({
-                          query: createStyleTag,
-                          variables: {
-                            input: {
-                              num: 1,
-                              value: tag,
-                              is_static: false,
-                              is_weekly: false, 
-                            },
-                          },
-                        })
-                          .then((res) => {
-                            current_tag_id = res.data.createStyleTag.id;
-                            console.log("current_tag_id:",current_tag_id)
-                            API.graphql({
-                                query: createPostStyleTag,
-                                variables: {
-                                input: {
-                                    post_id: current_post_id,
-                                    tag_id: current_tag_id,
-                                },
-                                },
-                            })
-                            .then(res => console.log(res))
-                            // .then((res) => {
-                            //     API.graphql({
-                            //         query: updateStyleTag,
-                            //         variables: {
-                            //         input: {
-                            //             id: current_tag_id,
-                            //             num:
-                            //             res.data.createPostStyleTag.style_tag.num + 1,
-                            //         },
-                            //         },
-                            //     }).catch((e) => console.log(e));
-                            // })
-                            .then((res) => this.setState({ create_tag: true }))
-                            .catch((e) => console.log(e));
-                          })
-                          .catch((e) => console.log(e));
-                      } else {
-                        //존재하는 태그
-                        current_tag_id = res.data.listStyleTags.items[0].id;
-                        API.graphql({
-                            query: createPostStyleTag,
-                            variables: {
-                            input: {
-                                post_id: current_post_id,
-                                tag_id: current_tag_id,
-                            },
-                            },
-                        })
-                            .then((res) => {
-                            API.graphql({
-                                query: updateStyleTag,
-                                variables: {
-                                input: {
-                                    id: current_tag_id,
-                                    num:
-                                    res.data.createPostStyleTag.style_tag.num + 1,
-                                },
-                                },
-                            })
-                            .then(res => console.log(res))
-                            .catch((e) => console.log(e));
-                            })
-                            .then((res) => this.setState({ create_tag: true }))
-                            .catch((e) => console.log(e));
-                        }
-                    })
-                    .catch((e) => console.log(e));
-                    });
-                })
-              .then((res) => this.setState({ create_post: true }))
-              .catch((e) => console.log(e));
+      let check_empty_tag = false;
+      dup_rmv_tags.forEach((tag) =>{
+        console.log("tag : ", tag)
+        if(tag === ''){ //공백 태그 입력
+          check_empty_tag = true;
         }
+      })
+
+      //console.log("dup_rmv_tags: ",dup_rmv_tags)
+      
+      if (this.state.file == "") {
+        alert("사진을 등록해야 합니다.");
+      } else if(check_empty_tag) {
+        alert("태그에 내용을 추가해야 합니다.")
+      } else if (dup_rmv_tags.size !== 3) {
+        alert("태그는 3개를 등록해야 합니다.");
+      } else if (tagLengthErrorCheck) {
+        alert("태그의 길이는 5자 이하여야 합니다.");
+      }  else {
+        // 글 추가          
+        let current_board_type = this.state.board_type;
+        if(current_board_type === "0") {
+              let match = 0;
+              weeklyTagList.forEach((weeklyTag) => {
+                  dup_rmv_tags.forEach((tag) => {
+                      if (weeklyTag === tag) match += 1;
+                  });
+              });
+              if(match === 3) current_board_type = 2;
+          }
+          API.graphql({
+            query: createPost,
+            variables: {
+              input: {
+                board_type: current_board_type,
+                click_num: "0",
+                content: this.state.contents,
+                img: this.state.file_key,
+                user_id: this.state.user.id,
+              },
+            },
+          })
+            .then((res) => {
+              let current_post_id = res.data.createPost.id;
+              dup_rmv_tags.forEach((tag) => {
+                let current_tag_id;
+                API.graphql({
+                  query: listStyleTags,
+                  variables: { filter: { value: { eq: tag } } },
+                })
+                  .then((res) => {
+                    if (res.data.listStyleTags.items.length === 0) {
+                      //없었던 태그
+                      API.graphql({
+                        query: createStyleTag,
+                        variables: {
+                          input: {
+                            num: 1,
+                            value: tag,
+                            is_static: false,
+                            is_weekly: false, 
+                          },
+                        },
+                      })
+                        .then((res) => {
+                          current_tag_id = res.data.createStyleTag.id;
+                          console.log("current_tag_id:",current_tag_id)
+                          API.graphql({
+                              query: createPostStyleTag,
+                              variables: {
+                              input: {
+                                  post_id: current_post_id,
+                                  tag_id: current_tag_id,
+                              },
+                              },
+                          })
+                          .then(res => console.log(res))
+                          // .then((res) => {
+                          //     API.graphql({
+                          //         query: updateStyleTag,
+                          //         variables: {
+                          //         input: {
+                          //             id: current_tag_id,
+                          //             num:
+                          //             res.data.createPostStyleTag.style_tag.num + 1,
+                          //         },
+                          //         },
+                          //     }).catch((e) => console.log(e));
+                          // })
+                          .then((res) => this.setState({ create_tag: true }))
+                          .catch((e) => console.log(e));
+                        })
+                        .catch((e) => console.log(e));
+                    } else {
+                      //존재하는 태그
+                      current_tag_id = res.data.listStyleTags.items[0].id;
+                      API.graphql({
+                          query: createPostStyleTag,
+                          variables: {
+                          input: {
+                              post_id: current_post_id,
+                              tag_id: current_tag_id,
+                          },
+                          },
+                      })
+                          .then((res) => {
+                          API.graphql({
+                              query: updateStyleTag,
+                              variables: {
+                              input: {
+                                  id: current_tag_id,
+                                  num:
+                                  res.data.createPostStyleTag.style_tag.num + 1,
+                              },
+                              },
+                          })
+                          .then(res => console.log(res))
+                          .catch((e) => console.log(e));
+                          })
+                          .then((res) => this.setState({ create_tag: true }))
+                          .catch((e) => console.log(e));
+                      }
+                  })
+                  .catch((e) => console.log(e));
+                  });
+              })
+            .then((res) => this.setState({ create_post: true }))
+            .catch((e) => console.log(e));
+      }
     }
 
     changeTextArea(e) {
