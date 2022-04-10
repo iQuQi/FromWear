@@ -390,8 +390,8 @@ class Post extends Component{
         .then(res => {
             //이미지 s3 삭제
             Storage.remove(this.state.now_post.img)
+            .then(this.setState({delete_img: true,}))
         })
-        .then(this.setState({delete_img: true,}))
         .then(res => {
                 
             if(this.state.like_urgent_num == 0){
@@ -639,7 +639,7 @@ class Post extends Component{
             }
         }
 
-        // console.log("현재 포스트 : ",now_post)
+        console.log("현재 포스트 : ",now_post)
         return (
             <div className="post_page">
                 {
