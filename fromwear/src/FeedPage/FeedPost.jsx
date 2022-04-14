@@ -75,25 +75,9 @@ export default function FeedPost({user}) {
               </div>
               <div>
                 <div className='innerdiv_margin'>
-                  {/*
-                    post.bookmark_user_list?
-                      post.bookmark_user_list.items.map((item) => {
-                        item?
-                          item.user_id == now_user.id?
-                          bookmark_check = true
-                          : console.log("p")
-                        :console.log("p")
-                      })
-                    :console.log("p")
-                    */
-                  }
-                  {
-                    /*bookmark_check?
-                    <FeedBookMark is_click={true} now_user={now_user} post_id={post.id}/>
-                    : <FeedBookMark is_click={false} now_user={now_user} post_id={post.id}/>
-                  */
-                  }
-                  <BookmarkBorderIcon style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                  
+                   <FeedBookMark now_user={now_user} post={post}/>
+                    
                   {/*
                     post.likeurgent_user_list?
                       post.likeurgent_user_list.items.map((item) => {
