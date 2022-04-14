@@ -5,14 +5,14 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 import Stack from '@mui/material/Stack';
 
 import './FeedPost.css';
+import FeedBookMark from './FeedBookMark';
+import FeedLikeUrgent from './FeedLikeUrgent';
 
 // 현재 사용자의 -> following_list의 -> 유저의 게시물 중 
 //-> 도움이 필요해의 익명 글만 빼고 전부 가져오기 -> 근데 이제 followingfollower의 createdAt보다 나중꺼만
@@ -32,7 +32,9 @@ export default function FeedPost({user}) {
 
     let now_user = user; 
     let postlist = [];
-    console.log(now_user.following_list);
+
+    let bookmark_check = false;
+    let likeurgent_check = false;
 
     if(now_user.following_list){
         now_user.following_list.items.map((item) => (
@@ -73,8 +75,43 @@ export default function FeedPost({user}) {
               </div>
               <div>
                 <div className='innerdiv_margin'>
+                  {/*
+                    post.bookmark_user_list?
+                      post.bookmark_user_list.items.map((item) => {
+                        item?
+                          item.user_id == now_user.id?
+                          bookmark_check = true
+                          : console.log("p")
+                        :console.log("p")
+                      })
+                    :console.log("p")
+                    */
+                  }
+                  {
+                    /*bookmark_check?
+                    <FeedBookMark is_click={true} now_user={now_user} post_id={post.id}/>
+                    : <FeedBookMark is_click={false} now_user={now_user} post_id={post.id}/>
+                  */
+                  }
                   <BookmarkBorderIcon style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                  {/*
+                    post.likeurgent_user_list?
+                      post.likeurgent_user_list.items.map((item) => {
+                        item?
+                          item.user_id == now_user.id?
+                            likeurgent_check = true
+                            :console.log("p")
+                          :console.log("p")
+                      })
+                    : console.log("p")
+                    */}
+                  {
+                    /*likeurgent_check?
+                    <FeedLikeUrgent is_click={true}/>
+                    : <FeedLikeUrgent is_click={false}/>*/
+                  }
                   <FavoriteBorderIcon style={{margin: '7px 2px 7px 3px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                  
                   <p style={{margin: '19px 5px 7px 0px', fontSize: '1.1rem'}}>
                     {post.like_urgent_user_list.items.length>1000?
                       post.like_urgent_user_list.items.length/1000 + '.k'
