@@ -5,6 +5,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { API } from 'aws-amplify';
 import { createUserBookmarkPost, deleteUserBookmarkPost } from '../graphql/mutations';
 
+import './FeedIcon.css';
 
 export default function FeedBookMark({now_user, post}) {
     const [bookmarkClick, setBookmarkClick] = useState(false);
@@ -53,8 +54,8 @@ export default function FeedBookMark({now_user, post}) {
         <div>
             {
                 bookmarkClick == true?
-                <BookmarkIcon className='button' onClick={handleBookmark} style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
-                : <BookmarkBorderIcon className='button' onClick={handleBookmark} style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                <BookmarkIcon className='btn' onClick={handleBookmark} style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                : <BookmarkBorderIcon className='btn' onClick={handleBookmark} style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
             }
         </div>
         

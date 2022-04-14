@@ -76,30 +76,9 @@ export default function FeedPost({user}) {
               <div>
                 <div className='innerdiv_margin'>
                   
-                   <FeedBookMark now_user={now_user} post={post}/>
-                    
-                  {/*
-                    post.likeurgent_user_list?
-                      post.likeurgent_user_list.items.map((item) => {
-                        item?
-                          item.user_id == now_user.id?
-                            likeurgent_check = true
-                            :console.log("p")
-                          :console.log("p")
-                      })
-                    : console.log("p")
-                    */}
-                  {
-                    /*likeurgent_check?
-                    <FeedLikeUrgent is_click={true}/>
-                    : <FeedLikeUrgent is_click={false}/>*/
-                  }
-                  <FavoriteBorderIcon style={{margin: '7px 2px 7px 3px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
+                  <FeedBookMark now_user={now_user} post={post}/>
+                  <FeedLikeUrgent now_user={now_user} post={post}/>
                   
-                  <p style={{margin: '19px 5px 7px 0px', fontSize: '1.1rem'}}>
-                    {post.like_urgent_user_list.items.length>1000?
-                      post.like_urgent_user_list.items.length/1000 + '.k'
-                      : post.like_urgent_user_list.items.length}</p>
                 </div>
               </div>
             </Stack>
