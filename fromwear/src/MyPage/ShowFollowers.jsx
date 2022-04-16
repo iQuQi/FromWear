@@ -114,7 +114,7 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                                     </span>
                                 </a>
                                 
-                                <p>{item.following.name}</p>
+                                <p style={{width:'80px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{item.following.name}</p>
                             </Stack>
                         </Grid>
                     ))
@@ -135,7 +135,7 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                                     </span>
                                 </a>
                                 
-                                <p>{item.follower.name}</p>
+                                <p style={{width:'80px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{item.follower.name}</p>
                             </Stack>
                         </Grid>
                     ))
