@@ -271,9 +271,8 @@ class Header extends Component{
 			/>
 			
 			</div>
-				<FeedPage 
-					now_user={user} 						
-				/>	
+			{ (user?.name && window.location.pathname !== ("/search"||"/search#"||"/search/")) 
+						  && <FeedPage now_user={user} />}
 			<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 

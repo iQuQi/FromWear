@@ -73,11 +73,6 @@ class MyPage extends Component {
 					<MyPageButtonGroup user={now_user}/>
 				</div>		
             </div>
-
-			<FeedPage 
-				now_user={now_user} 						
-			/>
-
 			<Footer/>
 			
         </div>
