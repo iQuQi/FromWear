@@ -273,6 +273,7 @@ class Header extends Component{
 			</div>
 			{ (user?.name && window.location.pathname !== ("/search"||"/search#"||"/search/")) 
 						  && <FeedPage now_user={user} />}
+			<MoveToTop/>
 			<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 
@@ -289,7 +290,6 @@ class Header extends Component{
 					/>  }
 					
 			</ThemeProvider>
-			<MoveToTop/>
 			{login_popup&&<Login 
 			handle_login_complete={this.handle_login_complete}/>}
 			</>
