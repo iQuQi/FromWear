@@ -652,10 +652,47 @@ class Post extends Component{
 					  />
 					: null
                 }
-                {/* <Header handle_user_info={this.handle_user_info}/> */}
+                <Header handle_user_info={this.handle_user_info}/>
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
+                            <div className="mobile_content_box">
+                                    <div className="writer">
+                                        {
+                                            now_post.blind?
+                                            <img className="post_writer_img" src={profile_skyblue} />
+                                            :<div className="post_writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+now_writer.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
+                                        }
+                                        {
+                                            now_post.blind?
+                                            <div className="writer_name">익명</div>
+                                            :
+                                            <div className="writer_name move_to_userpage" onClick={this.moveToWriterPage}>{now_writer.name}</div>
+                                        }
+                                        {
+                                            now_user.id == now_writer.id ?
+                                            <div>
+                                                <button className="delete_post" onClick={this.checkRemovePost}>
+                                                    삭제
+                                                </button>
+                                                <button className="modify_post" onClick={this.modifyPost}>
+                                                    수정
+                                                </button>
+                                            </div>
+                                            :<div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="mobile_post_create_time">{this.state.create_post_time}</div>
+                                    {/* <div className="comment">
+                                        <Comments
+                                        post_id = {post_id}
+                                        board_type = {now_post.board_type}
+                                        post_writer = {now_writer}
+                                        now_user = {now_user}
+                                        />
+                                    </div> */}
+                            </div>
                             <div className="post_img" style={{backgroundImage: 'URL('+img_src+')'}}></div>
                             <div className="content_box">
                                 <div className="writer">
@@ -673,7 +710,7 @@ class Post extends Component{
                                     {
                                         now_user.id == now_writer.id ?
                                         <div>
-                                            <button className="remove_post" onClick={this.checkRemovePost}>
+                                            <button className="delete_post" onClick={this.checkRemovePost}>
                                                 삭제
                                             </button>
                                             <button className="modify_post" onClick={this.modifyPost}>
