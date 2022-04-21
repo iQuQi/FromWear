@@ -254,3 +254,33 @@
     display: block;
 }
 .whole_content { display: none; } */
+
+@media(max-width:391px){
+    .whole_page{
+        width: 390px;
+        margin: 0 auto;
+        margin-top: 20px;
+        background-color: gray;
+    }
+
+    .main_box {
+        width: 390px;
+        margin: 50px auto;
+    }
+
+    .post_page {
+        width: 390px;
+        margin: 0 auto;
+    }
+
+    .post_img {
+        width: 360px;
+        height: 554.4px;
+        margin-right: 0;
+    }
+
+    .content_box {
+        display: none;
+    }
+    
+}

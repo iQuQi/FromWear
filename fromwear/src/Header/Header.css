@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body{
-	min-width: 1082px;
+	/* min-width: 1082px; */
 	line-height: 1;
 	font-family : 'NanumGothic' ,NanumGothic, '돋움' , Dotum, sans-serif;
 
@@ -63,7 +63,7 @@ html::-webkit-scrollbar {
 .header_bar{
     position: fixed;
     top: 0;
-    min-width: 1082px;
+    /* min-width: 1082px; */
 	z-index: 100000;
     width: 100%;
 	height: 45px;

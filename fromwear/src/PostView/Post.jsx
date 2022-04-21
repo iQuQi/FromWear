@@ -652,7 +652,7 @@ class Post extends Component{
 					  />
 					: null
                 }
-                <Header handle_user_info={this.handle_user_info}/>
+                {/* <Header handle_user_info={this.handle_user_info}/> */}
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
@@ -796,7 +796,7 @@ class Post extends Component{
                         </div>
                     </div>
                 </div>
-                <Footer />
+                {/* <Footer /> */}
             </div>
 
         );
