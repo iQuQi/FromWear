@@ -72,7 +72,7 @@ export default function FeedPage({now_user}) {
               aria-label="open drawer"
               edge="end"
               onClick={handleDrawerOpen}
-              sx={{ ...(open && { display: 'none' }) }}>
+              style={{ ...(open && { display: 'none' })}}>
               ◀ 피드 보기
             </button>
           </div>
