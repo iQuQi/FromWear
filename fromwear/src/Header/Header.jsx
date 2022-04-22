@@ -13,6 +13,7 @@ import {getUser} from '../graphql/queries.js';
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
 import FeedPage from '../FeedPage/FeedPage.jsx'
+import { init, send } from 'emailjs-com';
 
 // all available props
 const theme = {
@@ -26,8 +27,8 @@ const theme = {
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',
 };
-let msg='테스트';
 
+const emailList = ['S7SrqZoZfyHaqqain','yiktImKsBDGDhFVA_','N1fxofznKfSgsJfor'];
 class Header extends Component{
 	constructor(){
 		super();
@@ -254,7 +255,6 @@ class Header extends Component{
 			},
 			
 		  ];
-		  console.log('step',steps);
 		 
 		return <>
 		<div className={`header_bar 
@@ -282,7 +282,35 @@ class Header extends Component{
 						floating={true} 
 						steps={steps}
 						handleEnd={(result)=>{
-							console.log('result',result);
+							const subtitle = result.renderedSteps
+								.filter((step) => step.id ==='1')
+								.map((step) => step.message);
+							const subcontent = result.renderedSteps
+								.filter((step) => step.id === '5' || step.id === '6' || step.id === '7')
+								.map((step) => step.message);
+
+							let content = '';
+							subtitle.forEach((title, index) => {
+								content += `${title}:  
+								${subcontent[index]}
+								`;
+							})
+
+							var templateParams = {
+								name: user?.name,
+								content,
+							};
+
+							emailList.forEach((email) => {
+								init(email);
+								send('fromwear', 'template_rq5y7j8', templateParams)
+									.then(function(response) {
+										console.log('SUCCESS!', response.status, response.text);
+									}, function(error) {
+										console.log('FAILED...', error);
+									});
+							})
+
 							this.handle_chatbot_end();
 
 						}}

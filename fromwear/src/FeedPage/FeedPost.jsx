@@ -46,13 +46,11 @@ export default function FeedPost({user}) {
     
     postlist.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)});
 
-    console.log(postlist);
     return (
     <ImageList cols={1} sx={{ width: 390 }}>
       {postlist.map((post) => (
           
             <ImageListItem key={post.img} >
-                {console.log(post)}
             <img
                 style={{height:'600px'}}
                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
