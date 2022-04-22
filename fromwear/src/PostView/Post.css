@@ -264,6 +264,10 @@
     display: none;
 }
 
+.mobile_post_content {
+    display: none;
+}
+
 @media(max-width:391px){
     .whole_page{
         width: 390px;
@@ -330,4 +334,20 @@
     .delete_post {
         margin-right: 10px;
     }
+
+    .mobile_post_content {
+        display: block;
+        width: 90%;
+        /* border: 1px solid #000; */
+        margin: 10px auto;
+    }
+
+    .whole_post_content {
+        text-align: left;
+    }
+
+    .check_btn_wrap {
+        text-align: left;
+    }
+
 }

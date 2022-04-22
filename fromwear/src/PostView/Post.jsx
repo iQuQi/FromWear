@@ -684,16 +684,10 @@ class Post extends Component{
                                         }
                                     </div>
                                     <div className="mobile_post_create_time">{this.state.create_post_time}</div>
-                                    {/* <div className="comment">
-                                        <Comments
-                                        post_id = {post_id}
-                                        board_type = {now_post.board_type}
-                                        post_writer = {now_writer}
-                                        now_user = {now_user}
-                                        />
-                                    </div> */}
+                                    
                             </div>
                             <div className="post_img" style={{backgroundImage: 'URL('+img_src+')'}}></div>
+                            
                             <div className="content_box">
                                 <div className="writer">
                                     {
@@ -807,6 +801,50 @@ class Post extends Component{
                                 }
                             </div>
                         </div>
+                        <div className="mobile_post_content">
+                                <div id='post_content'>
+                                    <div className={is_ell ? 'part_ell' : '' }>
+                                        <div className={this.state.btn_check ? 'post_blind' : ''}>
+                                            {now_post.content}
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    this.state.btn_check ?
+                                    <div className="check_btn_wrap"> 
+                                        <div className="whole_post_content">
+                                            {now_post.content}
+                                        </div>
+                                        <input id="check_btn" type="checkbox" />
+                                        <label for="check_btn" className={is_ell ? "check_button" : "post_blind"} onClick={this.check_button_click}>
+                                            <span>숨기기</span>
+                                        </label>
+                                    </div>
+                                    :<div className="check_btn_wrap">
+                                        <input id="check_btn" type="checkbox" />
+                                        <label for="check_btn" className={is_ell ? "check_button" : "post_blind"} onClick={this.check_button_click}>
+                                            <span>더보기</span>
+                                        </label>
+                                    </div>
+                                }
+                                {
+                                    this.state.btn_check ?
+                                    <div>
+                                        {
+                                            this.state.is_ell ?
+                                            <div>경우1</div>
+                                            :<div className="post_create_time">{this.state.create_post_time}</div> //긴 내용이 전부 나오는 상태
+                                        }
+                                    </div>
+                                    :<div>
+                                        {
+                                            this.state.is_ell ?
+                                            <div>경우2</div>
+                                            :<div className="post_create_time">{this.state.create_post_time}</div> //내용 숨겨진 상태, 애초에 안 넘는 상태
+                                        }
+                                    </div>
+                                }
+                            </div>
                     </div>
                     <div className="main_post_tag_div">
                         <div className="recommend_tag">
