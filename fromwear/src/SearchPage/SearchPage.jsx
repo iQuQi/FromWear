@@ -451,7 +451,7 @@ class SearchPage extends Component{
 					{post_data.length!=0?
 						
 						<div className={"search_page_content"}>
-							<Box sx={{minHeight:'800px'}}>
+							<Box sx={{minHeight:'800px', paddingTop: '80px'}}>
 								<SearchResult 
 								post_data={post_data}
 								current_next_post_page={current_next_post_page}

@@ -1,19 +1,18 @@
 import * as React from 'react';
 import {Component} from 'react';
-import { Box } from '@mui/material';
 import './Header.css'
 import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
 import Auth from '@aws-amplify/auth';
-import { get_rank_tag } from '../SearchPage/RankTag';
+import {get_rank_tag} from '../SearchPage/RankTag';
 import Login from "./Login";
 import API from '@aws-amplify/api';
-import {createUser,createUserStyleTag} from '../graphql/mutations.js';
+import {createUser, createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import ChatBot from 'react-simple-chatbot';
-import { ThemeProvider } from 'styled-components';
+import {ThemeProvider} from 'styled-components';
 import FeedPage from '../FeedPage/FeedPage.jsx'
-import { init, send } from 'emailjs-com';
+import {init, send} from 'emailjs-com';
 
 // all available props
 const theme = {
@@ -28,7 +27,11 @@ const theme = {
   userFontColor: '#4a4a4a',
 };
 
-const emailList = ['S7SrqZoZfyHaqqain','yiktImKsBDGDhFVA_','N1fxofznKfSgsJfor'];
+const emailList = [
+	{address: 'S7SrqZoZfyHaqqain', templateId: 'template_rq5y7j8'},
+	{address: 'yiktImKsBDGDhFVA_', templateId: ''},
+	{address: 'N1fxofznKfSgsJfor',templateId: ''}
+];
 class Header extends Component{
 	constructor(){
 		super();
@@ -302,8 +305,8 @@ class Header extends Component{
 							};
 
 							emailList.forEach((email) => {
-								init(email);
-								send('fromwear', 'template_rq5y7j8', templateParams)
+								init(email.address);
+								send('fromwear', email.templateId, templateParams)
 									.then(function(response) {
 										console.log('SUCCESS!', response.status, response.text);
 									}, function(error) {
