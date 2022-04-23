@@ -29,8 +29,8 @@ const theme = {
 
 const emailList = [
 	{address: 'S7SrqZoZfyHaqqain', templateId: 'template_rq5y7j8'},
-	{address: 'yiktImKsBDGDhFVA_', templateId: ''},
-	{address: 'N1fxofznKfSgsJfor',templateId: ''}
+	{address: 'yiktImKsBDGDhFVA_', templateId: 'template_uhdkh4l'},
+	{address: 'N1fxofznKfSgsJfor',templateId: 'template_yqgbnyh'}
 ];
 class Header extends Component{
 	constructor(){
@@ -308,7 +308,7 @@ class Header extends Component{
 								init(email.address);
 								send('fromwear', email.templateId, templateParams)
 									.then(function(response) {
-										console.log('SUCCESS!', response.status, response.text);
+										console.log('SUCCESS!', email.address, response.status, response.text);
 									}, function(error) {
 										console.log('FAILED...', error);
 									});
