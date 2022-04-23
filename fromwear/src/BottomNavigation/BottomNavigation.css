@@ -12,6 +12,9 @@
 .menu_shortcut .on {
     color: #5f0080;
 }
+.menu_shortcut .off {
+    color: black;
+}
 .menu_shortcut li {
     float: left;
     width: 20%;

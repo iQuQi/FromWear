@@ -34,6 +34,8 @@ const ntheme = createTheme({
 export default function BottomTab() {
    // const isMobile = useMediaQuery({ maxWidth: 391 })
    const [value, setValue] = React.useState(0);
+   const [textColor, setTextColor] = React.useState("off");
+
     return (
         <div>
             {
@@ -46,19 +48,30 @@ export default function BottomTab() {
                             setValue(newValue);
                         }}
                     >
-                        
-                    <StyledEngineProvider injectFirst>
-                        <BottomNavigationAction label="홈" icon={<HomeIcon className='shortcut_home on'/>} />
-                        <BottomNavigationAction label="피드" icon={<FormatListBulletedIcon className='shortcut_feed on'/>} />
-                        <BottomNavigationAction style={{paddingTop:'0'}} icon={<AddCircleIcon style={{fontSize:'3rem'}} className='shortcut_write on'/>} />
-                        <BottomNavigationAction label="검색" icon={<SearchIcon className='shortcut_search on'/>} />
-                        <BottomNavigationAction label="마이페이지" icon={<PersonIcon className='shortcut_mypage on'/>} />
+                     
+                        <BottomNavigationAction className={textColor} label="홈" icon={<HomeIcon className='shortcut_home on'/>} />
+                        <BottomNavigationAction className={textColor} label="피드" icon={<FormatListBulletedIcon className='shortcut_feed on'/>} />
+                        <BottomNavigationAction className={textColor} style={{paddingTop:'0'}} icon={<AddCircleIcon style={{fontSize:'3rem'}} className='shortcut_write on'/>} />
+                        <BottomNavigationAction className={textColor} label="검색" icon={<SearchIcon className='shortcut_search on'/>} />
+                        <BottomNavigationAction className={textColor} label="마이페이지" icon={<PersonIcon className='shortcut_mypage on'/>} />
             
-                    </StyledEngineProvider>
-                    
-     
                     </BottomNavigation>
-                </Box>           
+                </Box>    
+                
+            }
+
+            {
+                value==0?
+                <p style={{position: "absolute"}}>홈</p>
+                : value==1?
+                <p style={{position: "absolute"}}>피드</p>
+                : value==2?
+                <p style={{position: "absolute"}}>글쓰기</p>
+                : value==3?
+                <p style={{position: "absolute"}}>검색</p>
+                : value==4?
+                <p style={{position: "absolute"}}>마이페이지</p>
+                : <p>그냥</p>
             }
         </div>
     )
