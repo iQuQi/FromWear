@@ -20,6 +20,7 @@ import { listPosts } from '.././graphql/queries';
 
 import { fontWeight } from '@mui/system';
 import Box from '@mui/material/Box';
+import BottomTab from '../BottomNavigation/BottomNavigation';
 
 let link = '';
 
@@ -82,6 +83,7 @@ class MainPage extends Component {
 		
 		return <div id = 'main_page'>
 			<Header handle_user_info={this.handle_user_info}/>
+			<BottomTab />
 			<div style={{width: '100%',backgroundColor: '#c0e0f6',}}>
 			<div className='main_banner'>	
 				<img className='banner_img' src={BANNER} alt='Main banner' style={{height:'650px',width:'1082px',position:'relative',top:'30px'}}/>
@@ -240,6 +242,7 @@ class MainPage extends Component {
 					</ImageList>
 				</div>
 			</div>
+			
 			<Footer/>
 		</div>
 	}
