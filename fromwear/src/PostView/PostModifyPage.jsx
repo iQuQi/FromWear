@@ -20,6 +20,7 @@ import {
   deleteStyleTag,
   createStyleTag,
 } from "../graphql/mutations";
+import {Typography} from "@mui/material";
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
@@ -968,10 +969,18 @@ class PostModifyPage extends Component {
                             <div className="text_form tag_write">
                               {
                                 board_type == 2
-                                ? <Input value={tag_contents} 
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder={tag_contents}  
-                                  />
+                                ? <>
+                                        <Input value={tag_contents} 
+                                          style={{margin:"10px 0",width:"100%"}}
+                                          placeholder={tag_contents}
+                                          disabled
+                                        />
+                                    <Typography
+                                        sx={{color: 'red', fontSize: "9px",
+                                        position: 'relative', right: '145px'}}>
+                                        ※ 이번주 태그는 태그 수정 불가
+                                    </Typography>
+                                    </>
                                 : <Input value={tag_contents} 
                                     style={{margin:"10px 0",width:"100%"}}
                                     placeholder="태그를 입력해주세요"  
