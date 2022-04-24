@@ -37,10 +37,10 @@ export default function BottomTab() {
    const [textColor, setTextColor] = React.useState("off");
 
     return (
-        <div>
+        <div style={{ width: '390px' }}>
             {
                 //isMobile &&
-                <Box className="menu_shortcut" sx={{ width: 390 }}>
+                <Box className="menu_shortcut">
                     <BottomNavigation
                         showLabels
                         value={value}
@@ -57,14 +57,16 @@ export default function BottomTab() {
             
                     </BottomNavigation>
                 </Box>    
+
+                
                 
             }
-
+            
             {
                 value==0?
-                <p style={{position: "absolute"}}>홈</p>
+                <p style={{width:'390px'}}>홈</p>
                 : value==1?
-                <p style={{position: "absolute"}}>피드</p>
+                <p>피드</p>
                 : value==2?
                 <p style={{position: "absolute"}}>글쓰기</p>
                 : value==3?
