@@ -14,8 +14,7 @@ export default function FeedBookMark({now_user, post}) {
         post.bookmark_user_list.items.map((item) => {
             if(item.user_id == now_user.id){
                 setBookmarkClick(true);
-                console.log(bookmarkClick);
-            }  
+            }
         })
     }, [now_user, post]); 
    

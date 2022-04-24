@@ -64,14 +64,13 @@ export default class MyPageBookmark extends Component {
 	}
 
     render(){
-        console.log(this.state.user);
         let {user, current_next_post_page} = this.state;
 
         return (
             <ImageList cols={3} gap={8} style={{clear: 'left', marginTop:'60px'}}>
                     {user.my_bookmark_post_list?
                     user.my_bookmark_post_list.items.map((item, index) => (
-                        index < (current_next_post_page * 9)?
+                        index < (current_next_post_page * 9) &&
                         <ImageListItem key={item.post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.post.img}?w=248&fit=crop&auto=format`}
@@ -79,8 +78,7 @@ export default class MyPageBookmark extends Component {
                                 alt={user.name}
                                 loading="lazy"
                             />
-                            {console.log(item.post.img)}
-                            <a href={'/post/'+item.post.id}> 
+                            <a href={'/post/'+item.post.id}>
                                 <span className='dimmed_layer'>	
                                     <span className='dimmed_info' >
                                         <Box style={{width: '40px'}}>
@@ -116,7 +114,6 @@ export default class MyPageBookmark extends Component {
                                 </span>
                             </a>		
                         </ImageListItem>
-                        : console.log(index + "pass")
                     ))
                     :<p/>}
                 </ImageList>

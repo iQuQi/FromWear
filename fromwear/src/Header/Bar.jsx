@@ -153,7 +153,6 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
     {
      user.alarm_list?.items.map((item,index)=>{        
-        console.log(item.link);
         const new_link='/'+item.link;
         return <a href={new_link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>;
       })

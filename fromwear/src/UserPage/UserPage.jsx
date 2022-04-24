@@ -37,12 +37,9 @@ class UserPage extends Component {
 	}
 
     componentDidMount(){
-		console.log(this.state.user_id);
-		console.log(this.props.userid);
 		API.graphql({ query: getUser, variables: { id: this.props.userid} })
 		.then( res => {
 			this.set_user(res.data.getUser);
-			console.log(res.data.getUser);
 		})
 		.catch( e => console.log(e));	
     }
@@ -57,8 +54,6 @@ class UserPage extends Component {
 
 
     render(){
-		console.log(this.state.user);
-		console.log(this.state.now_user);
 		let {now_user, user} = this.state;
 
 		if(Object.keys(now_user).length>0&&Object.keys(user).length>0&&now_user.id==user.id){

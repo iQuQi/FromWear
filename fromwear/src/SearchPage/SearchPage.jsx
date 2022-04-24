@@ -268,7 +268,6 @@ class SearchPage extends Component{
 		tag_clicked_list,
 		rank_tag_clicked_list,
 		filter_day,filter_gender,filter_board) =>{
-			console.log("filter board",filter_board);
 
 			let same3=[],same2=[],same1=[];
 			let result_post=[];
@@ -349,11 +348,9 @@ class SearchPage extends Component{
 				//입력된 태그가 없다면 전체 보여주기
 				if(rmved.length==0) {
 					result_post=[...result_post,post];
-					console.log("show all");
 					return true;
 				}
 				else{
-					console.log("not show all");
 					let same = 0;
 					
 					post.tag_list.items.map((post_tag)=>{
@@ -362,7 +359,6 @@ class SearchPage extends Component{
 						})
 					})
 				
-					console.log("same: "+ same);
 					if(same == 3) same3=[...same3,post]
 					else if(same==2) same2=[...same2,post]
 					else if(same==1) same1=[...same1,post]

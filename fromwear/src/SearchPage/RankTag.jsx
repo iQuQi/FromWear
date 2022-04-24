@@ -14,8 +14,8 @@ let RankTag = ({handle_rank_tag_button_click,
                    handle_tag_more_button,
                    handle_x_button_on_click})=>
     <Stack sx={{width: '1000px', margin: 'auto'}} direction="row">
-        <Typography sx={{color: "black",fontSize:"18px",fontWeight: "bold",
-                lineHeight: '45px', minWidth: '150px',
+        <Typography sx={{color: "#555",fontSize:"18px",fontWeight: "bold",
+                lineHeight: '45px', minWidth: '135px',
         }}>
             오늘의 태그
         </Typography>

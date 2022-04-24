@@ -6,21 +6,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import {static_tag_data} from "./TagData"
 import Typography from "@mui/material/Typography";
-
+const groupMap = {
+    season: {name: '계절별', start: 0},
+    age: {name: '연령별', start: 4},
+    style: {name: '스타일별', start: 8},
+    situation: {name: '상황별', start: 29},
+}
 
 let TagList = ({target_button,handle_tag_button_click}) => {
     const tagListMap = (group) => static_tag_data.filter((tag) => tag.group === group);
-    const groupMap = {
-        season: {name: '계절별', start: 0},
-        age: {name: '연령별', start: 4},
-        style: {name: '스타일별', start: 8},
-        situation: {name: '상황별', start: 29},
-    }
+
 
     return <>
         {['season', 'age', 'style', 'situation'].map((group) =>
         <ul className="tag_list">
-            <Typography sx={{color: "black",fontSize:"18px",fontWeight: "bold",
+            <Typography sx={{color: "#555",fontSize:"18px",fontWeight: "bold",
                 lineHeight: '45px', textAlign: 'left',
             }}>{groupMap[group].name}</Typography>
             {tagListMap(group).map((data, index) =>

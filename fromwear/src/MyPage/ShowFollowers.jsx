@@ -65,10 +65,7 @@ let link_following = (item, now_user) => {
 export default function ShowFollowers({now_user, user, open, handleClose, mode}) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-
-    console.log(now_user);
-  return(
+    return(
     <div>
         <Dialog
             open={open}
