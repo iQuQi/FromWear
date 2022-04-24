@@ -350,9 +350,11 @@
 
 .tag_list{
 	margin: auto;
-	width: 90%;
+	width: 1080px;
 	position: relative;
 	overflow: hidden;
+	padding: 15px 67px 0;
+	box-sizing: border-box;
 }
 
 .tag_list li{
@@ -361,8 +363,7 @@
 
 .tag_more_list{
 	padding: 10px;
-	margin-left:40px;
-	width: 88%;
+	margin: auto;
 	background-color: rgba(255,255,255,0);
 	position: relative;
 	border: 0px;

@@ -144,7 +144,6 @@ export default class TodayPostBoardTop5 extends Component {
 		const settings = {
       className: "center",
       centerMode: true,
-      infinite: true,
       slidesToShow: 5,
       beforeChange: this.handle_slider_index_before,
       centerPadding: "0px",

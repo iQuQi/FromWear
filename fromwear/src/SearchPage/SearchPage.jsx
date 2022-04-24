@@ -20,7 +20,7 @@ import Footer from '../Footer/Footer';
 import { static_tag_data } from './TagData';
 import { Box } from '@mui/material';
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
-var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
+var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //15개 태그
 var AWS = require('aws-sdk'); 
 /*
 AWS.config.update(
@@ -414,38 +414,21 @@ class SearchPage extends Component{
 				
 					<div className = {is_tag_more?'tag_div_on': tag_div_on_to_off?'tag_div_on_to_off':"tag_div_off"} >
 						<Stack direction="row">
-							
-							<Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", fontWeight: 300, color: "black"}}>
-							{is_tag_more&&<CloseIcon onClick={this.handle_x_button_on_click}/>}	
-							</Button> 
-							
 							<div className={"tag_more_list"}>
-								<TagList
-								target_button={target_tag_button}
-								handle_tag_button_click={this.handle_tag_button_click}
-								/>
-								<Typography style={{color: "black",fontSize:"18px",fontWeight: "bold",margin: "15px 0 5px"}}>오늘의 태그</Typography>
-								<RankTag 
+								<RankTag
 									target_button={target_rank_tag_button}
 									handle_rank_tag_button_click={this.handle_rank_tag_button_click}
 									is_tag_more={is_tag_more}
 									rank_tag_data={rank_tag_data}
+									handle_tag_more_button={this.handle_tag_more_button}
+									handle_x_button_on_click={this.handle_x_button_on_click}
 								/>
-								
+								<TagList
+								target_button={target_tag_button}
+								handle_tag_button_click={this.handle_tag_button_click}
+								/>
 							</div>
-							<Button 
-								style={{width: 85, boxShadow:"0 0 0 0" ,height: 40,fontWeight: "bold", border: !is_tag_more?"0":"1px solid lightgray",
-								borderRadius:"30px",backgroundColor: !is_tag_more?"black":"white",color:!is_tag_more?"white":"black",fontSize:13,
-								position:"absolute", top:10, right:25,zIndex:1000}} 
-								variant="contained"
-								onClick={this.handle_tag_more_button}	
-							>
-								더보기
-							</Button>
-							
-							
 						</Stack>
-						
 					</div>
 
 					{post_data.length!=0?
