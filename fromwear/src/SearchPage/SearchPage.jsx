@@ -235,7 +235,7 @@ class SearchPage extends Component{
 	}
 
 	handle_user_info=(user)=>{
-		console.log("user info get",user);
+		// console.log("user info get",user);
 	}
 
 
@@ -296,7 +296,6 @@ class SearchPage extends Component{
 				  var today_y = new Date(post.createdAt).getFullYear();
 				  var today_m = new Date(post.createdAt).getMonth()+1;
 				  var today_d = new Date(post.createdAt).getDate();
-				  console.log("today",post.id,base_y,base_m,base_d,today_y,today_m,today_d);
 
 				  if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
 					return false;
