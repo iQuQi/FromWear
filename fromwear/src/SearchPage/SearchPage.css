@@ -345,6 +345,7 @@
 .tag_div_on{
 	z-index: 900;
 	animation: smoothAppear 0.3s 0s 1 normal forwards;
+	overflow: hidden;
 }
 
 

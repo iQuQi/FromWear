@@ -22,7 +22,7 @@ import Stack from '@mui/material/Stack';
 
 let scroll = 'paper';
 const RecoBtn = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(grey[500]),
+    // color: theme.palette.getContrastText(grey[500]),
     backgroundColor: white[500],
     borderColor: grey[700],
     color: grey[700],
