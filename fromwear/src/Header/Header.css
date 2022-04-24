@@ -129,7 +129,6 @@ html::-webkit-scrollbar {
 	font-size:  13px;
 	color: black;
 	position: relative;
-	top: -10px;
 	right: 10px;
 }
 
