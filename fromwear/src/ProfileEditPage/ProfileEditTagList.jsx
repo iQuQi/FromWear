@@ -15,7 +15,7 @@ let ProfileEditTagList = ({target_button,handle_tag_button_click}) => {
                         <li>
                         <Button key={data.name+index} 
                             style={{width: 100,height: 40,marginBottom:10,marginRight:8,fontSize: 13,float:"left", 
-                            color:  target_button[index]==0?"black":"white", backgroundColor: target_button[index]==0?"#D7DFF5":"#000000", borderRadius: "30px",boxShadow:"0 0 0 0"}} 
+                            color:  target_button[index]==0?"black":"white", backgroundColor: target_button[index]==0?"#c0e0f6":"#000000", borderRadius: "30px",boxShadow:"0 0 0 0"}}
                             variant="contained"
                             onClick={e=>(handle_tag_button_click(e,index,data.name))}
                            

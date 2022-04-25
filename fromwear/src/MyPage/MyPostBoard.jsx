@@ -53,7 +53,6 @@ export default class TodayPostBoardPosts extends Component {
     componentDidMount(){
         this.get_posts(); 
         window.addEventListener("scroll", this.handleScroll);
-        console.log(this.state.post_list);
     }
     componentWillUnmount(){
 		window.removeEventListener("scroll", this.handleScroll);
@@ -67,9 +66,7 @@ export default class TodayPostBoardPosts extends Component {
                 user: this.props.user
             })
             if(this.props.user.my_post_list!=undefined){
-                console.log("업데이트");
                 if(this.props.board==1){
-                    console.log("1일 때");
                     this.setState({
                         post_list : this.props.user.my_post_list.items.filter((item)=>{
                             return item.board_type==1
@@ -77,7 +74,6 @@ export default class TodayPostBoardPosts extends Component {
                     })         
                 }
                 else{
-                    console.log("20일 때");
                     this.setState({
                         post_list : this.props.user.my_post_list.items.filter((item)=>{
                             return item.board_type!=1
@@ -90,18 +86,13 @@ export default class TodayPostBoardPosts extends Component {
                 
         }
         if(user=={}){
-            console.log("여기는?");
             this.setState({
                 user: this.props.user,
                 post_list: this.props.user.my_post_list.items
             })
         }
         if(this.state.post_list!=user.my_post_list){
-            console.log("이거는?");
-            console.log(user.my_post_list);
-            console.log(this.state.post_list);
             this.state.post_list = this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
-            console.log(this.state.post_list);
         }
           
     }
@@ -138,7 +129,6 @@ export default class TodayPostBoardPosts extends Component {
     }
 
 	handleSortLike = (e) => {
-		console.log("like");
 
 		this.setState({
             post_state: 1,
@@ -147,8 +137,7 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
 	handleSortView = (e) => {
-		console.log("view");
-        
+
 		this.setState({
             post_state: 2,
             post_list: this.state.post_list.sort(function(a,b){return b.click_num-a.click_num})
@@ -156,13 +145,9 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
     consolePrint = () => {
-        console.log("success");
     }
 
 	handleSortReply = (e) => {
-		console.log("reply");
-        console.log(this.state.post_list);
-	
         this.setState({
             post_state: 3,
             post_list: this.state.post_list.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length})
@@ -173,23 +158,17 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
 	handleSortLatest = (e) => {
-		console.log("Latest");
-        console.log(this.state.post_list.items);
         //console.log(this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)}));
 		this.setState({
             post_state: 4,
             post_list: this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
         })
-        console.log(this.state.post_list.items);
 	}
 
 
     render() {
-        console.log(this.state.user);
-        console.log(this.state.current_next_post_page);
-        
-        console.log("render ", this.state.post_list);
-        
+
+
 
 		let {user, post_state, post_list, current_next_post_page} = this.state;
 
@@ -212,7 +191,7 @@ export default class TodayPostBoardPosts extends Component {
                 <ImageList cols={3} gap={8} style={{clear: 'left'}}>
                     {
                     post_list.map((post, index) => (
-                        index<(current_next_post_page * 9)?
+                        index<(current_next_post_page * 9) &&
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
                             <img style={{height:'322.55px'}}
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
@@ -252,15 +231,14 @@ export default class TodayPostBoardPosts extends Component {
                                 </span>
                             </a>			
                         </ImageListItem>
-                        : console.log(index + "pass")
                     ))}
                 </ImageList>
                 :<p></p>
                 : <p></p>
                 }
 
-                {post_list.length>0? console.log("포스트 이써") 
-                : <p style={{margin:'150px 0px', textAlign:'center'}}>게시물이 없습니다.</p>
+                {post_list.length === 0 &&
+                 <p style={{margin:'150px 0px', textAlign:'center'}}>게시물이 없습니다.</p>
                 }
 
             </div>

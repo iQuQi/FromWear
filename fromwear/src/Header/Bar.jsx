@@ -153,7 +153,6 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
     >
     {
      user.alarm_list?.items.map((item,index)=>{        
-        console.log(item.link);
         const new_link='/'+item.link;
         return <a href={new_link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>;
       })
@@ -169,15 +168,16 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
 
   return (
     <div style={{width:'1082px', margin:'auto',height:'45px',}}>
-      <AppBar style={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:45}} position="static">
-        <Toolbar >
+      <AppBar sx={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:'45px',padding: '10px'}} position="static">
+        <Toolbar sx={{'&.MuiToolbar-gutters' : {minHeight: '25px'}}} >
         
-           <a href="/">
-            <img src={closet} alt="closet" className ="closet_img"/><img src={logo} alt="logo" className ="logo_img"/>
+           <a href="/" style={{height: '40px', width: '120px'}}>
+            <img src={closet} alt="closet" className ="closet_img"/>
+             <img src={logo} alt="logo" className ="logo_img"/>
              </a>
           
           <Search style={{ backgroundColor: "#f2f2f2" , width: "730px",minWidth:"600px",
-          borderRadius: 10,position:"relative",top:-10}}>
+          borderRadius: 10,position:"relative"}}>
             <SearchIconWrapper >
               <SearchIcon style={{ color: "black" }}/>
             </SearchIconWrapper>
@@ -203,7 +203,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
           
             <IconButton
 
-              style={{ color: "black", height:35 ,position:"relative",top:-10}}
+              style={{ color: "black", height:35 ,position:"relative"}}
               aria-label="show 17 new notifications"
               onClick={handleAlarmOpen}
 
@@ -220,7 +220,7 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
             
            
             <IconButton
-              style={{ color: "black",height:35 ,position:"relative",top:-10}}
+              style={{ color: "black",height:35 ,position:"relative"}}
               size="large"
               edge="end"
               aria-label="account of current user"
