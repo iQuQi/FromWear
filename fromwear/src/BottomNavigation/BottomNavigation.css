@@ -1,3 +1,5 @@
+body { overflow: hidden; }
+body * { touch-action: none; }
 .menu_shortcut {
     position: fixed;
     z-index: 300px;
