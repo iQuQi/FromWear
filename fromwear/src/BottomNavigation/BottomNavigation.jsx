@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from 'react-responsive';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -32,14 +32,15 @@ const ntheme = createTheme({
 });
 
 export default function BottomTab() {
-   // const isMobile = useMediaQuery({ maxWidth: 391 })
+   const isMobile = useMediaQuery({ maxWidth: 391 })
    const [value, setValue] = React.useState(0);
    const [textColor, setTextColor] = React.useState("off");
 
+   console.log(isMobile);
     return (
         <div style={{ width: '390px' }}>
             {
-                //isMobile &&
+                isMobile &&
                 <Box className="menu_shortcut">
                     <BottomNavigation
                         showLabels
