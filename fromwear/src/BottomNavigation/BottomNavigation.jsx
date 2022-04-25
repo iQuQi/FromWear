@@ -64,9 +64,9 @@ export default function BottomTab() {
             
             {
                 value==0?
-                <p style={{width:'390px'}}>홈</p>
+                <p style={{position: "absolute"}}>홈</p>
                 : value==1?
-                <p>피드</p>
+                <p style={{position: "absolute"}}>피드</p>
                 : value==2?
                 <p style={{position: "absolute"}}>글쓰기</p>
                 : value==3?
