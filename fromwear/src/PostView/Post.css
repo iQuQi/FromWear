@@ -138,7 +138,7 @@
 #post_content {
     overflow: hidden;
     padding-left:6px;
-
+    text-align: left;
     white-space: normal;
     line-height: 1.2;
 }
@@ -256,13 +256,13 @@
 .whole_content { display: none; } */
 
 
-.mobile_content_box {
+.mobile_writer_box {
     display: none;
 }
 
-.mobile_post_create_time {
+/* .mobile_post_create_time {
     display: none;
-}
+} */
 
 .mobile_post_content {
     display: none;
@@ -300,18 +300,18 @@
         padding-left: 11.2px;
     }
     
-    .mobile_content_box {
+    .mobile_writer_box {
         /* font-size: 12px; */
         display: inline-block;
         /* background-color: #fff; */
-        width: 400px;
+        width: 391px;
         /* height: 480px;
         border: 1px solid #000; */
         border-radius: 20px;
         overflow: auto;
         text-align: left;
     }
-    .mobile_content_box::-webkit-scrollbar { display: none; }
+    .mobile_writer_box::-webkit-scrollbar { display: none; }
 
     .writer {
         min-height: 0;
@@ -320,11 +320,11 @@
     }
 
     .mobile_post_create_time {
-        display: inline-block;
-        position: absolute;
+        width: 90%;       
         font-size: 12px;
-        top: 148px;
-        right: 16px;
+        text-align: left;
+        margin-top: 3px;
+
     }
 
     .modify_post {
@@ -342,12 +342,21 @@
         margin: 10px auto;
     }
 
-    .whole_post_content {
-        text-align: left;
+    #post_content {
+        padding-left: 0;
     }
 
     .check_btn_wrap {
         text-align: left;
+    }
+    
+    .whole_post_content {
+        padding-left: 0px;
+        text-align: left;
+    }
+
+    .check_button {
+        padding-left: 0;
     }
 
 }

@@ -656,7 +656,7 @@ class Post extends Component{
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
-                            <div className="mobile_content_box">
+                            <div className="mobile_writer_box">
                                     <div className="writer">
                                         {
                                             now_post.blind?
@@ -683,7 +683,7 @@ class Post extends Component{
                                             </div>
                                         }
                                     </div>
-                                    <div className="mobile_post_create_time">{this.state.create_post_time}</div>
+                                    {/* <div className="mobile_post_create_time">{this.state.create_post_time}</div> */}
                                     
                             </div>
                             <div className="post_img" style={{backgroundImage: 'URL('+img_src+')'}}></div>
@@ -746,8 +746,9 @@ class Post extends Component{
                                         </div>
                                     }
                                 
+                                    <div className="post_create_time">{this.state.create_post_time}</div>
                                 
-                                    {
+                                    {/* {
                                         this.state.btn_check ?
                                         <div>
                                             {
@@ -763,7 +764,7 @@ class Post extends Component{
                                                 :<div className="post_create_time">{this.state.create_post_time}</div> //내용 숨겨진 상태, 애초에 안 넘는 상태
                                             }
                                         </div>
-                                    }
+                                    } */}
                                 </div>
                                 <div className="comment">
                                     <Comments
@@ -827,7 +828,8 @@ class Post extends Component{
                                         </label>
                                     </div>
                                 }
-                                {
+                                <div className="mobile_post_create_time">{this.state.create_post_time}</div>
+                                {/* {
                                     this.state.btn_check ?
                                     <div>
                                         {
@@ -843,7 +845,7 @@ class Post extends Component{
                                             :<div className="post_create_time">{this.state.create_post_time}</div> //내용 숨겨진 상태, 애초에 안 넘는 상태
                                         }
                                     </div>
-                                }
+                                } */}
                             </div>
                     </div>
                     <div className="main_post_tag_div">
