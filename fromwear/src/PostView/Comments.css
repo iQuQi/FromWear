@@ -96,3 +96,9 @@
     color: black;
     padding: 3px;
 }
+
+@media(max-width:391px){
+    .comment_num {
+        margin-top: 10px;
+    }
+}

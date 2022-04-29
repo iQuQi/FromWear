@@ -846,7 +846,16 @@ class Post extends Component{
                                         }
                                     </div>
                                 } */}
-                            </div>
+
+                                <div className="comment">
+                                    <Comments
+                                    post_id = {post_id}
+                                    board_type = {now_post.board_type}
+                                    post_writer = {now_writer}
+                                    now_user = {now_user}
+                                    />
+                                </div>
+                        </div>
                     </div>
                     <div className="main_post_tag_div">
                         <div className="recommend_tag">

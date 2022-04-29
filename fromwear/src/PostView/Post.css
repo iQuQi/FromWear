@@ -344,6 +344,8 @@
 
     #post_content {
         padding-left: 0;
+        line-height: 1.5;
+        /* font-size: 18px; */
     }
 
     .check_btn_wrap {
@@ -359,4 +361,10 @@
         padding-left: 0;
     }
 
+    .comment {
+        text-align: left;
+        margin-top: 20px;
+        border: 1px solid;
+        padding: 0;
+    }
 }
