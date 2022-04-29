@@ -33,32 +33,55 @@ const ntheme = createTheme({
     
 });
 
-export default function BottomTab({now_user}) {
+export default function BottomTab() {
    const isMobile = useMediaQuery({ maxWidth: 391 })
    const [value, setValue] = React.useState(0);
    const [textColor, setTextColor] = React.useState("off");
+   const [first, setFirst] = React.useState(true);
 
-   console.log(now_user);
     return (
         <div style={{ width: '390px' }}>
             {
                 isMobile &&
                 <Box className="menu_shortcut">
-                    <BottomNavigation
-                        showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                    >
-                     
-                        <BottomNavigationAction className={textColor} label="홈" icon={<HomeIcon className='shortcut_home on'/>} />
-                        <BottomNavigationAction className={textColor} label="피드" icon={<FormatListBulletedIcon className='shortcut_feed on'/>} />
-                        <BottomNavigationAction className={textColor} style={{paddingTop:'0'}} icon={<AddCircleIcon style={{fontSize:'3rem'}} className='shortcut_write on'/>} />
-                        <BottomNavigationAction className={textColor} label="검색" icon={<SearchIcon className='shortcut_search on'/>} />
-                        <BottomNavigationAction className={textColor} label="마이페이지" icon={<PersonIcon className='shortcut_mypage on'/>} />
+                    
+                        <ul>
+                            <li>
+                                <a href='/' className='shortcut_home on'>
+                                    <HomeIcon />
+                                    <p>홈</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href='/feed' className='shortcut_feed '>
+                                    <FormatListBulletedIcon />
+                                    <p>피드</p>
+                                </a>
+                            </li>
+                            <li style={{paddingTop:'0px'}}>
+                                <a>
+                                    <AddCircleIcon className='shortcut_home on' style={{fontSize:'3rem'}}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href='/search'>
+                                    <SearchIcon className='shortcut_home on'/>
+                                    <p>검색</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href='/mypage'>
+                                    <PersonIcon className='shortcut_home on'/>
+                                    <p>마이페이지</p>
+                                </a>
+                            </li>
+                                
+                        </ul>
+                        
+                        
+                        
             
-                    </BottomNavigation>
+                    
                 </Box>    
 
                 
@@ -67,15 +90,13 @@ export default function BottomTab({now_user}) {
             
             {
                 value==0?
-                <p style={{position: "absolute"}}>홈</p>
-                : value==1?
-                (
-                    <div style={{marginTop:'45px', marginBottom:'56px'}}>
-                        <p style={{position: "absolute"}}>피드</p>
-                        <FeedPost user={now_user}/>
-                    </div>
-                )
                 
+                    first? <></>
+                    : window.location.href = '/'
+                    
+                   
+                : value==1? window.location.href = '/feed'
+                       
                 : value==2?
                 <p style={{position: "absolute"}}>글쓰기</p>
                 : value==3?
@@ -86,4 +107,21 @@ export default function BottomTab({now_user}) {
             }
         </div>
     )
+    
 }
+
+/*
+<BottomNavigation
+                        showLabels
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                    >
+<BottomNavigationAction className={textColor} label="피드" icon={<FormatListBulletedIcon className='shortcut_feed on'/>} />
+                        <BottomNavigationAction className={textColor} style={{paddingTop:'0'}} icon={<AddCircleIcon style={{fontSize:'3rem'}} className='shortcut_write on'/>} />
+                        <BottomNavigationAction className={textColor} label="검색" icon={<SearchIcon className='shortcut_search on'/>} />
+                        <BottomNavigationAction className={textColor} label="마이페이지" icon={<PersonIcon className='shortcut_mypage on'/>} />
+                        
+                </BottomNavigation>
+                        */

@@ -20,16 +20,19 @@ export default class FeedPageM extends Component {
 		
 	}
     
+    
     render(){
         let {now_user} = this.state;
+        
         return(
-            <div>
+            <div className='mobile_wrap'>
                 <Header handle_user_info={this.handle_user_info}/>
                 <FeedPost user={now_user} />
+                <BottomTab />
             </div>
         )
 
-        <BottomTab />
+        
         
     }
 }

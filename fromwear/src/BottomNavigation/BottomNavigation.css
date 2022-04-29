@@ -19,9 +19,13 @@
 .menu_shortcut li {
     float: left;
     width: 20%;
+    padding-top: 5px;
+    font-size: 0.7rem;
+    color: rgb(51, 51, 51);
+    text-align: center;
 }
 
-.menu_shortcut a {
+.menu_shortcut .ab {
     display: block;
     overflow: hidden;
     height: 100%;
@@ -60,4 +64,8 @@
 .MuiButtonBase-root.MuiBottomNavigationAction-root {
     padding-top: 0px;
     padding: 0px 12px 8px;    
+}
+.mobile_wrap {
+    margin-top: 45px;
+    margin-bottom: 56px;
 }
