@@ -1,0 +1,51 @@
+.lnb_menu {
+    overflow: hidden;
+    position: fixed;
+    z-index: 12;
+    left: 0;
+    top: 45px;
+    height: 45px;
+    width: 100%;
+    background: #fff url(https://res.kurly.com/mobile/service/common/1908/bg_e5e5e5_1x1.png) repeat-x 0 100%;
+    color: #333;
+    line-height: 1.5;
+    letter-spacing: 0;
+}
+.lnb_menu a.on {
+    color: #5f0080;
+}
+.lnb_menu a {
+    display: block;
+    overflow: hidden;
+    float: none;
+    margin-left: 0;
+    padding: 11px 0 13px;
+    font-size: 13px;
+    color: #666;
+    line-height: 20px;
+    white-space: nowrap;
+    text-align: center;
+}
+.lnb_menu .bg_on{
+    left: 15px;
+    position: absolute;
+    top: 41px;
+    
+    height: 3px;
+    background-color: #5f0080;
+}
+.lnb_menu ul {
+    padding: 0 15px;
+}
+.lnb_menu li {
+    width: 25%;
+    float: left;
+}
+.lnb_menu li:nth-child(1) {
+    width: 22%;
+    float: left;
+}
+.lnb_menu li:nth-child(3) {
+    width: 28%;
+    float: left;
+}
