@@ -11,17 +11,17 @@ export default function TopMenu({pos, wid}) {
                     </a>
                 </li>
                 <li>
-                    <a href='/'>
+                    <a href='/todayboard'>
                         오늘의 착장               
                     </a>
                 </li>
                 <li>
-                    <a href='/'>
+                    <a href='/sosboard'>
                         도움이 필요해              
                     </a>
                 </li>
                 <li>
-                    <a href='/'>
+                    <a href='/weeklytag'>
                         이번주 태그  
                     </a>
                 </li>
