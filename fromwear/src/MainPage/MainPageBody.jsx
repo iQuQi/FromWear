@@ -204,7 +204,7 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                 </div>
                 <Footer/>
             </div>
-            : <MainPageBodyM />
+            : <MainPageBodyM now_user={now_user}/>
         }
         </div>
         

@@ -15,6 +15,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import { createTheme } from '@mui/system';
 import { StyledEngineProvider } from "@mui/material/styles";
 import { ThemeProvider } from '@emotion/react';
+import FeedPage from '../FeedPage/FeedPage';
+import FeedPost from '../FeedPage/FeedPost';
 
 const ntheme = createTheme({
     components: {
@@ -31,12 +33,12 @@ const ntheme = createTheme({
     
 });
 
-export default function BottomTab() {
+export default function BottomTab({now_user}) {
    const isMobile = useMediaQuery({ maxWidth: 391 })
    const [value, setValue] = React.useState(0);
    const [textColor, setTextColor] = React.useState("off");
 
-   console.log(isMobile);
+   console.log(now_user);
     return (
         <div style={{ width: '390px' }}>
             {
@@ -67,7 +69,13 @@ export default function BottomTab() {
                 value==0?
                 <p style={{position: "absolute"}}>홈</p>
                 : value==1?
-                <p style={{position: "absolute"}}>피드</p>
+                (
+                    <div style={{marginTop:'45px', marginBottom:'56px'}}>
+                        <p style={{position: "absolute"}}>피드</p>
+                        <FeedPost user={now_user}/>
+                    </div>
+                )
+                
                 : value==2?
                 <p style={{position: "absolute"}}>글쓰기</p>
                 : value==3?

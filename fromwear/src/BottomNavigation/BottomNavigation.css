@@ -1,7 +1,7 @@
 
 .menu_shortcut {
     position: fixed;
-    z-index: 300px;
+    z-index: 300;
     bottom: 0;
     left: 0;
     width: 100%;
