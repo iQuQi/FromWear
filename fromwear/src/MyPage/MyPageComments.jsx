@@ -42,12 +42,11 @@ export default class MyPageComments extends Component{
 
     render(){
         let {user, current_next_post_page} = this.state;
-        console.log(user.my_comment_list);
         return(
         <List sx={{ margin: '50px 30px', width: '100%', maxWidth: 840, bgcolor: 'background.paper' }}>
         
         {user.my_comment_list.items.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)}).map((item, index)=> (
-          index < (current_next_post_page * 7)?
+          index < (current_next_post_page * 7) &&
             <div>
             <ListItem alignItems="flex-start">
             <ListItemAvatar>
@@ -75,7 +74,6 @@ export default class MyPageComments extends Component{
           </ListItem>
           <Divider />
           </div>
-          : console.log(index + "pass")
         ))}
         
         

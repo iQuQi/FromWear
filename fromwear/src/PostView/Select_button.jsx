@@ -59,7 +59,6 @@ class Select_button extends Component{
 
     onClick = () => {
         if(!this.state.select_button_is_checked){ //false->true
-            console.log("@@@@@@@@@ false->true")
             API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
                 adopted: !this.state.select_button_is_checked,
                 }}
@@ -73,7 +72,6 @@ class Select_button extends Component{
                 }
             })
 
-            console.log("현재!!!", this.state.writer_user)
             API.graphql({
                 query: updateUser, variables:{input: {id: this.state.writer_user.id,
                     adopted: this.state.writer_user.adopted+1,
@@ -125,8 +123,6 @@ class Select_button extends Component{
 
     render() {
         let {select_button_is_checked, now_user, comment_list, post_writer, post_board, writer_user} = this.state;
-        
-        console.log(select_button_is_checked)
         return (
             <div className="single_select">
                 {

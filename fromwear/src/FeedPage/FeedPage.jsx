@@ -52,7 +52,6 @@ export default function FeedPage({now_user}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   let user = now_user;
-  console.log(user);
 
   const handleDrawerOpen = () => {
     setOpen(true);

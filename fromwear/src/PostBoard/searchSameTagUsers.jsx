@@ -37,8 +37,6 @@ export default function searchSameTagUsers(profileUser) {
         same1=same1.sort(function(a,b){return b.follower_num-a.follower_num});
 
         result_user=[...same3,...same2,...same1];
-
-        console.log("ㄱㅕㄹ고ㅏㅏ:",result_user);
         return result_user;
     })
     .catch(e=>console.log(e))

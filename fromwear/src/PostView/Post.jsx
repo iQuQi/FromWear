@@ -242,15 +242,13 @@ class Post extends Component{
 		this.setState({
 			is_write_page: !this.state.is_write_page
 		})
-        console.log("is",this.state.is_write_page)
-        
+
     }
 
 	handle_write_page=()=> {
 		this.setState({
 			is_write_page: !this.state.is_write_page
 		})
-        console.log("is",this.state.is_write_page)
 	}
 
     handleScroll = () => {
@@ -301,7 +299,6 @@ class Post extends Component{
           
         var datetime_same = false;
         if(year == now_post_created_year && month == now_post_created_month && date == now_post_created_date){
-            console.log("오늘 날짜와 생성 날짜가 같음")
             datetime_same = true;
         }
 
@@ -321,7 +318,6 @@ class Post extends Component{
         })
         .then(res => {
             if(res.data.listComments.items.length == 0){
-                console.log("이미 댓글 없어서 댓글 삭제, 댓글 따봉 true로 변경")
                 this.setState({
                     deleted_comment: true, //이미 null이라 삭제안해도됨
                     deleted_comment_like: true,
@@ -338,7 +334,6 @@ class Post extends Component{
                     })
                     .then(res => {
                         if(res.data.listCommentLikeUsers.items.length == 0){
-                            console.log("이미 댓글 따봉 없어서 true로 변경")
                             this.setState({deleted_comment_like:true})
 
                             API.graphql({
@@ -357,7 +352,6 @@ class Post extends Component{
                                 .then(e => console.log("댓글 좋아요 지워지는중"))
                                 .then(res=>{
                                     if(index == tmpData.length-1){
-                                        console.log("댓글 좋아요 last")
                                         this.setState({deleted_comment_like:true,})
 
                                         API.graphql({
@@ -383,7 +377,6 @@ class Post extends Component{
         .then(res => {
                 
             if(this.state.like_urgent_num == 0){
-                console.log("이미 좋아요 없어서 true로 변경")
                 this.setState({
                     deleted_like_urgent: true,
                 })
@@ -408,7 +401,6 @@ class Post extends Component{
             }
 
             if(this.state.now_post.bookmark_user_list.items.length == 0 && this.state.bookmark_click == false){
-                console.log("이미 북마크 없어서 true로 변경")
                 this.setState({
                     deleted_bookmark: true,
                 })

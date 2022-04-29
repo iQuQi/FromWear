@@ -34,7 +34,7 @@ const Img = styled('img')({
 });
 
 const EditBtn = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(grey[500]),
+  //color: theme.palette.getContrastText(grey[500]),
   backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
@@ -46,7 +46,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
 }));
 
 const RecoBtn = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(grey[500]),
+  //color: theme.palette.getContrastText(grey[500]),
   backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
@@ -192,11 +192,10 @@ export default class Profile extends Component {
   }
 
   render(){
-    if(this.state.user.following_list || this.state.user.follower_list){
+/*    if(this.state.user.following_list || this.state.user.follower_list){
       console.log(this.state.user.follower_list.items.length);
-    }
+    }*/
     
-    console.log(this.state.user.my_tag_list);
 
     let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked} = this.state;
 
@@ -206,7 +205,6 @@ export default class Profile extends Component {
     if(user.my_tag_list){
       if(user.my_tag_list.items){
         taglist = user.my_tag_list.items;
-        console.log(taglist);
       }
     }
 
@@ -324,9 +322,7 @@ export default class Profile extends Component {
                   :<p></p>    
                   :<p></p>    
               }
-              {
-                console.log(user.my_tag_list)
-              }
+
               
 
             </Grid>
