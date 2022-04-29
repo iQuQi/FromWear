@@ -86,7 +86,7 @@ class MainPage extends Component {
 			<div>
 				<Header handle_user_info={this.handle_user_info}/>
 				<MainPageBody
-					now_user={now_user}
+					now_user={'nouser'}
 					best_post_0={best_post_0}
 					best_post_1={best_post_1}
 					best_post_2={best_post_2}
