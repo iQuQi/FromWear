@@ -11,7 +11,7 @@ import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
 import ProfileEdit from './ProfileEditPage/ProfileEdit.jsx';
 import MyPage from './MyPage/MyPage.jsx';
 import UserPagePath from './UserPage/UserPagePath.jsx';
-import FeedPage from './FeedPage/FeedPage.jsx';
+import FeedPageM from './FeedPage/FeedPageM.jsx';
 
 import BottomNavigation from './BottomNavigation/BottomNavigation.jsx';
 
@@ -30,7 +30,7 @@ function App() {
               <Route path="/mypage" element={<MyPage/>} exact/>
               <Route path="/userpage/:userid" element={<UserPagePath/>} exact/>
               <Route path="/profileedit" element={<ProfileEdit/>} exact/>
-              <Route path="/feed" element={<FeedPage/>} exact/>
+              <Route path="/feed" element={<FeedPageM />} exact/>
               <Route path="/BottomNavigation" element={<BottomNavigation/>} exact/>
             </Routes>
           </BrowserRouter>
