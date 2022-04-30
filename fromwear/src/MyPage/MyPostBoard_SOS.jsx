@@ -3,12 +3,9 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
 //post board
-import dayFilter from '../PostBoard/dayFilter';
 
 import './MyPostBoard.css';
 import './MyPage.css';
-import { API } from 'aws-amplify';
-import { getUser } from '../graphql/queries.js';
 
 
 //dimmed grid box
@@ -16,7 +13,6 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import MoodBadIcon from '@mui/icons-material/MoodBad';

@@ -29,8 +29,8 @@ const theme = {
 
 const emailList = [
 	{address: 'S7SrqZoZfyHaqqain', templateId: 'template_rq5y7j8'},
-	{address: 'yiktImKsBDGDhFVA_', templateId: 'template_uhdkh4l'},
-	{address: 'N1fxofznKfSgsJfor',templateId: 'template_yqgbnyh'}
+/*	{address: 'yiktImKsBDGDhFVA_', templateId: 'template_uhdkh4l'},
+	{address: 'N1fxofznKfSgsJfor',templateId: 'template_yqgbnyh'}*/
 ];
 class Header extends Component{
 	constructor(){
@@ -137,8 +137,7 @@ class Header extends Component{
 		this.setState({
 			rank_1:rank_data[0].value
 		});
-		console.log("rank_1: "+rank_data[0].value)
-  
+
 	};
 
 
@@ -174,7 +173,6 @@ class Header extends Component{
 	
 	
 		let {rank_1,user,login_popup, chatbot_open} = this.state;
-		console.log(user.name);
 		const steps= [
 			{
 			  id: '0',
