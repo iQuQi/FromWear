@@ -70,7 +70,7 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                                 {best_post_0.map((item) => (
                                     <ImageListItem key={item.img} >		
                                         <a className='dimmed' href={'/post/'+item.id}> 
-                                            <img style={{borderRadius:16, width:'209.6px', height:'322.55px'}}
+                                            <img className='userpost_img'
                                                 src={"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
                                                 srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                                 alt={item.id}
@@ -113,7 +113,7 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                                 {best_post_1.map((item) => (
                                     <ImageListItem key={item.img}>
                                         <a className='dimmed' href={'/post/'+item.id}> 
-                                            <img style={{borderRadius:16, width:'209.6px', height:'322.55px' }}
+                                            <img className='userpost_img'
                                                 src={"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
                                                 srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                                 alt={item.id}
@@ -166,7 +166,7 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                                 {best_post_2.map((item) => (
                                     <ImageListItem key={item.img}>
                                         <a className='dimmed' href={'/post/'+item.id}> 
-                                            <img style={{borderRadius:16, width:'209.6px', height:'322.55px'}}
+                                            <img className='userpost_img'
                                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                                 srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                                 alt={item.user}

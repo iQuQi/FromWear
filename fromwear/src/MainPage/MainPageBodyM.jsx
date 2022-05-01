@@ -46,7 +46,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                         {best_post_0.map((item) => (
                             <div spacing='16' className='slider_content'>
                                 <a href={'/post/'+item.id}> 
-                                    <img style={{borderRadius:16, width:'156.15px', height:'243.59px'}}
+                                    <img className='userpost_img'
                                         src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                         srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                         alt={item.id}
@@ -61,7 +61,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                                         <div className='innerdiv'>
                                             <a href = {link}>
                                                 <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-                                                style={{borderRadius:"50%",margin: '7px 5px 7px 3px', width:'20px', height:'20px'}}/>
+                                                className='user_img'/>
                                             </a>
                                             <a href = {link}>
                                                 <p className='user_name' style={{margin: '9px 0px'}}>{item.user.name}</p>
@@ -70,8 +70,8 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                                     </div>
                                     <div>
                                         <div className='innerdiv_margin'>
-                                            <p style={{margin: '9px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-                                            <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                                            <p className='likeurgent_num'>{item.like_urgent_user_list.items.length}</p>
+                                            <FavoriteBorderIcon style={{margin: '7px 5px 7px 3px', color:'#000000'}} sx={{fontSize: '1rem'}}/>
                                         </div>
                                     </div>
                                 </Stack>	    
@@ -91,7 +91,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                         {best_post_1.map((item) => (
                             <div spacing='16' className='slider_content'>
                                 <a href={'/post/'+item.id}> 
-                                    <img style={{borderRadius:16, width:'156.15px', height:'243.59px'}}
+                                    <img className='userpost_img'
                                         src={"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
                                         srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                         alt={item.id}
@@ -106,11 +106,11 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                                         <div className='innerdiv'>
                                             {
                                                 item.blind? <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+'profile_skyblue.jpg'} 
-                                                style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+                                                className='user_img'/>
                                                 : 
                                                 <a href = {link}>
                                                     <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-                                                    style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+                                                    className='user_img'/>
                                                 </a>
                                             }
                                             
@@ -125,8 +125,8 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                                     </div>	
                                     <div>
                                         <div className='innerdiv_margin'>
-                                            <p style={{margin: '9px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-                                            <MoodBadIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                                            <p className='likeurgent_num'>{item.like_urgent_user_list.items.length}</p>
+                                            <MoodBadIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1rem'}}/>
                                         </div>
                                     </div>
                                     
@@ -146,7 +146,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                         {best_post_2.map((item) => (
                             <div spacing='16' className='slider_content'>
                                 <a href={'/post/'+item.id}> 
-                                    <img style={{borderRadius:16, width:'156.15px', height:'243.59px'}}
+                                    <img className='userpost_img'
                                         src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                         srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                         alt={item.user}
@@ -161,7 +161,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                                         <div className='innerdiv'>
                                             <a href = {link}>
                                                 <img src={'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.user.profile_img} 
-                                                style={{borderRadius:"50%",margin: '7px 3px', width:'20px', height:'20px'}}/>
+                                                className='user_img'/>
                                             </a>
                                             <a href = {link}>
                                                 <p className='user_name' style={{margin: '8px 0px'}}>{item.user.name}</p>
@@ -170,8 +170,8 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                                     </div>
                                     <div>
                                         <div className='innerdiv_margin'>
-                                            <p style={{margin: '9px 0px'}}>{item.like_urgent_user_list.items.length}</p>
-                                            <FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1.1rem'}}/>
+                                            <p className='likeurgent_num'>{item.like_urgent_user_list.items.length}</p>
+                                            <FavoriteBorderIcon style={{margin: '7px 3px', color:'#000000'}} sx={{fontSize: '1rem'}}/>
                                         </div>
                                     </div>
                                     
