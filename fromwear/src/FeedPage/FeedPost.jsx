@@ -5,14 +5,14 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 import Stack from '@mui/material/Stack';
 
 import './FeedPost.css';
+import FeedBookMark from './FeedBookMark';
+import FeedLikeUrgent from './FeedLikeUrgent';
 
 // 현재 사용자의 -> following_list의 -> 유저의 게시물 중 
 //-> 도움이 필요해의 익명 글만 빼고 전부 가져오기 -> 근데 이제 followingfollower의 createdAt보다 나중꺼만
@@ -32,7 +32,9 @@ export default function FeedPost({user}) {
 
     let now_user = user; 
     let postlist = [];
-    console.log(now_user.following_list);
+
+    let bookmark_check = false;
+    let likeurgent_check = false;
 
     if(now_user.following_list){
         now_user.following_list.items.map((item) => (
@@ -44,13 +46,11 @@ export default function FeedPost({user}) {
     
     postlist.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)});
 
-    console.log(postlist);
     return (
     <ImageList cols={1} sx={{ width: 390 }}>
       {postlist.map((post) => (
           
             <ImageListItem key={post.img} >
-                {console.log(post)}
             <img
                 style={{height:'600px'}}
                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
@@ -73,12 +73,10 @@ export default function FeedPost({user}) {
               </div>
               <div>
                 <div className='innerdiv_margin'>
-                  <BookmarkBorderIcon style={{margin: '7px 0px 7px 0px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
-                  <FavoriteBorderIcon style={{margin: '7px 2px 7px 3px', color:'#000000'}} sx={{fontSize: '1.3rem'}}/>
-                  <p style={{margin: '19px 5px 7px 0px', fontSize: '1.1rem'}}>
-                    {post.like_urgent_user_list.items.length>1000?
-                      post.like_urgent_user_list.items.length/1000 + '.k'
-                      : post.like_urgent_user_list.items.length}</p>
+                  
+                  <FeedBookMark now_user={now_user} post={post}/>
+                  <FeedLikeUrgent now_user={now_user} post={post}/>
+                  
                 </div>
               </div>
             </Stack>

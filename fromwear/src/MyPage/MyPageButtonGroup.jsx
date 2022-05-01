@@ -14,7 +14,7 @@ import MyPageComments from './MyPageComments';
 import MyPageBookmark from './MyPageBookmark';
 import MyPostBoard_SOS from './MyPostBoard_SOS';
 const EditBtn = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(grey[500]),
+    // color: theme.palette.getContrastText(grey[500]),
     backgroundColor: white[500],
     
     width: '70px',
@@ -81,7 +81,6 @@ export default class MyPageButtonGroup extends Component{
     }
 
     render(){
-        console.log(this.state.now_user);
 
         let {now_user, btn_clicked, current_next_post_page} = this.state;
 

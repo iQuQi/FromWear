@@ -84,14 +84,14 @@ html::-webkit-scrollbar {
 
 .logo_img{
 	position: relative;
-	top:-10px;
+	top:5px;
 	width: 80px;
 	height: 25px;
 }
 
 .closet_img{
 	position: relative;
-	top:-10px;
+	top:5px;
 	width: 25px;
 	height: 25px;
 }
@@ -103,7 +103,7 @@ html::-webkit-scrollbar {
 
 .move_to_top{
 	position: fixed;
-	z-index: 1000;
+	z-index: 998;
 	bottom: 100px;
 	right: 40px;
 	width: 40px;
@@ -129,7 +129,6 @@ html::-webkit-scrollbar {
 	font-size:  13px;
 	color: black;
 	position: relative;
-	top: -10px;
 	right: 10px;
 }
 

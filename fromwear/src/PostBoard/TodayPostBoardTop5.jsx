@@ -144,7 +144,6 @@ export default class TodayPostBoardTop5 extends Component {
 		const settings = {
       className: "center",
       centerMode: true,
-      infinite: true,
       slidesToShow: 5,
       beforeChange: this.handle_slider_index_before,
       centerPadding: "0px",
@@ -156,7 +155,6 @@ export default class TodayPostBoardTop5 extends Component {
         
 		return (
       <div className="today_background_wrap">
-        {console.log(this.state.post_top_list)}
         <article className="today_wear">
           {board_type == 0 ? (
             <div>

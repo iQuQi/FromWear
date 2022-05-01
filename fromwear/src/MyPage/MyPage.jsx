@@ -29,7 +29,6 @@ class MyPage extends Component {
 		API.graphql({ query: getUser, variables: { id: this.state.now_user_id} })
 		.then( res => {
 			this.set_now_user(res.data.getUser);
-			console.log(res.data.getUser);
 		})
 		.catch( e => console.log(e));	
     }
@@ -52,8 +51,6 @@ class MyPage extends Component {
 
 
     render(){
-		console.log(this.props.user);
-		console.log(this.state.now_user);
 		let {now_user, now_user_id, is_profile_edit} = this.state;
 		
 		
@@ -73,11 +70,6 @@ class MyPage extends Component {
 					<MyPageButtonGroup user={now_user}/>
 				</div>		
             </div>
-
-			<FeedPage 
-				now_user={now_user} 						
-			/>
-
 			<Footer/>
 			
         </div>

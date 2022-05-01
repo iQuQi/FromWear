@@ -1,18 +1,18 @@
 import * as React from 'react';
 import {Component} from 'react';
-import { Box } from '@mui/material';
 import './Header.css'
 import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
 import Auth from '@aws-amplify/auth';
-import { get_rank_tag } from '../SearchPage/RankTag';
+import {get_rank_tag} from '../SearchPage/RankTag';
 import Login from "./Login";
 import API from '@aws-amplify/api';
-import {createUser,createUserStyleTag} from '../graphql/mutations.js';
+import {createUser, createUserStyleTag} from '../graphql/mutations.js';
 import {getUser} from '../graphql/queries.js';
 import ChatBot from 'react-simple-chatbot';
-import { ThemeProvider } from 'styled-components';
+import {ThemeProvider} from 'styled-components';
 import FeedPage from '../FeedPage/FeedPage.jsx'
+import {init, send} from 'emailjs-com';
 
 // all available props
 const theme = {
@@ -26,8 +26,12 @@ const theme = {
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',
 };
-let msg='테스트';
 
+const emailList = [
+	{address: 'S7SrqZoZfyHaqqain', templateId: 'template_rq5y7j8'},
+	{address: 'yiktImKsBDGDhFVA_', templateId: 'template_uhdkh4l'},
+	{address: 'N1fxofznKfSgsJfor',templateId: 'template_yqgbnyh'}
+];
 class Header extends Component{
 	constructor(){
 		super();
@@ -254,7 +258,6 @@ class Header extends Component{
 			},
 			
 		  ];
-		  console.log('step',steps);
 		 
 		return <>
 		<div className={`header_bar 
@@ -271,9 +274,9 @@ class Header extends Component{
 			/>
 			
 			</div>
-				<FeedPage 
-					now_user={user} 						
-				/>	
+			{ (user?.name && window.location.pathname !== ("/search"||"/search#"||"/search/")) 
+						  && <FeedPage now_user={user} />}
+			<MoveToTop/>
 			<ThemeProvider theme={theme}>
 					{user?.name && 
 					<ChatBot 
@@ -282,7 +285,35 @@ class Header extends Component{
 						floating={true} 
 						steps={steps}
 						handleEnd={(result)=>{
-							console.log('result',result);
+							const subtitle = result.renderedSteps
+								.filter((step) => step.id ==='1')
+								.map((step) => step.message);
+							const subcontent = result.renderedSteps
+								.filter((step) => step.id === '5' || step.id === '6' || step.id === '7')
+								.map((step) => step.message);
+
+							let content = '';
+							subtitle.forEach((title, index) => {
+								content += `${title}:  
+								${subcontent[index]}
+								`;
+							})
+
+							var templateParams = {
+								name: user?.name,
+								content,
+							};
+
+							emailList.forEach((email) => {
+								init(email.address);
+								send('fromwear', email.templateId, templateParams)
+									.then(function(response) {
+										console.log('SUCCESS!', email.address, response.status, response.text);
+									}, function(error) {
+										console.log('FAILED...', error);
+									});
+							})
+
 							this.handle_chatbot_end();
 
 						}}
@@ -290,7 +321,6 @@ class Header extends Component{
 					/>  }
 					
 			</ThemeProvider>
-			<MoveToTop/>
 			{login_popup&&<Login 
 			handle_login_complete={this.handle_login_complete}/>}
 			</>

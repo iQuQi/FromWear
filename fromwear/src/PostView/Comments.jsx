@@ -43,7 +43,6 @@ class Comments extends Component {
             }
         })
         .then(res => {
-            console.log("#####test", res);
             this.setState({
                 comment_list: res.data.listComments.items
             })
@@ -115,7 +114,6 @@ class Comments extends Component {
 
     removeComment = (delete_comment) => {
 
-        console.log("delete하려고하는 것!!", delete_comment)
         // delete_comment.like_user_list.items.map((like)=>{
         //     API.graphql({
         //         query: deleteCommentLikeUser, variables: {input:{id: like.id}}

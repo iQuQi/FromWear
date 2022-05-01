@@ -42,25 +42,29 @@ class TodayPostBoard extends Component {
 		let {board_type, user} = this.state;
 		let {is_write_page} = this.state;
 
-		return ( 
-			<section className="wrap">
-				{ is_write_page 
-					? <PostWritePage 
-						board_type={board_type} 
+		return (
+			<>
+				<Header handle_user_info={this.handle_user_info}/>
+				{ is_write_page
+					? <PostWritePage
+						board_type={board_type}
 						user={user}
-						handle_write_page={this.handle_write_page} 
-					  />
+						handle_write_page={this.handle_write_page}
+					/>
 					: null
 				}
-            	<Header handle_user_info={this.handle_user_info}/>
-				<TodayPostBoardTop5 board_type={board_type} />
-				<TodayPostBoardPosts 
-					board_type={board_type} 
-					user={user}
-					handle_write_page={this.handle_write_page}
-				/>
-				<Footer />
-			</section> )
+				<section className="wrap">
+
+					<TodayPostBoardTop5 board_type={board_type} />
+					<TodayPostBoardPosts
+						board_type={board_type}
+						user={user}
+						handle_write_page={this.handle_write_page}
+					/>
+				</section>
+				<Footer/>
+			</>
+			 )
 	}
 }
 
