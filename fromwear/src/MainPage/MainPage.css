@@ -90,6 +90,12 @@
     text-align: left;
     line-height: normal;
 }
+.userpost_img {
+    border-radius:16px;
+    width: 209.6px;
+    height: 322.55px;
+    object-fit: cover;
+}
 
 @media only screen and (max-width: 391px){
     #main_page {
@@ -180,7 +186,7 @@
         padding-right: 16px;
     }
 
-    .user_name{
+    .user_name {
         display: block;
         width: 95px; 
         white-space: nowrap; 
@@ -188,5 +194,22 @@
         text-overflow: ellipsis; 
         text-align: left;
         line-height: normal;
+        font-size: 0.9rem;
+    }
+    .likeurgent_num {
+        margin: 9px 0px;
+        font-size: 0.9rem;
+    }
+    .user_img {
+        border-radius: 50%;
+        margin:  6px 3px;
+        width: 20px;
+        height: 20px
+    }
+    .userpost_img {       
+        width: 156.15px;
+        height: 243.59px;
+        object-fit: cover;
+        border-radius: 0;
     }
 }
