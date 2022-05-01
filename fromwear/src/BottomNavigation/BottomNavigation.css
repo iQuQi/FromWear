@@ -5,10 +5,10 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 49px;
     border-top: 1px solid #ddd;
     background-color: #fff;
     text-align: center;
+    height: calc(49px + env(safe-area-inset-bottom));
 }
 .menu_shortcut .on {
     color: #5f0080;
