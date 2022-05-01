@@ -71,8 +71,8 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                                     <ImageListItem key={item.img} >		
                                         <a className='dimmed' href={'/post/'+item.id}> 
                                             <img style={{borderRadius:16, width:'209.6px', height:'322.55px'}}
-                                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
-                                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
+                                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                                 alt={item.id}
                                                 loading="lazy"
                                             />
@@ -114,7 +114,7 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                                     <ImageListItem key={item.img}>
                                         <a className='dimmed' href={'/post/'+item.id}> 
                                             <img style={{borderRadius:16, width:'209.6px', height:'322.55px' }}
-                                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
+                                                src={"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
                                                 srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                                 alt={item.id}
                                                 loading="lazy"
@@ -167,8 +167,8 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                                     <ImageListItem key={item.img}>
                                         <a className='dimmed' href={'/post/'+item.id}> 
                                             <img style={{borderRadius:16, width:'209.6px', height:'322.55px'}}
-                                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format`}
-                                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
+                                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
                                                 alt={item.user}
                                                 loading="lazy"
                                             />
@@ -204,7 +204,12 @@ export default function MainPageBody({ now_user, best_post_0, best_post_1, best_
                 </div>
                 <Footer/>
             </div>
-            : <MainPageBodyM now_user={now_user}/>
+            : <MainPageBodyM 
+                now_user={now_user}
+                best_post_0={best_post_0}
+                best_post_1={best_post_1}
+                best_post_2={best_post_2}
+                />
         }
         </div>
         
