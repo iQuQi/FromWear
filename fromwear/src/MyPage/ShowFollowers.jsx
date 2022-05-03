@@ -93,7 +93,7 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                 
             </DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
-                <Grid container spacing={2} style={{padding:'15px'}}>
+                <Grid container spacing={2} style={{margin:0, width:'100%'}}>
                 {mode=='following'?
                     user.following_list.items.map((item) => (
                         <Grid style={{padding:'10px', paddingBottom:'0px'}}>
@@ -101,9 +101,9 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                                 {link_following(item, now_user)}
                                 <a href={link}> 
                                     <span className='dimmed_layer'>	
-                                        <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
-                                            src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}?w=248&fit=crop&auto=format`}
-                                            srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                        <img className='img_radius followingfollower_img' 
+                                            src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}`}
+                                            srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.following.profile_img}`}
                                             alt={item.following.name}
                                             loading="lazy"
                                         />
@@ -111,7 +111,7 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                                     </span>
                                 </a>
                                 
-                                <p style={{width:'80px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{item.following.name}</p>
+                                <p className='followingfollower_name'>{item.following.name}</p>
                             </Stack>
                         </Grid>
                     ))
@@ -122,9 +122,9 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                                 {link_follower(item, now_user)}
                                 <a href={link}> 
                                     <span className='dimmed_layer'>	
-                                        <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
-                                            src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}?w=248&fit=crop&auto=format`}
-                                            srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                        <img className='img_radius followingfollower_img'
+                                            src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}`}
+                                            srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.follower.profile_img}`}
                                             alt={item.follower.name}
                                             loading="lazy"
                                         />
@@ -132,7 +132,7 @@ export default function ShowFollowers({now_user, user, open, handleClose, mode})
                                     </span>
                                 </a>
                                 
-                                <p style={{width:'80px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{item.follower.name}</p>
+                                <p className='followingfollower_name'>{item.follower.name}</p>
                             </Stack>
                         </Grid>
                     ))

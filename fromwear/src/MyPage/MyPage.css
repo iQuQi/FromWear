@@ -17,6 +17,18 @@
 .img_radius{
     border-radius: 50%;
 }
+.followingfollower_img {
+    height:80px;
+    width:80px;
+    margin:auto;
+    object-fit:cover;
+}
+.followingfollower_name {
+    width:80px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
 
 @media only screen and (max-width: 391px){
     #profile ul {
@@ -44,6 +56,17 @@
         height: 1px;
         margin: 30px auto;
         background-color: grey;
+    }
+    .followingfollower_img {
+        height:49.5px;
+        width:49.5px;
+    }
+    .followingfollower_name {
+        width:49.5px; 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+        font-size: 0.9rem;
     }
 }
 
