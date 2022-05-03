@@ -40,11 +40,7 @@ export default function BottomTab() {
    const [first, setFirst] = React.useState(true);
 
    let now_link = window.location.pathname;
-   if(now_link=='/feed'){
-        console.log(now_link);
-   }
-   
-
+  
     return (
         <div style={{ width: '390px' }}>
             {
