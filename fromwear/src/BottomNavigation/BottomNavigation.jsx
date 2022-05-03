@@ -39,6 +39,12 @@ export default function BottomTab() {
    const [textColor, setTextColor] = React.useState("off");
    const [first, setFirst] = React.useState(true);
 
+   let now_link = window.location.pathname;
+   if(now_link=='/feed'){
+        console.log(now_link);
+   }
+   
+
     return (
         <div style={{ width: '390px' }}>
             {
@@ -47,13 +53,13 @@ export default function BottomTab() {
                     
                         <ul>
                             <li>
-                                <a href='/' className='shortcut_home on'>
+                                <a href='/' className={now_link=='/'? 'shortcut_home on': 'shortcut_home'}>
                                     <HomeIcon />
                                     <p>홈</p>
                                 </a>
                             </li>
                             <li>
-                                <a href='/feed' className='shortcut_feed '>
+                                <a href='/feed' className={now_link=='/feed'? 'shortcut_feed on': 'shortcut_feed'}>
                                     <FormatListBulletedIcon />
                                     <p>피드</p>
                                 </a>
@@ -64,14 +70,14 @@ export default function BottomTab() {
                                 </a>
                             </li>
                             <li>
-                                <a href='/search'>
-                                    <SearchIcon className='shortcut_home on'/>
+                                <a href='/search' className={now_link=='/search'? 'shortcut_search on': 'shortcut_search'}>
+                                    <SearchIcon />
                                     <p>검색</p>
                                 </a>
                             </li>
                             <li>
-                                <a href='/mypage'>
-                                    <PersonIcon className='shortcut_home on'/>
+                                <a href='/mypage' className={now_link=='/mypage'? 'shortcut_mypage on': 'shortcut_mypage'}>
+                                    <PersonIcon />
                                     <p>마이페이지</p>
                                 </a>
                             </li>
