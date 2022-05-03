@@ -335,8 +335,8 @@ export default class Profile extends Component {
         {
           tag_user_is_checked?
           <div>
-            <hr style={{margin:'20px auto', width:'920px'}}></hr>
-            <div className="container" style={{width:'850px', margin:'auto'}}>
+            <hr style={{margin:'20px auto', width:'100%'}}></hr>
+            <div className="container" style={{width:'100%', margin:'auto'}}>
               <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
               <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
               <style>{cssstyle}</style>
@@ -346,9 +346,9 @@ export default class Profile extends Component {
             
                       <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
-                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
-                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          <img className='img_radius' style={{height:'50px', width:'50px', margin:'auto', objectFit:'cover'}}
+                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}`}
+                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}`}
                               alt={item.name}
                               loading="lazy"
                           />
@@ -356,7 +356,7 @@ export default class Profile extends Component {
                         </span>
                       </a>
                       <br/>
-                      <p>{item.name}</p>
+                      <p style={{fontSize:'0.8rem'}}>{item.name}</p>
                     </div>
                   ))}
                   
@@ -372,7 +372,7 @@ export default class Profile extends Component {
           <p></p>
         }
       
-        <hr style={{margin:'20px auto', width:'920px'}}></hr>
+        <hr style={{margin:'20px auto', width:'100%'}}></hr>
       </div>
     )
   }
