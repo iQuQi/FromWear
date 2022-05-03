@@ -38,9 +38,16 @@ export default function FeedPost({user}) {
 
     if(now_user.following_list){
         now_user.following_list.items.map((item) => (
-            item.following.my_post_list.items.map((post) => (
+            item.following.my_post_list.items.map((post) => {
+              if(post.board_type!=1){
                 postlist = [...postlist, post]
-            ))
+              }
+              else{
+                if(post.blind==false){
+                  postlist = [...postlist, post]
+                }
+              }
+            })
         ));
     }
     
