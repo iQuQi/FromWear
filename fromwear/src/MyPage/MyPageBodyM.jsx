@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Profile from './Profile';
+import ProfileM from './ProfileM';
 import MyPageButtonGroup from './MyPageButtonGroup';
 import ProfileEdit from '../ProfileEditPage/ProfileEdit';
 import BottomTab from '../BottomNavigation/BottomNavigation';
@@ -18,10 +18,7 @@ export default function MyPageBodyM({now_user}) {
             <BottomTab />
             {
                 now_user=='noUser'?
-                <div style={{height: '100%'}}>
-                    <p style={{marginTop:'100px'}}>로그인 후 이용해주세요</p>
-                </div>
-
+                <p style={{marginTop:'100px'}}>로그인 후 이용해주세요</p>
                 :
                 <div>
                     {is_profile_edit?
@@ -30,7 +27,7 @@ export default function MyPageBodyM({now_user}) {
                     }
                     
                     <div className='mypage_contents'>
-                        <Profile user={now_user} handle_profile_edit={handle_profile_edit}/>
+                        <ProfileM user={now_user} handle_profile_edit={handle_profile_edit}/>
                         
                         <div id = 'tab' className = 'mypage_collection'>
                             <MyPageButtonGroup user={now_user}/>
@@ -38,7 +35,6 @@ export default function MyPageBodyM({now_user}) {
                     </div>
                 </div>
             }
-            
             
         </div>
 

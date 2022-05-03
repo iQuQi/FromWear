@@ -18,3 +18,32 @@
     border-radius: 50%;
 }
 
+@media only screen and (max-width: 391px){
+    #profile ul {
+        width: 80%;
+        height: 20px;
+        margin: 20px auto;
+    }
+    #profile li {
+        float: left;
+        width: 25%;
+        text-align: center;
+    }
+    .profile_award {
+        line-height: 1.5em;
+        font-size: 0.8em;
+    }
+    .profile_intro {
+        margin: 20px 0;
+        font-size: 0.9em;
+        text-align: left;
+        margin-left: 10%;
+    }
+    .devider {
+        width: 10%;
+        height: 1px;
+        margin: 30px auto;
+        background-color: grey;
+    }
+}
+
