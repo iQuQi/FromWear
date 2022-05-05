@@ -19,7 +19,7 @@ import SelectDay from './SelectDay';
 import SelectGender from './SelectGender';
 import SelectBoard from './SelectBoard';
 import {deleteAlarm} from '../graphql/mutations.js';
-import { Button } from '@mui/material';
+import {Button} from '@mui/material';
 import SignOutButton from './SignOutButton';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,12 +47,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme , isMobile}) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: isMobile ? 0 : `calc(1em + ${theme.spacing(8)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     height:35,
@@ -164,7 +164,8 @@ function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select
   );
 
 
- 
+ const isSearchPage = window.location.pathname===("/search"||"/search#"||"/search/");
+ const isMyPage = window.location.pathname===("/mypage"||"/mypage#"||"/mypage/");
 
   return (
     <div
@@ -173,83 +174,95 @@ function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select
       <AppBar
           sx={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:'45px',padding: '10px'}} position="static">
         <Toolbar sx={{'&.MuiToolbar-gutters' : {minHeight: '25px', ...(isMobile && {p: 0})}}} >
-        
-           <a href="/" style={{height: '40px', width: '120px'}}>
-            <img src={closet} alt="closet" className ="closet_img"/>
-             <img src={logo} alt="logo" className ="logo_img"/>
-             </a>
 
-          {isMobile ?
-              (
-              <a href={window.location.pathname===("/search"||"/search#"||"/search/")?"#":"/search"}>
-                <SearchIconWrapper >
-                  <SearchIcon style={{ color: "black" }}/>
-                </SearchIconWrapper>
+          {((!isSearchPage && isMobile) || !isMobile)  &&
+              <a href="/" style={{height: '40px', width: '120px'}}>
+                <img src={closet} alt="closet" className="closet_img"/>
+                <img src={logo} alt="logo" className="logo_img"/>
               </a>
-              )
-              :
-              (
+          }
+
+
+          {((isMobile && isSearchPage) || !isMobile ) &&
               <Search
-                  className='mobile_search_bar'
-                  style={{ backgroundColor: "#f2f2f2" , width: "730px",minWidth:"600px",
+                  style={{ backgroundColor: "#f2f2f2" , width: isMobile? "370px" : "730px", minWidth:"370px",
                     borderRadius: 10,position:"relative"}}>
                 <SearchIconWrapper >
                   <SearchIcon style={{ color: "black" }}/>
                 </SearchIconWrapper>
-                <a href={window.location.pathname===("/search"||"/search#"||"/search/")?"#":"/search"}>
+                <a href={isSearchPage?"#":"/search"}>
                   <StyledInputBase
-                      style={{ color: "black", fontSize: "14px",width: "50%",height:35, position:'relative', left: '-30px'}}
+                      isMobile={isMobile}
+                      style={{ color: "black", fontSize: "14px",width: "55%",height:35,
+                        position:'relative', left: '-30px'}}
                       placeholder={"#오늘의 #태그는 #"+rank_1}
-                      inputProps={{ 'aria-label': 'search' }}
                       onChange={handle_inputbase_on_change}
                   />
                 </a>
-                <SelectBoard handle_select_board={handle_select_board}/>
-                <SelectGender handle_select_gender={handle_select_gender}/>
-                <SelectDay handle_select_day={handle_select_day}/>
+                {!isMobile &&
+                    <>
+                      <SelectBoard handle_select_board={handle_select_board}/>
+                      <SelectGender handle_select_gender={handle_select_gender}/>
+                      <SelectDay handle_select_day={handle_select_day}/>
+                    </>
+                }
               </Search>
-              )
           }
+
 
           <Box sx={{ flexGrow: 1 }} />
           {user!=="noUser"?
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          
-            <IconButton
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, '&.MuiBox-root' : {display: 'flex'} }}>
+            {((!isSearchPage && isMobile) || !isMobile) &&
+                <IconButton
+                    style={{ color: "black", height:40 ,position:"relative", lineHeight: '40px'}}
 
-              style={{ color: "black", height:35 ,position:"relative"}}
-              aria-label="show 17 new notifications"
-              onClick={handleAlarmOpen}
-
-            >                
-              <NotificationsIcon style={{fontSize:25}}/>
-              <Badge 
-                badgeContent={user.alarm_list?.items.length>999?"999+":user.alarm_list?.items.length} 
-                color="primary"
-                style={{position:"relative",top:-10}}
+                    aria-label="show 17 new notifications"
+                    onClick={handleAlarmOpen}
 
                 >
-              </Badge>
-            </IconButton>
-            
-           
-            <IconButton
-              style={{ color: "black",height:35 ,position:"relative"}}
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-            >
-              <span className="bar_user_name ellips" >{user.name}</span>
-              <span className="bar_user_name">님</span>
-              <div 
-									style={{backgroundImage:"URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+user.profile_img+")"
-                  ,width:"30px",height:"30px",backgroundSize:"cover",backgroundPosition: 'center', display:'inline-block',borderRadius:'50%',
-                  marginRight:"5px"}}/>
+                  <NotificationsIcon style={{fontSize:25}}/>
+                  <Badge
+                      badgeContent={user.alarm_list?.items.length>999?"999+":user.alarm_list?.items.length}
+                      color="primary"
+                      style={{position:"relative",top:-10}}
 
-            </IconButton>)
+                  >
+                  </Badge>
+                </IconButton>
+            }
+
+            {isMobile && isMyPage &&
+                <SignOutButton/>
+            }
+            {!isMobile &&
+                <IconButton
+                    style={{color: "black", height: 45, position: "relative"}}
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                >
+                  <span className="bar_user_name ellips">{user.name}</span>
+                  <span className="bar_user_name">님</span>
+                  <div
+                      style={{
+                        backgroundImage: "URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/" + user.profile_img + ")"
+                        ,
+                        width: "30px",
+                        height: "30px",
+                        backgroundSize: "cover",
+                        backgroundPosition: 'center',
+                        display: 'inline-block',
+                        borderRadius: '50%',
+                        marginRight: "5px"
+                      }}/>
+
+                </IconButton>
+            })
+
             
           </Box>
           :

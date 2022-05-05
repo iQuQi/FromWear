@@ -37,7 +37,7 @@ export default class FeedPageM extends Component {
                     :null
                 }
                 <FeedPost user={now_user} />
-                <BottomTab />
+                <BottomTab user={now_user}/>
             </div>
         )
 

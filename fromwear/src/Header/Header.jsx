@@ -54,7 +54,6 @@ function Header(props){
 	console.log('is mobile?', isMobile);
 	useEffect(() => {
 		let auth_user ;
-
 		Auth.currentAuthenticatedUser()
 		.then(res=>{
 			auth_user=res;
@@ -136,7 +135,8 @@ function Header(props){
 		});
 
 		get_rank_tag(handle_rank_data)
-	
+		if (props.inquireIsMobile) props.inquireIsMobile(isMobile);
+
 
 	}, [])
 

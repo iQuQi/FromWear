@@ -22,7 +22,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
     return(
         <div>
             <TopMenu pos={'15px'} wid={'79px'}/>
-            <BottomTab now_user={now_user}/>
+            <BottomTab user={now_user}/>
             <div className='mobile_wrap' style={{marginTop:'90px'}}>
                 <div id='0' className='swiper-container'>
                     <div className='swiper-wrapper'>

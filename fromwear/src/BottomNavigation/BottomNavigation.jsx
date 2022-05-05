@@ -17,6 +17,7 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import { ThemeProvider } from '@emotion/react';
 import FeedPage from '../FeedPage/FeedPage';
 import FeedPost from '../FeedPage/FeedPost';
+import IconButton from "@mui/material/IconButton";
 
 const ntheme = createTheme({
     components: {
@@ -33,7 +34,7 @@ const ntheme = createTheme({
     
 });
 
-export default function BottomTab() {
+export default function BottomTab({user}) {
    const isMobile = useMediaQuery({ maxWidth: 391 })
    const [value, setValue] = React.useState(0);
    const [textColor, setTextColor] = React.useState("off");
@@ -73,7 +74,28 @@ export default function BottomTab() {
                             </li>
                             <li>
                                 <a href='/mypage' className={now_link=='/mypage'? 'shortcut_mypage on': 'shortcut_mypage'}>
-                                    <PersonIcon />
+                                    <IconButton
+                                        sx={{color: "black", height: 24, position: "relative",
+                                            marginBottom: '3px'
+
+                                        }}
+                                    >
+
+                                        <div
+                                            style={{
+                                                backgroundImage:
+                                                    "URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"
+                                                    + user.profile_img + ")"
+                                                ,
+                                                width: "24px",
+                                                height: "24px",
+                                                backgroundSize: "cover",
+                                                backgroundPosition: 'center',
+                                                display: 'inline-block',
+                                                borderRadius: '50%',
+                                            }}/>
+
+                                    </IconButton>
                                     <p>마이페이지</p>
                                 </a>
                             </li>

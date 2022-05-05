@@ -19,6 +19,7 @@ import { format } from "date-fns";
 import Footer from '../Footer/Footer';
 import { static_tag_data } from './TagData';
 import { Box } from '@mui/material';
+import BottomTab from "../BottomNavigation/BottomNavigation";
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //15개 태그
 var AWS = require('aws-sdk'); 
@@ -55,6 +56,8 @@ class SearchPage extends Component{
 			current_input_tag: [],
 			current_click_tag_num: 0,
 			tag_div_on_to_off: false,
+			isMobile: false,
+			user: {},
 
 		};
 	}
@@ -235,7 +238,7 @@ class SearchPage extends Component{
 	}
 
 	handle_user_info=(user)=>{
-		// console.log("user info get",user);
+		this.setState({user});
 	}
 
 
@@ -246,6 +249,10 @@ class SearchPage extends Component{
 			tag_clicked_list,
 			rank_tag_clicked_list,
 			day,gender,board);
+	}
+
+	inquireIsMobile = (isMobile) => {
+		this.setState({isMobile});
 	}
 
 	fetchImages = ()=>{
@@ -391,9 +398,10 @@ class SearchPage extends Component{
 	  
 	  }
 
+
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,tag_div_on_to_off,
-		current_next_post_page} = this.state;
+		current_next_post_page, user, isMobile} = this.state;
 
 		return(
 			<div>
@@ -403,6 +411,7 @@ class SearchPage extends Component{
 				handle_select_gender={this.handle_select_gender}
 				handle_select_board={this.handle_select_board}
 				handle_user_info={this.handle_user_info}
+				inquireIsMobile = {this.inquireIsMobile}
 				/>
 				
 				<div className="search_page_container">	
@@ -446,13 +455,11 @@ class SearchPage extends Component{
 						</Box>
 						
 					}
-				
-					
-					
-				
-					
+
 				</div>
 				<Footer/>
+				{isMobile && <BottomTab user={user}/>
+				}
 			</div>
 		)
 	}

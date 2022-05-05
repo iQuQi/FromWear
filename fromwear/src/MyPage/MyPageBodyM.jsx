@@ -15,7 +15,7 @@ export default function MyPageBodyM({now_user}) {
     return(
 
         <div className='mobile_wrap'>
-            <BottomTab />
+            <BottomTab user={now_user}/>
             {
                 now_user=='noUser'?
                 <p style={{marginTop:'100px'}}>로그인 후 이용해주세요</p>

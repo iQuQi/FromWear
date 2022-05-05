@@ -11,7 +11,7 @@ function SignOutButton() {
     }
     return (
         <Button 
-        style={{color: "black", fontSize:13,padding:0}}
+        style={{color: "black", fontSize:13,padding:'3px 0 0'}}
         onClick={signOut}>
             로그아웃
         </Button>
