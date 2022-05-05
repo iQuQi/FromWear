@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SingleComment from './SingleComment'
+import SingleComment from './SingleComment';
 import './Comments.css';
 
 import { API } from 'aws-amplify';
@@ -43,7 +43,6 @@ class Comments extends Component {
             }
         })
         .then(res => {
-            console.log("#####test", res);
             this.setState({
                 comment_list: res.data.listComments.items
             })
@@ -190,8 +189,6 @@ class Comments extends Component {
             return b.like_user_list.items.length - a.like_user_list.items.length;
         });
         console.log("sorted_recommend_list", recommend_list)
-
-        
         
         return (
             <div>
@@ -212,31 +209,9 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    {/* <div>
-                        <div>
-                        {
-                            this.state.now_user=='noUser' ?
-                            <div>
-                                <div className="now_comment_user">방문자</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
-                                    </div>
-
-                            </div>
-                            :<div className="writing_area">
-                                    <div className="now_comment_user">{now_user.name}</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content"></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
-                                    </div>
-                            </div>
-                        }
-                        </div>
-                    </div> */}
                 </div>
                 <div className="mobile_comment">
-                    <div className="comment_num">댓글 {comment_list.length}개 모두 보기</div>
+                    <div className="comment_num" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개 모두 보기</div>
                     <ul className="comment_ul">
                         {
                             recommend_list.map((comment_list, index) => {
@@ -255,28 +230,6 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    <div>
-                        {/* <div>
-                        {
-                            this.state.now_user=='noUser' ?
-                            <div>
-                                <div className="now_comment_user">방문자</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
-                                    </div>
-
-                            </div>
-                            :<div className="writing_area">
-                                    <div className="now_comment_user">{now_user.name}</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content"></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
-                                    </div>
-                            </div>
-                        }
-                        </div> */}
-                    </div>
                 </div>
                 <div>
                         <div>
@@ -299,7 +252,7 @@ class Comments extends Component {
                             </div>
                         }
                         </div>
-                    </div>
+                </div>
             </div>
         )
     }

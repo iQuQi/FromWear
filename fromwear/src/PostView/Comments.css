@@ -109,6 +109,7 @@
     .comment_num {
         margin-top: 10px;
         color: gray;
+        padding-left: 0;
     }
 
     .comment_ul {
