@@ -11,7 +11,7 @@
     height: calc(49px + env(safe-area-inset-bottom));
 }
 .menu_shortcut .on {
-    color: #5f0080;
+    color: royalblue;
 }
 .menu_shortcut .off {
     color: black;
