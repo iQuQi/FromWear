@@ -11,11 +11,12 @@ import Typography from "@mui/material/Typography";
 let RankTag = ({handle_rank_tag_button_click,
                    target_button,rank_tag_data,
                    is_tag_more,
+                    isMobile,
                    handle_tag_more_button,
                    handle_x_button_on_click})=>
-    <Stack sx={{width: '1000px', margin: 'auto'}} direction="row">
-        <Typography sx={{color: "#555",fontSize:"18px",fontWeight: "bold",
-                lineHeight: '45px', minWidth: '135px',
+    <Stack sx={{width: isMobile? '370px' : '1000px', margin: 'auto'}} direction="row">
+        <Typography sx={{color: "#555",fontSize:isMobile?'14px': "18px",fontWeight: "bold",
+                lineHeight: '45px', minWidth: isMobile? '100px' : '135px',
         }}>
             오늘의 태그
         </Typography>

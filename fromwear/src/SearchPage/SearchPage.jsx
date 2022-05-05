@@ -420,6 +420,7 @@ class SearchPage extends Component{
 						<Stack direction="row">
 							<div className={"tag_more_list"}>
 								<RankTag
+									isMobile={isMobile}
 									target_button={target_rank_tag_button}
 									handle_rank_tag_button_click={this.handle_rank_tag_button_click}
 									is_tag_more={is_tag_more}
@@ -428,8 +429,9 @@ class SearchPage extends Component{
 									handle_x_button_on_click={this.handle_x_button_on_click}
 								/>
 								<TagList
-								target_button={target_tag_button}
-								handle_tag_button_click={this.handle_tag_button_click}
+									isMobile={isMobile}
+									target_button={target_tag_button}
+									handle_tag_button_click={this.handle_tag_button_click}
 								/>
 							</div>
 						</Stack>
