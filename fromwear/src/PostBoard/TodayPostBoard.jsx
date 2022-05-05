@@ -51,9 +51,7 @@ class TodayPostBoard extends Component {
 	render() {
 		let {board_type, user,isMobile} = this.state;
 		let {is_write_page} = this.state;
-
-		console.log('boardType', board_type,);
-
+		
 		return (
 			<>
 				<Header handle_user_info={this.handle_user_info} inquireIsMobile={this.inquireIsMobile}/>
