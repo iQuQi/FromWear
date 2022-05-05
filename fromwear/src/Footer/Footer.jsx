@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import './Footer.css'
-import logo from './image/closet-black.png';
+import logo from './image/logo.png';
 import { Stack } from '@mui/material';
 import { Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
