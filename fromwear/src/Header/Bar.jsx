@@ -62,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
+function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select_day,
   handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
@@ -167,38 +167,52 @@ function PrimarySearchAppBar({handle_inputbase_on_change,handle_select_day,
  
 
   return (
-    <div style={{width:'1082px', margin:'auto',height:'45px',}}>
-      <AppBar sx={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:'45px',padding: '10px'}} position="static">
-        <Toolbar sx={{'&.MuiToolbar-gutters' : {minHeight: '25px'}}} >
+    <div
+        className={'header_appbar'}
+        >
+      <AppBar
+          sx={{ backgroundColor: "white",boxShadow:"0 0 0 0" ,height:'45px',padding: '10px'}} position="static">
+        <Toolbar sx={{'&.MuiToolbar-gutters' : {minHeight: '25px', ...(isMobile && {p: 0})}}} >
         
            <a href="/" style={{height: '40px', width: '120px'}}>
             <img src={closet} alt="closet" className ="closet_img"/>
              <img src={logo} alt="logo" className ="logo_img"/>
              </a>
-          
-          <Search style={{ backgroundColor: "#f2f2f2" , width: "730px",minWidth:"600px",
-          borderRadius: 10,position:"relative"}}>
-            <SearchIconWrapper >
-              <SearchIcon style={{ color: "black" }}/>
-            </SearchIconWrapper>
 
-            <a href={window.location.pathname==("/search"||"/search#"||"/search/")?"#":"/search"}>
-            <StyledInputBase
-              style={{ color: "black", fontSize: "14px",width: "50%",height:35, position:'relative', left: '-30px'}}
-              placeholder={"#오늘의 #태그는 #"+rank_1}
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handle_inputbase_on_change}
-            />
-            </a>
-            <SelectBoard handle_select_board={handle_select_board}/>
-            <SelectGender handle_select_gender={handle_select_gender}/>
-            <SelectDay handle_select_day={handle_select_day}/>
-          </Search>
-
-        
+          {isMobile ?
+              (
+              <a href={window.location.pathname===("/search"||"/search#"||"/search/")?"#":"/search"}>
+                <SearchIconWrapper >
+                  <SearchIcon style={{ color: "black" }}/>
+                </SearchIconWrapper>
+              </a>
+              )
+              :
+              (
+              <Search
+                  className='mobile_search_bar'
+                  style={{ backgroundColor: "#f2f2f2" , width: "730px",minWidth:"600px",
+                    borderRadius: 10,position:"relative"}}>
+                <SearchIconWrapper >
+                  <SearchIcon style={{ color: "black" }}/>
+                </SearchIconWrapper>
+                <a href={window.location.pathname===("/search"||"/search#"||"/search/")?"#":"/search"}>
+                  <StyledInputBase
+                      style={{ color: "black", fontSize: "14px",width: "50%",height:35, position:'relative', left: '-30px'}}
+                      placeholder={"#오늘의 #태그는 #"+rank_1}
+                      inputProps={{ 'aria-label': 'search' }}
+                      onChange={handle_inputbase_on_change}
+                  />
+                </a>
+                <SelectBoard handle_select_board={handle_select_board}/>
+                <SelectGender handle_select_gender={handle_select_gender}/>
+                <SelectDay handle_select_day={handle_select_day}/>
+              </Search>
+              )
+          }
 
           <Box sx={{ flexGrow: 1 }} />
-          {user!="noUser"?
+          {user!=="noUser"?
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           
             <IconButton

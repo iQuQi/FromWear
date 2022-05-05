@@ -14,6 +14,7 @@ import {ThemeProvider} from 'styled-components';
 import FeedPage from '../FeedPage/FeedPage.jsx'
 import {init, send} from 'emailjs-com';
 import { useMediaQuery } from 'react-responsive'
+import {Box} from "@mui/system";
 
 
 
@@ -40,7 +41,6 @@ function Header(props){
 		botFontColor: '#fff',
 		userBubbleColor: '#fff',
 		userFontColor: '#4a4a4a',
-		...(isMobile && {'&.rsc' : {position: 'relative', bottom :'30px'}})
 	};
 
 	const handle_get_user=(user)=>{
@@ -236,21 +236,34 @@ function Header(props){
 	  ];
 
 
-	return <>
-		<div className={`header_bar 
-			${window.location.pathname===("/search"||"/search#"||"/search/")?' header_bar_tag_div_on':''}`}>		
-			<PrimarySearchAppBar 
-				handle_inputbase_on_change={props.handle_inputbase_on_change}
-				handle_select_day={props.handle_select_day}
-				handle_select_gender={props.handle_select_gender}
-				handle_select_board={props.handle_select_board}
-				handle_login_click={handle_login_click}
-				rank_1 ={rank1}
-				user={user}
-					
-			/>
-			
-			</div>
+	return <Box
+				sx={{...(isMobile &&
+						{'& .rsc-float-button' :
+							{bottom :'60px',
+								right: '15px'},
+						  '& .rsc-container' : {
+							width: '100%',
+						    height: '100%',
+						    zIndex: '9999999',
+						  }
+						}),
+					}}
+			>
+			<Box
+				className={`header_bar 
+				${window.location.pathname===("/search"||"/search#"||"/search/")?' header_bar_tag_div_on':''}`}>
+				<PrimarySearchAppBar
+					isMobile={isMobile}
+					handle_inputbase_on_change={props.handle_inputbase_on_change}
+					handle_select_day={props.handle_select_day}
+					handle_select_gender={props.handle_select_gender}
+					handle_select_board={props.handle_select_board}
+					handle_login_click={handle_login_click}
+					rank_1 ={rank1}
+					user={user}
+
+				/>
+			</Box>
 			{ (user?.name && window.location.pathname !== ("/search"||"/search#"||"/search/")) 
 						  && <FeedPage now_user={user} />}
 			<MoveToTop/>
@@ -299,7 +312,7 @@ function Header(props){
 			</ThemeProvider>
 			{loginPopup&&<Login
 			handle_login_complete={handle_login_complete}/>}
-			</>
+			</Box>
 }
 
 

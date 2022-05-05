@@ -65,6 +65,7 @@ a{
 	background-color: white;
 	box-shadow: 0 1px 10px 2px rgba(211,211,211,0.5);
 
+
 }
 
 .header_bar_tag_div_on{
@@ -162,8 +163,20 @@ a{
 	padding: 0 50px;
 }
 
+.header_appbar{
+	width:1082px; margin:auto; height:45px;
+}
+
 @media screen and (max-width: 391px), screen and (max-height: 391px) and (orientation: landscape) {
 	.move_to_top{
+		display: none;
+	}
+
+	.header_appbar{
+		width: 390px;
+		margin: 0;
+	}
+	.mobile_search_bar{
 		display: none;
 	}
 }

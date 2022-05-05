@@ -204,17 +204,17 @@ class Comments extends Component {
                             this.state.now_user=='noUser' ?
                             <div>
                                 <div className="now_comment_user">방문자</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_tweet_content" onClick={this.onClick}></textarea>
-                                        <button class="new_tweet_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                    <div className="writing_content">
+                                        <textarea className="new_tweet_content" onClick={this.onClick}></textarea>
+                                        <button className="new_tweet_submit_button" onClick={this.onClick}>댓글 달기</button>
                                     </div>
 
                             </div>
                             :<div className="writing_area">
                                     <div className="now_comment_user">{now_user.name}</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_tweet_content"></textarea>
-                                        <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
+                                    <div className="writing_content">
+                                        <textarea className="new_tweet_content"></textarea>
+                                        <button className="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
                                     </div>
                             </div>
                         }
