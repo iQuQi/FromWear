@@ -3,8 +3,8 @@ import SingleComment from './SingleComment'
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
-import  { createComment, getComment } from '../graphql/mutations';
+import { listComments, listCommentLikeUsers } from '../graphql/queries';
+import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
 
@@ -80,7 +80,7 @@ class Comments extends Component {
 
     addTweet = () => {
         let value = document.querySelector('.new_tweet_content').value;
-        if(value == ""){
+        if(value === ""){
             alert("내용을 입력하세요")
             return
         }
@@ -189,10 +189,10 @@ class Comments extends Component {
                                 return <div className="one_comment_and_remove_button">
                                     <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                     {
-                                        comment_list.user_id == now_user.id ?
+                                        comment_list.user_id === now_user.id ?
                                         <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
                                         :
-                                        <div></div>
+                                        <div/>
                                     }
                                     </div>
                             })
@@ -201,11 +201,11 @@ class Comments extends Component {
                     <div>
                         <div>
                         {
-                            this.state.now_user=='noUser' ?
+                            this.state.now_user==='noUser' ?
                             <div>
                                 <div className="now_comment_user">방문자</div>
                                     <div className="writing_content">
-                                        <textarea className="new_tweet_content" onClick={this.onClick}></textarea>
+                                        <textarea className="new_tweet_content" onClick={this.onClick}/>
                                         <button className="new_tweet_submit_button" onClick={this.onClick}>댓글 달기</button>
                                     </div>
 
@@ -213,7 +213,7 @@ class Comments extends Component {
                             :<div className="writing_area">
                                     <div className="now_comment_user">{now_user.name}</div>
                                     <div className="writing_content">
-                                        <textarea className="new_tweet_content"></textarea>
+                                        <textarea className="new_tweet_content"/>
                                         <button className="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
                                     </div>
                             </div>
