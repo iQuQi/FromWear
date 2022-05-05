@@ -354,8 +354,6 @@ class ProfileEdit extends Component{
         let {isDialogOpen, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
 
-        console.log("현재 프로필 편집!! 현재 유저는", this.state.user)
-
         if(this.state.create_tag == true && this.state.img_upload == true) {
             window.location.reload();
         }
