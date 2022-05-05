@@ -29,8 +29,8 @@ const theme = {
 
 const emailList = [
 	{address: 'S7SrqZoZfyHaqqain', templateId: 'template_rq5y7j8'},
-/*	{address: 'yiktImKsBDGDhFVA_', templateId: 'template_uhdkh4l'},
-	{address: 'N1fxofznKfSgsJfor',templateId: 'template_yqgbnyh'}*/
+	{address: 'yiktImKsBDGDhFVA_', templateId: 'template_uhdkh4l'},
+	{address: 'N1fxofznKfSgsJfor',templateId: 'template_yqgbnyh'},
 ];
 class Header extends Component{
 	constructor(){
