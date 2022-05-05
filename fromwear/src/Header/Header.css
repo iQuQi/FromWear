@@ -161,3 +161,9 @@ a{
 .igVJyN {
 	padding: 0 50px;
 }
+
+@media screen and (max-width: 391px), screen and (max-height: 391px) and (orientation: landscape) {
+	.move_to_top{
+		display: none;
+	}
+}
