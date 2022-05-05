@@ -79,8 +79,8 @@ class Comments extends Component {
         alert("로그인 후 댓글 쓰기가 가능합니다.")
     }
 
-    addTweet = () => {
-        let value = document.querySelector('.new_tweet_content').value;
+    addComment = () => {
+        let value = document.querySelector('.new_comment_content').value;
         if(value == ""){
             alert("내용을 입력하세요")
             return
@@ -97,7 +97,7 @@ class Comments extends Component {
                 
         })
         .catch(e => console.log(e));
-        document.querySelector('.new_tweet_content').value = "";
+        document.querySelector('.new_comment_content').value = "";
 
 
         API.graphql({query: createAlarm, variables:{input:
@@ -180,10 +180,22 @@ class Comments extends Component {
 
     render(){
         let {comment_list, board_type, now_user, post_writer} = this.state;
+        
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
+        console.log("commet", comment_list)
+
+        let recommend_list = [...comment_list]; //같은 추천수에서는 먼저 작성한 댓글이 우선
+        console.log("origin_recommend_list:",recommend_list);
+        recommend_list.sort(function(a, b) {
+            return b.like_user_list.items.length - a.like_user_list.items.length;
+        });
+        console.log("sorted_recommend_list", recommend_list)
+
+        
+        
         return (
             <div>
-                <div>
+                <div className="pc_comment">
                     <div className="comment_num">댓글 {comment_list.length}개</div>
                     <ul className="comment_ul">
                         {
@@ -200,29 +212,94 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                    <div>
+                    {/* <div>
                         <div>
                         {
                             this.state.now_user=='noUser' ?
                             <div>
                                 <div className="now_comment_user">방문자</div>
                                     <div class="writing_content">
-                                        <textarea class="new_tweet_content" onClick={this.onClick}></textarea>
-                                        <button class="new_tweet_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
+                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
                                     </div>
 
                             </div>
                             :<div className="writing_area">
                                     <div className="now_comment_user">{now_user.name}</div>
                                     <div class="writing_content">
-                                        <textarea class="new_tweet_content"></textarea>
-                                        <button class="new_tweet_submit_button" onClick={this.addTweet}>댓글 달기</button>
+                                        <textarea class="new_comment_content"></textarea>
+                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
+                                    </div>
+                            </div>
+                        }
+                        </div>
+                    </div> */}
+                </div>
+                <div className="mobile_comment">
+                    <div className="comment_num">댓글 {comment_list.length}개 모두 보기</div>
+                    <ul className="comment_ul">
+                        {
+                            recommend_list.map((comment_list, index) => {
+                                if(index <= 1){
+                                    return <div className="one_comment_and_remove_button">
+                                    <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                    {
+                                        comment_list.user_id == now_user.id ?
+                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                        :
+                                        <div></div>
+                                    }
+                                    </div>
+                                }
+                                return null;
+                            })
+                        }
+                    </ul>
+                    <div>
+                        {/* <div>
+                        {
+                            this.state.now_user=='noUser' ?
+                            <div>
+                                <div className="now_comment_user">방문자</div>
+                                    <div class="writing_content">
+                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
+                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                    </div>
+
+                            </div>
+                            :<div className="writing_area">
+                                    <div className="now_comment_user">{now_user.name}</div>
+                                    <div class="writing_content">
+                                        <textarea class="new_comment_content"></textarea>
+                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
+                                    </div>
+                            </div>
+                        }
+                        </div> */}
+                    </div>
+                </div>
+                <div>
+                        <div>
+                        {
+                            this.state.now_user=='noUser' ?
+                            <div>
+                                <div className="now_comment_user">방문자</div>
+                                    <div class="writing_content">
+                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
+                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                    </div>
+
+                            </div>
+                            :<div className="writing_area">
+                                    <div className="now_comment_user">{now_user.name}</div>
+                                    <div class="writing_content">
+                                        <textarea class="new_comment_content"></textarea>
+                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
                                     </div>
                             </div>
                         }
                         </div>
                     </div>
-                </div>
             </div>
         )
     }

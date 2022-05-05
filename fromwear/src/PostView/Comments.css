@@ -63,7 +63,7 @@
 }
 
 
-.new_tweet_content {
+.new_comment_content {
     width: 300px;
     height: 41px;
     box-sizing: border-box;
@@ -71,7 +71,7 @@
     margin-left: 3px;
 }
 
-.new_tweet_submit_button {
+.new_comment_submit_button {
     float: right;
     height: 30px;
     margin-top: 5px;
@@ -97,8 +97,33 @@
     padding: 3px;
 }
 
+.mobile_comment {
+    display: none;
+}
+
 @media(max-width:391px){
+    .pc_comment {
+        display: none;
+    }
+
     .comment_num {
         margin-top: 10px;
+        color: gray;
+    }
+
+    .comment_ul {
+        height: auto;
+    }
+
+    .mobile_comment {
+        display: block;
+    }
+
+    .remove_comment {
+        left: 309px;
+    }
+
+    .new_comment_content {
+        width: 257px;
     }
 }

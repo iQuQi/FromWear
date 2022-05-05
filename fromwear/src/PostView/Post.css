@@ -364,7 +364,7 @@
     .comment {
         text-align: left;
         margin-top: 20px;
-        border: 1px solid;
+        /* border: 1px solid; */
         padding: 0;
     }
 }
