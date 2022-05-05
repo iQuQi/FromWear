@@ -24,7 +24,7 @@ import { useMediaQuery } from 'react-responsive';
 let link = '';
 
 let link_change = (item, now_user) => {
-    item.user.id == now_user.id ?
+    item.user.id === now_user.id ?
     link = '/mypage':
     link = '/userpage/'+item.user.id
 }
@@ -40,7 +40,7 @@ export default function WeekllyTagBody({current_next_post_page, now_user,best_po
 
     let handleWriteButton = (e) => {
 		console.log(now_user);
-		if (now_user == "noUser") {
+		if (now_user === "noUser") {
 		  alert("로그인이 필요합니다.");
 		  return;
 		}
@@ -53,12 +53,11 @@ export default function WeekllyTagBody({current_next_post_page, now_user,best_po
             <div>
                 <div id = 'main_page'>          
                     { is_write_page 
-                        ? <PostWritePage 
+                        && <PostWritePage
                             board_type='2'
                             user={now_user}
                             handle_write_page={handle_write_page} 
                             />
-                        : null
                     }
                     
                     <div className = 'banner'>
@@ -152,7 +151,7 @@ export default function WeekllyTagBody({current_next_post_page, now_user,best_po
                         
                         <ImageList cols={5} gap={8} style={{clear: 'left'}}>
                             {ranking_posts.map((item, index) => (
-                                index<(current_next_post_page * 25)?
+                                index<(current_next_post_page * 25) &&
                                 <ImageListItem key={item.img}>
                                     <a className='dimmed' href={'/post/'+item.id}>  
                                         <img style={{height:'322.55px', width:'209.6px', borderRadius:16, objectFit:'cover'}}
@@ -185,7 +184,6 @@ export default function WeekllyTagBody({current_next_post_page, now_user,best_po
                                         </div>
                                     </Stack>				
                                 </ImageListItem>
-                                : console.log(index + "pass")
                             ))}
                         </ImageList>
                     
@@ -195,7 +193,6 @@ export default function WeekllyTagBody({current_next_post_page, now_user,best_po
                 </div>      
                 <Footer/>
             </div>
-
             : <WeeklyTagBodyM />
         }
         

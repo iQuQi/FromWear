@@ -493,7 +493,7 @@ export default class TodayPostBoardPosts extends Component {
             <div>
               <ImageList cols={5} gap={8} style={{ clear: "left" }}>
                 {post_list.map((post, index) =>
-                  index < current_next_post_page * 25 ? (
+                  index < current_next_post_page * 25 && (
                     <ImageListItem
                       key={post.id}
                       className="today_image_list_item"
@@ -600,8 +600,6 @@ export default class TodayPostBoardPosts extends Component {
                         )}
                       </Stack>
                     </ImageListItem>
-                  ) : (
-                    console.log(index + ": pass")
                   )
                 )}
               </ImageList>

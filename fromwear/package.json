@@ -4,6 +4,8 @@
     "private": true,
     "dependencies": {
         "@ant-design/icons": "^4.7.0",
+        "@aws-amplify/api": "^4.0.39",
+        "@aws-amplify/auth": "^4.5.3",
         "@aws-amplify/ui-react": "^1.2.26",
         "@emailjs/browser": "^3.6.2",
         "@emotion/react": "^11.5.0",
