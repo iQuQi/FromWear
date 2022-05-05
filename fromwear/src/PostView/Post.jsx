@@ -445,7 +445,6 @@ class Post extends Component{
         .then(res => {
             //태그 삭제
             if(this.state.now_post.tag_list.items.length == 0){
-                console.log("tag list가 null")
                 this.setState({deleted_tag: true,})
             }
             else {
@@ -567,8 +566,6 @@ class Post extends Component{
 
 
     render(){
-
-        console.log("현재 게시글 정보", this.state.now_post)
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
@@ -580,7 +577,6 @@ class Post extends Component{
         if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.delete_img && this.state.deleted_styletag && this.state.deleted_tag && this.state.icon_delete_once){
 
             this.removePost();
-            console.log("아이콘 다지워짐!!")
         }
 
         let img_src123 = now_post.img
