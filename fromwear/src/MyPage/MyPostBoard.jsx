@@ -233,8 +233,8 @@ export default class TodayPostBoardPosts extends Component {
                         </ImageListItem>
                     ))}
                 </ImageList>
-                :<p></p>
-                : <p></p>
+                :<></>
+                : <></>
                 }
 
                 {post_list.length === 0 &&

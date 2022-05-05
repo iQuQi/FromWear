@@ -33,6 +33,7 @@ import InfoIcon from '@mui/icons-material/Info';
 
 import { Auth, API } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
+import { useMediaQuery } from 'react-responsive';
 
 const drawerWidth = 390;
 
@@ -48,9 +49,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-export default function FeedPage({now_user}) {
+export default function FeedPage({now_user, is_click}) {
+  const isMobile = useMediaQuery({ maxWidth: 391 })
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [click, set_is_click] = React.useState(is_click);
+
   let user = now_user;
 
   const handleDrawerOpen = () => {
@@ -64,6 +69,8 @@ export default function FeedPage({now_user}) {
 
   return (
     <Box sx={{ display: 'flex'}}>
+      {
+        isMobile == false?
         <Toolbar>
           <div className='feed_open'>
             <button className = 'btn_feed_open'
@@ -77,6 +84,10 @@ export default function FeedPage({now_user}) {
           </div>
           
         </Toolbar>
+        
+        :<></>
+      }
+        
 
       <Drawer
         sx={{

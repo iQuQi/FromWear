@@ -1,0 +1,70 @@
+
+.menu_shortcut {
+    position: fixed;
+    z-index: 300;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    text-align: center;
+    height: calc(49px + env(safe-area-inset-bottom));
+}
+.menu_shortcut .on {
+    color: #5f0080;
+}
+.menu_shortcut .off {
+    color: black;
+}
+.menu_shortcut li {
+    float: left;
+    width: 20%;
+    padding-top: 5px;
+    font-size: 0.7rem;
+    color: rgb(51, 51, 51);
+    text-align: center;
+}
+
+.menu_shortcut a {
+    display: block;
+    overflow: hidden;
+    height: 100%;
+    padding: 0;
+    font-size: 0.7rem;
+    color: rgb(51, 51, 51);
+    text-align: center;
+}
+/*
+.menu_shortcut a:before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 25px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 24px 24px;
+}
+*/
+.menu_shortcut .on .shortcut_home:before {
+    color: #5f0080;
+}
+.menu_shortcut .shortcut_home:before {
+    color: #000;
+}
+.MuiBottomNavigationAction-label.Mui-selected {
+    color: #5f0080;
+    font-size: 0.7rem;
+}
+.MuiBottomNavigationAction-label {
+    font-size: 0.7rem;
+    opacity: 1;
+}
+.MuiButtonBase-root.MuiBottomNavigationAction-root {
+    padding-top: 0px;
+    padding: 0px 12px 8px;    
+}
+.mobile_wrap {
+    margin-top: 45px;
+    margin-bottom: 56px;
+}
