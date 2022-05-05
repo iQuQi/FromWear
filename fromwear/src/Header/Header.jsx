@@ -51,7 +51,6 @@ function Header(props){
 		}
 	}
 
-	console.log('is mobile?', isMobile);
 	useEffect(() => {
 		let auth_user ;
 		Auth.currentAuthenticatedUser()
