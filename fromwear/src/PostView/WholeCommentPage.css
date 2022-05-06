@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+.whole_comment_wrap {
+    text-align: left;
+    margin: auto 0;
+}
+
+.comment_num_whole_comment {
+    font-weight: bold;
+    margin: 15px 0 10px 5px;
+    color: gray;
+}
+.comment_ul_whole_comment {
+    height: 529px;
+    overflow: scroll; /*스크롤 보이는 상태*/
+}
+    
+.comment_ul_whole_comment .single_comment {
+    /* min-height: 106px; */
+    margin: 14px 0 15px 0;
+}
+
+.whole_comment_writing_wrap {
+    margin-left: 5px;
+    width: 95%;
+}
+
+.whole_comment_wrap .new_comment_content {
+    width: 275px;
+}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SingleComment from './SingleComment';
 import { useParams } from "react-router";
 import './Comments.css';
+import './WholeCommentPage.css';
 
 import Header from '../Header/Header'
 
@@ -24,6 +25,18 @@ class WholeCommentPage extends Component {
             now_user: 'noUser', //현재 접속자
         }
     }
+
+    handle_user_info = (user) => {
+        if(this.state.now_user == 'noUser'){
+            this.setState({
+                now_user: user,
+            })
+            this.set_like_urgent(this.state.like_urgent_user_list)
+            this.set_bookmark(this.state.bookmark_user_list)
+        }
+        else {
+        }
+	}
 
     componentDidUpdate(prevProps) {
         if(this.props.board_type !== prevProps.board_type){
@@ -196,28 +209,29 @@ class WholeCommentPage extends Component {
         return (
             <div>
                 <Header handle_user_info={this.handle_user_info}/>
-                <div className="mobile_comment">
-                    <div className="comment_num" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개 모두 보기</div>
-                    <ul className="comment_ul">
-                        {
-                            recommend_list.map((comment_list, index) => {
-                                // if(index <= 1){
-                                    return <div className="one_comment_and_remove_button">
-                                    <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
-                                    {
-                                        comment_list.user_id == now_user.id ?
-                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
-                                        :
-                                        <div></div>
-                                    }
-                                    </div>
-                                //}
-                                //return null;
-                            })
-                        }
-                    </ul>
-                </div>
-                <div>
+                <div className="whole_comment_wrap">
+                    <div className="mobile_comment">
+                        <div className="comment_num_whole_comment" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개</div>
+                        <ul className="comment_ul_whole_comment">
+                            {
+                                recommend_list.map((comment_list, index) => {
+                                    // if(index <= 1){
+                                        return <div className="one_comment_and_remove_button">
+                                        <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                        {
+                                            comment_list.user_id == now_user.id ?
+                                            <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                            :
+                                            <div></div>
+                                        }
+                                        </div>
+                                    //}
+                                    //return null;
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <div className="whole_comment_writing_wrap">
                         <div>
                         {
                             this.state.now_user=='noUser' ?
@@ -239,6 +253,8 @@ class WholeCommentPage extends Component {
                         }
                         </div>
                 </div>
+                </div>
+                
             </div>
         )
     }
