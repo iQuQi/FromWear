@@ -45,11 +45,9 @@ class ProfileEdit extends Component{
         this.set_tag_list();
     }
     set_tag_list = () => {
-        console.log("현재 유저 태그",this.state.user)
         if(this.state.user.my_tag_list.items.length > 0){
             var tmp_user_tag_list = this.state.user.my_tag_list.items;
             if(tmp_user_tag_list[0].style_tag.id==102 && tmp_user_tag_list[1].style_tag.id==103 && tmp_user_tag_list[2].style_tag.id==101){
-                console.log("초기 상태") //초기 상태면 tag 아무것도 안넣어둠
             }
             else{
                 tmp_user_tag_list.map((tag)=>{
@@ -353,8 +351,6 @@ class ProfileEdit extends Component{
     render(){
         let {isDialogOpen, tag_click, content_introduce} = this.state;
         let {contents} = this.state;
-
-        console.log("현재 프로필 편집!! 현재 유저는", this.state.user)
 
         if(this.state.create_tag == true && this.state.img_upload == true) {
             window.location.reload();
