@@ -152,6 +152,7 @@ const styles = {
         display: 'block',
         margin: '0 auto',
         '& .profile_original_img' :{
+            margin: '0 30px',
             width: '220px',
             height: '220px',
             position: 'relative',
