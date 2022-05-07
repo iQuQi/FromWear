@@ -238,7 +238,6 @@ const styles = {
     tagCloseButton : {
         color:'black',
         backgroundColor: 'white',
-        marginTop: '38px',
         width: '100%',
         border: 'solid 1px black',
         borderRadius: '30px',
