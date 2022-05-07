@@ -22,7 +22,7 @@ let RankTag = ({handle_rank_tag_button_click,
         </Typography>
         <ul className="rank_tag_list">  
             {rank_tag_data.map((data,index) =>
-                        <li>
+                        <li key={data.id}>
                             <Button key={data} 
                                 style={{minWidth: 80,height: 40,marginBottom:10,marginRight:10,fontSize: 13,
                                 color: target_button[index]==0?"black":"white", backgroundColor: target_button[index]==0?"#c0e0f6":"black",

@@ -19,12 +19,12 @@ let TagList = ({target_button,handle_tag_button_click}) => {
 
     return <>
         {['season', 'age', 'style', 'situation'].map((group) =>
-        <ul className="tag_list">
+        <ul className="tag_list" key={group}>
             <Typography sx={{color: "#555",fontSize:"18px",fontWeight: "bold",
                 lineHeight: '45px', textAlign: 'left',
             }}>{groupMap[group].name}</Typography>
             {tagListMap(group).map((data, index) =>
-                <li>
+                <li key={data.id}>
                     <Button key={data.name + index}
                             style={{
                                 width: 95,

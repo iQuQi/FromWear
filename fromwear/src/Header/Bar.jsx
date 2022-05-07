@@ -154,7 +154,7 @@ function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select
     {
      user.alarm_list?.items.map((item,index)=>{        
         const new_link='/'+item.link;
-        return <a href={new_link}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>;
+        return <a href={new_link} key={item.id}><MenuItem style={{fontSize:13}} onClick={handleAlarmClose} value={index}>{item.content}</MenuItem></a>;
       })
    }
     

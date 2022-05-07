@@ -44,7 +44,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                     </a>
                     <div className='slider_top5'>
                         {best_post_0.map((item) => (
-                            <div spacing='16' className='slider_content'>
+                            <div spacing='16' className='slider_content' key={item.id}>
                                 <a href={'/post/'+item.id}> 
                                     <img className='userpost_img'
                                         src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}
@@ -89,7 +89,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                     </a>
                     <div className='slider_top5'>
                         {best_post_1.map((item) => (
-                            <div spacing='16' className='slider_content'>
+                            <div spacing='16' className='slider_content' key={item.id}>
                                 <a href={'/post/'+item.id}> 
                                     <img className='userpost_img'
                                         src={"https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/"+item.img}
@@ -144,7 +144,7 @@ export default function MainPageBodyM({ now_user, best_post_0, best_post_1, best
                     <div className='slider_top5'>
                     
                         {best_post_2.map((item) => (
-                            <div spacing='16' className='slider_content'>
+                            <div spacing='16' className='slider_content' key={item.id}>
                                 <a href={'/post/'+item.id}> 
                                     <img className='userpost_img'
                                         src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.img}`}

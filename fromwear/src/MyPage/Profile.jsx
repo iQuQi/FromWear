@@ -316,7 +316,7 @@ export default class Profile extends Component {
                   user.my_tag_list.items.length!=0?
                   
                   user.my_tag_list.items.sort((a,b)=>a.style_tag.id-b.style_tag.id).map(item=>
-                    <span>#{item.style_tag.value}&nbsp;</span> 
+                    <span key={item.id}>#{item.style_tag.value}&nbsp;</span>
                   )
                   
                   :<p></p>    
@@ -347,7 +347,7 @@ export default class Profile extends Component {
               <style>{cssstyle}</style>
                 <Slider {...settings}>
                   {tag_same_user_list.map((item) => (
-                    <div>
+                    <div key={item.id}>
             
                       <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
