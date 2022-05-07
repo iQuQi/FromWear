@@ -87,6 +87,11 @@
         flex-direction: row;
 
     }
+    .mypage_contents{
+        overflow: auto;
+        margin-top: 50px;
+        margin-bottom: 0;
+    }
     .mypage_collection {    
         width: 390px;
         text-align: left;

@@ -120,10 +120,10 @@ export default class MyPageButtonGroup extends Component{
 
             </Box>
             {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20} current_next_post_page={current_next_post_page} is_mobile={is_mobile}/> : 
-                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1} current_next_post_page={current_next_post_page}/> :
-                btn_clicked==3? <MyPageComments user={now_user}/> :
-                btn_clicked==4? <MyPageBookmark user={now_user}/> :
-                <MyPostBoard user={now_user} board={20}/>
+                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1} current_next_post_page={current_next_post_page} is_mobile={is_mobile}/> :
+                btn_clicked==3? <MyPageComments user={now_user} is_mobile={is_mobile}/> :
+                btn_clicked==4? <MyPageBookmark user={now_user} is_mobile={is_mobile}/> :
+                <MyPostBoard user={now_user} board={20} is_mobile={is_mobile}/>
             }
             
             </div>

@@ -41,7 +41,8 @@ export default class TodayPostBoardPosts extends Component {
             board: props.board,
             post_list: [],
             count: 0,
-            current_next_post_page: 1
+            current_next_post_page: 1,
+            is_mobile: props.is_mobile,
 		}
         
 	}
@@ -163,7 +164,7 @@ export default class TodayPostBoardPosts extends Component {
     render() {
 
 
-		let {user, post_state, post_list, current_next_post_page} = this.state;
+		let {user, post_state, post_list, current_next_post_page, is_mobile} = this.state;
 
         return (<div id = 'contents'>
 
@@ -182,12 +183,14 @@ export default class TodayPostBoardPosts extends Component {
             <div id = 'today_post' >
                 {post_list?
                     post_list?
-                <ImageList cols={3} gap={8} style={{clear: 'left'}}>
+                <ImageList cols={3} gap={is_mobile?1:8} style={{clear: 'left'}}>
                     {
                     post_list.map((post, index) => (
                         index<(current_next_post_page * 9) &&
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
-                            <img style={{height:'322.55px'}}
+                            <img 
+                                className='mypage_post_img'
+                                style={{height : is_mobile?'130px':'322.55px'}}
                                 src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
                                 srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                 alt={user.name}

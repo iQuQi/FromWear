@@ -190,7 +190,7 @@ export default class TodayPostBoardPosts extends Component {
             <div id = 'today_post' >
                 {post_list?
                     post_list?
-                <ImageList cols={3} gap={is_mobile?0:8} style={{clear: 'left'}}>
+                <ImageList cols={3} gap={is_mobile?1:8} style={{clear: 'left'}}>
                     {
                     post_list.map((post, index) => (
                         index<(current_next_post_page * 9) &&

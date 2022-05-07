@@ -372,7 +372,7 @@ export default class Profile extends Component {
           <p></p>
         }
       
-        <hr style={{margin:'20px auto', width:'100%'}}></hr>
+        <hr style={{margin:'20px auto 0 auto', width:'100%'}}></hr>
       </div>
     )
   }
