@@ -70,13 +70,18 @@ export default function ProfileEditMobile ({
                         />
                     </Box>
                     <Box>
-                        <h3>소개태그</h3>
-                        <Input
-                            value={contents}
-                            style={styles.introduceTag}
-                            placeholder="태그를 입력해주세요"
-                            onClick={onClickTag}
-                        />
+                        <h3 style={{position :'relative'}}>
+                            소개태그
+                            <Button
+                                style={styles.introduceTagButton}
+                                onClick={onClickTag}
+                            >
+                                수정
+                            </Button>
+                        </h3>
+                        <Typography sx={styles.introduceTag}>
+                            {contents}
+                        </Typography>
                     </Box>
                     {
                         tag_click &&
@@ -195,6 +200,22 @@ const styles = {
     introduceTag: {
         width: '330px',
         margin:"10px 0",
+        ...DEFAULT_FONT,
+        color: 'black',
+        fontSize: '18px',
+    },
+    introduceTagButton: {
+        width: '40px',
+        minWidth: '40px',
+        ...DEFAULT_FONT,
+        color: 'black',
+        fontSize: '12px',
+        border: '1px solid black',
+        padding: 0,
+        borderRadius: '30px',
+        position: 'absolute',
+        top: '-3px',
+        right: '90px',
     },
     gender: {
         ...DEFAULT_FONT,
