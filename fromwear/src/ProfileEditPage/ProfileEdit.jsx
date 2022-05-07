@@ -75,9 +75,10 @@ class ProfileEdit extends Component{
         }
     }
     
-    changeIntroduceArea(e) {
+    changeIntroduceArea = (e) => {
         this.setState({content_introduce : e.target.value});
     }
+
     handleFileOnChange = (event) => {
         event.preventDefault();
         let reader = new FileReader();
@@ -95,7 +96,6 @@ class ProfileEdit extends Component{
 
     onClickTag = () => {
         this.setState({tag_click: !this.state.tag_click})
-        console.log(this.state.tag_click)
     }
 
     changeTextArea=()=> {
@@ -149,7 +149,7 @@ class ProfileEdit extends Component{
         
     }
 
-    handleSubmit=(e)=> {
+    handleSubmit = (e)=> {
         e.preventDefault();
         if(this.state.total_tag_num != 3) {
             alert("태그는 3개를 등록해야 합니다.");
@@ -390,7 +390,7 @@ class ProfileEdit extends Component{
                 handleSubmit={this.handleSubmit}
                 changeIntroduceArea={this.changeIntroduceArea}
                 onClickTag={this.onClickTag}
-                handle_tag_button_click={this.handle_tag_button_click.handle_profile_edit}
+                handle_tag_button_click={this.handle_tag_button_click}
                 checkGender={this.checkGender}
                 handleClose={() => this.setState({tag_click: false})}
             />
@@ -427,7 +427,7 @@ class ProfileEdit extends Component{
                              <div className="profile_introduce">
                                 <h3>자기소개</h3>
                                 <textarea name="" type="text" className="profile_introduce_text"
-                                 placeholder="내용을 입력해주세요" value={content_introduce} onChange={this.changeIntroduceArea.bind(this)}></textarea>
+                                 placeholder="내용을 입력해주세요" value={content_introduce} onChange={this.changeIntroduceArea}></textarea>
                             </div>
 
                             <div className="profile_mytag">
@@ -485,7 +485,7 @@ class ProfileEdit extends Component{
                             <div className="profile_submit_button">
                                 <Button type="submit" style={{margin:"auto",backgroundColor:"white",width:"100%",color:"black",fontSize:18,
                                 borderRadius:30,border:"1px solid black"
-                            }} variant="contained" onClick={this.handleSubmit.bind(this)}>등록</Button>
+                            }} variant="contained" onClick={this.handleSubmit}>등록</Button>
                             </div>
                     </form>
             </div>

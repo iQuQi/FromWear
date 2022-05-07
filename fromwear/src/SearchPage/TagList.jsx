@@ -4,7 +4,7 @@ import { ListItem, Stack } from '@mui/material';
 import './SearchPage.css'
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import {static_tag_data} from "./TagData"
+import {static_tag_data, static_tag_data_by_grouping} from "./TagData"
 import Typography from "@mui/material/Typography";
 const groupMap = {
     season: {name: '계절별', start: 0},
@@ -14,7 +14,7 @@ const groupMap = {
 }
 
 let TagList = ({target_button,handle_tag_button_click}) => {
-    const tagListMap = (group) => static_tag_data.filter((tag) => tag.group === group);
+    const tagListMap = (group) => static_tag_data_by_grouping.filter((tag) => tag.group === group);
 
 
     return <>
