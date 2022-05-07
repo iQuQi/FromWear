@@ -203,7 +203,7 @@ const styles = {
         width: '330px',
         margin:"10px 0",
         ...DEFAULT_FONT,
-        color: 'black',
+        color: 'royalblue',
         fontSize: '18px',
     },
     introduceTagButton: {
