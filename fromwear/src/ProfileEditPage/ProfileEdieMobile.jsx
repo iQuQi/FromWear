@@ -151,7 +151,9 @@ const styles = {
     profileImage: {
         display: 'block',
         margin: '0 auto',
-        '& img' :{
+        '& .profile_original_img' :{
+            width: '220px',
+            height: '220px',
             position: 'relative',
             top: 0,
             left: 0,
