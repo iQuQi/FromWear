@@ -32,19 +32,8 @@ export default function MyPageBodyM({now_user}) {
                     <div className='mypage_contents'>
                         <ProfileM user={now_user} handle_profile_edit={handle_profile_edit}/>
                         
-                        <div>
-                            <ul>
-                                <li>
-                                    <button onClick={<MyPostBoard user={now_user}/>}>
-                                        게시판
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={<MyPostBoardSOS user={now_user}/>}>
-                                        SOS
-                                    </button>
-                                </li>
-                            </ul>
+                        <div id = 'tab' className = 'mypage_collection'>
+                            <MyPageButtonGroup user={now_user} is_mobile={true}/>
                         </div>
                         	
                     </div>

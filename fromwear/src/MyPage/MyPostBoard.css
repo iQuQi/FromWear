@@ -57,3 +57,13 @@
     left: 120px;
     top: 100px;
 }
+.mypage_post_img {
+	height:322.55px;
+	object-fit: cover;
+}
+
+@media only screen and (max-width: 391px){
+	.mypage_post_img {
+		height: 130px;
+	}
+}

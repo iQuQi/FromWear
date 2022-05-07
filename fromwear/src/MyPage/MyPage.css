@@ -30,6 +30,20 @@
     text-overflow: ellipsis;
 }
 
+.mypage_buttongroup {
+    
+    margin:auto;
+    width: 270px;
+    height:50px;
+    color:black;
+
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
 @media only screen and (max-width: 391px){
     #profile ul {
         width: 80%;
@@ -67,6 +81,42 @@
         overflow: hidden; 
         text-overflow: ellipsis;
         font-size: 0.9rem;
+    }
+    .mypage_buttongroup {
+        width: 390px;
+        flex-direction: row;
+
+    }
+    .mypage_collection {    
+        width: 390px;
+        text-align: left;
+        margin:auto;
+    }
+    .mobile_btn_container {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+    }
+    .mobile_button {
+        min-width: 25%;
+        width: 25%;
+        background-color: white;
+
+        color: grey;
+        padding: 8px 0px;
+        margin: 0px;
+    }
+    .mobile_button :hover {
+        border-color: grey;
+        background-color: grey;
+    }
+    .mobile_button :active {
+          box-shadow: 'none';
+          background-color: grey;
+    }
+    .mobile_button :focus {
+          border-bottom: 2px solid;
+          border-color: grey;
     }
 }
 
