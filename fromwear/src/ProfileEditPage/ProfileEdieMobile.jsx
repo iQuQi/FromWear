@@ -188,7 +188,7 @@ const styles = {
         ...DEFAULT_FONT_BOLD,
         fontSize: '18px',
         lineHeight: "30px",
-        margin: '15px 0 10px',
+        margin: '15px 0 5px',
     },
     profileImage: {
         display: 'block',
@@ -204,7 +204,7 @@ const styles = {
         boxSizing: 'border-box',
         borderRadius: '30px',
         color: 'black',
-        margin: '10px 0 15px',
+        margin: '10px 0',
         '&:hover': {
             borderColor: 'black'
         }
@@ -233,19 +233,19 @@ const styles = {
     introduceSelf : {
         width: '330px',
         height: '70px',
-        margin: '10px 0 20px',
+        margin: '10px 0',
         resize:'none',
         padding: '13px',
         boxSizing: 'border-box',
     },
     introduceTag: {
         width: '330px',
-        margin:"10px 0 15px",
+        margin:"10px 0",
     },
     gender: {
         ...DEFAULT_FONT,
         fontSize: '15px',
-        margin: '10px 0 20px',
+        margin: '10px 0',
     },
     modalCloseButton: {
         minWidth: 40,
