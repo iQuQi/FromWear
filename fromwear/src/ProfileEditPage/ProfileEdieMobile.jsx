@@ -82,6 +82,7 @@ export default function ProfileEditMobile ({
                         tag_click &&
                             <Box sx={styles.tagList}>
                                 <ProfileEditTagList
+                                    isMobile
                                     target_button={tag_clicked_list}
                                     handle_tag_button_click={handle_tag_button_click}
                                 />
@@ -92,85 +93,37 @@ export default function ProfileEditMobile ({
                     }
                     <Box>
                         <h3>성별</h3>
-                        {
-                            !user.gender ?
-                                <Box sx={styles.gender}>
-                                    <label className="profile_radio">
-                                        <input type="radio" name="gender" value="1" onClick={checkGender} />
-                                        <span>남자</span>
-                                    </label>
-                                    <label className="profile_radio">
-                                        <input type="radio" name="gender" value="2" onClick={checkGender}/>
-                                        <span>여자</span>
-                                    </label>
-                                    <label className="profile_radio">
-                                        <input type="radio"
-                                               name="gender"
-                                               value="3"
-                                               defaultChecked
-                                               onClick={checkGender}/>
-                                        <span>비공개</span>
-                                    </label>
-                                </Box>
-                                :<Box sx={styles.gender}>
-                                    {
-                                       user.gender === 'M' ?
-                                            <>
-                                                <label className="profile_radio">
-                                                    <input
-                                                        type="radio"
-                                                        name="gender"
-                                                        value="1"
-                                                        defaultChecked
-                                                        onClick={checkGender}
-                                                    />
-                                                    <span>남자</span>
-                                                </label>
-                                                <label className="profile_radio">
-                                                    <input
-                                                        type="radio"
-                                                        name="gender"
-                                                        value="2"
-                                                        onClick={checkGender}/>
-                                                    <span>여자</span>
-                                                </label>
-                                                <label className="profile_radio">
-                                                    <input
-                                                        type="radio"
-                                                        name="gender"
-                                                        value="3"
-                                                        onClick={checkGender}/>
-                                                    <span>비공개</span>
-                                                </label>
-                                            </>
-                                            :<>
-                                                <label className="profile_radio">
-                                                    <input
-                                                        type="radio"
-                                                        name="gender"
-                                                        value="1"
-                                                        onClick={checkGender} /><span>남자</span></label>
-                                                <label className="profile_radio">
-                                                    <input
-                                                        type="radio"
-                                                        name="gender"
-                                                        value="2"
-                                                        defaultChecked
-                                                        onClick={checkGender}/>
-                                                    <span>여자</span>
-                                                </label>
-                                                <label className="profile_radio">
-                                                    <input
-                                                        type="radio"
-                                                        name="gender"
-                                                        value="3"
-                                                        onClick={checkGender}/>
-                                                    <span>비공개</span>
-                                                </label>
-                                            </>
-                                    }
-                                </Box>
-                        }
+                        <Box sx={styles.gender}>
+                            <label className="profile_radio">
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="1"
+                                    defaultChecked={user.gender === 'M'}
+                                    onClick={checkGender}
+                                />
+                                <span>남자</span>
+                            </label>
+                            <label className="profile_radio">
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    value="2"
+                                    defaultChecked={user.gender === 'F'}
+                                    onClick={checkGender}
+                                />
+                                <span>여자</span>
+                            </label>
+                            <label className="profile_radio">
+                                <input type="radio"
+                                       name="gender"
+                                       value="3"
+                                       defaultChecked={!user.gender}
+                                       onClick={checkGender}
+                                />
+                                <span>비공개</span>
+                            </label>
+                        </Box>
                     </Box>
                     <Button
                         type="submit"
@@ -205,6 +158,7 @@ const styles = {
         borderRadius: '30px',
         color: 'black',
         margin: '10px 0',
+        fontSize: '15px',
         '&:hover': {
             borderColor: 'black'
         }
@@ -216,7 +170,7 @@ const styles = {
         right: 0,
         left: 0,
         bottom: 0,
-        padding: '32px',
+        padding: '28px',
         zIndex: 99999,
     },
     container: {
@@ -261,11 +215,12 @@ const styles = {
     tagCloseButton : {
         color:'black',
         backgroundColor: 'white',
-        marginBottom: '10px',
+        marginTop: '38px',
         width: '100%',
         border: 'solid 1px black',
         borderRadius: '30px',
         position:'relative',
+        fontSize:15,
         top:'10px'
     },
     registerButton: {
@@ -273,7 +228,7 @@ const styles = {
         backgroundColor:"white",
         width:"100%",
         color:"black",
-        fontSize:18,
+        fontSize:15,
         borderRadius:30,
         border:"1px solid black",
     }
