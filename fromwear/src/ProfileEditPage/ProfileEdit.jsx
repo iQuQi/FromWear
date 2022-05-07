@@ -14,6 +14,7 @@ import { API } from 'aws-amplify';
 import { updateUser,updateUserStyleTag } from '../graphql/mutations';
 import {static_tag_data} from "../SearchPage/TagData"
 import ProfileImgDialog from "./ProfileImgDialog"
+import ProfileEditMobile from "./ProfileEdieMobile";
 let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
@@ -34,6 +35,7 @@ class ProfileEdit extends Component{
             create_tag: false,
             file_key: '',
             isDialogOpen: false,
+            isMobile: props.isMobile,
             basicImg: false,
 		}
 	}
@@ -349,7 +351,7 @@ class ProfileEdit extends Component{
     }
 
     render(){
-        let {isDialogOpen, tag_click, content_introduce} = this.state;
+        let {isDialogOpen, tag_click, content_introduce, isMobile, user} = this.state;
         let {contents} = this.state;
 
         if(this.state.create_tag == true && this.state.img_upload == true) {
@@ -371,24 +373,45 @@ class ProfileEdit extends Component{
           ></img>
         }
    
-        return <div className="profile_page_container" style={{ zIndex: 10000}}>
+        return isMobile ?
+            <ProfileEditMobile
+                profile_preview={profile_preview}
+                isDialogOpen={isDialogOpen}
+                content_introduce={content_introduce}
+                contents={contents}
+                tag_click={tag_click}
+                tag_clicked_list={tag_clicked_list}
+                user={user}
+                handle_profile_edit={this.props.handle_profile_edit}
+                handleProfileUploadClickOpen={this.handleProfileUploadClickOpen}
+                handleDialogClose={this.handleDialogClose}
+                handleFileOnChange={this.handleFileOnChange}
+                handleChangetoDefault={this.handleChangetoDefault}
+                handleSubmit={this.handleSubmit}
+                changeIntroduceArea={this.changeIntroduceArea}
+                onClickTag={this.onClickTag}
+                handle_tag_button_click={this.handle_tag_button_click.handle_profile_edit}
+                checkGender={this.checkGender}
+                handleClose={() => this.setState({tag_click: false})}
+            />
+            : ( <div className="profile_page_container" style={{ zIndex: 10000}}>
             <div className="profile_edit_page">
-            <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", 
+            <Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px",
                     fontWeight: 300, color: "black",position:"absolute",top:10,left:-15}} onClick={this.props.handle_profile_edit}>
-							<CloseIcon/>	
+							<CloseIcon/>
 					</Button>
                     <form action="doLogin" method="POST" className="img_form">
-                            {profile_preview} 
-                           
+                            {profile_preview}
+
                             <Button variant="outlined"
-                            disableFocusRipple 
+                            disableFocusRipple
                             sx={{position: 'absolute',
                                 top:'300px',
                                 left:'105px',
                                 border: '1px solid black',
                                 boxSizing: 'border-box',
                                 borderRadius: '30px',
-                                color: 'black', 
+                                color: 'black',
                                 '&:hover': {
                                     borderColor: 'black'
                                 }}}
@@ -409,12 +432,12 @@ class ProfileEdit extends Component{
 
                             <div className="profile_mytag">
                                 <h3>소개태그</h3>
-                                <Input value={contents} 
+                                <Input value={contents}
                                   style={{margin:"10px 0",width:"100%"}}
-                                  placeholder="태그를 입력해주세요"  
+                                  placeholder="태그를 입력해주세요"
                                   onClick={this.onClickTag}
                                   />
-                                
+
                             </div>
                             {
                                 tag_click ?
@@ -466,7 +489,7 @@ class ProfileEdit extends Component{
                             </div>
                     </form>
             </div>
-        </div>
+        </div>)
     
     }
 }

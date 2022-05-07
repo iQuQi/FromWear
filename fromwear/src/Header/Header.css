@@ -133,10 +133,12 @@ a{
 	height: 120%;
 	position: fixed;
 	top: -50px;
+	left: 0;
 	margin:auto;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 9999999;
+	z-index: 999999;
 	padding-top: 50px;
+	border: 0;
 }
 
 .login_popup_inside{

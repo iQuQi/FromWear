@@ -22,7 +22,7 @@ export default function MyPageBodyM({now_user}) {
                 :
                 <div>
                     {is_profile_edit?
-                        <ProfileEdit user={now_user} handle_profile_edit={handle_profile_edit} />
+                        <ProfileEdit user={now_user} handle_profile_edit={handle_profile_edit} isMobile/>
                         : null
                     }
                     
