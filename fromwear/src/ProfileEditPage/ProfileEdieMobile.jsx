@@ -36,10 +36,20 @@ export default function ProfileEditMobile ({
                 sx={styles.container}
                 justifyContent="start"
             >
-                <Button style={styles.modalCloseButton} onClick={handle_profile_edit}>
-                    <ArrowBackIosNewIcon />
-                </Button>
-                <Typography component="span" sx={styles.title}>프로필 편집</Typography>
+                <Typography component="span" sx={styles.title}>
+                    <Button style={styles.modalCloseButton} onClick={handle_profile_edit}>
+                        <ArrowBackIosNewIcon />
+                    </Button>
+                    프로필 편집
+                    <Button
+                        type="submit"
+                        style={styles.saveButton}
+                        variant="contained"
+                        onClick={handleSubmit}>
+                        저장
+                    </Button>
+                </Typography>
+
                 <Box sx={styles.profileImage}>
                     {profile_preview}
                     <Button
@@ -130,13 +140,6 @@ export default function ProfileEditMobile ({
                             </label>
                         </Box>
                     </Box>
-                    <Button
-                        type="submit"
-                        style={styles.registerButton}
-                        variant="contained"
-                        onClick={handleSubmit}>
-                        등록
-                    </Button>
                 </form>
             </Stack>
 }
@@ -145,8 +148,8 @@ const styles = {
     title: {
         ...DEFAULT_FONT_BOLD,
         fontSize: '18px',
-        lineHeight: "30px",
-        margin: '15px 0 5px',
+        lineHeight: "45px",
+        margin: '5px 0',
     },
     profileImage: {
         display: 'block',
@@ -195,14 +198,14 @@ const styles = {
     introduceSelf : {
         width: '330px',
         height: '70px',
-        margin: '10px 0',
+        margin: '10px 0 15px',
         resize:'none',
         padding: '13px',
         boxSizing: 'border-box',
     },
     introduceTag: {
         width: '330px',
-        margin:"10px 0",
+        margin:"10px 0  15px",
         ...DEFAULT_FONT,
         color: 'royalblue',
         fontSize: '18px',
@@ -223,7 +226,7 @@ const styles = {
     gender: {
         ...DEFAULT_FONT,
         fontSize: '15px',
-        margin: '10px 0',
+        margin: '10px 0  15px 25px',
     },
     modalCloseButton: {
         minWidth: 40,
@@ -233,7 +236,6 @@ const styles = {
         fontWeight: 300,
         color: "black",
         position:"absolute",
-        top:10,
         left:-15
     },
     tagCloseButton : {
@@ -246,13 +248,15 @@ const styles = {
         fontSize:15,
         top:'10px'
     },
-    registerButton: {
-        margin:"auto",
-        backgroundColor:"white",
-        width:"100%",
-        color:"black",
-        fontSize:15,
-        borderRadius:30,
-        border:"1px solid black",
+    saveButton: {
+        width:"70px",
+        ...DEFAULT_FONT_BOLD,
+        color: 'black',
+        fontSize:18,
+        border: 0,
+        backgroundColor: 'white',
+        boxShadow: 'none',
+        position: 'absolute',
+        right: '0',
     }
 }
