@@ -183,7 +183,7 @@ const styles = {
         backgroundColor: 'white',
         zIndex: 1000,
         top: '45px',
-        bottom: '45px',
+        bottom: 0,
         right: 0,
         left: 0,
         padding: '0 25px',
