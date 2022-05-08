@@ -46,7 +46,6 @@
 .today_wear .container{
     margin: 0 auto;
     padding: 20px 0;
-    width: 900px;
 }
 .today_wear .container .div_test {
     margin-left: -30px;
@@ -96,6 +95,20 @@
     opacity: 1;
     -ms-transform: scale(1.3);
     transform: scale(1.3);
+}
+
+.today_wear_mobile .center .slick-track .slick-current .img_div {
+	z-index: 11;
+	opacity: 1;
+	-ms-transform: scale(1.15);
+	transform: scale(1.15);
+}
+
+.today_wear_mobile .center .slick-current + .slick-active .img_div{
+	z-index: 8;
+	opacity: 1;
+	-ms-transform: scale(1);
+	transform: scale(1);
 }
 
 
