@@ -445,7 +445,7 @@ class SearchPage extends Component{
 						
 						<div className={"search_page_content"}
 							 style={{width: isMobile ? '390px': '1080px',
-								 top: isMobile? '10px': '50px',
+								 top: isMobile? '20px': '50px',
 							 }}>
 							<Box sx={{minHeight:'800px', paddingTop: '80px'}}>
 								<SearchResult

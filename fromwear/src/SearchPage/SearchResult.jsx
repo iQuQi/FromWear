@@ -13,7 +13,7 @@ let SearchResult = ({isMobile,post_data,current_next_post_page})=>
 						 <ImageListItem key={item.img+index} 
 						 sx={{
 							 '& .MuiImageListItem-img':{
-							height: isMobile ? '250px' :'322.55px',
+							height: isMobile ? '300px' :'322.55px',
 							},
                              position:"relative",width: isMobile? '180px' : '208px'
 						 }}
