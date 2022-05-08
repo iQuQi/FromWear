@@ -151,8 +151,9 @@ function Header(props){
 	const handle_login_complete = () => {
 		setLoginPopup(false);
 	};
-	
-	
+
+	const isSearchPage = window.location.pathname===("/search"||"/search#"||"/search/");
+
 	const steps= [
 		{
 		  id: '0',
@@ -250,7 +251,7 @@ function Header(props){
 			>
 			<Box
 				className={`header_bar 
-				${window.location.pathname===("/search"||"/search#"||"/search/")?' header_bar_tag_div_on':''}`}>
+				${isSearchPage?' header_bar_tag_div_on':''}`}>
 				<PrimarySearchAppBar
 					isMobile={isMobile}
 					handle_inputbase_on_change={props.handle_inputbase_on_change}
@@ -263,11 +264,11 @@ function Header(props){
 
 				/>
 			</Box>
-			{ (user?.name && window.location.pathname !== ("/search"||"/search#"||"/search/")) 
+			{ (user?.name && !isSearchPage)
 						  && <FeedPage now_user={user} />}
 			<MoveToTop/>
 			<ThemeProvider theme={theme}>
-					{user?.name && 
+					{user?.name && !isSearchPage &&
 					<ChatBot
 						headerTitle='고객문의'
 						floating={true} 

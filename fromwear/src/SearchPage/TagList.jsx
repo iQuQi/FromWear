@@ -4,7 +4,7 @@ import { ListItem, Stack } from '@mui/material';
 import './SearchPage.css'
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import {static_tag_data} from "./TagData"
+import {static_tag_data, static_tag_data_by_grouping} from "./TagData"
 import Typography from "@mui/material/Typography";
 const groupMap = {
     season: {name: '계절별', start: 0},
@@ -13,31 +13,33 @@ const groupMap = {
     situation: {name: '상황별', start: 29},
 }
 
-let TagList = ({target_button,handle_tag_button_click}) => {
-    const tagListMap = (group) => static_tag_data.filter((tag) => tag.group === group);
+let TagList = ({isMobile, target_button,handle_tag_button_click, topPos}) => {
+    const tagListMap = (group) => static_tag_data_by_grouping.filter((tag) => tag.group === group);
 
 
     return <>
         {['season', 'age', 'style', 'situation'].map((group) =>
-        <ul className="tag_list">
-            <Typography sx={{color: "#555",fontSize:"18px",fontWeight: "bold",
-                lineHeight: '45px', textAlign: 'left',
+        <ul className="tag_list" key={group}
+            style={{...(isMobile && {padding: '0 20px', width: '380px', top: topPos})}}>
+            <Typography sx={{color: "#555",fontSize: isMobile? '14px':"18px",fontWeight: "bold",
+                lineHeight: isMobile? '30px':'45px', textAlign: 'left',
             }}>{groupMap[group].name}</Typography>
             {tagListMap(group).map((data, index) =>
-                <li>
+                <li key={data.id}>
                     <Button key={data.name + index}
                             style={{
-                                width: 95,
-                                height: 40,
-                                marginBottom: 10,
-                                marginRight: 8,
+                                width: isMobile? 'auto': 95,
+                                height: isMobile? 28:40,
+                                marginBottom: isMobile? 3 :10,
+                                marginRight: isMobile? 3 :8,
                                 fontSize: 12,
                                 float: "left",
                                 border: '1px solid darkgray',
                                 color: target_button[groupMap[group].start + index] == 0 ? "black" : "white",
                                 backgroundColor: target_button[groupMap[group].start + index] == 0 ? "#fff" : "#000000",
                                 borderRadius: "30px",
-                                boxShadow: "0 0 0 0"
+                                boxShadow: "0 0 0 0",
+                                ...(isMobile && {padding: '6px 10px'}),
                             }}
                             variant="contained"
                             onClick={e => (handle_tag_button_click(e,
