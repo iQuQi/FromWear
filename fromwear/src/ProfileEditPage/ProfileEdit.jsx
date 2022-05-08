@@ -2,22 +2,20 @@ import './ProfileEdit.css'
 import * as React from 'react';
 import {Component} from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Input from '@mui/material/Input';
-import TagData from '../SearchPage/TagData'
+import {static_tag_data_by_grouping} from '../SearchPage/TagData'
 import ProfileEditTagList from './ProfileEditTagList';
 import profile_skyblue from '../PostView/Imgs/profile_skyblue.jpg';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import { API } from 'aws-amplify';
 import { updateUser,updateUserStyleTag } from '../graphql/mutations';
-import {static_tag_data} from "../SearchPage/TagData"
 import ProfileImgDialog from "./ProfileImgDialog"
 import ProfileEditMobile from "./ProfileEdieMobile";
-let board_type = 1
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
+const defaultTagString = '#태그를 #입력해 #주세요';
 class ProfileEdit extends Component{
     constructor(props){
 		super();
@@ -49,14 +47,19 @@ class ProfileEdit extends Component{
     set_tag_list = () => {
         if(this.state.user.my_tag_list.items.length > 0){
             var tmp_user_tag_list = this.state.user.my_tag_list.items;
-            if(tmp_user_tag_list[0].style_tag.id==102 && tmp_user_tag_list[1].style_tag.id==103 && tmp_user_tag_list[2].style_tag.id==101){
+            if(tmp_user_tag_list[0].style_tag.id==101 && tmp_user_tag_list[1].style_tag.id==102 && tmp_user_tag_list[2].style_tag.id==103){
             }
             else{
                 tmp_user_tag_list.map((tag)=>{
-                    tag_clicked_list[tag.style_tag.id-1] = 1
+                    const index= static_tag_data_by_grouping.findIndex((staticTag) =>  staticTag.id == tag.style_tag_id);
+                    if (index !== -1)
+                      tag_clicked_list[index] = 1;
                 })
+                const tagString =  "#"+tmp_user_tag_list[0].style_tag.value+
+                    " #"+tmp_user_tag_list[1].style_tag.value +
+                    " #"+tmp_user_tag_list[2].style_tag.value;
                 this.setState({
-                    contents: "#"+tmp_user_tag_list[0].style_tag.value+" #"+tmp_user_tag_list[1].style_tag.value +" #"+tmp_user_tag_list[2].style_tag.value,
+                    contents:tagString,
                     current_click_tag_num: 3,
                     total_tag_num: 3,
                 })  
@@ -102,7 +105,7 @@ class ProfileEdit extends Component{
         let changeContents = '';
         tag_clicked_list.forEach((tag, index) => {
             if(tag == 1) {
-                changeContents += `#${static_tag_data[index].name} `
+                changeContents += `#${static_tag_data_by_grouping[index].name} `
             }
         })
         this.setState({
@@ -178,10 +181,10 @@ class ProfileEdit extends Component{
                 var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
 
                 //check된 리스트
-                var tag_index = [];
+                var checked_tag = [];
                 tag_clicked_list.forEach((tag, index) => {
                     if(tag == 1) {
-                        tag_index = [...tag_index, index+1]
+                        checked_tag = [...checked_tag, static_tag_data_by_grouping[index].id]
                     }
                 })
 
@@ -191,7 +194,7 @@ class ProfileEdit extends Component{
                             input: 
                             {
                                 id: origin_id,
-                                style_tag_id: tag_index[index],
+                                style_tag_id: checked_tag[index],
                             } 
                     }})
                     .then(res => {
@@ -224,10 +227,10 @@ class ProfileEdit extends Component{
                     var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
     
                     //check된 리스트
-                    var tag_index = [];
+                    var checked_tag = [];
                     tag_clicked_list.forEach((tag, index) => {
                         if(tag == 1) {
-                            tag_index = [...tag_index, index+1]
+                            checked_tag = [...checked_tag, static_tag_data_by_grouping[index].id]
                         }
                     })
     
@@ -237,8 +240,8 @@ class ProfileEdit extends Component{
                                 input: 
                                 {
                                     id: origin_id,
-                                    style_tag_id: tag_index[index],
-                                } 
+                                    style_tag_id: checked_tag[index],
+                                }
                         }})
                         .then(res => {
                             if(index == 2){
@@ -251,21 +254,12 @@ class ProfileEdit extends Component{
                         })
                     })
                 })
-                // .then(res=>{
-                //     window.location.reload();
-                // })
             }
-            // else {
-            //     console.log("현재 여기")
-            //     var before_user_img_delete = this.state.user.profile_img
-            //     console.log("삭제할 경로 : ", before_user_img_delete)
-            // }
+
             else{
 
                 var before_user_img_delete = this.state.user.profile_img
-                console.log("삭제할 경로 : ", before_user_img_delete)
                 if(before_user_img_delete == 'profile_skyblue.jpg'){
-                    console.log("기본 이미지는 s3 삭제 X")
                     before_user_img_delete = '';
                 }
                 
@@ -280,13 +274,12 @@ class ProfileEdit extends Component{
                 .then(res => {
                     //현재 사용자의 tag list의 id 불러옴
                     var before_tag_list = [this.state.user.my_tag_list.items[0].id,this.state.user.my_tag_list.items[1].id,this.state.user.my_tag_list.items[2].id];
-                    console.log("befsd", before_tag_list)
-    
+
                     //check된 리스트
-                    var tag_index = [];
+                    var checked_tag = [];
                     tag_clicked_list.forEach((tag, index) => {
                         if(tag == 1) {
-                            tag_index = [...tag_index, index+1]
+                            checked_tag = [...checked_tag, static_tag_data_by_grouping[index].id]
                         }
                     })
     
@@ -296,7 +289,7 @@ class ProfileEdit extends Component{
                                 input: 
                                 {
                                     id: origin_id,
-                                    style_tag_id: tag_index[index],
+                                    style_tag_id: checked_tag[index],
                                 } 
                         }})
                         .then(res => {
@@ -308,9 +301,6 @@ class ProfileEdit extends Component{
                         })
                     })
                 })
-                // .then(res=>{
-                //     window.location.reload();
-                // })
                 .then((res) => {
                     Storage.put(`${this.state.file_key}`, this.state.file)
                     .then(res => {
@@ -322,9 +312,6 @@ class ProfileEdit extends Component{
                 })
                 .catch((e) => console.log("onChange error", e))
             }
-            
-            console.log("프로필 업데이트 성공!");
-            //window.location.reload();
             
         }
 
@@ -448,9 +435,11 @@ class ProfileEdit extends Component{
                                     />
                                     <Button
                                     onClick={()=>this.setState({tag_click: false})}
-                                    sx={{color:'black',backgroundColor: 'white', marginBottom: '10px', width: '100%',
-                                    border: 'solid 1px black', borderRadius: '30px', position:'relative',top:'10px'}}
-                                    >닫기</Button>
+                                    sx={{
+                                        color:'black',backgroundColor: 'white', marginBottom: '10px', width: '70px',
+                                        borderRadius: '30px', fontSize: 18, fontWeight: 'bold',
+                                        position:'absolute',top:'10px', right: 0}}
+                                    >저장</Button>
                                 </div>
                                 :
                                 <div>

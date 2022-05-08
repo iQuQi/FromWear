@@ -433,6 +433,7 @@ class SearchPage extends Component{
 									handle_x_button_on_click={this.handle_x_button_on_click}
 								/>
 								<TagList
+									topPos={180}
 									isMobile={isMobile}
 									target_button={target_tag_button}
 									handle_tag_button_click={this.handle_tag_button_click}

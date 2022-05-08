@@ -13,14 +13,14 @@ const groupMap = {
     situation: {name: '상황별', start: 29},
 }
 
-let TagList = ({isMobile, target_button,handle_tag_button_click}) => {
+let TagList = ({isMobile, target_button,handle_tag_button_click, topPos}) => {
     const tagListMap = (group) => static_tag_data_by_grouping.filter((tag) => tag.group === group);
 
 
     return <>
         {['season', 'age', 'style', 'situation'].map((group) =>
         <ul className="tag_list" key={group}
-            style={{...(isMobile && {padding: '0 20px', width: '380px', top: '180px'})}}>
+            style={{...(isMobile && {padding: '0 20px', width: '380px', top: topPos})}}>
             <Typography sx={{color: "#555",fontSize: isMobile? '14px':"18px",fontWeight: "bold",
                 lineHeight: isMobile? '30px':'45px', textAlign: 'left',
             }}>{groupMap[group].name}</Typography>

@@ -8,6 +8,7 @@ import {Box} from "@mui/system";
 import {Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {DEFAULT_FONT, DEFAULT_FONT_BOLD} from "../style/common";
+import TagList from "../SearchPage/TagList";
 
 export default function ProfileEditMobile ({
     profile_preview,
@@ -96,13 +97,14 @@ export default function ProfileEditMobile ({
                     {
                         tag_click &&
                             <Box sx={styles.tagList}>
-                                <ProfileEditTagList
+                                <TagList
                                     isMobile
+                                    topPos={50}
                                     target_button={tag_clicked_list}
                                     handle_tag_button_click={handle_tag_button_click}
                                 />
                                 <Button onClick={handleClose} sx={styles.tagCloseButton}>
-                                    닫기
+                                    저장
                                 </Button>
                             </Box>
                     }
@@ -181,7 +183,6 @@ const styles = {
         right: 0,
         left: 0,
         bottom: 0,
-        padding: '28px',
         zIndex: 99999,
     },
     container: {
@@ -241,12 +242,13 @@ const styles = {
     tagCloseButton : {
         color:'black',
         backgroundColor: 'white',
-        width: '100%',
-        border: 'solid 1px black',
+        width: '50px',
         borderRadius: '30px',
-        position:'relative',
-        fontSize:15,
-        top:'10px'
+        position:'absolute',
+        ...DEFAULT_FONT_BOLD,
+        fontSize:18,
+        top:'10px',
+        right: 0,
     },
     saveButton: {
         width:"70px",
