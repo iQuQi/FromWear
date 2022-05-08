@@ -111,6 +111,9 @@
         color: gray;
         padding-left: 0;
     }
+    /* .comment_num:hover {
+        text-decoration: underline;
+    } */
 
     .comment_ul {
         height: auto;

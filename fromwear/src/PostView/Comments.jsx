@@ -73,6 +73,10 @@ class Comments extends Component {
         });*/
         
     }
+
+    moveToWholeCommentPage = () => {
+        window.location.href = this.state.post_id + '/wholecommentpage';
+    }
     
     onClick = () => {
         alert("로그인 후 댓글 쓰기가 가능합니다.")
