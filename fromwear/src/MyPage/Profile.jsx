@@ -84,10 +84,6 @@ export default class Profile extends Component {
     }
   }
 
-  componentWillMount(){
-    this.dialog_get_follow();
-  }
-
   find_same_tag_user = () => {
     let {tag_user_is_checked} = this.state;
 
@@ -186,10 +182,6 @@ export default class Profile extends Component {
     })
   }
   
-  dialog_get_follow = () => {
-
-    
-  }
 
   render(){
 /*    if(this.state.user.following_list || this.state.user.follower_list){
@@ -316,7 +308,7 @@ export default class Profile extends Component {
                   user.my_tag_list.items.length!=0?
                   
                   user.my_tag_list.items.sort((a,b)=>a.style_tag.id-b.style_tag.id).map(item=>
-                    <span key={item.id}>#{item.style_tag.value}&nbsp;</span>
+                    <span>#{item.style_tag.value}&nbsp;</span> 
                   )
                   
                   :<p></p>    
@@ -347,13 +339,13 @@ export default class Profile extends Component {
               <style>{cssstyle}</style>
                 <Slider {...settings}>
                   {tag_same_user_list.map((item) => (
-                    <div key={item.id}>
+                    <div>
             
                       <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
-                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
-                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto', objectFit:'cover'}}
+                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}`}
+                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}`}
                               alt={item.name}
                               loading="lazy"
                           />

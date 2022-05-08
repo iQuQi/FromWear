@@ -93,9 +93,9 @@ export default class TodayPostBoardPosts extends Component {
                 post_list: this.props.user.my_post_list.items
             })
         }
-        if(this.state.post_list!=user.my_post_list){
+        /*if(this.state.post_list!=user.my_post_list){
             this.state.post_list = this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
-        }
+        }*/
           
     }
     
