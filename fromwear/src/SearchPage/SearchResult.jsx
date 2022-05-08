@@ -6,21 +6,22 @@ import MoodBadIcon from '@mui/icons-material/MoodBad';
 import './SearchPage.css'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 let link,new_link;
-let SearchResult = ({post_data,current_next_post_page})=>
-<ImageList cols={5} gap={10} >
-					{post_data.map((item,index) => 
+let SearchResult = ({isMobile,post_data,current_next_post_page})=>
+<ImageList cols={isMobile? 2: 5} gap={isMobile? 0 : 10}>
+					{post_data.map((item,index) =>
 						 index<(current_next_post_page*25) &&
 						 <ImageListItem key={item.img+index} 
 						 sx={{
 							 '& .MuiImageListItem-img':{
-							height:'322.55px',
+							height: isMobile ? '250px' :'322.55px',
 							},
-
+                             position:"relative",width: isMobile? '180px' : '208px'
 						 }}
-						 className = "image_list_item" style={{position:"relative"}}>
+						 className = "image_list_item"
+                         >
 							 {new_link = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.img}
                                 <img className="img_item" 
-								style={{borderRadius:16,width:'208px'}}
+								style={{borderRadius: isMobile? 0:16,width: isMobile? '195px' : '208px'}}
 								src={new_link}
 								srcSet={`${new_link}`}
 								alt={item.img+index}

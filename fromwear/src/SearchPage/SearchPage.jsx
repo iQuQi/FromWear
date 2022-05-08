@@ -77,7 +77,7 @@ class SearchPage extends Component{
 
 	componentDidMount(){
 		window.addEventListener("scroll", this.handleScroll);
-		this.update_post_data(-1,"",this.state.current_input_tag,-1);
+		// this.update_post_data(-1,"",this.state.current_input_tag,-1);
 		get_rank_tag(this.handle_rank_tag_data);
 
 	}
@@ -395,7 +395,7 @@ class SearchPage extends Component{
 			})
 			.catch(e=>console.log(e))
 	  
-	  
+
 	  }
 
 
@@ -416,9 +416,13 @@ class SearchPage extends Component{
 				
 				<div className="search_page_container">	
 				
-					<div className = {is_tag_more?'tag_div_on': tag_div_on_to_off?'tag_div_on_to_off':"tag_div_off"} >
+					<div
+						className = {is_tag_more?'tag_div_on': tag_div_on_to_off?'tag_div_on_to_off':"tag_div_off"}
+					>
 						<Stack direction="row">
-							<div className={"tag_more_list"}>
+							<div className={"tag_more_list"}
+								  style={{...(isMobile && {width: '390px'})}}
+							>
 								<RankTag
 									isMobile={isMobile}
 									target_button={target_rank_tag_button}
@@ -439,11 +443,15 @@ class SearchPage extends Component{
 
 					{post_data.length!=0?
 						
-						<div className={"search_page_content"}>
+						<div className={"search_page_content"}
+							 style={{width: isMobile ? '390px': '1080px',
+								 top: isMobile? '10px': '50px',
+							 }}>
 							<Box sx={{minHeight:'800px', paddingTop: '80px'}}>
-								<SearchResult 
-								post_data={post_data}
-								current_next_post_page={current_next_post_page}
+								<SearchResult
+									isMobile={isMobile}
+									post_data={post_data}
+									current_next_post_page={current_next_post_page}
 								/>
 							</Box>
 						</div>

@@ -199,13 +199,21 @@ function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select
                       onChange={handle_inputbase_on_change}
                   />
                 </a>
-                {!isMobile &&
-                    <>
-                      <SelectBoard handle_select_board={handle_select_board}/>
-                      <SelectGender handle_select_gender={handle_select_gender}/>
-                      <SelectDay handle_select_day={handle_select_day}/>
-                    </>
-                }
+
+                <Box sx={{
+                  display: 'inline',
+                  ...(isMobile && {
+                    position: 'absolute',
+                    top: '50px',
+                    left: 0,
+                    '& .MuiInput-underline::before' : {borderBottom: 0},
+                  })
+                }}>
+                  <SelectBoard handle_select_board={handle_select_board}/>
+                  <SelectGender handle_select_gender={handle_select_gender}/>
+                  <SelectDay handle_select_day={handle_select_day}/>
+                </Box>
+
               </Search>
           }
 

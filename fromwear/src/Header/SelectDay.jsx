@@ -14,7 +14,7 @@ export default function BasicSelect({handle_select_day}) {
   };
 
   return (
-    <Box style={{ minWidth: "90px", height: "35px" ,marginRight: "10px", float:"right"}}>
+    <Box style={{ minWidth: "80px", height: "35px" ,marginRight: "10px", float:"right"}}>
       <FormControl variant ="standard" fullWidth>
 
         <Select
