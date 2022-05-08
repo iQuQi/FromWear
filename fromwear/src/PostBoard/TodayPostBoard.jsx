@@ -11,7 +11,7 @@ import './CSS/PostBoard.css';
 import { set } from 'date-fns';
 import PostWritePage from '../PostWritePage/PostWritePage';
 import BottomTab from "../BottomNavigation/BottomNavigation";
-import {Tab} from "@mui/material";
+import {Box, Tab} from "@mui/material";
 import TopMenu from "../BottomNavigation/TopMenu";
 
 
@@ -66,11 +66,12 @@ class TodayPostBoard extends Component {
 						handle_write_page={this.handle_write_page}
 					/>
 				}
-				<section className="wrap"
+				<Box className="wrap"
 						 style={{...(isMobile &&
 								{
 									width: '390px',
 									minWidth: '390px',
+									paddingTop: '90px',
 								}
 							)
 						}}
@@ -85,7 +86,7 @@ class TodayPostBoard extends Component {
 						user={user}
 						handle_write_page={this.handle_write_page}
 					/>
-				</section>
+				</Box>
 				<Footer/>
 				{isMobile && <BottomTab user={user} handle_write_page={this.handle_write_page}/>}
 			</>

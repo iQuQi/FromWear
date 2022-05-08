@@ -156,7 +156,7 @@ export default class TodayPostBoardTop5 extends Component {
         
 		return (
       <div className="today_background_wrap" style={{...(isMobile &&
-              {height: '330px', position:'relative',top: '90px'})}}>
+              {height: '330px'})}}>
         <article className={isMobile? 'today_wear_mobile today_wear' : "today_wear"}
                  style={{...(isMobile && {width: '390px'})}}>
           {board_type == 0 ? (
@@ -259,7 +259,7 @@ export default class TodayPostBoardTop5 extends Component {
             />
             <Slider {...settings}>
               {[...post_top_list, ...post_top_list].map((post, index) => (
-                <div className={"div_test"} key={post.id + "_1"}>
+                <div className={"div_test"} key={post.id + index}>
                   <div
                     className="img_div"
                     style={{

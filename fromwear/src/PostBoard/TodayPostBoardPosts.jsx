@@ -355,7 +355,7 @@ export default class TodayPostBoardPosts extends Component {
 
     return (
       <article className="wrap_recommend" style={{...(isMobile &&
-            {width: '390px', position: 'relative', top: '90px'})}}>
+            {width: '390px'})}}>
         {!isMobile &&
             <form className="sort_font select_sort">
               <input
@@ -667,7 +667,7 @@ export default class TodayPostBoardPosts extends Component {
                 marginTop: "20px",
                 fontSize: 15,
                 textAlign: "center",
-                lineHeight: isMobile? '240px' : '500px',
+                lineHeight: isMobile? '200px' : '500px',
                 ...(isMobile && {height: '300px'})
               }}
             >
