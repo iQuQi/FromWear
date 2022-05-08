@@ -155,7 +155,8 @@ export default class TodayPostBoardTop5 extends Component {
     };
         
 		return (
-      <div className="today_background_wrap" style={{...(isMobile && {height: '330px'})}}>
+      <div className="today_background_wrap" style={{...(isMobile &&
+              {height: '330px', position:'relative',top: '90px'})}}>
         <article className={isMobile? 'today_wear_mobile today_wear' : "today_wear"}
                  style={{...(isMobile && {width: '390px'})}}>
           {board_type == 0 ? (
@@ -240,8 +241,10 @@ export default class TodayPostBoardTop5 extends Component {
                       width: '320px',
                       position: 'relative',
                       top: '-45px',
-                      '& .slick-arrow' : {visibility: 'hidden'
-                  }}
+                      '& .slick-arrow': {visibility: 'hidden'},
+                      '& .slick-slider': {height: '276px'},
+                      '& .div_test' : {height: '236px'}
+                  }
               )}}>
             <link
               rel="stylesheet"
@@ -271,10 +274,10 @@ export default class TodayPostBoardTop5 extends Component {
                     }}
                     />
 
-                  <a href={"/post/" + post.id}>
+                  <a href={"/post/" + post.id} >
                     <span className="dimmed_layer">
-                      <span className="dimmed_info">
-                        <div>
+                      <span className="dimmed_info" >
+                        <div  style={{...(isMobile && {display: 'none'})}}>
                           {board_type == 1 && post.blind == true ? (
                             <div>
                               <img
@@ -315,7 +318,7 @@ export default class TodayPostBoardTop5 extends Component {
                             </div>
                           )}
                         </div>
-                        <Box style={{ width: "40px" }} className="box">
+                        <Box sx={{ width: "40px", ...(isMobile && {display: 'none'}) }} className="box">
                           <Grid
                             container
                             rowSpacing={0}

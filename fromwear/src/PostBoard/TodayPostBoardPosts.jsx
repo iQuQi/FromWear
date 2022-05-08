@@ -354,7 +354,8 @@ export default class TodayPostBoardPosts extends Component {
     let {isMobile} = this.props;
 
     return (
-      <article className="wrap_recommend" style={{...(isMobile && {width: '390px'})}}>
+      <article className="wrap_recommend" style={{...(isMobile &&
+            {width: '390px', position: 'relative', top: '90px'})}}>
         {!isMobile &&
             <form className="sort_font select_sort">
               <input
@@ -401,7 +402,7 @@ export default class TodayPostBoardPosts extends Component {
               float: 'left',
 
               '& .filter_layout' : {
-                margin: '0 5px 0 0',
+                margin: '0 10px 0 0',
                 width: '70px',
               },
 
@@ -561,7 +562,7 @@ export default class TodayPostBoardPosts extends Component {
                         loading="lazy"
                       />
                       <a href={"/post/" + post.id}>
-                        <span className="dimmed_layer" > </span>
+                        <span className="dimmed_layer" style={{...(isMobile && {borderRadius: 0})}} > </span>
                       </a>
                       <Stack direction="row" spacing={0}>
                       {link_change(post, user)}
@@ -667,7 +668,7 @@ export default class TodayPostBoardPosts extends Component {
                 fontSize: 15,
                 textAlign: "center",
                 lineHeight: isMobile? '240px' : '500px',
-                ...(isMobile && {height: '400px'})
+                ...(isMobile && {height: '300px'})
               }}
             >
               해당되는 게시물이 존재하지 않습니다.

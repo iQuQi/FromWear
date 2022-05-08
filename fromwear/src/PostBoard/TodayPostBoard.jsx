@@ -71,7 +71,6 @@ class TodayPostBoard extends Component {
 								{
 									width: '390px',
 									minWidth: '390px',
-									top: '70px',
 								}
 							)
 						}}

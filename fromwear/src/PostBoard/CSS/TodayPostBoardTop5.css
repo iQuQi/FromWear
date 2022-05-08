@@ -26,6 +26,10 @@
 	padding-top: 50px;
 }
 
+.today_wear_mobile {
+	height: 279px;
+}
+
 .today_wear .slick-next, .today_wear .slick-prev{
 	top:40%;
 }
@@ -135,6 +139,16 @@
 	font-size: 17px;
 	font-weight: 600;
 	cursor: pointer;
+}
+
+.today_wear_mobile .slick-center:hover .dimmed_layer{
+	top: 45px;
+	bottom: 220px;
+	right: -42px;
+	left: 22px;
+
+	background-color: transparent;
+
 }
 
 .dimmed_info{
