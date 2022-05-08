@@ -11,6 +11,7 @@ import OtherUserProfileM from './OtherUserProfileM';
 import MyPostBoard from '../MyPage/MyPostBoard';
 
 import Footer from '../Footer/Footer.jsx';
+import BottomTab from '../BottomNavigation/BottomNavigation';
 
 class UserPage extends Component {
     constructor(props) {
@@ -73,7 +74,10 @@ class UserPage extends Component {
 				
 				{
 					is_mobile?
-					<OtherUserProfileM now_user={now_user} user={user}/>
+					<div>
+						<OtherUserProfileM now_user={now_user} user={user}/>
+						<BottomTab user={now_user}/>
+					</div>
 					: <OtherUserProfile now_user={now_user} user={user}/>
 				}
 				

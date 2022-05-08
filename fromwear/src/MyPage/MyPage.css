@@ -29,6 +29,11 @@
     overflow: hidden; 
     text-overflow: ellipsis;
 }
+.name_ellipsis {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
 
 .mypage_buttongroup {
     

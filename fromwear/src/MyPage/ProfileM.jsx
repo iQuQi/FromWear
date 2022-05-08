@@ -356,7 +356,7 @@ export default class Profile extends Component {
                         </span>
                       </a>
                       <br/>
-                      <p style={{fontSize:'0.8rem'}}>{item.name}</p>
+                      <p className='name_ellipsis' style={{fontSize:'0.8rem'}}>{item.name}</p>
                     </div>
                   ))}
                   
@@ -372,7 +372,7 @@ export default class Profile extends Component {
           <p></p>
         }
       
-        <hr style={{margin:'20px auto 0 auto', width:'100%'}}></hr>
+        <hr style={{margin:'20px 0 0 0', width:'100%', borderLeft:0, borderRight:0}}></hr>
       </div>
     )
   }
