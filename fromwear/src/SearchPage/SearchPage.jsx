@@ -77,7 +77,7 @@ class SearchPage extends Component{
 
 	componentDidMount(){
 		window.addEventListener("scroll", this.handleScroll);
-		// this.update_post_data(-1,"",this.state.current_input_tag,-1);
+		this.update_post_data(-1,"",this.state.current_input_tag,-1);
 		get_rank_tag(this.handle_rank_tag_data);
 
 	}
