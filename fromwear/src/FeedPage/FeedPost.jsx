@@ -52,10 +52,17 @@ export default function FeedPost({user}) {
     }
     
     postlist.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)});
-
+    console.log(postlist);
     return (
     <ImageList cols={1} sx={{ width: 390 }}>
-      {postlist.map((post) => (
+      {
+      postlist.length==0?
+      <div>
+        <p style={{marginTop: '100px'}}>팔로우 하는 사용자가 없습니다.</p>
+        
+      </div>
+      
+      : postlist.map((post) => (
           
             <ImageListItem key={post.img} >
             <img
