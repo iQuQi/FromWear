@@ -29,7 +29,7 @@ let link_change = (item, now_user) => {
     link = '/userpage/'+item.user.id
 }
 
-export default function WeekllyTagBody({current_next_post_page, now_user,best_posts,ranking_posts, weekly_tag}) {
+export default function WeeklyTagBody({current_next_post_page, now_user,best_posts,ranking_posts, weekly_tag}) {
     const [is_write_page, set_is_write_page] = React.useState(false);
     const isMobile = useMediaQuery({ maxWidth: 391 })
 
