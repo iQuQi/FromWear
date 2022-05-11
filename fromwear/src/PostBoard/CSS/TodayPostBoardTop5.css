@@ -26,6 +26,10 @@
 	padding-top: 50px;
 }
 
+.today_wear_mobile {
+	height: 279px;
+}
+
 .today_wear .slick-next, .today_wear .slick-prev{
 	top:40%;
 }
@@ -46,7 +50,6 @@
 .today_wear .container{
     margin: 0 auto;
     padding: 20px 0;
-    width: 900px;
 }
 .today_wear .container .div_test {
     margin-left: -30px;
@@ -98,6 +101,20 @@
     transform: scale(1.3);
 }
 
+.today_wear_mobile .center .slick-track .slick-current .img_div {
+	z-index: 11;
+	opacity: 1;
+	-ms-transform: scale(1.15);
+	transform: scale(1.15);
+}
+
+.today_wear_mobile .center .slick-current + .slick-active .img_div{
+	z-index: 8;
+	opacity: 1;
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+
 
 .today_wear .center .img_div {
     transition: all .3s ease;
@@ -122,6 +139,16 @@
 	font-size: 17px;
 	font-weight: 600;
 	cursor: pointer;
+}
+
+.today_wear_mobile .slick-center:hover .dimmed_layer{
+	top: 45px;
+	bottom: 220px;
+	right: -42px;
+	left: 22px;
+
+	background-color: transparent;
+
 }
 
 .dimmed_info{

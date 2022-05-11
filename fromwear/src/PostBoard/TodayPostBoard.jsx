@@ -11,16 +11,16 @@ import './CSS/PostBoard.css';
 import { set } from 'date-fns';
 import PostWritePage from '../PostWritePage/PostWritePage';
 import BottomTab from "../BottomNavigation/BottomNavigation";
-import {Tab} from "@mui/material";
+import {Box, Tab} from "@mui/material";
 import TopMenu from "../BottomNavigation/TopMenu";
 
 
-class TodayPostBoard extends Component { 
+class TodayPostBoard extends Component {
 
 	constructor(props) {
 		super();
 
-		this.state = { 
+		this.state = {
 			board_type: props.post_type,
 			user: 'noUser',
 			is_write_page: false,
@@ -52,6 +52,7 @@ class TodayPostBoard extends Component {
 		let {board_type, user,isMobile} = this.state;
 		let {is_write_page} = this.state;
 
+
 		return (
 			<>
 				<Header handle_user_info={this.handle_user_info} inquireIsMobile={this.inquireIsMobile}/>
@@ -59,23 +60,35 @@ class TodayPostBoard extends Component {
 					<TopMenu pos={board_type == 0 ? '100px' : '195px'} wid={'79px'}/>
 				}
 				{ is_write_page
-					? <PostWritePage
+					&& <PostWritePage
 						board_type={board_type}
 						user={user}
 						handle_write_page={this.handle_write_page}
 					/>
-					: null
 				}
-				<section className="wrap">
-					<TodayPostBoardTop5 board_type={board_type} />
+				<Box className="wrap"
+						 style={{...(isMobile &&
+								{
+									width: '390px',
+									minWidth: '390px',
+									paddingTop: '90px',
+								}
+							)
+						}}
+				>
+					<TodayPostBoardTop5
+						isMobile={isMobile}
+						board_type={board_type}
+					/>
 					<TodayPostBoardPosts
+						isMobile={isMobile}
 						board_type={board_type}
 						user={user}
 						handle_write_page={this.handle_write_page}
 					/>
-				</section>
+				</Box>
 				<Footer/>
-				{isMobile && <BottomTab user={user}/>}
+				{isMobile && <BottomTab user={user} handle_write_page={this.handle_write_page}/>}
 			</>
 			 )
 	}

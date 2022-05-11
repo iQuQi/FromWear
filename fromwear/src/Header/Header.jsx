@@ -268,7 +268,7 @@ function Header(props){
 						  && <FeedPage now_user={user} />}
 			<MoveToTop/>
 			<ThemeProvider theme={theme}>
-					{user?.name && !isSearchPage &&
+					{user?.name && (!isMobile || (isMobile && !isSearchPage)) &&
 					<ChatBot
 						headerTitle='고객문의'
 						floating={true} 

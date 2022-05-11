@@ -140,11 +140,12 @@ export default class TodayPostBoardTop5 extends Component {
 
     render() {
         let {post_top_list, board_type} = this.state;
+        let { isMobile } = this.props;
 
 		const settings = {
       className: "center",
       centerMode: true,
-      slidesToShow: 5,
+      slidesToShow: isMobile? 3:5,
       beforeChange: this.handle_slider_index_before,
       centerPadding: "0px",
       speed: 700,
@@ -154,68 +155,97 @@ export default class TodayPostBoardTop5 extends Component {
     };
         
 		return (
-      <div className="today_background_wrap">
-        <article className="today_wear">
+      <div className="today_background_wrap" style={{...(isMobile &&
+              {height: '330px'})}}>
+        <article className={isMobile? 'today_wear_mobile today_wear' : "today_wear"}
+                 style={{...(isMobile && {width: '390px'})}}>
           {board_type == 0 ? (
             <div>
-              <AcUnitIcon
-                style={{
-                  fontSize: "6vmin",
-                  color: "rgb(3, 25, 68)",
-                  position: "absolute",
-                }}
-              />
-              <h1
-                className="title"
-                style={{
-                  fontSize: "6vmin",
-                  fontWeight: "bold",
-                  marginBottom: "20px",
-                  // color: "black",
-                  color: "#FFFFFF",
-                  textShadow: "3px 3px 3px black",
-                }}
-              >
-                오늘의 착장
-              </h1>
-              <p
-                className="title_tag"
-                style={{ fontSize: "2vmin", fontWeight: "bolder" }}
-              >
+                {!isMobile &&
+                    <>
+                        <AcUnitIcon
+                            style={{
+                                fontSize: "6vmin",
+                                color: "rgb(3, 25, 68)",
+                                position: "absolute",
+                            }}
+                        />
+                        <h1
+                            className="title"
+                            style={{
+                                fontSize: "6vmin",
+                                fontWeight: "bold",
+                                marginBottom: "20px",
+                                // color: "black",
+                                color: "#FFFFFF",
+                                textShadow: "3px 3px 3px black",
+                            }}
+                        >
+                            오늘의 착장
+                        </h1>
+                    </>
+                }
+                <p
+                    className="title_tag"
+                    style={{ fontSize: "2vmin", fontWeight: "bold",
+                        ...(isMobile && {
+                            fontSize: 18,
+                            marginLeft: '20px',
+                        }),
+                    }}
+                >
                 #오늘의 #베스트드레서는 #나야나
               </p>
             </div>
           ) : (
             <div>
-              <ContactSupportOutlinedIcon
-                style={{
-                  fontSize: "6vmin",
-                  color: "rgb(3, 25, 68)",
-                  position: "absolute",
-                }}
-              />
-              <h1
-                className="title"
-                style={{
-                  fontSize: "6vmin",
-                  fontWeight: "bold",
-                  marginBottom: "20px",
-                  // color: "black",
-                  color: "#FFFFFF",
-                  textShadow: "3px 3px 3px black",
-                }}
-              >
-                도움이 필요해
-              </h1>
-              <p
-                className="title_tag"
-                style={{ fontSize: "2vmin", fontWeight: "bolder" }}
-              >
+                { !isMobile &&
+                    <>
+                        <ContactSupportOutlinedIcon
+                            style={{
+                                fontSize: "6vmin",
+                                color: "rgb(3, 25, 68)",
+                                position: "absolute",
+                            }}
+                        />
+                        <h1
+                            className="title"
+                            style={{
+                                fontSize: "6vmin",
+                                fontWeight: "bold",
+                                marginBottom: "20px",
+                                // color: "black",
+                                color: "#FFFFFF",
+                                textShadow: "3px 3px 3px black",
+                            }}
+                        >
+                            도움이 필요해
+                        </h1>
+                    </>
+                }
+                <p
+                    className="title_tag"
+                    style={{ fontSize: "2vmin", fontWeight: "bold",
+                        ...(isMobile && {
+                            fontSize: 18,
+                            marginLeft: '20px',
+                        }),
+                    }}
+                >
                 #옷입는거 #어려워
               </p>
             </div>
           )}
-          <div className="container">
+          <Box className="container" sx={{width: '900px',...(isMobile &&
+                  {
+                      width: '320px',
+                      position: 'relative',
+                      top: '-45px',
+                      '& .slick-arrow': {visibility: 'hidden'},
+                      '& .slick-slider': {height: '276px'},
+                      '& .div_test' : {height: '236px'}
+                  }
+              )}}>
             <link
               rel="stylesheet"
               type="text/css"
@@ -228,21 +258,26 @@ export default class TodayPostBoardTop5 extends Component {
               href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
             />
             <Slider {...settings}>
-              {post_top_list.map((post, index) => (
-                <div className={"div_test"} key={post.id + "_1"}>
+              {[...post_top_list, ...post_top_list].map((post, index) => (
+                <div className={"div_test"} key={post.id + index}>
                   <div
                     className="img_div"
                     style={{
-                      backgroundImage: `URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img})`,
-                      borderRadius: "30px",
-                      boxShadow: "0 8px 15px 0 gray ",
+                        backgroundImage:
+                            `URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img})`,
+                        borderRadius: "30px",
+                        boxShadow: "0 8px 15px 0 gray ",
+                        ...(isMobile && {
+                            width: '110px',
+                            height:'165px',
+                        })
                     }}
-                  ></div>
+                    />
 
-                  <a href={"/post/" + post.id}>
+                  <a href={"/post/" + post.id} >
                     <span className="dimmed_layer">
-                      <span className="dimmed_info">
-                        <div>
+                      <span className="dimmed_info" >
+                        <div  style={{...(isMobile && {display: 'none'})}}>
                           {board_type == 1 && post.blind == true ? (
                             <div>
                               <img
@@ -283,117 +318,7 @@ export default class TodayPostBoardTop5 extends Component {
                             </div>
                           )}
                         </div>
-                        <Box style={{ width: "40px" }} className="box">
-                          <Grid
-                            container
-                            rowSpacing={0}
-                            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
-                          >
-                            <Grid item xs={4}>
-                              <Item>
-                                {board_type == 0 ? (
-                                  <FavoriteIcon
-                                    style={{ color: "#ffffff" }}
-                                    sx={{ fontSize: "1.4rem" }}
-                                  />
-                                ) : (
-                                  <MoodBadIcon
-                                    style={{ color: "#ffffff" }}
-                                    sx={{ fontSize: "1.4rem" }}
-                                  />
-                                )}
-                              </Item>
-                            </Grid>
-                            <Grid item xs={4}>
-                              <Item>
-                                {post.like_urgent_user_list.items.length}
-                              </Item>
-                            </Grid>
-                            <Grid item xs={4}>
-                              <Item>
-                                <VisibilityIcon
-                                  style={{ color: "#ffffff" }}
-                                  sx={{ fontSize: "1.4rem" }}
-                                />
-                              </Item>
-                            </Grid>
-                            <Grid item xs={4}>
-                              <Item>{post.click_num}</Item>
-                            </Grid>
-                            <Grid item xs={4}>
-                              <Item>
-                                <CommentIcon
-                                  style={{ color: "#ffffff" }}
-                                  sx={{ fontSize: "1.4rem" }}
-                                />
-                              </Item>
-                            </Grid>
-                            <Grid item xs={4}>
-                              <Item>{post.comment_list.items.length}</Item>
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      </span>
-                    </span>
-                  </a>
-                </div>
-              ))}
-              {post_top_list.map((post, index) => (
-                <div className={"div_test"} key={post.id + "_1"}>
-                  <div
-                    className="img_div"
-                    style={{
-                      backgroundImage: `URL(https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img})`,
-                      borderRadius: "30px",
-                      boxShadow: "0 8px 15px 0 gray ",
-                    }}
-                  ></div>
-
-                  <a href={"/post/" + post.id}>
-                    <span className="dimmed_layer">
-                      <span className="dimmed_info">
-                        <div>
-                          {board_type == 1 && post.blind == true ? (
-                            <div>
-                              <img
-                                src={defaultImg}
-                                alt="기본프로필이미지"
-                                className="profileImg"
-                                style={{
-                                  width: "30px",
-                                  height: "30px",
-                                  borderRadius: "50%",
-                                }}
-                              />
-                              <p
-                                className="profileName postEllips"
-                                style={{ textAlign: "left" }}
-                              >
-                                익명
-                              </p>
-                            </div>
-                          ) : (
-                            <div>
-                              <img
-                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.user.profile_img}`}
-                                alt="프로필이미지"
-                                className="profileImg"
-                                style={{
-                                  width: "30px",
-                                  height: "30px",
-                                  borderRadius: "50%",
-                                }}
-                              />
-                              <p
-                                className="profileName postEllips"
-                                style={{ textAlign: "left" }}
-                              >
-                                {post.user.name}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                        <Box style={{ width: "40px" }} className="box">
+                        <Box sx={{ width: "40px", ...(isMobile && {display: 'none'}) }} className="box">
                           <Grid
                             container
                             rowSpacing={0}
@@ -449,7 +374,7 @@ export default class TodayPostBoardTop5 extends Component {
                 </div>
               ))}
             </Slider>
-          </div>
+          </Box>
         </article>
       </div>
     );
