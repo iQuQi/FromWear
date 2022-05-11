@@ -105,9 +105,7 @@ export default function FeedPost({user}) {
                   {String(post.createdAt).substring(0,10)}
                 </p>
             </div>
-         
-
-            
+        
             </ImageListItem>
           
       ))}
