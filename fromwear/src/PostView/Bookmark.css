@@ -2,19 +2,23 @@
     height: 32px;
     vertical-align: middle;
 }
-/* font-size 등등 적용 안됨
-.bookmark_filled {
-    width: 200px;
-    height: 200px;
-}
-
-.bookmark_outlined {
-    width: 20px;
-    height: 20px;
-}
-*/
 
 .button {
     height: 30px;
     display: inline-block;
+}
+
+.bookmark_mobile {
+    display: none;
+}
+
+@media(max-width:391px){
+    .bookmark_pc {
+        display: none;
+    }
+
+    .bookmark_mobile {
+        display: inline-block;
+        margin-top: 3px;
+    }
 }

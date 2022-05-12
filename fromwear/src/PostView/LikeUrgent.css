@@ -39,3 +39,19 @@
 .urgent_not {
     font-size: 20px;
 }
+
+.urgent_yes, .urgent_not, .heart_filled, .heart_outlined {
+    margin-left: 5px;
+}
+
+@media(max-width:391px){
+    .like_num{
+        width: 28px;
+        height: 36px;
+    }
+    
+    .urgent_yes, .urgent_not, .heart_filled, .heart_outlined {
+        margin-left: 10px;
+        font-size: 25px;
+    }
+}

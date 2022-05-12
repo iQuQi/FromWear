@@ -12,12 +12,28 @@
     color: #D9D9D9;
 }
 
-.button {
-}
 
 .thumb_num {
     margin-right: 5px;
     display: inline-block;
     font-size: 15px;
     vertical-align: middle;
+}
+
+.thumb_mobile {
+    display: none;
+}
+
+@media(max-width:391px){
+    .thumb_pc {
+        display: none;
+    }
+
+    .thumb_mobile {
+        display:inline-block;
+    }
+
+    .thumb_up, .thumb_off {
+        font-size: 30;
+    }
 }

@@ -491,8 +491,8 @@ class Post extends Component{
                 variables: {id: delete_tag}
                 })
                 .then(res=>{
-                    console.log("#################3", res.data.getStyleTag.post_list.items.length)
-                    if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_list.items.length == 0)){
+                    console.log("#################3", res.data.getStyleTag.post_tag_list.items.length)
+                    if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_tag_list.items.length == 0)){
                         console.log("태그 삭제!!", index)
                         API.graphql({
                         query: deleteStyleTag,
@@ -789,7 +789,7 @@ class Post extends Component{
                                 board_type={now_post.board_type}
                                 like_urgent_num={like_urgent_num}
                             />
-                            <div className="post_list">
+                            <div className="post_tag_list">
                                 {
                                     tag_list.length > 0 ?
                                     <div>
@@ -857,11 +857,11 @@ class Post extends Component{
                                 </div>
                         </div>
                     </div>
-                    <div className="main_post_tag_div">
+                    <div className="recommend_post_wrap">
                         <div className="recommend_tag">
                                 태그 맞춤 추천
                         </div>
-                        <div className="post_tag_list">
+                        <div className="recommend_post_list">
                             <div className="container">
                                 <div className="content">
                                     {   

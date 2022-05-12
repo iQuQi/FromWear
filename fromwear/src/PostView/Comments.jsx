@@ -7,6 +7,7 @@ import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries'
 import  { createComment, getComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
+import WholeCommentPage from './WholeCommentPage';
 
 class Comments extends Component {
 
@@ -82,12 +83,30 @@ class Comments extends Component {
         alert("로그인 후 댓글 쓰기가 가능합니다.")
     }
 
-    addComment = () => {
-        let value = document.querySelector('.new_comment_content').value;
+    getCommentValuePC = () => {
+        let item = document.querySelector('.new_comment_content_pc_version');
+        let value = item.value;
         if(value == ""){
-            alert("내용을 입력하세요")
+            alert("내용을 입력하세요.")
             return
         }
+        this.addComment(value);
+        item.value = '';
+
+    }
+
+    getCommentValueMobile = () => {
+        let item = document.querySelectorAll('.new_comment_content_mobile_version').item(1);
+        let value = item.value;
+        if(value == ""){
+            alert("내용을 입력하세요.")
+            return
+        }
+        this.addComment(value);
+        item.value = '';
+    }
+
+    addComment = (value) => {
         API.graphql({
             query: createComment, variables: {
                 input: 
@@ -100,19 +119,16 @@ class Comments extends Component {
                 
         })
         .catch(e => console.log(e));
-        document.querySelector('.new_comment_content').value = "";
-
 
         API.graphql({query: createAlarm, variables:{input:
             {
                 user_id: this.state.post_writer.id,
-                content: this.state.now_user.name+'님이 게시글에 댓글을 달았습니다',
+                content: this.state.now_user.name+'님이 게시글에 댓글을 달았습니다.',
                 link:'post/' + this.state.post_id
 
             }}
         })
         .then(e => console.log(e))
-
     }
 
 
@@ -213,6 +229,28 @@ class Comments extends Component {
                             })
                         }
                     </ul>
+                    <div>
+                        <div>
+                        {
+                            this.state.now_user=='noUser' ?
+                            <div>
+                                <div className="now_comment_user">방문자</div>
+                                    <div className="writing_content">
+                                        <textarea onClick={this.onClick}></textarea>
+                                        <button className="new_comment_submit_button" onClick={this.onClick}>댓글 등록</button>
+                                    </div>
+
+                            </div>
+                            :<div className="writing_area">
+                                    <div className="now_comment_user">{now_user.name}</div>
+                                    <div className="writing_content">
+                                        <textarea className="new_comment_content_pc_version"></textarea>
+                                        <button className="new_comment_submit_button" onClick={this.getCommentValuePC}>댓글 등록</button>
+                                    </div>
+                            </div>
+                        }
+                        </div>
+                    </div>
                 </div>
                 <div className="mobile_comment">
                     <div className="comment_num" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개 모두 보기</div>
@@ -234,28 +272,28 @@ class Comments extends Component {
                             })
                         }
                     </ul>
-                </div>
-                <div>
+                    <div>
                         <div>
                         {
                             this.state.now_user=='noUser' ?
                             <div>
                                 <div className="now_comment_user">방문자</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                    <div className="writing_content">
+                                        <textarea onClick={this.onClick}></textarea>
+                                        <button className="new_comment_submit_button" onClick={this.onClick}>등록</button>
                                     </div>
 
                             </div>
                             :<div className="writing_area">
                                     <div className="now_comment_user">{now_user.name}</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content"></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
+                                    <div className="writing_content">
+                                        <textarea className="new_comment_content_mobile_version"></textarea>
+                                        <button className="new_comment_submit_button" onClick={this.getCommentValueMobile}>등록</button>
                                     </div>
                             </div>
                         }
                         </div>
+                    </div>
                 </div>
             </div>
         )

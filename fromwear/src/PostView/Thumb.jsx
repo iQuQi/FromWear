@@ -109,25 +109,35 @@ class Thumb extends Component{
 
     render() {
         let {comment_list, is_checked, comment_like_num} = this.state;
-
-        //console.log("현재 유저", this.state.now_user)
-        console.log("render 현재 user:",this.state.now_user.id);
-        //console.log("comment_like",comment_list)
-        //console.log("coment_like_user_list",comment_list.like_user_list.items)
         
         return (
             <div className="thumb_div">
-                {
-                    comment_list.like_user_list === null ?
-                    <div className="thumb_num">0</div>
-                    :<div className="thumb_num">{comment_like_num}</div>
-                
-                }
-                {
-                    is_checked ?
-                    <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>
-                    : <ThumbUpAltIcon className="button thumb_off" onClick={this.onClick}/>
-                }
+                <div className="thumb_pc">
+                    {
+                        comment_list.like_user_list === null ?
+                        <div className="thumb_num">0</div>
+                        :<div className="thumb_num">{comment_like_num}</div>
+                    
+                    }
+                    {
+                        is_checked ?
+                        <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick}/>
+                        : <ThumbUpAltIcon className="button thumb_off" onClick={this.onClick}/>
+                    }
+                </div>
+                <div className="thumb_mobile">
+                    {
+                        comment_list.like_user_list === null ?
+                        <div className="thumb_num">0</div>
+                        :<div className="thumb_num">{comment_like_num}</div>
+                    
+                    }
+                    {
+                        is_checked ?
+                        <ThumbUpAltIcon className="button thumb_up" onClick={this.onClick} style={{fontsize: 30}}/>
+                        : <ThumbUpAltIcon className="button thumb_off" onClick={this.onClick} style={{fontsize: 30}}/>
+                    }
+                </div>
             </div>
             
         )

@@ -42,7 +42,6 @@
 
 .writing_area {
     margin-top: 9px;
-    
 }
 
 
@@ -62,8 +61,7 @@
     margin: 5px 0;
 }
 
-
-.new_comment_content {
+.new_comment_content_pc_version, .new_comment_content_mobile_version {
     width: 300px;
     height: 41px;
     box-sizing: border-box;
@@ -119,15 +117,31 @@
         height: auto;
     }
 
+    .one_comment_and_remove_button {
+        padding: 7px 7px 7px 0;
+        margin: 0;
+    }
+
     .mobile_comment {
         display: block;
     }
 
     .remove_comment {
-        left: 309px;
+        /* left: 309px; */
+        bottom: 7px;
     }
 
-    .new_comment_content {
-        width: 257px;
+    .writing_area {
+        margin-top: 10px;
+    }
+
+    .new_comment_content_mobile_version {
+        width: 266px;
+    }
+
+    .new_comment_submit_button {
+        width: 60px;
+        height: 40px;
+        margin: 0 5px 0 0;
     }
 }

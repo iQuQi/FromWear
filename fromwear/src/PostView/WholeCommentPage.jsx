@@ -7,10 +7,11 @@ import './WholeCommentPage.css';
 import Header from '../Header/Header'
 
 import { API } from 'aws-amplify';
-import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
+import { getPost, getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
 import  { createComment, getComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
+import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 class WholeCommentPage extends Component {
 
@@ -19,9 +20,11 @@ class WholeCommentPage extends Component {
 
         this.state = {
             post_id: props.postid,
+            now_post: Object,
+            tag_list: [],
             comment_list: [],
-            board_type: props.board_type,
-            post_writer: props.post_writer, //해당 post를 쓴 사람
+            board_type: 0,
+            post_writer: Object, //해당 post를 쓴 사람
             now_user: 'noUser', //현재 접속자
         }
     }
@@ -50,7 +53,16 @@ class WholeCommentPage extends Component {
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){ //Will->Did
+        API.graphql({
+            query: getPost, variables: {id: this.state.post_id}
+        })
+        .then(res => this.setState({
+            now_post: res.data.getPost,
+            tag_list: res.data.getPost.tag_list.items,
+            post_writer: res.data.getPost.user
+        }))
+
         API.graphql({
             query: listComments, variables: {filter:
                 {
@@ -78,16 +90,15 @@ class WholeCommentPage extends Component {
             
         })
         .catch(e => console.log(e));
+    }
 
-        
-        /*this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
-        .subscribe({
-            next: deletedComment => {
-                console.log(deleteComment)
-
-                }
-        });*/
-        
+    moveToWriterPage = () => {
+        if(this.state.now_writer.id == this.state.now_user.id) {
+            window.location.href = "/mypage"
+        }
+        else {
+            window.location.href = "/userpage/" + this.state.now_writer.id
+        }
     }
     
     onClick = () => {
@@ -96,8 +107,9 @@ class WholeCommentPage extends Component {
 
     addComment = () => {
         let value = document.querySelector('.new_comment_content').value;
+
         if(value == ""){
-            alert("내용을 입력하세요")
+            alert("내용을 입력하세요.")
             return
         }
         API.graphql({
@@ -118,7 +130,7 @@ class WholeCommentPage extends Component {
         API.graphql({query: createAlarm, variables:{input:
             {
                 user_id: this.state.post_writer.id,
-                content: this.state.now_user.name+'님이 게시글에 댓글을 달았습니다',
+                content: this.state.now_user.name+'님이 게시글에 댓글을 달았습니다.',
                 link:'post/' + this.state.post_id
 
             }}
@@ -129,32 +141,6 @@ class WholeCommentPage extends Component {
 
 
     removeComment = (delete_comment) => {
-
-        console.log("delete하려고하는 것!!", delete_comment)
-        // delete_comment.like_user_list.items.map((like)=>{
-        //     API.graphql({
-        //         query: deleteCommentLikeUser, variables: {input:{id: like.id}}
-        //     })
-        //     .then(res => console.log(res))
-        //     .catch(e => console.log(e))
-        // })
-        /*
-        .then(e => {
-            API.graphql({
-                query: deleteComment, variables: {input:{id: delete_comment.id}}
-            })
-            .then(res => {
-                console.log(res)
-                const index = this.state.comment_list.findIndex(function(item){return item.id == delete_comment.id})
-                if(index > -1){
-                    this.state.comment_list.splice(index, 1)
-                }
-                this.setState({
-                    comment_list: this.state.comment_list
-                })
-            })
-        }   
-        )*/
         
         API.graphql({    
             query: listCommentLikeUsers, variables: {filter:{
@@ -177,38 +163,41 @@ class WholeCommentPage extends Component {
             API.graphql({
                 query: deleteComment, variables: {input:{id: delete_comment.id}}
             })
-            /*
-            .then(res => {
-                console.log(res)
-                const index = this.state.comment_list.findIndex(function(item){return item.id == delete_comment.id})
-                if(index > -1){
-                    this.state.comment_list.splice(index, 1)
-                }
-                this.setState({
-                    comment_list: this.state.comment_list
-                })
-            })*/
             .then(window.location.reload())
         })
     }
     
 
     render(){
-        let {comment_list, board_type, now_user, post_writer} = this.state;
+        let {now_post, tag_list, comment_list, board_type, now_user, post_writer} = this.state;
         
+        console.log("현재 포스트",now_post)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
-        console.log("commet", comment_list)
-
+        
         let recommend_list = [...comment_list]; //같은 추천수에서는 먼저 작성한 댓글이 우선
-        console.log("origin_recommend_list:",recommend_list);
         recommend_list.sort(function(a, b) {
             return b.like_user_list.items.length - a.like_user_list.items.length;
         });
-        console.log("sorted_recommend_list", recommend_list)
         
         return (
-            <div>
+            <div className="whole_comment_page_wrap">
                 <Header handle_user_info={this.handle_user_info}/>
+                <div className="writer">
+                    {
+                        now_post.blind?
+                        <img className="post_writer_img" src={profile_skyblue} />
+                        :<div className="post_writer_img move_to_userpage" style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+post_writer.profile_img+')', backgroundPosition: 'center', backgroundSize: 'cover'}} onClick={this.moveToWriterPage} />
+                    }
+                    {
+                        now_post.blind?
+                        <div className="writer_name">익명</div>
+                        :<div className="writer_name move_to_userpage" onClick={this.moveToWriterPage}>{post_writer.name}</div>
+                    }
+                </div>
+                <div className="post_content_whole_comment">
+                    {now_post.content}
+                </div>
+
                 <div className="whole_comment_wrap">
                     <div className="mobile_comment">
                         <div className="comment_num_whole_comment" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개</div>
@@ -216,7 +205,7 @@ class WholeCommentPage extends Component {
                             {
                                 recommend_list.map((comment_list, index) => {
                                     // if(index <= 1){
-                                        return <div className="one_comment_and_remove_button">
+                                        return <div className="one_comment_and_remove_button_whole">
                                         <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                         {
                                             comment_list.user_id == now_user.id ?
@@ -237,22 +226,22 @@ class WholeCommentPage extends Component {
                             this.state.now_user=='noUser' ?
                             <div>
                                 <div className="now_comment_user">방문자</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content" onClick={this.onClick}></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.onClick}>댓글 달기</button>
+                                    <div className="writing_content">
+                                        <textarea className="new_comment_content" onClick={this.onClick}></textarea>
+                                        <button className="new_comment_submit_button" onClick={this.onClick}>등록</button>
                                     </div>
 
                             </div>
                             :<div className="writing_area">
                                     <div className="now_comment_user">{now_user.name}</div>
-                                    <div class="writing_content">
-                                        <textarea class="new_comment_content"></textarea>
-                                        <button class="new_comment_submit_button" onClick={this.addComment}>댓글 달기</button>
+                                    <div className="writing_content">
+                                        <textarea className="new_comment_content"></textarea>
+                                        <button className="new_comment_submit_button" onClick={this.addComment}>등록</button>
                                     </div>
                             </div>
                         }
                         </div>
-                </div>
+                    </div>
                 </div>
                 
             </div>

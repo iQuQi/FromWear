@@ -1,17 +1,32 @@
 @charset "utf-8";
 
+
+.whole_comment_page_wrap .writer{
+    text-align: left;
+    padding: 15px 7px 0;
+}
+
 .whole_comment_wrap {
     text-align: left;
     margin: auto 0;
 }
 
+.post_content_whole_comment {
+    padding-left:6px;
+    text-align: left;
+    white-space: normal;
+    line-height: 1.2;
+    padding-left: 11px;
+    margin-bottom: 10px;
+}
+
 .comment_num_whole_comment {
-    font-weight: bold;
-    margin: 15px 0 10px 5px;
+    /* font-weight: bold; */
+    margin: 30px 0 5px 11px;
     color: gray;
 }
 .comment_ul_whole_comment {
-    height: 529px;
+    height: 455px;
     overflow: scroll; /*스크롤 보이는 상태*/
 }
     
@@ -27,4 +42,9 @@
 
 .whole_comment_wrap .new_comment_content {
     width: 275px;
+}
+
+.one_comment_and_remove_button_whole {
+    padding: 7px;
+    border-bottom: 1px solid;
 }
