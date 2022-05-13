@@ -118,11 +118,11 @@
     }
     .mobile_button :hover {
         border-color: grey;
-        background-color: grey;
+        background-color: white;
     }
     .mobile_button :active {
           box-shadow: 'none';
-          background-color: grey;
+          background-color: white;
     }
     .mobile_button :focus {
           border-bottom: 2px solid;

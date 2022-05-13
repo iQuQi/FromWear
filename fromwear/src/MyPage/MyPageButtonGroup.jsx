@@ -23,11 +23,10 @@ const EditBtn = styled(Button)(({ theme }) => ({
     margin: '0px',
     '&:hover': {
       borderColor: grey[700],
-      backgroundColor: grey[200],
+      backgroundColor: white[500],
     },
     '&:active': {
-        boxShadow: 'none',
-        backgroundColor: grey[700],
+
     },
     '&:focus': {
         borderBottom: '2px solid',
@@ -113,9 +112,27 @@ export default class MyPageButtonGroup extends Component{
                 </EditBtn>    
                 
                 
-                <EditBtn onClick={()=>this.set_btn(2)}>SOS</EditBtn>
-                <EditBtn onClick={()=>this.set_btn(3)}>댓글</EditBtn>
-                <EditBtn onClick={()=>this.set_btn(4)}>북마크</EditBtn>
+                <EditBtn 
+                onClick={()=>this.set_btn(2)}
+                sx={
+                  btn_clicked==2?{
+                    borderBottom:'2px solid', borderColor: 'grey'
+                  }:{}
+                }>SOS</EditBtn>
+                <EditBtn 
+                onClick={()=>this.set_btn(3)}
+                sx={
+                  btn_clicked==3?{
+                    borderBottom:'2px solid', borderColor: 'grey'
+                  }:{}
+                }>댓글</EditBtn>
+                <EditBtn 
+                onClick={()=>this.set_btn(4)}
+                sx={
+                  btn_clicked==4?{
+                    borderBottom:'2px solid', borderColor: 'grey'
+                  }:{}
+                }>북마크</EditBtn>
               </Stack>
 
             </Box>

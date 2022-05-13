@@ -17,6 +17,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -43,6 +47,7 @@ export default class TodayPostBoardPosts extends Component {
             count: 0,
             current_next_post_page: 1,
             is_mobile: props.is_mobile,
+            sortVal: '',
 		}
         
 	}
@@ -160,26 +165,93 @@ export default class TodayPostBoardPosts extends Component {
         })
 	}
 
+    handle_select_sort = (e) => {
+        const sort = e.target.value;
+        this.setState({ sortVal: sort });
+    
+        switch(sort) {
+          case '':
+            this.handleSortLatest(e);
+            break;
+          case 10:
+            this.handleSortView(e);
+            break;
+          case 20:
+            this.handleSortReply(e);
+            break;
+          case 30:
+          case 40:
+            this.handleSortLike(e);
+            break;
+          default:
+            break;
+        }
+      };
+
 
     render() {
 
 
-		let {user, post_state, post_list, current_next_post_page, is_mobile} = this.state;
+		let {user, sortVal, post_list, current_next_post_page, is_mobile} = this.state;
 
         return (<div id = 'contents'>
 
-            <form className="my_sort_font my_select_sort">
-                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
-                <label htmlFor="sort_like">급해요순</label>
-                <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
-                <label htmlFor="sort_view">조회수순</label>
-                <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
-                <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
-                <label htmlFor="sort_latest">최신순</label>
+            {
+                is_mobile?
+                <div style={{height: '50px', float:'right'}}>
 
-            </form>
-            
+                <Box className="filter_layout" style={{}}>
+                    <FormControl sx={{ m: 1.2, minWidth: 70 }}>
+                        <Select
+                            style={{
+                                height: is_mobile? '30px':"35px",
+                                fontSize: 14,
+                                textAlign: "center",
+                                borderRadius: "30px",
+                                fontFamily:
+                                    "'나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif",
+                                fontWeight: "bold",
+                            }}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={sortVal}
+                            onChange={this.handle_select_sort}
+                            displayEmpty
+                        >
+                            <MenuItem style={{ fontSize: 13 }} value="">
+                            최신순
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: 13 }} value={10}>
+                            조회수순
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: 13 }} value={20}>
+                            댓글순
+                            </MenuItem>
+                            
+                            <MenuItem style={{ fontSize: 13 }} value={40}>
+                                급해요순
+                            </MenuItem>:
+                                
+
+                        </Select>
+                    </FormControl>
+              </Box>
+              </div>
+              :
+                <form className="my_sort_font my_select_sort">
+                    <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
+                    <label htmlFor="sort_like">급해요순</label>
+                    <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
+                    <label htmlFor="sort_view">조회수순</label>
+                    <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
+                    <label htmlFor="sort_reply">댓글순</label>
+                    <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
+                    <label htmlFor="sort_latest">최신순</label>
+
+                </form>
+            }
+            <br style={{clear:'right'}}/>
+
             <div id = 'today_post' >
                 {post_list?
                     post_list?
