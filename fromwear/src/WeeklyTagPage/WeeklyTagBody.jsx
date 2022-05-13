@@ -105,7 +105,11 @@ export default function WeeklyTagBody({current_next_post_page, now_user,best_pos
                                                     alt={item.id}
                                                     loading="lazy"
                                                 />
-                                                <span className='dimmed_layer'>	</span>
+                                                {
+                                                    isMobile?
+                                                    <></>
+                                                    :<span className='dimmed_layer' />
+                                                }
                                             </a>
                                             
                                             {
