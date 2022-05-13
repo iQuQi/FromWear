@@ -76,7 +76,7 @@ export default function WeeklyTagBody({current_next_post_page, now_user,best_pos
                                 <div style={{marginTop:'20px', marginBottom:'30px'}}>
                                     <span style={{margin:'30px 0px 0px 10px', fontSize:'23px', textAlign:'left'}}>이번주 태그</span>
                                     <span style={{margin:'-2px 0 0 5px', fontSize:'23px', color:'#ffffc6', textShadow:'1px 1px 2px black'}}>TOP4</span>
-                                    <span style={{margin:'30px 0px 0px 30px', color:'rgb(82 89 178)'}}>#{weekly_tag[0]} &nbsp;#{weekly_tag[1]}</span>
+                                    <span style={{margin:'30px 0px 0px 30px', color:'rgb(82 89 178)'}}>#{weekly_tag[0]} #{weekly_tag[1]}</span>
                                 </div>
                                 <div style={{margin:'0 0 20px 30px'}}>
                                     <p style={{fontSize:'14px', textAlign:'left'}}>매주 바뀌는 태그에 맞춰서</p>
