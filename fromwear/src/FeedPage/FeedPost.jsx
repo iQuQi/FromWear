@@ -57,7 +57,7 @@ export default function FeedPost({user}) {
     return (
     <ImageList cols={1} sx={{ width: 390 }}>
       {
-      postlist.length==0?
+      postlist.length==0 && now_user!='noUser' ?
       <div>
         <p style={{marginTop: '100px'}}>팔로우 하는 사용자가 없습니다.</p>
         
