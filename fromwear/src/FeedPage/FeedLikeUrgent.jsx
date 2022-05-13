@@ -5,8 +5,10 @@ import { API } from 'aws-amplify';
 import { createPostLikeUrgentUser, deletePostLikeUrgentUser, createAlarm } from '../graphql/mutations';
 
 import './FeedIcon.css';
+import { useMediaQuery } from 'react-responsive';
 
 export default function FeedLikeUrgent({now_user, post}) {
+    const isMobile = useMediaQuery({ maxWidth: 391 })
     const [likeUrgentClick, setLikeUrgentClick] = useState(false);
     const [likeUrgentNum, setLikeUrgentNum] = useState(post.like_urgent_user_list.items.length);
 
@@ -63,16 +65,19 @@ export default function FeedLikeUrgent({now_user, post}) {
     }
 
     return(
-        <div>
-            {
-                likeUrgentClick == true?
-                <HeartFilled className='btn' onClick={handleLikeUrgent} style={{margin: '8px 2px 7px 2px', color:'red', fontSize: '1.1rem'}} />
-                : <HeartOutlined className='btn' onClick={handleLikeUrgent} style={{margin: '8px 2px 7px 2px', color:'#000000', fontSize: '1.1rem'}} />
-            }
-            <span style={{margin: '19px 5px 7px 0px', fontSize: '1.1rem'}}>
+        <div style={{display:'flex', marginTop:'7px'}}>
+            
+                {
+                    likeUrgentClick == true?
+                    <HeartFilled className='btn' onClick={handleLikeUrgent} style={{margin: '1px 3px 7px 2px', color:'red', fontSize: isMobile?'1.3rem':'1.1rem'}} />
+                    : <HeartOutlined className='btn' onClick={handleLikeUrgent} style={{margin: '1px 3px 7px 2px', color:'#000000', fontSize: isMobile?'1.3rem':'1.1rem'}} />
+                }
+            
+            
+            <p style={{margin: '12px 7px 0px 0px', fontSize: isMobile?'1.2rem':'1.1rem'}}>
                 {likeUrgentNum>1000?
                     likeUrgentNum/1000 + '.k'
-                    : likeUrgentNum}</span>
+                    : likeUrgentNum}</p>
         </div>
         
     )
