@@ -72,3 +72,31 @@
     display: flex;
     margin-left: auto;
 }
+
+@media only screen and (max-width: 391px){
+    #main_page{
+        margin-top: 120px;
+        width: 100%;
+    }
+    .banner_text{
+        padding-top: 3%;
+        font-weight: bold;
+        text-align: center;
+        line-height: 20px;
+    }
+    .banner_bestpost{
+        margin: auto;
+        padding: 2% 0% 3% 0%;
+        width: 100%;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        overflow-x:scroll;
+    }
+    .banner_bestpost::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
+    }
+    .collection{
+        width: 390px;
+        padding: 0;
+    }
+}
