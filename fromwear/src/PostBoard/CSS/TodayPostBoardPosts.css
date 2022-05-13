@@ -60,7 +60,7 @@
 .wrap_recommend .collection{
     position: relative;
     width: 1080px;
-    overflow-y: auto; 
+    overflow-y: hidden;
     margin: auto;
     padding: 0 10px 10px 10px;
     background-color: white;

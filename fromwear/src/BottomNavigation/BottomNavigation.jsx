@@ -18,6 +18,7 @@ import { ThemeProvider } from '@emotion/react';
 import FeedPage from '../FeedPage/FeedPage';
 import FeedPost from '../FeedPage/FeedPost';
 import IconButton from "@mui/material/IconButton";
+import {Button} from "@mui/material";
 
 const ntheme = createTheme({
     components: {
@@ -34,7 +35,7 @@ const ntheme = createTheme({
     
 });
 
-export default function BottomTab({user}) {
+export default function BottomTab({user, handle_write_page}) {
    const isMobile = useMediaQuery({ maxWidth: 391 })
    const [value, setValue] = React.useState(0);
    const [textColor, setTextColor] = React.useState("off");
@@ -62,9 +63,9 @@ export default function BottomTab({user}) {
                                 </a>
                             </li>
                             <li style={{paddingTop:'0px'}}>
-                                <a>
+                                <Button onClick={handle_write_page} sx={{padding: 0}}>
                                     <AddCircleIcon className='shortcut_home on' style={{fontSize:'3rem'}}/>
-                                </a>
+                                </Button>
                             </li>
                             <li>
                                 <a href='/search' className={now_link=='/search'? 'shortcut_search on': 'shortcut_search'}>
