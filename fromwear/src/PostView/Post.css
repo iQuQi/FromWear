@@ -288,6 +288,8 @@
         width: 360px;
         height: 554.4px;
         margin-right: 0;
+        border: none;
+        border-radius: 0;
     }
 
     .content_box {
@@ -323,7 +325,6 @@
         font-size: 12px;
         text-align: left;
         margin-top: 3px;
-
     }
 
     .modify_post {

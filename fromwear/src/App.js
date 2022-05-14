@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage/MainPage.jsx';
 import TodayPostBoard from './PostBoard/TodayPostBoard.jsx';
 import PostPath from './PostView/PostPath.jsx';
+import WholeCommentPagePath from './PostView/WholeCommentPagePath.jsx'
 import SearchPage from './SearchPage/SearchPage.jsx';
 import WeeklyTagPage from './WeeklyTagPage/WeeklyTagPage.jsx';
 //import MyPagePath from './MyPage/MyPagePath.jsx';

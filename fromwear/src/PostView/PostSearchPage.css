@@ -12,6 +12,7 @@
 	
 	display: none;
 }
+
 .post_dimmed_info_like{
 	position: absolute;
 	bottom: 20px;
@@ -23,7 +24,6 @@
 	border-radius:16px;
 	height:322.55px;
 }
-
 
 .post_image_list_item:hover .post_dimmed_layer{
 	position: absolute;
@@ -40,7 +40,6 @@
 	font-size: 15px;
 	font-weight: 600;
 	cursor: pointer;
-	margin-top: 10px;
 }
 
 .post_image_list_item:hover .post_dimmed_info_writer, .post_image_list_item:hover .post_dimmed_info_like{
@@ -59,4 +58,15 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+@media(max-width:391px){
+	.post_img_item {
+		border-radius: 0;
+	}
+
+	.post_image_list_item:hover .post_dimmed_layer {
+		margin-top: 10px;
+		border-radius: 0;
+	}
 }

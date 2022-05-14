@@ -49,30 +49,30 @@
     width: 30%;
     font-weight: bold;
     line-height: 1.1;
-    padding-bottom: 2px;
     padding-left: 4px;
+    /* margin-bottom: 7px; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 
-.writing_content {
+/* .writing_content {
     margin: 5px 0;
-}
+} */
 
-.new_comment_content_pc_version, .new_comment_content_mobile_version {
+.new_comment_content, .new_comment_content_pc_version, .new_comment_content_mobile_version {
     width: 300px;
     height: 41px;
     box-sizing: border-box;
     resize: none;
-    margin-left: 3px;
+    margin: 5px 0 0 3px;
 }
 
 .new_comment_submit_button {
     float: right;
     height: 30px;
-    margin-top: 5px;
+    margin-top: 10px;
     box-sizing: border-box;
     background-color: white; 
     border: 1px solid black; 
@@ -132,7 +132,7 @@
     }
 
     .writing_area {
-        margin-top: 21px;
+        padding-top: 15px;
     }
 
     .new_comment_content_mobile_version {
@@ -142,6 +142,6 @@
     .new_comment_submit_button {
         width: 60px;
         height: 40px;
-        margin: 0 5px 0 0;
+        margin: 5px 5px 0 0;
     }
 }

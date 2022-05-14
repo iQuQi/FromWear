@@ -65,8 +65,16 @@ class Post extends Component{
 
             is_write_page:false,
             current_next_post_page: 1,
+
+            isMobile: false,
         }
     }
+
+    inquireIsMobile=(isMobile)=> {
+		this.setState({
+			isMobile
+		})
+	}
 
     componentDidMount(){
         API.graphql({
@@ -601,8 +609,8 @@ class Post extends Component{
 
 
     render(){
-
         console.log("현재 게시글 정보", this.state.now_post)
+        console.log("모바일 상태????????????????", this.state.isMobile);
         
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
@@ -643,7 +651,7 @@ class Post extends Component{
 					  />
 					: null
                 }
-                <Header handle_user_info={this.handle_user_info}/>
+                <Header handle_user_info={this.handle_user_info} inquireIsMobile={this.inquireIsMobile}/>
                 <div className="whole_page">
                     <div className="main_box">
                         <div className="post_div">
@@ -860,7 +868,8 @@ class Post extends Component{
                                             <div className={"post_page_content"}>
                                                 <PostSearchResult
                                                 result_post={result_post}
-								                current_next_post_page={this.state.current_next_post_page} />
+								                current_next_post_page={this.state.current_next_post_page}
+                                                isMobile={this.state.isMobile} />
                                             </div>
                                             :
                                             <Typography className="post_page_tag_empty">

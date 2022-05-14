@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+.whole_comment_page_wrap {
+    margin-top: 50px;
+}
 
 .whole_comment_page_wrap .writer{
     text-align: left;
@@ -26,7 +29,7 @@
     color: gray;
 }
 .comment_ul_whole_comment {
-    height: 455px;
+    height: 538px; /*455*/
     overflow: scroll; /*스크롤 보이는 상태*/
 }
     
@@ -40,8 +43,13 @@
     width: 95%;
 }
 
+.whole_comment_wrap .now_comment_user {
+    padding-left: 11px;
+}
+
 .whole_comment_wrap .new_comment_content {
-    width: 275px;
+    width: 279px;
+    margin-left: 10px;
 }
 
 .one_comment_and_remove_button_whole {
