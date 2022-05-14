@@ -40,6 +40,7 @@
 	font-size: 15px;
 	font-weight: 600;
 	cursor: pointer;
+	margin-top: 10px;
 }
 
 .post_image_list_item:hover .post_dimmed_info_writer, .post_image_list_item:hover .post_dimmed_info_like{
