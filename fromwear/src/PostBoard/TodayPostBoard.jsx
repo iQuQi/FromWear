@@ -10,17 +10,21 @@ import Footer from '../Footer/Footer';
 import './CSS/PostBoard.css';
 import { set } from 'date-fns';
 import PostWritePage from '../PostWritePage/PostWritePage';
+import BottomTab from "../BottomNavigation/BottomNavigation";
+import {Box, Tab} from "@mui/material";
+import TopMenu from "../BottomNavigation/TopMenu";
 
 
-class TodayPostBoard extends Component { 
+class TodayPostBoard extends Component {
 
 	constructor(props) {
 		super();
 
-		this.state = { 
+		this.state = {
 			board_type: props.post_type,
 			user: 'noUser',
 			is_write_page: false,
+			isMobile: false,
 		};
 	}
 
@@ -38,29 +42,55 @@ class TodayPostBoard extends Component {
 		})
 	}
 
+	inquireIsMobile=(isMobile)=> {
+		this.setState({
+			isMobile
+		})
+	}
+
 	render() {
-		let {board_type, user} = this.state;
+		let {board_type, user,isMobile} = this.state;
 		let {is_write_page} = this.state;
 
-		return ( 
-			<section className="wrap">
-				{ is_write_page 
-					? <PostWritePage 
-						board_type={board_type} 
-						user={user}
-						handle_write_page={this.handle_write_page} 
-					  />
-					: null
+
+		return (
+			<>
+				<Header handle_user_info={this.handle_user_info} inquireIsMobile={this.inquireIsMobile}/>
+				{isMobile && !is_write_page &&
+					<TopMenu pos={board_type == 0 ? '100px' : '195px'} wid={'79px'}/>
 				}
-            	<Header handle_user_info={this.handle_user_info}/>
-				<TodayPostBoardTop5 board_type={board_type} />
-				<TodayPostBoardPosts 
-					board_type={board_type} 
-					user={user}
-					handle_write_page={this.handle_write_page}
-				/>
-				<Footer />
-			</section> )
+				{ is_write_page
+					&& <PostWritePage
+						board_type={board_type}
+						user={user}
+						handle_write_page={this.handle_write_page}
+					/>
+				}
+				<Box className="wrap"
+						 style={{...(isMobile &&
+								{
+									width: '390px',
+									minWidth: '390px',
+									paddingTop: '90px',
+								}
+							)
+						}}
+				>
+					<TodayPostBoardTop5
+						isMobile={isMobile}
+						board_type={board_type}
+					/>
+					<TodayPostBoardPosts
+						isMobile={isMobile}
+						board_type={board_type}
+						user={user}
+						handle_write_page={this.handle_write_page}
+					/>
+				</Box>
+				<Footer/>
+				{isMobile && <BottomTab user={user} handle_write_page={this.handle_write_page}/>}
+			</>
+			 )
 	}
 }
 

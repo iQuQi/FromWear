@@ -42,6 +42,20 @@ export const getUser = /* GraphQL */ `
                 like_urgent_user_list {
                   items {
                     id
+                    user_id
+                    post_id
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                bookmark_user_list {
+                  items {
+                    id
+                    user_id
+                    post_id
+                    createdAt
+                    updatedAt
                   }
                   nextToken
                 }
@@ -782,6 +796,20 @@ export const getFollowingFollower = /* GraphQL */ `
             like_urgent_user_list {
               items {
                 id
+                user_id
+                post_id
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            bookmark_user_list {
+              items {
+                id
+                user_id
+                post_id
+                createdAt
+                updatedAt
               }
               nextToken
             }

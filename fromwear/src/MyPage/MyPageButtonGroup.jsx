@@ -14,20 +14,19 @@ import MyPageComments from './MyPageComments';
 import MyPageBookmark from './MyPageBookmark';
 import MyPostBoard_SOS from './MyPostBoard_SOS';
 const EditBtn = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(grey[500]),
+    // color: theme.palette.getContrastText(grey[500]),
     backgroundColor: white[500],
     
-    width: '70px',
+    width: '25%',
     color: grey[700],
     padding: '8px 0px',
     margin: '0px',
     '&:hover': {
       borderColor: grey[700],
-      backgroundColor: grey[200],
+      backgroundColor: white[500],
     },
     '&:active': {
-        boxShadow: 'none',
-        backgroundColor: grey[700],
+
     },
     '&:focus': {
         borderBottom: '2px solid',
@@ -57,6 +56,7 @@ export default class MyPageButtonGroup extends Component{
         this.state = {
             now_user: props.user,
             btn_clicked: 0,
+            is_mobile: props.is_mobile,
         }
     }
     
@@ -81,15 +81,15 @@ export default class MyPageButtonGroup extends Component{
     }
 
     render(){
-        console.log(this.state.now_user);
 
-        let {now_user, btn_clicked, current_next_post_page} = this.state;
+        let {now_user, btn_clicked, current_next_post_page, is_mobile} = this.state;
 
         return (
             <div>
             <Box
+              className='mypage_buttongroup'
               sx={{
-                borderBottom: 1, borderColor: 'divider', margin:'auto', width: '270px', height:'50px', color:'black',
+                borderBottom: 1, borderColor: 'divider', margin:'auto', height:'50px', color:'black',
                 padding: '0px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -99,29 +99,48 @@ export default class MyPageButtonGroup extends Component{
                 },
               }}
             >
-              <Stack direction={{ xs: 'column', sm: 'row' }} >
-              <EditBtn 
-                onClick={()=>this.set_btn(1)} 
+              <Stack className='mobile_btn_container' direction={{ xs: 'row', sm: 'row' }} >
+                <EditBtn 
+                  className='mobile_button'
+                  onClick={()=>this.set_btn(1)} 
+                  sx={
+                    btn_clicked==0 || btn_clicked==1?{
+                      borderBottom:'2px solid', borderColor: 'grey'
+                    }:{}
+                  }>
+                    게시판
+                </EditBtn>    
+                
+                
+                <EditBtn 
+                onClick={()=>this.set_btn(2)}
                 sx={
-                  btn_clicked==0 || btn_clicked==1?{
+                  btn_clicked==2?{
                     borderBottom:'2px solid', borderColor: 'grey'
                   }:{}
-                }>
-                  게시판
-              </EditBtn>    
-                
-                
-                <EditBtn onClick={()=>this.set_btn(2)}>SOS</EditBtn>
-                <EditBtn onClick={()=>this.set_btn(3)}>댓글</EditBtn>
-                <EditBtn onClick={()=>this.set_btn(4)}>북마크</EditBtn>
+                }>SOS</EditBtn>
+                <EditBtn 
+                onClick={()=>this.set_btn(3)}
+                sx={
+                  btn_clicked==3?{
+                    borderBottom:'2px solid', borderColor: 'grey'
+                  }:{}
+                }>댓글</EditBtn>
+                <EditBtn 
+                onClick={()=>this.set_btn(4)}
+                sx={
+                  btn_clicked==4?{
+                    borderBottom:'2px solid', borderColor: 'grey'
+                  }:{}
+                }>북마크</EditBtn>
               </Stack>
 
             </Box>
-            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20} current_next_post_page={current_next_post_page}/> : 
-                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1} current_next_post_page={current_next_post_page}/> :
-                btn_clicked==3? <MyPageComments user={now_user}/> :
-                btn_clicked==4? <MyPageBookmark user={now_user}/> :
-                <MyPostBoard user={now_user} board={20}/>
+            {btn_clicked==0 || btn_clicked==1? <MyPostBoard user={now_user} board={20} current_next_post_page={current_next_post_page} is_mobile={is_mobile}/> : 
+                btn_clicked==2? <MyPostBoard_SOS user={now_user} board={1} current_next_post_page={current_next_post_page} is_mobile={is_mobile}/> :
+                btn_clicked==3? <MyPageComments user={now_user} is_mobile={is_mobile}/> :
+                btn_clicked==4? <MyPageBookmark user={now_user} is_mobile={is_mobile}/> :
+                <MyPostBoard user={now_user} board={20} is_mobile={is_mobile}/>
             }
             
             </div>

@@ -8,7 +8,7 @@ let new_link;
 let PostSearchResult = ({result_post, current_next_post_page})=> 
 <ImageList cols={2} gap={0} style={{marginLeft: '10px'}}>
 					{result_post.map((item,index) => 
-						 index<(current_next_post_page*25)?
+						 index<(current_next_post_page*25) &&
 						 <ImageListItem key={item.img+index} className = "post_image_list_item" style={{position:"relative"}}>
                                 {
 									new_link = item.img[0]=='h'&&item.img[1]=='t'?item.img:'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+item.img
@@ -36,9 +36,7 @@ let PostSearchResult = ({result_post, current_next_post_page})=>
 									</a>
 								)
 						</ImageListItem>
-						:
-						console.log(index+": pass")
-					
+
 					)
 				}
 </ImageList>

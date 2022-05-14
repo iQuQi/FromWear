@@ -13,7 +13,7 @@ export default function BasicSelect({handle_select_gender}) {
   };
 
   return (
-    <Box sx={{ minWidth: "90px", height: "35px",marginRight: "10px" ,float:"right"}}>
+    <Box sx={{ minWidth: "80px", height: "35px",marginRight: "10px" ,float:"right"}}>
       <FormControl variant ="standard" fullWidth>
 
         <Select style ={{height: "35px",fontSize:13,textAlign:"center",zIndex:100000}}

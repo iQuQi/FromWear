@@ -54,11 +54,6 @@ a{
 	color: black;
 	text-decoration: none;
 }
-
-html::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-}
-
 /*header CSS*/
 .header_bar{
     position: fixed;
@@ -69,6 +64,7 @@ html::-webkit-scrollbar {
 	height: 45px;
 	background-color: white;
 	box-shadow: 0 1px 10px 2px rgba(211,211,211,0.5);
+
 
 }
 
@@ -84,14 +80,14 @@ html::-webkit-scrollbar {
 
 .logo_img{
 	position: relative;
-	top:-10px;
+	top:5px;
 	width: 80px;
 	height: 25px;
 }
 
 .closet_img{
 	position: relative;
-	top:-10px;
+	top:5px;
 	width: 25px;
 	height: 25px;
 }
@@ -103,7 +99,7 @@ html::-webkit-scrollbar {
 
 .move_to_top{
 	position: fixed;
-	z-index: 1000;
+	z-index: 998;
 	bottom: 100px;
 	right: 40px;
 	width: 40px;
@@ -129,7 +125,6 @@ html::-webkit-scrollbar {
 	font-size:  13px;
 	color: black;
 	position: relative;
-	top: -10px;
 	right: 10px;
 }
 
@@ -138,10 +133,12 @@ html::-webkit-scrollbar {
 	height: 120%;
 	position: fixed;
 	top: -50px;
+	left: 0;
 	margin:auto;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 9999999;
+	z-index: 999999;
 	padding-top: 50px;
+	border: 0;
 }
 
 .login_popup_inside{
@@ -166,4 +163,20 @@ html::-webkit-scrollbar {
 
 .igVJyN {
 	padding: 0 50px;
+}
+
+.header_appbar{
+	width:1082px; margin:auto; height:45px;
+}
+
+@media screen and (max-width: 391px), screen and (max-height: 391px) and (orientation: landscape) {
+	.move_to_top{
+		display: none;
+	}
+
+	.header_appbar{
+		width: 390px;
+		margin: 0;
+	}
+
 }

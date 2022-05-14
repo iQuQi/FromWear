@@ -20,6 +20,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -45,7 +49,9 @@ export default class TodayPostBoardPosts extends Component {
             board: props.board,
             post_list: [],
             count: 0,
-            current_next_post_page: 1
+            current_next_post_page: 1,
+            is_mobile: props.is_mobile,
+            sortVal: '',
 		}
         
 	}
@@ -53,7 +59,6 @@ export default class TodayPostBoardPosts extends Component {
     componentDidMount(){
         this.get_posts(); 
         window.addEventListener("scroll", this.handleScroll);
-        console.log(this.state.post_list);
     }
     componentWillUnmount(){
 		window.removeEventListener("scroll", this.handleScroll);
@@ -67,9 +72,7 @@ export default class TodayPostBoardPosts extends Component {
                 user: this.props.user
             })
             if(this.props.user.my_post_list!=undefined){
-                console.log("업데이트");
                 if(this.props.board==1){
-                    console.log("1일 때");
                     this.setState({
                         post_list : this.props.user.my_post_list.items.filter((item)=>{
                             return item.board_type==1
@@ -77,7 +80,6 @@ export default class TodayPostBoardPosts extends Component {
                     })         
                 }
                 else{
-                    console.log("20일 때");
                     this.setState({
                         post_list : this.props.user.my_post_list.items.filter((item)=>{
                             return item.board_type!=1
@@ -90,19 +92,14 @@ export default class TodayPostBoardPosts extends Component {
                 
         }
         if(user=={}){
-            console.log("여기는?");
             this.setState({
                 user: this.props.user,
                 post_list: this.props.user.my_post_list.items
             })
         }
-        if(this.state.post_list!=user.my_post_list){
-            console.log("이거는?");
-            console.log(user.my_post_list);
-            console.log(this.state.post_list);
+        /*if(this.state.post_list!=user.my_post_list){
             this.state.post_list = this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
-            console.log(this.state.post_list);
-        }
+        }*/
           
     }
     
@@ -138,7 +135,6 @@ export default class TodayPostBoardPosts extends Component {
     }
 
 	handleSortLike = (e) => {
-		console.log("like");
 
 		this.setState({
             post_state: 1,
@@ -147,8 +143,7 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
 	handleSortView = (e) => {
-		console.log("view");
-        
+
 		this.setState({
             post_state: 2,
             post_list: this.state.post_list.sort(function(a,b){return b.click_num-a.click_num})
@@ -156,13 +151,9 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
     consolePrint = () => {
-        console.log("success");
     }
 
 	handleSortReply = (e) => {
-		console.log("reply");
-        console.log(this.state.post_list);
-	
         this.setState({
             post_state: 3,
             post_list: this.state.post_list.sort(function(a,b){return b.comment_list.items.length-a.comment_list.items.length})
@@ -173,50 +164,112 @@ export default class TodayPostBoardPosts extends Component {
 	}
 
 	handleSortLatest = (e) => {
-		console.log("Latest");
-        console.log(this.state.post_list.items);
         //console.log(this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)}));
 		this.setState({
             post_state: 4,
             post_list: this.state.post_list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)})
         })
-        console.log(this.state.post_list.items);
 	}
 
+    handle_select_sort = (e) => {
+        const sort = e.target.value;
+        this.setState({ sortVal: sort });
+    
+        switch(sort) {
+          case '':
+            this.handleSortLatest(e);
+            break;
+          case 10:
+            this.handleSortView(e);
+            break;
+          case 20:
+            this.handleSortReply(e);
+            break;
+          case 30:
+          case 40:
+            this.handleSortLike(e);
+            break;
+          default:
+            break;
+        }
+      };
 
     render() {
-        console.log(this.state.user);
-        console.log(this.state.current_next_post_page);
-        
-        console.log("render ", this.state.post_list);
-        
 
-		let {user, post_state, post_list, current_next_post_page} = this.state;
+
+
+		let {user, sortVal, post_list, current_next_post_page, is_mobile} = this.state;
 
         return (<div id = 'contents'>
-            <form className="my_sort_font my_select_sort">
-                <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
-                <label htmlFor="sort_like">좋아요순</label>
-                <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
-                <label htmlFor="sort_view">조회수순</label>
-                <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
-                <label htmlFor="sort_reply">댓글순</label>
-                <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
-                <label htmlFor="sort_latest">최신순</label>
+            {
+                is_mobile?
+                <div style={{height: '50px', float:'right'}}>
 
-            </form>
-            <br/>
+                <Box className="filter_layout" style={{}}>
+                    <FormControl sx={{ m: 1.2, minWidth: 70 }}>
+                        <Select
+                            style={{
+                                height: is_mobile? '30px':"35px",
+                                fontSize: 14,
+                                textAlign: "center",
+                                borderRadius: "30px",
+                                fontFamily:
+                                    "'나눔고딕' ,NanumGothic, '돋움' , Dotum, sans-serif",
+                                fontWeight: "bold",
+                            }}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={sortVal}
+                            onChange={this.handle_select_sort}
+                            displayEmpty
+                        >
+                            <MenuItem style={{ fontSize: 13 }} value="">
+                            최신순
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: 13 }} value={10}>
+                            조회수순
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: 13 }} value={20}>
+                            댓글순
+                            </MenuItem>
+                            
+                            <MenuItem style={{ fontSize: 13 }} value={30}>
+                                좋아요순
+                            </MenuItem>:
+                                
+
+                        </Select>
+                    </FormControl>
+              </Box>
+              </div>
+              :
+                <form className="my_sort_font my_select_sort">
+                    <input type="radio" id="sort_like" name="sort" onChange={this.handleSortLike}></input>
+                    <label htmlFor="sort_like">좋아요순</label>
+                    <input type="radio" id="sort_view" name="sort" onChange={this.handleSortView}></input>
+                    <label htmlFor="sort_view">조회수순</label>
+                    <input type="radio" id="sort_reply" name="sort" onChange={this.handleSortReply}></input>
+                    <label htmlFor="sort_reply">댓글순</label>
+                    <input type="radio" id="sort_latest" name="sort" defaultChecked onChange={this.handleSortLatest}></input>
+                    <label htmlFor="sort_latest">최신순</label>
+
+                </form>
+            }
+            
+            <br style={{clear:'right'}}/>
             <div id = 'today_post' >
                 {post_list?
                     post_list?
-                <ImageList cols={3} gap={8} style={{clear: 'left'}}>
+                <ImageList cols={3} gap={is_mobile?1:8} style={{clear: 'left'}}>
                     {
                     post_list.map((post, index) => (
-                        index<(current_next_post_page * 9)?
+                        index<(current_next_post_page * 9) &&
                         <ImageListItem key={post.id} className='mypage_image_list_item'>
-                            <img style={{height:'322.55px'}}
-                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format`}
-                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            <img 
+                                className='mypage_post_img'
+                                style={{height : is_mobile?'130px':'322.55px'}}
+                                src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}`}
+                                srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${post.img}`}
                                 alt={user.name}
                                 loading="lazy"
                             />
@@ -252,15 +305,14 @@ export default class TodayPostBoardPosts extends Component {
                                 </span>
                             </a>			
                         </ImageListItem>
-                        : console.log(index + "pass")
                     ))}
                 </ImageList>
-                :<p></p>
-                : <p></p>
+                :<></>
+                : <></>
                 }
 
-                {post_list.length>0? console.log("포스트 이써") 
-                : <p style={{margin:'150px 0px', textAlign:'center'}}>게시물이 없습니다.</p>
+                {post_list.length === 0 &&
+                 <p style={{margin:'150px 0px', textAlign:'center'}}>게시물이 없습니다.</p>
                 }
 
             </div>

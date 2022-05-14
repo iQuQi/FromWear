@@ -17,4 +17,116 @@
 .img_radius{
     border-radius: 50%;
 }
+.followingfollower_img {
+    height:80px;
+    width:80px;
+    margin:auto;
+    object-fit:cover;
+}
+.followingfollower_name {
+    width:80px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+.name_ellipsis {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.mypage_buttongroup {
+    
+    margin:auto;
+    width: 270px;
+    height:50px;
+    color:black;
+
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+@media only screen and (max-width: 391px){
+    #profile ul {
+        width: 80%;
+        height: 20px;
+        margin: 20px auto;
+    }
+    #profile li {
+        float: left;
+        width: 25%;
+        text-align: center;
+    }
+    .profile_award {
+        line-height: 1.5em;
+        font-size: 0.8em;
+    }
+    .profile_intro {
+        margin: 20px 0;
+        font-size: 0.9em;
+        text-align: left;
+        margin-left: 10%;
+    }
+    .devider {
+        width: 10%;
+        height: 1px;
+        margin: 30px auto;
+        background-color: grey;
+    }
+    .followingfollower_img {
+        height:49.5px;
+        width:49.5px;
+    }
+    .followingfollower_name {
+        width:49.5px; 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+        font-size: 0.9rem;
+    }
+    .mypage_buttongroup {
+        width: 390px;
+        flex-direction: row;
+
+    }
+    .mypage_contents{
+        overflow: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .mypage_collection {    
+        width: 390px;
+        text-align: left;
+        margin:auto;
+    }
+    .mobile_btn_container {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+    }
+    .mobile_button {
+        min-width: 25%;
+        width: 25%;
+        background-color: white;
+
+        color: grey;
+        padding: 8px 0px;
+        margin: 0px;
+    }
+    .mobile_button :hover {
+        border-color: grey;
+        background-color: white;
+    }
+    .mobile_button :active {
+          box-shadow: 'none';
+          background-color: white;
+    }
+    .mobile_button :focus {
+          border-bottom: 2px solid;
+          border-color: grey;
+    }
+}
 

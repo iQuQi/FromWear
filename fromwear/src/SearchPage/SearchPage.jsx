@@ -19,8 +19,9 @@ import { format } from "date-fns";
 import Footer from '../Footer/Footer';
 import { static_tag_data } from './TagData';
 import { Box } from '@mui/material';
+import BottomTab from "../BottomNavigation/BottomNavigation";
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
-var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0]; //10개 태그
+var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //15개 태그
 var AWS = require('aws-sdk'); 
 /*
 AWS.config.update(
@@ -55,6 +56,8 @@ class SearchPage extends Component{
 			current_input_tag: [],
 			current_click_tag_num: 0,
 			tag_div_on_to_off: false,
+			isMobile: false,
+			user: {},
 
 		};
 	}
@@ -235,7 +238,7 @@ class SearchPage extends Component{
 	}
 
 	handle_user_info=(user)=>{
-		console.log("user info get",user);
+		this.setState({user});
 	}
 
 
@@ -246,6 +249,10 @@ class SearchPage extends Component{
 			tag_clicked_list,
 			rank_tag_clicked_list,
 			day,gender,board);
+	}
+
+	inquireIsMobile = (isMobile) => {
+		this.setState({isMobile});
 	}
 
 	fetchImages = ()=>{
@@ -268,7 +275,6 @@ class SearchPage extends Component{
 		tag_clicked_list,
 		rank_tag_clicked_list,
 		filter_day,filter_gender,filter_board) =>{
-			console.log("filter board",filter_board);
 
 			let same3=[],same2=[],same1=[];
 			let result_post=[];
@@ -297,7 +303,6 @@ class SearchPage extends Component{
 				  var today_y = new Date(post.createdAt).getFullYear();
 				  var today_m = new Date(post.createdAt).getMonth()+1;
 				  var today_d = new Date(post.createdAt).getDate();
-				  console.log("today",post.id,base_y,base_m,base_d,today_y,today_m,today_d);
 
 				  if(!(base_y==today_y && base_m ==today_m && base_d ==today_d)){
 					return false;
@@ -349,11 +354,9 @@ class SearchPage extends Component{
 				//입력된 태그가 없다면 전체 보여주기
 				if(rmved.length==0) {
 					result_post=[...result_post,post];
-					console.log("show all");
 					return true;
 				}
 				else{
-					console.log("not show all");
 					let same = 0;
 					
 					post.tag_list.items.map((post_tag)=>{
@@ -362,7 +365,6 @@ class SearchPage extends Component{
 						})
 					})
 				
-					console.log("same: "+ same);
 					if(same == 3) same3=[...same3,post]
 					else if(same==2) same2=[...same2,post]
 					else if(same==1) same1=[...same1,post]
@@ -393,12 +395,13 @@ class SearchPage extends Component{
 			})
 			.catch(e=>console.log(e))
 	  
-	  
+
 	  }
+
 
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,tag_div_on_to_off,
-		current_next_post_page} = this.state;
+		current_next_post_page, user, isMobile} = this.state;
 
 		return(
 			<div>
@@ -408,53 +411,48 @@ class SearchPage extends Component{
 				handle_select_gender={this.handle_select_gender}
 				handle_select_board={this.handle_select_board}
 				handle_user_info={this.handle_user_info}
+				inquireIsMobile = {this.inquireIsMobile}
 				/>
 				
 				<div className="search_page_container">	
 				
-					<div className = {is_tag_more?'tag_div_on': tag_div_on_to_off?'tag_div_on_to_off':"tag_div_off"} >
+					<div
+						className = {is_tag_more?'tag_div_on': tag_div_on_to_off?'tag_div_on_to_off':"tag_div_off"}
+					>
 						<Stack direction="row">
-							
-							<Button  style={{ minWidth: 40,height: 40,margin: "0 5px 5px 20px", fontSize:"30px", fontWeight: 300, color: "black"}}>
-							{is_tag_more&&<CloseIcon onClick={this.handle_x_button_on_click}/>}	
-							</Button> 
-							
-							<div className={"tag_more_list"}>
-								<TagList
-								target_button={target_tag_button}
-								handle_tag_button_click={this.handle_tag_button_click}
-								/>
-								<Typography style={{color: "black",fontSize:"18px",fontWeight: "bold",margin: "15px 0 5px"}}>오늘의 태그</Typography>
-								<RankTag 
+							<div className={"tag_more_list"}
+								  style={{...(isMobile && {width: '390px'})}}
+							>
+								<RankTag
+									isMobile={isMobile}
 									target_button={target_rank_tag_button}
 									handle_rank_tag_button_click={this.handle_rank_tag_button_click}
 									is_tag_more={is_tag_more}
 									rank_tag_data={rank_tag_data}
+									handle_tag_more_button={this.handle_tag_more_button}
+									handle_x_button_on_click={this.handle_x_button_on_click}
 								/>
-								
+								<TagList
+									topPos={180}
+									isMobile={isMobile}
+									target_button={target_tag_button}
+									handle_tag_button_click={this.handle_tag_button_click}
+								/>
 							</div>
-							<Button 
-								style={{width: 85, boxShadow:"0 0 0 0" ,height: 40,fontWeight: "bold", border: !is_tag_more?"0":"1px solid lightgray",
-								borderRadius:"30px",backgroundColor: !is_tag_more?"black":"white",color:!is_tag_more?"white":"black",fontSize:13,
-								position:"absolute", top:10, right:25,zIndex:1000}} 
-								variant="contained"
-								onClick={this.handle_tag_more_button}	
-							>
-								더보기
-							</Button>
-							
-							
 						</Stack>
-						
 					</div>
 
 					{post_data.length!=0?
 						
-						<div className={"search_page_content"}>
-							<Box sx={{minHeight:'800px'}}>
-								<SearchResult 
-								post_data={post_data}
-								current_next_post_page={current_next_post_page}
+						<div className={"search_page_content"}
+							 style={{width: isMobile ? '390px': '1080px',
+								 top: isMobile? '20px': '50px',
+							 }}>
+							<Box sx={{minHeight:'800px', paddingTop: '80px'}}>
+								<SearchResult
+									isMobile={isMobile}
+									post_data={post_data}
+									current_next_post_page={current_next_post_page}
 								/>
 							</Box>
 						</div>
@@ -468,13 +466,11 @@ class SearchPage extends Component{
 						</Box>
 						
 					}
-				
-					
-					
-				
-					
+
 				</div>
 				<Footer/>
+				{isMobile && <BottomTab user={user}/>
+				}
 			</div>
 		)
 	}

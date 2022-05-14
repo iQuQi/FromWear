@@ -30,7 +30,6 @@ class Thumb extends Component{
     }
 
     set_comment_like = (now_user_id) => {
-        console.log("추가", now_user_id);
         let like_num = this.state.comment_list.like_user_list.items.filter((data)=>{
             if(data.user_id == now_user_id){   
                 return true;
@@ -46,7 +45,6 @@ class Thumb extends Component{
 
     componentDidUpdate(prevProps) {
         if (this.props.comment_list !== prevProps.comment_list) {
-            console.log("따봉 업데이트 진행!!")
             this.setState({
               comment_list: this.props.comment_list,
               comment_like_num: this.props.comment_list.like_user_list.items.length

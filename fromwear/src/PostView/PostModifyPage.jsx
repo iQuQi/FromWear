@@ -20,6 +20,7 @@ import {
   deleteStyleTag,
   createStyleTag,
 } from "../graphql/mutations";
+import {Typography} from "@mui/material";
 
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 let uuid_ = uuid();
@@ -62,7 +63,6 @@ class PostModifyPage extends Component {
     componentDidUpdate(prevProps) {
         if(this.props.user !== prevProps.user){
             this.setState({user: this.props.user});
-            console.log(this.state.user);
         }
         if(this.props.now_post !== prevProps.now_post){
             this.setState({
@@ -73,7 +73,6 @@ class PostModifyPage extends Component {
     }
 
     set_tag_list = () => {
-        console.log(this.state.now_post.tag_list.items)
         if(this.state.now_post.tag_list.items.length > 0){
             this.state.now_post.tag_list.items.map((tag)=>{
                 tag_clicked_list[tag.style_tag.id-1] = 1
@@ -186,10 +185,10 @@ class PostModifyPage extends Component {
       let changed_tag_list = origin_tag.filter((tag)=>{ //삭제되는 태그들
         console.log("tag: ",tag)
         if(tag ==  [...dup_rmv_tags][0] || tag ==  [...dup_rmv_tags][1] || tag ==  [...dup_rmv_tags][2]){
-          //console.log("기존과 바뀐 태그 모두 있는 것 (변동 X)")
+          //기존과 바뀐 태그 모두 있는 것 (변동 X)
         }
         else {
-          //console.log("삭제 태될 수도 있는 태그 (변동O)")
+          //삭제 태될 수도 있는 태그 (변동O)
           return tag;
         }
       })
@@ -257,7 +256,6 @@ class PostModifyPage extends Component {
                       this.state.now_post.tag_list.items.forEach((tag) => {
                           current_tag_id = tag.style_tag.id;
                           if(datetime_same){
-                            console.log("날짜가 동일하므로 num -1")
                             API.graphql({
                               query: updateStyleTag,
                               variables: {
@@ -372,7 +370,6 @@ class PostModifyPage extends Component {
                                   })
                                   .then((res) => {
                                     if(datetime_same){
-                                      console.log("날짜가 같으므로 num +1")
                                       API.graphql({
                                           query: updateStyleTag,
                                           variables: {
@@ -935,7 +932,6 @@ class PostModifyPage extends Component {
     }
 
     handleCloseButton(e) {
-        console.log("1");
         this.props.handle_write_page();
     }
 
@@ -993,10 +989,18 @@ class PostModifyPage extends Component {
                             <div className="text_form tag_write">
                               {
                                 board_type == 2
-                                ? <Input value={tag_contents} 
-                                  style={{margin:"10px 0",width:"100%"}}
-                                  placeholder={tag_contents}  
-                                  />
+                                ? <>
+                                        <Input value={tag_contents} 
+                                          style={{margin:"10px 0",width:"100%"}}
+                                          placeholder={tag_contents}
+                                          disabled
+                                        />
+                                    <Typography
+                                        sx={{color: 'red', fontSize: "9px",
+                                        position: 'relative', right: '145px'}}>
+                                        ※ 이번주 태그는 태그 수정 불가
+                                    </Typography>
+                                    </>
                                 : <Input value={tag_contents} 
                                     style={{margin:"10px 0",width:"100%"}}
                                     placeholder="태그를 입력해주세요"  

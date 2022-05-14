@@ -22,7 +22,7 @@
     position: absolute;
     top: 25%;
     left: 0;
-    width: 25px;
+    width: 35px;
     height: auto;
 }
 
@@ -33,5 +33,11 @@
     color:white;
     font-weight: bold;
     font-size: 16px;
+}
+
+@media screen and (max-width: 391px), screen and (max-height: 391px) and (orientation: landscape) {
+    .footer_div{
+        display: none;
+    }
 }
 

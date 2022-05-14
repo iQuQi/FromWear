@@ -35,7 +35,7 @@ const Img = styled('img')({
 });
 
 const EditBtn = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(grey[500]),
+  //color: theme.palette.getContrastText(grey[500]),
   backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
@@ -47,7 +47,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
 }));
 
 const RecoBtn = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(grey[500]),
+  //color: theme.palette.getContrastText(grey[500]),
   backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
@@ -100,13 +100,8 @@ export default class Profile extends Component {
       }
 
       if(this.state.user.follower_list){
-        console.log(this.state.follow_click);
-        console.log(this.state.now_user);
-        console.log(this.state.user);
         this.state.user.follower_list.items.map((data) => {
-          console.log(data);
           if(data.follower_id==this.state.now_user.id){
-            console.log("맞아");
             this.setState({
               follow_click: true,
             })
@@ -125,7 +120,6 @@ export default class Profile extends Component {
       if(this.state.now_user.following_list){
         this.state.now_user.following_list.items.map((data) => {
           if(data.following_id==this.state.user.id){
-            console.log("맞아2");
             this.setState({
               follow_click: true,
             })
@@ -137,8 +131,6 @@ export default class Profile extends Component {
   }
 
   componentDidMount(){
-    console.log("DIDMOUNT");
-    console.log(this.state.user);
     if(this.state.user!=undefined)  {
       this.find_from_follower_list();
     }   
@@ -273,7 +265,6 @@ export default class Profile extends Component {
         variables:{ input: { id:this.state.now_user.id+this.state.user.id, follower_id:this.state.now_user.id, following_id:this.state.user.id } }
       })
       .then(res => {
-        console.log("추가해보자");
         this.setState({
           follow_click: !this.state.follow_click
         })
@@ -290,7 +281,6 @@ export default class Profile extends Component {
         variables:{ input: { id:this.state.now_user.id+this.state.user.id } }
       })
       .then(res => {
-        console.log("삭제해보자");
         this.setState({
           follow_click: !this.state.follow_click
         })
@@ -305,15 +295,9 @@ export default class Profile extends Component {
   }
 
   render(){
-    console.log(this.state.follow_click);
-    console.log(this.state.now_user);
-    console.log(this.state.user);
-
-    if(this.state.user.following_list || this.state.user.follower_list){
+/*    if(this.state.user.following_list || this.state.user.follower_list){
       console.log(this.state.user.follower_list.items.length);
-    }
-    
-    console.log(this.state.user.my_tag_list);
+    }*/
 
     let {user, now_user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked, follow_click} = this.state;
 
@@ -323,7 +307,6 @@ export default class Profile extends Component {
     if(user.my_tag_list){
       if(user.my_tag_list.items){
         taglist = user.my_tag_list.items;
-        console.log(taglist);
       }
     }
 

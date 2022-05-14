@@ -34,7 +34,7 @@ const Img = styled('img')({
 });
 
 const EditBtn = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(grey[500]),
+  //color: theme.palette.getContrastText(grey[500]),
   backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
@@ -46,7 +46,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
 }));
 
 const RecoBtn = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(grey[500]),
+  //color: theme.palette.getContrastText(grey[500]),
   backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
@@ -82,10 +82,6 @@ export default class Profile extends Component {
         user: this.props.user,
        })
     }
-  }
-
-  componentWillMount(){
-    this.dialog_get_follow();
   }
 
   find_same_tag_user = () => {
@@ -186,17 +182,12 @@ export default class Profile extends Component {
     })
   }
   
-  dialog_get_follow = () => {
-
-    
-  }
 
   render(){
-    if(this.state.user.following_list || this.state.user.follower_list){
+/*    if(this.state.user.following_list || this.state.user.follower_list){
       console.log(this.state.user.follower_list.items.length);
-    }
+    }*/
     
-    console.log(this.state.user.my_tag_list);
 
     let {user, tag_user_is_checked, tag_same_user_list, following_is_checked, follower_is_checked} = this.state;
 
@@ -206,7 +197,6 @@ export default class Profile extends Component {
     if(user.my_tag_list){
       if(user.my_tag_list.items){
         taglist = user.my_tag_list.items;
-        console.log(taglist);
       }
     }
 
@@ -324,9 +314,7 @@ export default class Profile extends Component {
                   :<p></p>    
                   :<p></p>    
               }
-              {
-                console.log(user.my_tag_list)
-              }
+
               
 
             </Grid>
@@ -355,9 +343,9 @@ export default class Profile extends Component {
             
                       <a href={'/userpage/'+item.id}> 
                         <span className='dimmed_layer'>	
-                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto'}}
-                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format`}
-                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          <img className='img_radius' style={{height:'80px', width:'80px', margin:'auto', objectFit:'cover'}}
+                              src={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}`}
+                              srcSet={`https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/${item.profile_img}`}
                               alt={item.name}
                               loading="lazy"
                           />

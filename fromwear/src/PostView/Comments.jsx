@@ -3,8 +3,8 @@ import SingleComment from './SingleComment';
 import './Comments.css';
 
 import { API } from 'aws-amplify';
-import { getUser, listComments, listCommentLikeUsers } from '../graphql/queries';
-import  { createComment, getComment } from '../graphql/mutations';
+import { listComments, listCommentLikeUsers } from '../graphql/queries';
+import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
 import WholeCommentPage from './WholeCommentPage';
@@ -134,7 +134,6 @@ class Comments extends Component {
 
     removeComment = (delete_comment) => {
 
-        console.log("delete하려고하는 것!!", delete_comment)
         // delete_comment.like_user_list.items.map((like)=>{
         //     API.graphql({
         //         query: deleteCommentLikeUser, variables: {input:{id: like.id}}
@@ -220,10 +219,10 @@ class Comments extends Component {
                                 return <div className="one_comment_and_remove_button">
                                     <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                     {
-                                        comment_list.user_id == now_user.id ?
+                                        comment_list.user_id === now_user.id ?
                                         <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
                                         :
-                                        <div></div>
+                                        <div/>
                                     }
                                     </div>
                             })
@@ -232,7 +231,7 @@ class Comments extends Component {
                     <div>
                         <div>
                         {
-                            this.state.now_user=='noUser' ?
+                            this.state.now_user==='noUser' ?
                             <div>
                                 <div className="now_comment_user">방문자</div>
                                     <div className="writing_content">

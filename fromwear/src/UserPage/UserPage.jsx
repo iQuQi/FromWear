@@ -7,9 +7,11 @@ import { API } from 'aws-amplify';
 import { getUser } from '../graphql/queries.js';
 
 import OtherUserProfile from './OtherUserProfile';
+import OtherUserProfileM from './OtherUserProfileM';
 import MyPostBoard from '../MyPage/MyPostBoard';
 
 import Footer from '../Footer/Footer.jsx';
+import BottomTab from '../BottomNavigation/BottomNavigation';
 
 class UserPage extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class UserPage extends Component {
 			now_user: {},
             user_id: props.userid,
 			user: {},
+			is_mobile: props.is_mobile,
 		};
 	}
 
@@ -37,12 +40,9 @@ class UserPage extends Component {
 	}
 
     componentDidMount(){
-		console.log(this.state.user_id);
-		console.log(this.props.userid);
 		API.graphql({ query: getUser, variables: { id: this.props.userid} })
 		.then( res => {
 			this.set_user(res.data.getUser);
-			console.log(res.data.getUser);
 		})
 		.catch( e => console.log(e));	
     }
@@ -57,9 +57,8 @@ class UserPage extends Component {
 
 
     render(){
-		console.log(this.state.user);
-		console.log(this.state.now_user);
-		let {now_user, user} = this.state;
+		let {now_user, user, is_mobile} = this.state;
+
 
 		if(Object.keys(now_user).length>0&&Object.keys(user).length>0&&now_user.id==user.id){
 			window.location.href = "/mypage";
@@ -73,10 +72,18 @@ class UserPage extends Component {
 					
 				</div>
 				
-				<OtherUserProfile now_user={now_user} user={user}/>
+				{
+					is_mobile?
+					<div>
+						<OtherUserProfileM now_user={now_user} user={user}/>
+						<BottomTab user={now_user}/>
+					</div>
+					: <OtherUserProfile now_user={now_user} user={user}/>
+				}
+				
 
 				<div id = 'tab' className = 'mypage_collection'>
-					<MyPostBoard user={user} board={20}/>
+					<MyPostBoard user={user} board={20} is_mobile={is_mobile}/>
 				</div>
 
 				
