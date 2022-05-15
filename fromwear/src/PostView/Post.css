@@ -204,6 +204,7 @@
 .post_tag_list {
     display: inline-block;
     float: right;
+    margin-top: 3px;
 }
 
 .recommend_tag {

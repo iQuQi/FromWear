@@ -3,13 +3,13 @@
 }
 
 .heart_filled {
-    padding-top: 6px; /*vertical-middle 적용안돼서*/
+    padding-top: 6px;
     color: red;
     font-size: 20px;
 }
 
 .heart_outlined {
-    padding-top: 5px;
+    padding-top: 6px;
     font-size: 20px;
 }
 
@@ -24,12 +24,11 @@
     transform: scale(1.1);
 }
 
-.like_num {
+.like_num, .urgent_num {
     display: inline-block;
     margin-left: 5px;
     font-size: 14px;
 }
-
 
 .urgent_yes {
     color: red;
@@ -44,14 +43,27 @@
     margin-left: 5px;
 }
 
+
 @media(max-width:391px){
-    .like_num{
+    .like_num {
         width: 28px;
-        height: 36px;
+        vertical-align: bottom;
+    }
+
+    .urgent_num {
+        width: 28px; /*나중에 길이 길어졌을 경우를 대비*/
+        vertical-align: sub;
     }
     
-    .urgent_yes, .urgent_not, .heart_filled, .heart_outlined {
+    .heart_filled, .heart_outlined {
         margin-left: 10px;
         font-size: 25px;
     }
+
+    .urgent_yes, .urgent_not {
+        margin-left: 10px;
+        font-size: 25px;
+        padding-top: 6px;
+    }
+
 }

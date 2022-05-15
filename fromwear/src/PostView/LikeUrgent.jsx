@@ -50,8 +50,8 @@ class LikeUrgent extends Component {
 
                         {
                             like_urgent_user_list == null ?
-                            <div className="like_num">0</div>
-                            : <div className="like_num">{like_urgent_num}</div>
+                            <div className="urgent_num">0</div>
+                            : <div className="urgent_num">{like_urgent_num}</div>
                         }
                     </div>
                     :

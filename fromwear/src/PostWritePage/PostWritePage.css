@@ -191,3 +191,63 @@
     left:80px;
     width: 340px;
   }
+
+  
+@media(max-width:391px){
+
+  .post_write_container {
+    height: 100%;
+    padding: 22px 0 0 0;
+  }
+
+  .post_write_content{
+    width: 390px;
+    height: 800px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .click_img {
+    top: 450px;
+    left: 129px;
+  }
+  
+
+  .post_text_input {
+    width: 390px;
+    padding: 15px;
+    position: relative;
+    top: 105px;
+    right: 0;
+  }
+  
+  .post_text_input h3 {
+    display: none;
+  }
+
+  .content_write {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 280px;
+    height: 45px;
+  }
+
+  .image_file_input {
+    width: 250px;
+    height: 385px;
+    line-height: 385px;
+    top: 40px;
+    margin: 0 auto;
+    border-radius: 0%;
+  }
+
+  
+
+  .submit_button {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100px;
+    margin: 0 auto;
+  }
+}
