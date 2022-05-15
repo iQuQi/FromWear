@@ -47,7 +47,7 @@
     padding-left: 11px;
 }
 
-.whole_comment_wrap .new_comment_content {
+.whole_comment_wrap .new_comment_content, .whole_comment_wrap .visitor_comment {
     width: 279px;
     margin-left: 10px;
 }

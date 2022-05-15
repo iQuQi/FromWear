@@ -132,6 +132,15 @@ class Comments extends Component {
     }
 
 
+    checkRemoveComment = (delete_comment) => {
+        if (window.confirm("댓글을 삭제하시겠습니까?")) {
+            //삭제 실행
+            this.removeComment(delete_comment);
+          } else {
+            //삭제 취소
+          }
+    }
+
     removeComment = (delete_comment) => {
 
         // delete_comment.like_user_list.items.map((like)=>{
@@ -220,7 +229,7 @@ class Comments extends Component {
                                     <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                     {
                                         comment_list.user_id === now_user.id ?
-                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                        <button className="remove_comment" onClick={() => this.checkRemoveComment(comment_list)}>삭제</button>
                                         :
                                         <div/>
                                     }
@@ -232,10 +241,10 @@ class Comments extends Component {
                         <div>
                         {
                             this.state.now_user==='noUser' ?
-                            <div>
+                            <div div className="writing_area">
                                 <div className="now_comment_user">방문자</div>
                                     <div className="writing_content">
-                                        <textarea onClick={this.onClick}></textarea>
+                                        <textarea className="visitor_comment" onClick={this.onClick}></textarea>
                                         <button className="new_comment_submit_button" onClick={this.onClick}>댓글 등록</button>
                                     </div>
 
@@ -275,10 +284,10 @@ class Comments extends Component {
                         <div>
                         {
                             this.state.now_user=='noUser' ?
-                            <div>
+                            <div className="writing_area">
                                 <div className="now_comment_user">방문자</div>
                                     <div className="writing_content">
-                                        <textarea onClick={this.onClick}></textarea>
+                                        <textarea className="visitor_comment" onClick={this.onClick}></textarea>
                                         <button className="new_comment_submit_button" onClick={this.onClick}>등록</button>
                                     </div>
 

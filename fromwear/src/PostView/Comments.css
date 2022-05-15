@@ -61,7 +61,7 @@
     margin: 5px 0;
 } */
 
-.new_comment_content, .new_comment_content_pc_version, .new_comment_content_mobile_version {
+.new_comment_content, .new_comment_content_pc_version, .new_comment_content_mobile_version, .visitor_comment {
     width: 300px;
     height: 41px;
     box-sizing: border-box;
@@ -135,7 +135,7 @@
         padding-top: 15px;
     }
 
-    .new_comment_content_mobile_version {
+    .new_comment_content_mobile_version, .visitor_comment {
         width: 266px;
     }
 

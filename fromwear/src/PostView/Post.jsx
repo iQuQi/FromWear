@@ -295,10 +295,10 @@ class Post extends Component{
 
     checkRemovePost = () => {
         if (window.confirm("게시글을 삭제하시겠습니까?")) {
-            console.log("삭제 실행")
+            //삭제 실행
             this.removePostIcons();
           } else {
-            console.log("삭제 취소");
+            //삭제 취소"
           }
     }
 
