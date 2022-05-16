@@ -36,6 +36,12 @@ https://main.d30b7gvovhfaij.amplifyapp.com/
   <img src='https://user-images.githubusercontent.com/67469315/157885484-7afe71dd-eb10-4b78-a6fb-747a620ad2e3.png' width='500' margin='auto'>
   <img src='https://user-images.githubusercontent.com/67469315/157885343-353cedc7-0738-41d2-8d30-29d46f6bbe55.png' width='500' margin='auto'>
 </p>
+<p float='left' align='center'>
+  유저페이지<br/>
+  <img src='https://user-images.githubusercontent.com/67469315/168539429-997dca88-22c9-4bfa-9b57-9997e5f18b7c.png' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/168539591-49c6cde1-560e-426e-af7c-23bc95843d70.png' width='500' margin='auto'>
+</p>
+
 
 ## Git 사용법 ⭐중요중요⭐
 - git branch : 현재 브랜치 확인<br>
