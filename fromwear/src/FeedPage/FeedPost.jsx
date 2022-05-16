@@ -53,7 +53,7 @@ export default function FeedPost({user}) {
     }
     
     postlist.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)});
-    console.log(postlist);
+   
     return (
     <ImageList cols={1} sx={{ width: 390 }}>
       {
