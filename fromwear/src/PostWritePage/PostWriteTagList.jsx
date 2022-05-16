@@ -8,9 +8,6 @@ import {post_tag_data} from './PostTagData'
 let PostWriteTagList = ({target_button,handle_tag_button_click}) => {
             return(
                     <ul className="postwrite_tag_list">
-                        {
-                          console.log("target_button", target_button)  
-                        }
                     {post_tag_data.map((data,index) =>
                         <li>
                         <Button key={data.name+index} 

@@ -7,7 +7,6 @@ import { listComments, listCommentLikeUsers } from '../graphql/queries';
 import  { createComment } from '../graphql/mutations';
 import { onCreateComment } from '../graphql/subscriptions';
 import  { deleteComment, createAlarm, deleteCommentLikeUser } from '../graphql/mutations';
-import WholeCommentPage from './WholeCommentPage';
 
 class Comments extends Component {
 
@@ -208,16 +207,19 @@ class Comments extends Component {
     render(){
         let {comment_list, board_type, now_user, post_writer} = this.state;
         
+        //시간 순으로 정렬
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
-        console.log("commet", comment_list)
-
+        
         let recommend_list = [...comment_list]; //같은 추천수에서는 먼저 작성한 댓글이 우선
-        console.log("origin_recommend_list:",recommend_list);
         recommend_list.sort(function(a, b) {
             return b.like_user_list.items.length - a.like_user_list.items.length;
         });
-        console.log("sorted_recommend_list", recommend_list)
         
+        let adopted_recommend_list = [...recommend_list]; //같은 추천수에서는 채택된 댓글이 우선 (같은 추천수, 둘 다 채택되었다면 작성한 댓글순)
+        adopted_recommend_list.sort(function (a, b) {
+            return b.adopted - a.adopted;
+        });
+  
         return (
             <div>
                 <div className="pc_comment">
@@ -264,6 +266,22 @@ class Comments extends Component {
                     <div className="comment_num" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개 모두 보기</div>
                     <ul className="comment_ul">
                         {
+                            board_type?
+                            adopted_recommend_list.map((comment_list, index) => {
+                                if(index <= 1){
+                                    return <div className="one_comment_and_remove_button">
+                                    <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                    {
+                                        comment_list.user_id == now_user.id ?
+                                        <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                        :
+                                        <div></div>
+                                    }
+                                    </div>
+                                }
+                                return null;
+                            })
+                            :
                             recommend_list.map((comment_list, index) => {
                                 if(index <= 1){
                                     return <div className="one_comment_and_remove_button">

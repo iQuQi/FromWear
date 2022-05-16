@@ -41,24 +41,13 @@ class WholeCommentPage extends Component {
         }
 	}
 
-    componentDidUpdate(prevProps) {
-        if(this.props.board_type !== prevProps.board_type){
-            this.setState({board_type: this.props.board_type});
-        }
-        if(this.props.post_writer !== prevProps.post_writer){
-            this.setState({post_writer: this.props.post_writer})
-        }
-        if(this.props.now_user !== prevProps.now_user){
-            this.setState({now_user: this.props.now_user})
-        }
-    }
-
-    componentDidMount(){ //Will->Did
+    componentDidMount(){
         API.graphql({
             query: getPost, variables: {id: this.state.post_id}
         })
         .then(res => this.setState({
             now_post: res.data.getPost,
+            board_type: res.data.getPost.board_type,
             tag_list: res.data.getPost.tag_list.items,
             post_writer: res.data.getPost.user
         }))
@@ -180,11 +169,17 @@ class WholeCommentPage extends Component {
         let {now_post, tag_list, comment_list, board_type, now_user, post_writer} = this.state;
         
         console.log("현재 포스트",now_post)
+        console.log("이것들", comment_list, board_type, now_user, post_writer)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         
         let recommend_list = [...comment_list]; //같은 추천수에서는 먼저 작성한 댓글이 우선
         recommend_list.sort(function(a, b) {
             return b.like_user_list.items.length - a.like_user_list.items.length;
+        });
+
+        let adopted_recommend_list = [...recommend_list]; //같은 추천수에서는 채택된 댓글이 우선 (같은 추천수, 둘 다 채택되었다면 작성한 댓글순)
+        adopted_recommend_list.sort(function (a, b) {
+            return b.adopted - a.adopted;
         });
         
         return (
@@ -211,13 +206,29 @@ class WholeCommentPage extends Component {
                         <div className="comment_num_whole_comment" onClick={this.moveToWholeCommentPage}>댓글 {comment_list.length}개</div>
                         <ul className="comment_ul_whole_comment">
                             {
-                                recommend_list.map((comment_list, index) => {
-                                    // if(index <= 1){
-                                        return <div className="one_comment_and_remove_button_whole">
+                                board_type?
+                                adopted_recommend_list.map((comment_list, index) => {
+                                    //if(index <= 1){
+                                        return <div className="one_comment_and_remove_button">
                                         <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
                                         {
                                             comment_list.user_id == now_user.id ?
-                                            <button className="remove_comment" onClick={() => this.checkRemoveComment(comment_list)}>삭제</button>
+                                            <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                            :
+                                            <div></div>
+                                        }
+                                        </div>
+                                    //}
+                                    //return null;
+                                })
+                                :
+                                recommend_list.map((comment_list, index) => {
+                                    //if(index <= 1){
+                                        return <div className="one_comment_and_remove_button">
+                                        <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                        {
+                                            comment_list.user_id == now_user.id ?
+                                            <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
                                             :
                                             <div></div>
                                         }

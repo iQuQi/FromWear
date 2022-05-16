@@ -56,8 +56,17 @@ class Select_button extends Component{
         }
     }
 
+    checkSelectComment = () => {
+        if (window.confirm("댓글을 채택하시겠습니까?")) {
+            //삭제 실행
+            this.selectComment();
+          } else {
+            //삭제 취소
+          }
+    }
 
-    onClick = () => {
+
+    selectComment = () => {
         if(!this.state.select_button_is_checked){ //false->true
             API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
                 adopted: !this.state.select_button_is_checked,
@@ -82,7 +91,7 @@ class Select_button extends Component{
             .catch(e => console.log(e))
             
         }
-        // else { //false->true
+        // else { //false->true //한번 채택된 댓글은 실행 취소 불가능
             
         //     console.log("@@@@@@@@ true->false")
         // API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
@@ -147,12 +156,12 @@ class Select_button extends Component{
                         {
                             select_button_is_checked ?
                             <div>
-                                <div className="select_yes" onClick={this.onClick}>
+                                <div className="select_yes">
                                     채택된 댓글
                                 </div>
                             </div>
                             :
-                            <div className="select_no" onClick={this.onClick}>
+                            <div className="select_no" onClick={this.checkSelectComment}>
                                 채택하기
                             </div>
                         }

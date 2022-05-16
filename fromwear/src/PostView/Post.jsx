@@ -298,7 +298,7 @@ class Post extends Component{
             //삭제 실행
             this.removePostIcons();
           } else {
-            //삭제 취소"
+            //삭제 취소
           }
     }
 

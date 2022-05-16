@@ -90,12 +90,9 @@
     display: inline-block;
     width: 293.5px;
     height: 452.1px;
-    /* width: 311.6px;
-    height: 480px; */
     border-radius: 30px;
     background-size: cover;
     background-position: center center;
-    /* box-sizing: border-box; */
     border: 1px solid gray;
   }
 
@@ -207,11 +204,16 @@
     box-sizing: border-box;
   }
 
+  .upload_img {
+    width: 250px;
+    height: 385px;
+    border-radius: 0;
+  }
+
   .click_img {
     top: 450px;
     left: 129px;
   }
-  
 
   .post_text_input {
     width: 390px;
