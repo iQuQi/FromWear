@@ -38,8 +38,7 @@ https://main.d30b7gvovhfaij.amplifyapp.com/
 </p>
 <p float='left' align='center'>
   유저페이지<br/>
-  <img src='https://user-images.githubusercontent.com/67469315/168539429-997dca88-22c9-4bfa-9b57-9997e5f18b7c.png' width='500' margin='auto'>
-  <img src='https://user-images.githubusercontent.com/67469315/168539591-49c6cde1-560e-426e-af7c-23bc95843d70.png' width='500' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/67469315/168540040-4086bc35-9395-4a30-b157-8a3a0948c826.png' width='500' margin='auto'>
 </p>
 
 
