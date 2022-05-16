@@ -115,41 +115,7 @@ export default function BottomTab({user, handle_write_page}) {
                 
                 
             }
-            
-            {
-                value==0?
-                
-                    first? <></>
-                    : window.location.href = '/'
-                    
-                   
-                : value==1? window.location.href = '/feed'
-                       
-                : value==2?
-                <p style={{position: "absolute"}}>글쓰기</p>
-                : value==3?
-                <p style={{position: "absolute"}}>검색</p>
-                : value==4?
-                <p style={{position: "absolute"}}>마이페이지</p>
-                : <p>그냥</p>
-            }
         </div>
     )
     
 }
-
-/*
-<BottomNavigation
-                        showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                    >
-<BottomNavigationAction className={textColor} label="피드" icon={<FormatListBulletedIcon className='shortcut_feed on'/>} />
-                        <BottomNavigationAction className={textColor} style={{paddingTop:'0'}} icon={<AddCircleIcon style={{fontSize:'3rem'}} className='shortcut_write on'/>} />
-                        <BottomNavigationAction className={textColor} label="검색" icon={<SearchIcon className='shortcut_search on'/>} />
-                        <BottomNavigationAction className={textColor} label="마이페이지" icon={<PersonIcon className='shortcut_mypage on'/>} />
-                        
-                </BottomNavigation>
-                        */
