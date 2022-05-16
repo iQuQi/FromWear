@@ -6,7 +6,6 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 
 import './comment.css';
 import CheckIcon from '@mui/icons-material/Check';
@@ -34,7 +33,7 @@ export default class MyPageComments extends Component{
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
       if (scrollTop + clientHeight + 1 >= scrollHeight) {
-        // 페이지 끝에 도달하면 추가 데이터를 받아온다
+        // 페이지 끝에 도달하면 추가 데이터를 받아옴
         this.setState({
         current_next_post_page: this.state.current_next_post_page+1
         })
@@ -58,7 +57,6 @@ export default class MyPageComments extends Component{
                 </a>
               
             </ListItemAvatar>
-            
             <ListItemText className='prewrap' sx={{marginLeft:'30px', marginTop:'30px'}}
               primary={`${item.post.blind?`익명`:item.post.user.name}님의 게시물`}
               secondary={
