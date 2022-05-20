@@ -56,3 +56,7 @@
     padding: 7px;
     border-bottom: 1px solid;
 }
+
+.comment_ul_whole_comment .remove_comment {
+    left: 341px;
+}

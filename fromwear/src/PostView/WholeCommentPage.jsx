@@ -168,8 +168,6 @@ class WholeCommentPage extends Component {
     render(){
         let {now_post, tag_list, comment_list, board_type, now_user, post_writer} = this.state;
         
-        console.log("현재 포스트",now_post)
-        console.log("이것들", comment_list, board_type, now_user, post_writer)
         comment_list.sort(function(a, b) {return new Date(a.createdAt) - new Date(b.createdAt);})
         
         let recommend_list = [...comment_list]; //같은 추천수에서는 먼저 작성한 댓글이 우선
@@ -177,10 +175,24 @@ class WholeCommentPage extends Component {
             return b.like_user_list.items.length - a.like_user_list.items.length;
         });
 
+        let top_3_id = []; //오늘의 착장 게시판
+        recommend_list.forEach((top_comment, index)=>{
+            if(index<=2){ //상위 3개의 댓글을 보여줌
+                top_3_id.push(top_comment.id);
+            }
+        })
+
         let adopted_recommend_list = [...recommend_list]; //같은 추천수에서는 채택된 댓글이 우선 (같은 추천수, 둘 다 채택되었다면 작성한 댓글순)
         adopted_recommend_list.sort(function (a, b) {
             return b.adopted - a.adopted;
         });
+
+        let top_3_id_adopted = []; //SOS 게시판
+        adopted_recommend_list.forEach((top_comment, index)=>{
+            if(index<=2){
+                top_3_id_adopted.push(top_comment.id);
+            }
+        })
         
         return (
             <div className="whole_comment_page_wrap">
@@ -207,35 +219,74 @@ class WholeCommentPage extends Component {
                         <ul className="comment_ul_whole_comment">
                             {
                                 board_type?
-                                adopted_recommend_list.map((comment_list, index) => {
-                                    //if(index <= 1){
-                                        return <div className="one_comment_and_remove_button">
-                                        <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
-                                        {
-                                            comment_list.user_id == now_user.id ?
-                                            <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
-                                            :
-                                            <div></div>
-                                        }
-                                        </div>
-                                    //}
-                                    //return null;
-                                })
+                                <div>
+                                    {
+                                        adopted_recommend_list.map((comment_list, index) => {
+                                            if(index <= 2){
+                                                return <div className="one_comment_and_remove_button">
+                                                <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                                {
+                                                    comment_list.user_id == now_user.id ?
+                                                    <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                                    :
+                                                    <div></div>
+                                                }
+                                                </div>
+                                            }
+                                            return null;
+                                        })
+                                    }
+                                    {
+                                        comment_list.map((comment_list)=>{
+                                            if(comment_list.id != top_3_id_adopted[0] && comment_list.id != top_3_id_adopted[1] && comment_list.id != top_3_id_adopted[2]){
+                                                return <div className="one_comment_and_remove_button">
+                                                <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                                {
+                                                    comment_list.user_id == now_user.id ?
+                                                    <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                                    :
+                                                    <div></div>
+                                                }
+                                                </div>
+                                            }
+                                        })
+                                    }
+                                </div>
                                 :
-                                recommend_list.map((comment_list, index) => {
-                                    //if(index <= 1){
-                                        return <div className="one_comment_and_remove_button">
-                                        <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
-                                        {
-                                            comment_list.user_id == now_user.id ?
-                                            <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
-                                            :
-                                            <div></div>
-                                        }
-                                        </div>
-                                    //}
-                                    //return null;
-                                })
+                                <div>
+                                    {
+                                        recommend_list.map((comment_list, index) => {
+                                            if(index <= 2){
+                                                return <div className="one_comment_and_remove_button">
+                                                <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                                {
+                                                    comment_list.user_id == now_user.id ?
+                                                    <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                                    :
+                                                    <div></div>
+                                                }
+                                                </div>
+                                            }
+                                            return null;
+                                        })
+                                    }
+                                    {
+                                        comment_list.map((comment_list)=>{
+                                            if(comment_list.id != top_3_id[0] && comment_list.id != top_3_id[1] && comment_list.id != top_3_id[2]){
+                                                return <div className="one_comment_and_remove_button">
+                                                <SingleComment key={comment_list.user_id} comment_list={comment_list} board_type={board_type} now_user={now_user} post_writer={post_writer}/>
+                                                {
+                                                    comment_list.user_id == now_user.id ?
+                                                    <button className="remove_comment" onClick={() => this.removeComment(comment_list)}>삭제</button>
+                                                    :
+                                                    <div></div>
+                                                }
+                                                </div>
+                                            }
+                                        })
+                                    }
+                                </div>
+                                
                             }
                         </ul>
                     </div>
