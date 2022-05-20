@@ -184,7 +184,8 @@ export default function WeeklyTagBody({current_next_post_page, now_user,best_pos
                         <br></br>
                         
                         <ImageList cols={isMobile?2:5} gap={isMobile?0:8} style={{clear: 'left'}}>
-                            {ranking_posts.map((item, index) => (
+                            {ranking_posts.length>0?
+                                ranking_posts.map((item, index) => (
                                 index<(current_next_post_page * 25) &&
                                 <ImageListItem key={item.img}>
                                     <a className='dimmed' href={'/post/'+item.id}>  
@@ -218,7 +219,10 @@ export default function WeeklyTagBody({current_next_post_page, now_user,best_pos
                                         </div>
                                     </Stack>				
                                 </ImageListItem>
-                            ))}
+                            ))
+                        
+                        : <p>해당하는 게시물이 없습니다.</p>
+                        }
                         </ImageList>
                     
                     </div>
