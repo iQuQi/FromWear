@@ -323,8 +323,10 @@ class Post extends Component{
             datetime_same = true;
         }
 
-        let tag_id_list = [this.state.now_post.tag_list.items[0].tag_id, this.state.now_post.tag_list.items[1].tag_id, this.state.now_post.tag_list.items[2].tag_id]
-        
+        let tag_id_list;
+        if(this.state.now_post.tag_list.items.length != 0){
+            tag_id_list = [this.state.now_post.tag_list.items[0].tag_id, this.state.now_post.tag_list.items[1].tag_id, this.state.now_post.tag_list.items[2].tag_id]
+        }
         
         this.setState({
             now_post_board_type: this.state.now_post.board_type,
@@ -465,7 +467,7 @@ class Post extends Component{
         .then(res => {
             //태그 삭제
             if(this.state.now_post.tag_list.items.length == 0){
-                console.log("tag list가 null")
+                //tag list가 null
                 this.setState({deleted_tag: true, completely_deleted_tag: true})
             }
             else {
@@ -475,43 +477,43 @@ class Post extends Component{
                     })
                     .then(res=>{
                         if(index == 2){
-                            console.log("tag last", tag);
+                            //console.log("tag last", tag);
                             this.setState({deleted_tag:true,});
                         }
                     })
-                    .then(console.log("tag 삭제 완료"))
+                    //.then(console.log("tag 삭제 완료"))
                 })
             }
         })
         .then(res => {
-            tag_id_list.forEach((delete_tag, index)=>{
-                console.log("####3index : ",index)
-                API.graphql({
-                query: getStyleTag,
-                variables: {id: delete_tag}
-                })
-                .then(res=>{
-                    console.log("#################3", res.data.getStyleTag.post_tag_list.items.length)
-                    if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_tag_list.items.length == 0)){
-                        console.log("태그 삭제!!", index)
-                        API.graphql({
-                        query: deleteStyleTag,
-                        variables : {
-                            input : {
-                                id : delete_tag
+            if(this.state.now_post.tag_list.items.length != 0){
+                tag_id_list.forEach((delete_tag, index)=>{
+                    API.graphql({
+                    query: getStyleTag,
+                    variables: {id: delete_tag}
+                    })
+                    .then(res=>{
+                        if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_tag_list.items.length == 0)){
+                            console.log("태그 삭제!!", index)
+                            API.graphql({
+                            query: deleteStyleTag,
+                            variables : {
+                                input : {
+                                    id : delete_tag
+                                }
                             }
+                            })
                         }
-                        })
-                    }
+                    })
+                    .then(res=>{
+                        if(index == 2){
+                            //tag 삭제 last
+                            this.setState({completely_deleted_tag:true,});
+                        }
+                    })
+                    .catch((e) => console.log("onChange error", e));
                 })
-                .then(res=>{
-                    if(index == 2){
-                        console.log("tag 삭제 last");
-                        this.setState({completely_deleted_tag:true,});
-                    }
-                })
-                .catch((e) => console.log("onChange error", e));
-            })
+            }
         })
         .then(res => this.setState({deleted_styletag: true,}))
         .then(res => this.setState({icon_delete_once: true,}))
@@ -610,7 +612,6 @@ class Post extends Component{
 
     render(){
         console.log("현재 게시글 정보", this.state.now_post)
-        console.log("모바일 상태????????????????", this.state.isMobile);
         
         //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
@@ -621,7 +622,6 @@ class Post extends Component{
         }
 
         if(this.state.deleted_comment && this.state.deleted_comment_like && this.state.deleted_like_urgent && this.state.deleted_bookmark && this.state.delete_img && this.state.deleted_styletag && this.state.deleted_tag && this.state.completely_deleted_tag && this.state.icon_delete_once){
-
             this.removePost();
         }
 
