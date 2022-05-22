@@ -194,8 +194,8 @@ function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select
                   <StyledInputBase
                       value={input}
                       isMobile={isMobile}
-                      style={{ color: "black", fontSize: "14px",width: "55%",height:35,
-                        position:'relative', left: '-30px'}}
+                      style={{ color: "black", fontSize: "14px",width: isMobile? '80%':"60%",height:35,
+                        position:'relative', left:isMobile? '10px': '-30px'}}
                       placeholder={"#오늘의 #태그는 #"+rank_1}
                       onChange={handle_inputbase_on_change}
                   />
