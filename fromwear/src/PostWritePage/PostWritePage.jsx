@@ -40,6 +40,7 @@ class PostWritePage extends Component {
           contents: "", //contents
           board_type: props.board_type,
           user: props.user,
+          isMobile: props.isMobile,
           blind: false,
           create_post: false,
           create_tag: false,
@@ -506,7 +507,7 @@ class PostWritePage extends Component {
 
     render(){
         let {fileImage, setFileImage, tag_click} = this.state;
-        let {tag_contents, contents, board_type} = this.state;
+        let {tag_contents, contents, board_type, isMobile} = this.state;
 
         let profile_preview = null;
         if(this.state.file !== ''){
@@ -608,15 +609,19 @@ class PostWritePage extends Component {
                   />
                   <Button
                     onClick={()=>this.setState({tag_click: false})}
-                    sx={{color:'black',backgroundColor: 'white', marginBottom: '20px', width: '100%',
-                    border: 'solid 1px black', borderRadius: '30px', position:'relative',top:'30px'}}
+                    style={isMobile ? 
+                    {color:'black',backgroundColor: 'white', marginBottom: '20px', width: '100%',
+                    border: 'solid 1px black', borderRadius: '30px', position:'relative', top:'10px'}
+                    :
+                    {color:'black',backgroundColor: 'white', marginBottom: '20px', width: '100%',
+                    border: 'solid 1px black', borderRadius: '30px', position:'relative', top:'30px'}}
                     >닫기</Button>
                 </div>
               ) : (
                 <div></div>
               )}
               {board_type == 1 ? (
-                <div>
+                <div className={tag_click ? "blind": "select_blind_wrap"}>
                   <h3>익명 여부 선택</h3>
                   <div className="select_blind">
                     <label className="radio">
@@ -645,10 +650,22 @@ class PostWritePage extends Component {
               )}
 
               {board_type == 1 ? 
-                <div className="submit_button" style={{margin: "28px auto 0 auto"}}>
+                <div className={tag_click? "blind" : "submit_button"} style={{margin: "28px auto 0 auto"}}>
                   <Button
                     type="submit"
-                    style={{
+                    style={isMobile? {
+                      margin: "auto",
+                      borderRadius: 30,
+                      backgroundColor: "white",
+                      padding: 10,
+                      width: "30%",
+                      color: "black",
+                      border: '1px solid black',
+                      position: 'fixed',
+                      bottom: '53px',
+                      left: '136.6px'
+                      }
+                    : {
                       margin: "auto",
                       borderRadius: 30,
                       backgroundColor: "white",
@@ -667,7 +684,19 @@ class PostWritePage extends Component {
                 <div className="submit_button">
                   <Button
                     type="submit"
-                    style={{
+                    style={isMobile? {
+                      margin: "auto",
+                      borderRadius: 30,
+                      backgroundColor: "white",
+                      padding: 10,
+                      width: "30%",
+                      color: "black",
+                      border: '1px solid black',
+                      position: 'fixed',
+                      bottom: '65px',
+                      left: '136.6px'
+                      }
+                    : {
                       margin: "auto",
                       borderRadius: 30,
                       backgroundColor: "white",
@@ -683,24 +712,6 @@ class PostWritePage extends Component {
                   </Button>
                 </div>
               }
-              {/* <div className="submit_button">
-                <Button
-                  type="submit"
-                  style={{
-                    margin: "auto",
-                    borderRadius: 30,
-                    backgroundColor: "white",
-                    padding: 10,
-                    width: "100%",
-                    color: "black",
-                    border: '1px solid black'
-                  }}
-                  variant="contained"
-                  onClick={this.handleSubmit.bind(this)}
-                >
-                  등록
-                </Button>
-              </div> */}
 
             </div>
           </form>

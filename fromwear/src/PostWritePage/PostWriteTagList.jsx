@@ -23,7 +23,6 @@ let PostWriteTagList = ({target_button,handle_tag_button_click}) => {
                     )
                     }           
                     </ul>
-                
             )
 }
             

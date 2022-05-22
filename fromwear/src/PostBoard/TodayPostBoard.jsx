@@ -64,6 +64,7 @@ class TodayPostBoard extends Component {
 						board_type={board_type}
 						user={user}
 						handle_write_page={this.handle_write_page}
+						isMobile={isMobile}
 					/>
 				}
 				<Box className="wrap"
