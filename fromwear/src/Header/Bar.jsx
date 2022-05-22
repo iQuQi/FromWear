@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme , isMobile}) => ({
 }));
 
 function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select_day,
-  handle_select_gender,handle_select_board,handle_login_click, rank_1,user}) {
+  handle_select_gender,handle_select_board,handle_login_click, rank_1,user,input}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [alarmAnchorEl, setAlarmAnchorEl] = React.useState(null);
 
@@ -192,6 +192,7 @@ function PrimarySearchAppBar({isMobile, handle_inputbase_on_change,handle_select
                 </SearchIconWrapper>
                 <a href={isSearchPage?"#":"/search"}>
                   <StyledInputBase
+                      value={input}
                       isMobile={isMobile}
                       style={{ color: "black", fontSize: "14px",width: "55%",height:35,
                         position:'relative', left: '-30px'}}

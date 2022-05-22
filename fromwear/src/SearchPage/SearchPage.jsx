@@ -5,21 +5,17 @@ import './SearchPage.css'
 import Header from '../Header/Header';
 import TagList from './TagList'
 import SearchResult from './SearchResult';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import CloseIcon from '@mui/icons-material/Close';
 import RankTag from './RankTag';
 import  Typography  from '@mui/material/Typography';
 import {get_rank_tag } from './RankTag'; 
-import moment from 'moment';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import API from '@aws-amplify/api';
-import {getPost, listPosts, listUsers} from '../graphql/queries.js';
-import { format } from "date-fns";
+import { listPosts} from '../graphql/queries.js';
 import Footer from '../Footer/Footer';
-import { static_tag_data } from './TagData';
+import {static_tag_data_by_grouping} from './TagData';
 import { Box } from '@mui/material';
 import BottomTab from "../BottomNavigation/BottomNavigation";
+import {debounce} from "lodash";
 var tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //36개 태그
 var rank_tag_clicked_list=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //15개 태그
 var AWS = require('aws-sdk'); 
@@ -53,6 +49,7 @@ class SearchPage extends Component{
 			rank_tag_data:[],
 
 			current_next_post_page: 1,
+			current_input_string: '',
 			current_input_tag: [],
 			current_click_tag_num: 0,
 			tag_div_on_to_off: false,
@@ -100,9 +97,22 @@ class SearchPage extends Component{
 				current_click_tag_num: this.state.current_click_tag_num-1
 			})
 		}
-		
+
+		let newInput = '';
+		rank_tag_clicked_list.forEach((clicked, index) => {
+			if (clicked) {
+				newInput = newInput.concat(`#${this.state.rank_tag_data[index].value} `);
+			}
+		});
+		tag_clicked_list.forEach((clicked, index) => {
+			if (clicked) {
+				newInput = newInput.concat(`#${static_tag_data_by_grouping[index].name} `);
+			}
+		});
+
 		this.setState({
 			target_tag_button: tag_clicked_list,
+			current_input_string: newInput,
 		})
 
 		this.update_post_data(this.state.filter_day,this.state.filter_gender,
@@ -115,24 +125,89 @@ class SearchPage extends Component{
 		if(!rank_tag_clicked_list[index]) {
 			rank_tag_clicked_list[index]= 1;
 			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num+1
+				current_click_tag_num: this.state.current_click_tag_num+1,
 			})
 		}
 		else {
 			rank_tag_clicked_list[index]=0;
 			this.setState({
-				current_click_tag_num: this.state.current_click_tag_num-1
+				current_click_tag_num: this.state.current_click_tag_num-1,
 			})
 		}
 
+		let newInput = '';
+		rank_tag_clicked_list.forEach((clicked, index) => {
+			if (clicked) {
+				newInput = newInput.concat(`#${this.state.rank_tag_data[index].value} `);
+			}
+		});
+		tag_clicked_list.forEach((clicked, index) => {
+			if (clicked) {
+				newInput = newInput.concat(`#${static_tag_data_by_grouping[index].name} `);
+			}
+		});
+
+
 		this.setState({
 			target_rank_tag_button: rank_tag_clicked_list,
+			current_input_string: newInput,
+
 		})
 
 		this.update_post_data(this.state.filter_day,this.state.filter_gender,
 			this.state.current_input_tag,
 			this.state.filter_board);
 	}
+
+	checkTagListFromInputBase = (split_tags) => {
+		tag_clicked_list.fill(0);
+		rank_tag_clicked_list.fill(0);
+
+		split_tags.forEach((tag, index) => {
+			const findInStatic = static_tag_data_by_grouping.findIndex((staticTag) => tag === staticTag.name);
+			const findInRank = this.state.rank_tag_data.findIndex((rankTag) => tag === rankTag.value);
+
+			const isAlreadyRankChecked = (findInRank !== -1 && rank_tag_clicked_list[findInRank]);
+			const isAlreadyTagChecked = (findInRank !== -1 && tag_clicked_list[findInStatic]);
+
+			// 한쪽에만 있었거나/둘다 클릭이 안되어있는 상태거나/반대쪽이 이미 클릭이 되어있는 상황
+			if ((isAlreadyRankChecked && findInStatic !== -1) ||
+				(!isAlreadyRankChecked && !isAlreadyTagChecked && findInStatic !== -1) ||
+				(findInStatic !== -1 && findInRank === -1)) {
+				tag_clicked_list[findInStatic] = 1;
+			}
+			else if ((isAlreadyTagChecked && findInRank !== -1) ||
+				(!isAlreadyRankChecked && !isAlreadyTagChecked && findInRank !== -1) ||
+				(findInStatic === -1 && findInRank !== -1)) {
+				rank_tag_clicked_list[findInRank] = 1;
+			}
+
+		})
+		this.setState({
+			target_rank_tag_button: rank_tag_clicked_list,
+			target_tag_button: tag_clicked_list,
+		})
+
+	}
+
+	handle_inputbase_on_change=e=>{
+		let split_tags=[];
+		e.target.value.split("#").map(data=>{
+			split_tags = [...split_tags,data.split(' ').join('')];
+		});
+		this.checkTagListFromInputBase(split_tags);
+
+		this.setState({
+			current_input_tag: split_tags.slice(1,split_tags.length),
+			current_input_string: e.target.value,
+		})
+
+		this.update_post_data(this.state.filter_day,this.state.filter_gender,split_tags.slice(1,split_tags.length),
+			this.state.filter_board);
+
+	}
+
+
 
 	handle_tag_more_button=e=>{
 		if(this.state.is_tag_more){
@@ -164,20 +239,6 @@ class SearchPage extends Component{
 				rank_tag_data: new_rank_tag_data,
 			})
 		}
-	}
-
-	handle_inputbase_on_change=e=>{
-		let split_tags=[];
-		e.target.value.split("#").map(data=>{
-			split_tags = [...split_tags,data.split(' ').join('')];
-		});
-		this.setState({
-			current_input_tag: split_tags.slice(1,split_tags.length)
-		})
-
-		this.update_post_data(this.state.filter_day,this.state.filter_gender,split_tags.slice(1,split_tags.length),
-		this.state.filter_board);
-
 	}
 
 
@@ -242,14 +303,14 @@ class SearchPage extends Component{
 	}
 
 
-	update_post_data=(day,gender,current_input_tag,board)=>{
+	update_post_data=debounce((day,gender,current_input_tag,board)=>{
 
 		this.get_post_data(this.handle_post_data,
 			current_input_tag,
 			tag_clicked_list,
 			rank_tag_clicked_list,
 			day,gender,board);
-	}
+	}, 10);
 
 	inquireIsMobile = (isMobile) => {
 		this.setState({isMobile});
@@ -337,7 +398,7 @@ class SearchPage extends Component{
 					dup.push(find_tag);
 				})
 				//고정 태그에서 찾기
-				static_tag_data.map((find_tag,index)=>{
+				static_tag_data_by_grouping.map((find_tag,index)=>{
 					if(tag_clicked_list[index])dup.push(find_tag.name);
 				})
 
@@ -401,17 +462,18 @@ class SearchPage extends Component{
 
 	render(){
 		const {target_tag_button,is_tag_more,target_rank_tag_button,post_data,rank_tag_data,tag_div_on_to_off,
-		current_next_post_page, user, isMobile} = this.state;
+		current_next_post_page, user, isMobile,current_input_string} = this.state;
 
 		return(
 			<div>
-				<Header 
-				handle_inputbase_on_change={this.handle_inputbase_on_change}
-				handle_select_day={this.handle_select_day}
-				handle_select_gender={this.handle_select_gender}
-				handle_select_board={this.handle_select_board}
-				handle_user_info={this.handle_user_info}
-				inquireIsMobile = {this.inquireIsMobile}
+				<Header
+					input={current_input_string}
+					handle_inputbase_on_change={this.handle_inputbase_on_change}
+					handle_select_day={this.handle_select_day}
+					handle_select_gender={this.handle_select_gender}
+					handle_select_board={this.handle_select_board}
+					handle_user_info={this.handle_user_info}
+					inquireIsMobile = {this.inquireIsMobile}
 				/>
 				
 				<div className="search_page_container">	
