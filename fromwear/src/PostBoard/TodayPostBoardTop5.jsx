@@ -143,8 +143,8 @@ export default class TodayPostBoardTop5 extends Component {
         let { isMobile } = this.props;
 
 		const settings = {
-      className: "center",
-      centerMode: true,
+      className: isMobile ? '' : "center",
+      centerMode: isMobile ? false: true,
       slidesToShow: isMobile? 3:5,
       beforeChange: this.handle_slider_index_before,
       centerPadding: "0px",
