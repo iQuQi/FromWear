@@ -37,7 +37,9 @@ class TodayPostBoard extends Component {
 	}
 
 	handle_write_page=()=> {
-		// TODO
+		this.setState({
+			is_write_page: !this.state.is_write_page,
+		})
 	}
 
 	inquireIsMobile=(isMobile)=> {

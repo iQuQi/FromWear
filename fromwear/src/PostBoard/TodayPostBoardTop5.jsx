@@ -274,7 +274,7 @@ export default class TodayPostBoardTop5 extends Component {
                     }}
                     />
 
-                  <a href={"/post/" + post.id} >
+                  <a href={"/post/" + post.id}>
                     <span className="dimmed_layer">
                       <span className="dimmed_info" >
                         <div  style={{...(isMobile && {display: 'none'})}}>
