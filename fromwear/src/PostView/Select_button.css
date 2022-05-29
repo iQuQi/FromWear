@@ -27,10 +27,6 @@
 
 .selected_img {
     border: 3.5px solid rgb(244, 213, 92);
-    /* border: 3px solid rgb(244, 213, 92);
-    box-sizing: unset;
-    position: relative;
-    left: -3px; */
 }
 
 .single_select {

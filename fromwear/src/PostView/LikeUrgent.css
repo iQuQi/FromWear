@@ -51,7 +51,7 @@
     }
 
     .urgent_num {
-        width: 28px; /*나중에 길이 길어졌을 경우를 대비*/
+        width: 28px;
         vertical-align: sub;
     }
     

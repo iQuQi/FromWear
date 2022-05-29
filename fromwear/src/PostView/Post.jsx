@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-//import { Link } from 'react-router-dom';
 
 import Storage from '@aws-amplify/storage';
 import './Post.css'
@@ -21,11 +20,9 @@ import profile_skyblue from './Imgs/profile_skyblue.jpg';
 
 var AWS = require('aws-sdk'); 
 
-
 let is_ell = false;
 
-
-//board type 0 : 오늘의 착장 1 : 도움이 필요해
+//board type 0 : 오늘의 착장 / 1 : 도움이 필요해
 class Post extends Component{
     constructor(props){
         super();
@@ -33,7 +30,7 @@ class Post extends Component{
         this.state = {
             post_id: props.postid,
             now_post:Object,
-            now_writer:Object,
+            now_writer:Object, //post 작성자
             like_urgent_user_list: [],
             like_urgent_click: false,
             tag_list: [],
@@ -56,7 +53,7 @@ class Post extends Component{
             delete_img: false,
             deleted_styletag: false,
             icon_delete_once:false,
-            now_post_board_type:0, //delete할때 board_type담아둘것
+            now_post_board_type:0,
 
             same1:[],
             same2:[],
@@ -110,7 +107,6 @@ class Post extends Component{
 	}
 
     setClickNum = (input_click_num) => {
-        //input_click_num : '현재 조회수'
         this.state.first_click = true
 
         API.graphql({query: updatePost, variables:{input: {id: this.state.post_id,
@@ -198,7 +194,7 @@ class Post extends Component{
 
             API.graphql({query: createPostLikeUrgentUser, variables:{input:
                 {
-                    id: this.state.now_user.id + this.state.post_id, //id는 안적어도 자동 생성되는데 그럼 delete때 id를 못넣어줘서 따로 지정하는 것
+                    id: this.state.now_user.id + this.state.post_id,
                     user_id: this.state.now_user.id,
                     post_id: this.state.post_id,
                 }}
@@ -218,8 +214,6 @@ class Post extends Component{
     }
 
     set_like_urgent(list) {
-        //console.log("좋아요 list:",list)
-        //console.log("현재 사람:",this.state.now_user)
         let like_urgent = list.filter((data)=>{
             if(data.user_id == this.state.now_user.id) return true;
             else return false;
@@ -266,7 +260,7 @@ class Post extends Component{
 		const scrollTop = document.documentElement.scrollTop;
 		const clientHeight = document.documentElement.clientHeight;
 		if (scrollTop + clientHeight >= scrollHeight) {
-		  // 페이지 끝에 도달하면 추가 데이터를 받아온다
+		  // 페이지 끝에 도달하면 추가 데이터
 		  this.setState({
 			current_next_post_page: this.state.current_next_post_page+1
 			})
@@ -278,13 +272,6 @@ class Post extends Component{
 	}
 
     check_button_click = () => {
-        
-        // if(this.state.btn_check){
-        //     document.getElementById("demo").innerHTML = '더보기'
-        // }
-        // else {
-        //     document.getElementById("demo").innerHTML = '숨기기'
-        // }
         this.setState({
             btn_check: !this.state.btn_check
         });
@@ -298,7 +285,6 @@ class Post extends Component{
             //삭제 실행
             this.removePostIcons();
           } else {
-            //삭제 취소
           }
     }
 
@@ -342,7 +328,7 @@ class Post extends Component{
         .then(res => {
             if(res.data.listComments.items.length == 0){
                 this.setState({
-                    deleted_comment: true, //이미 null이라 삭제안해도됨
+                    deleted_comment: true, //이미 null
                     deleted_comment_like: true,
                 })
             }
@@ -372,7 +358,6 @@ class Post extends Component{
                                 API.graphql({
                                     query: deleteCommentLikeUser, variables:{input:{id: comment_like.id}}
                                 })
-                                .then(e => console.log("댓글 좋아요 지워지는중"))
                                 .then(res=>{
                                     if(index == tmpData.length-1){
                                         this.setState({deleted_comment_like:true,})
@@ -477,11 +462,10 @@ class Post extends Component{
                     })
                     .then(res=>{
                         if(index == 2){
-                            //console.log("tag last", tag);
+                            //tag last
                             this.setState({deleted_tag:true,});
                         }
                     })
-                    //.then(console.log("tag 삭제 완료"))
                 })
             }
         })
@@ -494,7 +478,6 @@ class Post extends Component{
                     })
                     .then(res=>{
                         if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_tag_list.items.length == 0)){
-                            console.log("태그 삭제!!", index)
                             API.graphql({
                             query: deleteStyleTag,
                             variables : {
@@ -522,7 +505,6 @@ class Post extends Component{
     }
 
     removePost(){
-        console.log("post삭제")
         API.graphql({
             query: deletePost, variables: {input:{id: this.state.now_post.id}}
         })
@@ -573,11 +555,10 @@ class Post extends Component{
     getTagList = () => {
         let {same1, same2, same3, now_post,} = this.state;
         API.graphql({
-            query: listPosts, variables: { filter: {board_type: {ne: 1}}} //이번주태그 페이지도 보여줘도되나?
+            query: listPosts, variables: { filter: {board_type: {ne: 1}}}
         })
         .then(res=>{
             res.data.listPosts.items.map((post)=>{
-                // 지금 post면 비교X
                 if (post.id == now_post.id) return false;
 
                 //태그 필터링
@@ -589,7 +570,6 @@ class Post extends Component{
                     })
                 })
 
-                //console.log("same: "+ same);
                 if(same == 3) same3=[...same3,post]
                 else if(same==2) same2=[...same2,post]
                 else if(same==1) same1=[...same1,post]
@@ -611,12 +591,8 @@ class Post extends Component{
 
 
     render(){
-        console.log("현재 게시글 정보", this.state.now_post)
-        
-        //now_writer : 지금 보고 있는 post 작성자
         let {post_id, now_post, now_writer, now_user, is_write_page, like_urgent_click, tag_list, bookmark_user_list, bookmark_click, like_urgent_user_list, like_urgent_num, result_post} = this.state;
 
-        //console.log("현재 유저:",now_user.id)
         if(typeof(now_post.click_num)=="number" && this.state.first_click==false){
             this.setClickNum(now_post.click_num);
         }
@@ -628,7 +604,6 @@ class Post extends Component{
         let img_src123 = now_post.img
         let img_src = 'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+img_src123;
 
-
         
         let box = document.getElementById("post_content");
         
@@ -638,7 +613,6 @@ class Post extends Component{
             }
         }
 
-        console.log("현재 포스트 : ",now_post)
         return (
             <div className="post_page">
                 {
@@ -683,7 +657,6 @@ class Post extends Component{
                                             </div>
                                         }
                                     </div>
-                                    {/* <div className="mobile_post_create_time">{this.state.create_post_time}</div> */}
                                     
                             </div>
                             <div className="post_img" style={{backgroundImage: 'URL('+img_src+')'}}></div>
@@ -710,10 +683,8 @@ class Post extends Component{
                                             <button className="modify_post" onClick={this.modifyPost}>
                                                 수정
                                             </button>
-                                            {/* <div className="post_create_time">{this.state.create_post_time}</div> */}
                                         </div>
                                         :<div>
-                                            {/* <div className="post_create_time_other">{this.state.create_post_time}</div> */}
                                         </div>
                                     }
                                     
@@ -748,23 +719,6 @@ class Post extends Component{
                                 
                                     <div className="post_create_time">{this.state.create_post_time}</div>
                                 
-                                    {/* {
-                                        this.state.btn_check ?
-                                        <div>
-                                            {
-                                                this.state.is_ell ?
-                                                <div>경우1</div>
-                                                :<div className="post_create_time">{this.state.create_post_time}</div> //긴 내용이 전부 나오는 상태
-                                            }
-                                        </div>
-                                        :<div>
-                                            {
-                                                this.state.is_ell ?
-                                                <div>경우2</div>
-                                                :<div className="post_create_time">{this.state.create_post_time}</div> //내용 숨겨진 상태, 애초에 안 넘는 상태
-                                            }
-                                        </div>
-                                    } */}
                                 </div>
                                 <div className="comment">
                                     <Comments
@@ -829,24 +783,7 @@ class Post extends Component{
                                     </div>
                                 }
                                 <div className="mobile_post_create_time">{this.state.create_post_time}</div>
-                                {/* {
-                                    this.state.btn_check ?
-                                    <div>
-                                        {
-                                            this.state.is_ell ?
-                                            <div>경우1</div>
-                                            :<div className="post_create_time">{this.state.create_post_time}</div> //긴 내용이 전부 나오는 상태
-                                        }
-                                    </div>
-                                    :<div>
-                                        {
-                                            this.state.is_ell ?
-                                            <div>경우2</div>
-                                            :<div className="post_create_time">{this.state.create_post_time}</div> //내용 숨겨진 상태, 애초에 안 넘는 상태
-                                        }
-                                    </div>
-                                } */}
-
+                                
                                 <div className="comment">
                                     <Comments
                                     post_id = {post_id}

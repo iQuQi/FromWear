@@ -1,11 +1,6 @@
 @charset "utf-8";
 
 .post_dimmed_info_writer{
-	/* position: absolute;
-	bottom: 20px;
-	left: 10px;
-	display: none; */
-
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
@@ -46,13 +41,6 @@
 	display: block;
 	font-size: 13px;
 }
-
-/* .post_image_list_item:hover .post_dimmed_info_writer {
-	width: 100%;
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-} */
 
 .post_ellips{
 	text-overflow: ellipsis;

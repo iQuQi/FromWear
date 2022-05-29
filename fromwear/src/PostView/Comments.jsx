@@ -140,33 +140,7 @@ class Comments extends Component {
           }
     }
 
-    removeComment = (delete_comment) => {
-
-        // delete_comment.like_user_list.items.map((like)=>{
-        //     API.graphql({
-        //         query: deleteCommentLikeUser, variables: {input:{id: like.id}}
-        //     })
-        //     .then(res => console.log(res))
-        //     .catch(e => console.log(e))
-        // })
-        /*
-        .then(e => {
-            API.graphql({
-                query: deleteComment, variables: {input:{id: delete_comment.id}}
-            })
-            .then(res => {
-                console.log(res)
-                const index = this.state.comment_list.findIndex(function(item){return item.id == delete_comment.id})
-                if(index > -1){
-                    this.state.comment_list.splice(index, 1)
-                }
-                this.setState({
-                    comment_list: this.state.comment_list
-                })
-            })
-        }   
-        )*/
-        
+    removeComment = (delete_comment) => {        
         API.graphql({    
             query: listCommentLikeUsers, variables: {filter:{
                 comment_id: {eq: delete_comment.id}
@@ -179,8 +153,6 @@ class Comments extends Component {
                 })
                 .then(res => console.log(res))
                 .catch(e => console.log(e))
-                .then(res => console.log(res))
-                .catch(e => console.log(e))
             })
         })
         .catch(e => console.log(e))
@@ -188,17 +160,6 @@ class Comments extends Component {
             API.graphql({
                 query: deleteComment, variables: {input:{id: delete_comment.id}}
             })
-            /*
-            .then(res => {
-                console.log(res)
-                const index = this.state.comment_list.findIndex(function(item){return item.id == delete_comment.id})
-                if(index > -1){
-                    this.state.comment_list.splice(index, 1)
-                }
-                this.setState({
-                    comment_list: this.state.comment_list
-                })
-            })*/
             .then(window.location.reload())
         })
     }

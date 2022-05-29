@@ -1,7 +1,4 @@
 import * as React from 'react';
-import {Component} from 'react';
-import { ListItem, Stack } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import {static_tag_data} from "../SearchPage/TagData"
 

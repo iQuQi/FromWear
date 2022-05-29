@@ -24,8 +24,8 @@ class WholeCommentPage extends Component {
             tag_list: [],
             comment_list: [],
             board_type: 0,
-            post_writer: Object, //해당 post를 쓴 사람
-            now_user: 'noUser', //현재 접속자
+            post_writer: Object,
+            now_user: 'noUser',
         }
     }
 
@@ -96,7 +96,6 @@ class WholeCommentPage extends Component {
 
     addComment = () => {
         let value = document.querySelector('.new_comment_content').value;
-        console.log("@@@@@@@@@@@@@@@@@@@value",value)
 
         if(value == ""){
             alert("내용을 입력하세요.")
@@ -133,7 +132,6 @@ class WholeCommentPage extends Component {
             //삭제 실행
             this.removeComment(delete_comment);
           } else {
-            //삭제 취소
           }
     }
 
@@ -149,8 +147,6 @@ class WholeCommentPage extends Component {
                 API.graphql({
                     query: deleteCommentLikeUser, variables: {input:{id: like.id}}
                 })
-                .then(res => console.log(res))
-                .catch(e => console.log(e))
                 .then(res => console.log(res))
                 .catch(e => console.log(e))
             })
@@ -187,7 +183,7 @@ class WholeCommentPage extends Component {
             return b.adopted - a.adopted;
         });
 
-        let top_3_id_adopted = []; //SOS 게시판
+        let top_3_id_adopted = []; //도움이 필요해 게시판
         adopted_recommend_list.forEach((top_comment, index)=>{
             if(index<=2){
                 top_3_id_adopted.push(top_comment.id);
@@ -313,7 +309,6 @@ class WholeCommentPage extends Component {
                         </div>
                     </div>
                 </div>
-                
             </div>
         )
     }

@@ -6,8 +6,6 @@
     height: 30px;
     margin-bottom: 5px;
     margin-left: 3px;
-    /*border: 1px solid;
-    box-sizing: border-box;*/
     border: 2px solid #fff;
     border-radius: 50%;
 }
@@ -42,4 +40,3 @@
     line-height: 1.4;
     padding-left: 6px;
 }
-

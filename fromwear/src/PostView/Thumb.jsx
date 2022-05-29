@@ -15,7 +15,6 @@ class Thumb extends Component{
             now_user: props.now_user,
             comment_like_num: 0,
         };
-
     }
 
     componentDidMount(){
@@ -52,7 +51,6 @@ class Thumb extends Component{
             this.set_comment_like(this.state.now_user.id)
         }
         if(this.props.now_user !== prevProps.now_user){
-            //console.log(this.state.now_user, "랑 ",this.props.now_user)
             this.setState({
                 now_user: this.props.now_user
             })

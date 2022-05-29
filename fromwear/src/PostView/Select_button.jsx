@@ -12,28 +12,13 @@ class Select_button extends Component{
 
         this.state = {
             select_button_is_checked: props.comment_list.adopted,
-            now_user: props.now_user, //현재 로그인한 사람
+            now_user: props.now_user,
             comment_list: props.comment_list,
-            post_writer: props.post_writer, //게시물을 쓴 사람
+            post_writer: props.post_writer, //게시물 작성자
             board_type: props.board_type,
             writer_user: props.writer_user,
         }
-        //console.log('현재:',this.state.comment_list)
-        //console.log("기본:", this.state.select_button_is_checked)
     }
-    
-    /*componentDidMount(){
-        console.log("부모의 채택 여부 :", this.state.select_button_is_checked)
-        
-        if(this.state.comment_list.adopted == true){
-            this.setState({
-                select_button_is_checked: true,
-                
-            })
-            console.log("부모가 adopted라 바꿈:", this.state.select_button_is_checked)
-        }
-        
-    }*/
 
     componentDidUpdate(prevProps) {
         if (this.props.comment_list !== prevProps.comment_list) {
@@ -61,7 +46,6 @@ class Select_button extends Component{
             //삭제 실행
             this.selectComment();
           } else {
-            //삭제 취소
           }
     }
 
@@ -91,33 +75,6 @@ class Select_button extends Component{
             .catch(e => console.log(e))
             
         }
-        // else { //false->true //한번 채택된 댓글은 실행 취소 불가능
-            
-        //     console.log("@@@@@@@@ true->false")
-        // API.graphql({query: updateComment, variables:{input: {id: this.state.comment_list.id,
-            //     adopted: !this.state.select_button_is_checked,
-            //     }}
-            // })
-            // .then(res => console.log(res))
-            // .catch(e => console.log(e))
-    
-            // this.setState((prev) => {
-            //     return{
-            //         select_button_is_checked: !prev.select_button_is_checked,
-            //     }
-            // })
-
-            // console.log("현재!!!", this.state.writer_user)
-            // API.graphql({
-            //     query: updateUser, variables:{input: {id: this.state.writer_user.id,
-            //         adopted: this.state.writer_user.adopted-1,
-            //     }}
-
-            // })
-            // .then(res => console.log(res))
-            // .catch(e => console.log(e))
-        // }
-        
     }
     
     moveToWriterPage = () => {
@@ -131,7 +88,7 @@ class Select_button extends Component{
     
 
     render() {
-        let {select_button_is_checked, now_user, comment_list, post_writer, post_board, writer_user} = this.state;
+        let {select_button_is_checked, now_user, comment_list, post_writer, writer_user} = this.state;
         return (
             <div className="single_select">
                 {
@@ -174,7 +131,7 @@ class Select_button extends Component{
                                 채택된 댓글
                             </div>
                             :
-                            <div className="select_no"></div> //채택안됨
+                            <div className="select_no"></div>
                         }
                         </div>
                     }

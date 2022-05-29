@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Component} from 'react';
 import './PostWritePage.css'
-import Header from "../Header/Header"
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Input from '@mui/material/Input';
-import TagData from '../SearchPage/TagData';
 
 import PostWriteTagList from './PostWriteTagList'
-//import PostWriteTagList from '../SearchPage/TagList';
 import {v4 as uuid} from 'uuid';
 import Storage from '@aws-amplify/storage';
 import {post_tag_data} from "./PostTagData"
@@ -155,13 +151,10 @@ class PostWritePage extends Component {
       let dup_rmv_tags = new Set(split_tags);
       let check_empty_tag = false;
       dup_rmv_tags.forEach((tag) =>{
-        console.log("tag : ", tag)
         if(tag === ''){ //공백 태그 입력
           check_empty_tag = true;
         }
       })
-
-      //console.log("dup_rmv_tags: ",dup_rmv_tags)
       
       if (this.state.file == "") {
         alert("사진을 등록해야 합니다.");
@@ -224,7 +217,6 @@ class PostWritePage extends Component {
                       })
                         .then((res) => {
                           current_tag_id = res.data.createStyleTag.id;
-                          console.log("current_tag_id:",current_tag_id)
                           API.graphql({
                               query: createPostStyleTag,
                               variables: {
@@ -234,19 +226,6 @@ class PostWritePage extends Component {
                               },
                               },
                           })
-                          .then(res => console.log(res))
-                          // .then((res) => {
-                          //     API.graphql({
-                          //         query: updateStyleTag,
-                          //         variables: {
-                          //         input: {
-                          //             id: current_tag_id,
-                          //             num:
-                          //             res.data.createPostStyleTag.style_tag.num + 1,
-                          //         },
-                          //         },
-                          //     }).catch((e) => console.log(e));
-                          // })
                           .then((res) => this.setState({ create_tag: true }))
                           .catch((e) => console.log(e));
                         })
@@ -274,7 +253,6 @@ class PostWritePage extends Component {
                               },
                               },
                           })
-                          .then(res => console.log(res))
                           .catch((e) => console.log(e));
                           })
                           .then((res) => this.setState({ create_tag: true }))
@@ -325,7 +303,6 @@ class PostWritePage extends Component {
                       })
                         .then((res) => {
                           current_tag_id = res.data.createStyleTag.id;
-                          console.log("current_tag_id:",current_tag_id)
                           API.graphql({
                               query: createPostStyleTag,
                               variables: {
@@ -335,19 +312,6 @@ class PostWritePage extends Component {
                               },
                               },
                           })
-                          .then(res => console.log(res))
-                          // .then((res) => {
-                          //     API.graphql({
-                          //         query: updateStyleTag,
-                          //         variables: {
-                          //         input: {
-                          //             id: current_tag_id,
-                          //             num:
-                          //             res.data.createPostStyleTag.style_tag.num + 1,
-                          //         },
-                          //         },
-                          //     }).catch((e) => console.log(e));
-                          // })
                           .then((res) => this.setState({ create_tag: true }))
                           .catch((e) => console.log(e));
                         })
@@ -375,7 +339,6 @@ class PostWritePage extends Component {
                               },
                               },
                           })
-                          .then(res => console.log(res))
                           .catch((e) => console.log(e));
                           })
                           .then((res) => this.setState({ create_tag: true }))
@@ -388,104 +351,6 @@ class PostWritePage extends Component {
             .then((res) => this.setState({ create_post: true }))
             .catch((e) => console.log(e));
         }
-          // API.graphql({
-          //   query: createPost,
-          //   variables: {
-          //     input: {
-          //       board_type: current_board_type,
-          //       click_num: "0",
-          //       content: this.state.contents,
-          //       img: this.state.file_key,
-          //       user_id: this.state.user.id,
-          //     },
-          //   },
-          // })
-          //   .then((res) => {
-          //     let current_post_id = res.data.createPost.id;
-          //     dup_rmv_tags.forEach((tag) => {
-          //       let current_tag_id;
-          //       API.graphql({
-          //         query: listStyleTags,
-          //         variables: { filter: { value: { eq: tag } } },
-          //       })
-          //         .then((res) => {
-          //           if (res.data.listStyleTags.items.length === 0) {
-          //             //없었던 태그
-          //             API.graphql({
-          //               query: createStyleTag,
-          //               variables: {
-          //                 input: {
-          //                   num: 1,
-          //                   value: tag,
-          //                   is_static: false,
-          //                   is_weekly: false, 
-          //                 },
-          //               },
-          //             })
-          //               .then((res) => {
-          //                 current_tag_id = res.data.createStyleTag.id;
-          //                 console.log("current_tag_id:",current_tag_id)
-          //                 API.graphql({
-          //                     query: createPostStyleTag,
-          //                     variables: {
-          //                     input: {
-          //                         post_id: current_post_id,
-          //                         tag_id: current_tag_id,
-          //                     },
-          //                     },
-          //                 })
-          //                 .then(res => console.log(res))
-          //                 // .then((res) => {
-          //                 //     API.graphql({
-          //                 //         query: updateStyleTag,
-          //                 //         variables: {
-          //                 //         input: {
-          //                 //             id: current_tag_id,
-          //                 //             num:
-          //                 //             res.data.createPostStyleTag.style_tag.num + 1,
-          //                 //         },
-          //                 //         },
-          //                 //     }).catch((e) => console.log(e));
-          //                 // })
-          //                 .then((res) => this.setState({ create_tag: true }))
-          //                 .catch((e) => console.log(e));
-          //               })
-          //               .catch((e) => console.log(e));
-          //           } else {
-          //             //존재하는 태그
-          //             current_tag_id = res.data.listStyleTags.items[0].id;
-          //             API.graphql({
-          //                 query: createPostStyleTag,
-          //                 variables: {
-          //                 input: {
-          //                     post_id: current_post_id,
-          //                     tag_id: current_tag_id,
-          //                 },
-          //                 },
-          //             })
-          //                 .then((res) => {
-          //                 API.graphql({
-          //                     query: updateStyleTag,
-          //                     variables: {
-          //                     input: {
-          //                         id: current_tag_id,
-          //                         num:
-          //                         res.data.createPostStyleTag.style_tag.num + 1,
-          //                     },
-          //                     },
-          //                 })
-          //                 .then(res => console.log(res))
-          //                 .catch((e) => console.log(e));
-          //                 })
-          //                 .then((res) => this.setState({ create_tag: true }))
-          //                 .catch((e) => console.log(e));
-          //             }
-          //         })
-          //         .catch((e) => console.log(e));
-          //         });
-          //     })
-          //   .then((res) => this.setState({ create_post: true }))
-          //   .catch((e) => console.log(e));
       }
     }
 
@@ -501,7 +366,6 @@ class PostWritePage extends Component {
     }
 
     handleCloseButton(e) {
-        console.log("1");
         this.props.handle_write_page();
     }
 
@@ -512,21 +376,12 @@ class PostWritePage extends Component {
         let profile_preview = null;
         if(this.state.file !== ''){
           profile_preview = <div alt="preview_img" className='upload_img' style={{backgroundImage: 'URL('+this.state.previewURL+')'}}></div>
-          //profile_preview = <div className='upload_img' style={{backgroundImage:`url(${this.state.previewURL})`,backgroundSize:'cover',backgroundPosition:'center'}}></div>
         }
- 
-        console.log("현재 보드 타입 : ?????????", board_type);
 
-        console.log("1 : ",this.state.create_post)
-        console.log("2 : ",this.state.create_tag)
-        console.log("3 : ",this.state.img_upload)
+        // console.log("1 : ",this.state.create_post)
+        // console.log("2 : ",this.state.create_tag)
+        // console.log("3 : ",this.state.img_upload)
         if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true) {
-            // if(this.state.board_type == 0) {
-            //     window.location.href = './todayboard';
-            // }
-            // else {
-            //     window.location.href = './sosboard';
-            // }
             window.location.reload();
         }
 

@@ -24,17 +24,15 @@
 }
 
 .comment_num_whole_comment {
-    /* font-weight: bold; */
     margin: 30px 0 5px 11px;
     color: gray;
 }
 .comment_ul_whole_comment {
-    height: 538px; /*455*/
-    overflow: scroll; /*스크롤 보이는 상태*/
+    height: 538px;
+    overflow: scroll;
 }
     
 .comment_ul_whole_comment .single_comment {
-    /* min-height: 106px; */
     margin: 14px 0 15px 0;
 }
 

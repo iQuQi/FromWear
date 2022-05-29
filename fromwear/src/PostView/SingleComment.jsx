@@ -14,8 +14,8 @@ class SingleComment extends Component {
         this.state={
             comment_list: props.comment_list,
             board_type: props.board_type,
-            writer_user: Object, //댓글쓴 사람
-            now_user: props.now_user, //현재 유저
+            writer_user: Object, //댓글 작성자
+            now_user: props.now_user,
             post_writer: props.post_writer,
             board_type: props.board_type,
         }
@@ -38,7 +38,6 @@ class SingleComment extends Component {
 
 
     componentDidMount(){
-        //console.log("여기0")
         API.graphql({
             query: getUser, variables: {id: this.state.comment_list.user_id}
         })
@@ -46,32 +45,7 @@ class SingleComment extends Component {
             writer_user: res.data.getUser,
         }))
         .catch(e => console.log(e));
-
-        //console.log(this.state.comment_list.like_user_list)
-        //console.log("여기")
     }
-/*
-    removeComment = e => {
-        console.log(e)
-        console.log(this.state.comment_list.id)
-        API.graphql({
-            query: deleteComment, variables: {input:{id: this.state.comment_list.id}}
-        })
-        .then(res => console.log(res))
-        .catch(e => console.log(e));
-        this.subscription = API.graphql({query: onDeleteComment, variables: { post_id: this.state.post_id }})
-            .subscribe({
-                next: newCreatedComment => {
-                    if(newCreatedComment.post_id === this.state.post_id)
-                        return;
-                    let {comment_list} = this.state;
-                    this.setState({
-                        comment_list: [...comment_list, newCreatedComment.value.data.onCreateComment]
-                    });
-                }
-        });
-    }
-    */
 
     moveToWriterPage = () => {
         if(this.state.writer_user.id == this.state.now_user.id) {
@@ -82,7 +56,6 @@ class SingleComment extends Component {
         }
     }
     
-
     render(){
         let {comment_list, board_type, writer_user, now_user, post_writer} = this.state;
         
