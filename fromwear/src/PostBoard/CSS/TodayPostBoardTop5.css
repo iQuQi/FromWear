@@ -104,11 +104,18 @@
 .today_wear_mobile .center .slick-track .slick-current .img_div {
 	z-index: 11;
 	opacity: 1;
-	-ms-transform: scale(1.15);
-	transform: scale(1.15);
+	-ms-transform: scale(1);
+	transform: scale(1);
 }
 
 .today_wear_mobile .center .slick-current + .slick-active .img_div{
+	z-index: 8;
+	opacity: 1;
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+
+.today_wear_mobile div.slick-slide .img_div{
 	z-index: 8;
 	opacity: 1;
 	-ms-transform: scale(1);
@@ -141,11 +148,13 @@
 	cursor: pointer;
 }
 
-.today_wear_mobile .slick-center:hover .dimmed_layer{
-	top: 45px;
-	bottom: 220px;
-	right: -42px;
-	left: 22px;
+.today_wear_mobile .slick-active .dimmed_layer{
+	z-index: 40;
+	position: absolute;
+	top: 60px;
+	bottom: 40px;
+	right: -30px;
+	left: 30px;
 
 	background-color: transparent;
 

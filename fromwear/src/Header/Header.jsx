@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import './Header.css'
 import PrimarySearchAppBar from './Bar'
 import MoveToTop from "./MoveToTop"
@@ -43,13 +43,13 @@ function Header(props){
 		userFontColor: '#4a4a4a',
 	};
 
-	const handle_get_user=(user)=>{
+	const handle_get_user= (user)=>{
 		setUser(user);
 		setLoginPopup(false);
 		if(props.handle_user_info!==undefined){
 			props.handle_user_info(user);
 		}
-	}
+	};
 
 	useEffect(() => {
 		let auth_user ;
@@ -253,6 +253,7 @@ function Header(props){
 				className={`header_bar 
 				${isSearchPage?' header_bar_tag_div_on':''}`}>
 				<PrimarySearchAppBar
+					input={props.input}
 					isMobile={isMobile}
 					handle_inputbase_on_change={props.handle_inputbase_on_change}
 					handle_select_day={props.handle_select_day}

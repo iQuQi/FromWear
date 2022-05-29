@@ -172,6 +172,7 @@ export const getUser = /* GraphQL */ `
           post { 
             id
             img
+            blind
             user {
               
                 id
