@@ -648,6 +648,7 @@ class Post extends Component{
 						user={now_user}
                         handle_write_page={this.handle_write_page}
                         now_post={now_post}
+                        isMobile={this.state.isMobile}
 					  />
 					: null
                 }

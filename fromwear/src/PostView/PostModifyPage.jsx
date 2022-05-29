@@ -48,7 +48,7 @@ class PostModifyPage extends Component {
             before_img: '',
             tagLengthError: false,
             change_tag_delete: false,
-
+            isMobile: props.isMobile,
         }
     }
 
@@ -936,27 +936,27 @@ class PostModifyPage extends Component {
     }
 
     render(){
-        let {fileImage, setFileImage, tag_click} = this.state;
-        let {tag_contents, contents, board_type, now_post} = this.state;
+      let {fileImage, setFileImage, tag_click} = this.state;
+      let {tag_contents, contents, board_type, now_post, isMobile} = this.state;
 
-        let profile_preview = null;
-        if(this.state.file !== ''){
-          profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+this.state.previewURL+')'}}></div>
-        }
-        else {
-            profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img+')'}}></div>;
-        }
- 
+      let profile_preview = null;
+      if(this.state.file !== ''){
+        profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+this.state.previewURL+')'}}></div>
+      }
+      else {
+          profile_preview = <div alt="preivew_img" className='upload_img' style={{backgroundImage: 'URL('+'https://fromwear8eed5cfce497457294ec1e02e3cb17a2174201-dev.s3.ap-northeast-2.amazonaws.com/public/'+this.state.now_post.img+')'}}></div>;
+      }
 
-        if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true && this.state.change_tag_delete == true) {
-            // if(this.state.board_type == 0) {
-            //     window.location.href = './post/'+now_post.id;
-            // }
-            // else {
-            //     window.location.href = './sosboard';
-            // }
-            window.location.reload();
-        }
+
+      if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true && this.state.change_tag_delete == true) {
+          // if(this.state.board_type == 0) {
+          //     window.location.href = './post/'+now_post.id;
+          // }
+          // else {
+          //     window.location.href = './sosboard';
+          // }
+          window.location.reload();
+      }
 
 		return(
             <div className="post_write_container">
@@ -1031,7 +1031,7 @@ class PostModifyPage extends Component {
                             }
                             {
                                 board_type == 1 ?
-                                <div>
+                                <div className={tag_click ? "blind": "select_blind_wrap"}>
                                     <h3>익명 여부 선택</h3>
                                     {
                                         now_post.blind ? //원래 post가 익명상태면, 익명 여부의 "예"가 default
@@ -1054,8 +1054,70 @@ class PostModifyPage extends Component {
                                 <div>
                                     </div>
                             }
+
+                            {board_type == 1 ? 
+                              <div className={tag_click? "blind" : "submit_button"}>
+                                <Button
+                                  type="submit"
+                                  style={isMobile? {
+                                    margin: "auto",
+                                    borderRadius: 30,
+                                    backgroundColor: "white",
+                                    padding: 10,
+                                    width: "30%",
+                                    color: "black",
+                                    border: '1px solid black',
+                                    position: 'relative',
+                                    top: '60px',
+                                    }
+                                  : {
+                                    margin: "auto",
+                                    borderRadius: 30,
+                                    backgroundColor: "white",
+                                    padding: 10,
+                                    width: "100%",
+                                    color: "black",
+                                    border: '1px solid black'
+                                  }}
+                                  variant="contained"
+                                  onClick={this.handleSubmit.bind(this)}
+                                >
+                                  등록
+                                </Button>
+                              </div>
+                              :
+                              <div className={tag_click? "blind" : "submit_button"}>
+                                <Button
+                                  type="submit"
+                                  style={isMobile? {
+                                    margin: "auto",
+                                    borderRadius: 30,
+                                    backgroundColor: "white",
+                                    padding: 10,
+                                    width: "30%",
+                                    color: "black",
+                                    border: '1px solid black',
+                                    position: 'relative',
+                                    top: '60px',
+                                    }
+                                  : {
+                                    margin: "auto",
+                                    borderRadius: 30,
+                                    backgroundColor: "white",
+                                    padding: 10,
+                                    width: "100%",
+                                    color: "black",
+                                    border: '1px solid black'
+                                  }}
+                                  variant="contained"
+                                  onClick={this.handleSubmit.bind(this)}
+                                >
+                                  등록
+                                </Button>
+                              </div>
+                            }
                             
-                            <div className="submit_button">
+                            {/* <div className="submit_button">
                                 <Button type="submit" style={{
                                     margin: "auto",
                                     borderRadius: 30,
@@ -1065,7 +1127,7 @@ class PostModifyPage extends Component {
                                     color: "black",
                                     border: '1px solid black'
                                 }} variant="contained" onClick={this.handleSubmit.bind(this)}>수정 완료</Button>
-                            </div>
+                            </div> */}
                         </div>
                     
 

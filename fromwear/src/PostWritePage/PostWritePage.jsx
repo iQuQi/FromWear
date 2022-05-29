@@ -650,7 +650,7 @@ class PostWritePage extends Component {
               )}
 
               {board_type == 1 ? 
-                <div className={tag_click? "blind" : "submit_button"} style={{margin: "28px auto 0 auto"}}>
+                <div className={tag_click? "blind" : "submit_button"}>
                   <Button
                     type="submit"
                     style={isMobile? {
@@ -661,9 +661,8 @@ class PostWritePage extends Component {
                       width: "30%",
                       color: "black",
                       border: '1px solid black',
-                      position: 'fixed',
-                      bottom: '53px',
-                      left: '136.6px'
+                      position: 'relative',
+                      top: '60px',
                       }
                     : {
                       margin: "auto",
@@ -681,7 +680,7 @@ class PostWritePage extends Component {
                   </Button>
                 </div>
                 :
-                <div className="submit_button">
+                <div className={tag_click? "blind" : "submit_button"}>
                   <Button
                     type="submit"
                     style={isMobile? {
@@ -692,9 +691,8 @@ class PostWritePage extends Component {
                       width: "30%",
                       color: "black",
                       border: '1px solid black',
-                      position: 'fixed',
-                      bottom: '65px',
-                      left: '136.6px'
+                      position: 'relative',
+                      top: '60px',
                       }
                     : {
                       margin: "auto",
@@ -712,7 +710,6 @@ class PostWritePage extends Component {
                   </Button>
                 </div>
               }
-
             </div>
           </form>
         </div>
