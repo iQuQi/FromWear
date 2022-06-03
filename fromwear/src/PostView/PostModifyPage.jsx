@@ -419,7 +419,6 @@ class PostModifyPage extends Component {
                           }
                         })
                         .then(res => {
-                          console.log(res.data.listStyleTags.items[0])
                           if(!res.data.listStyleTags.items[0].is_static && !res.data.listStyleTags.items[0].is_weekly && res.data.listStyleTags.items[0].post_list.items.length == 1){
                             API.graphql({
                               query: deleteStyleTag,
@@ -573,7 +572,6 @@ class PostModifyPage extends Component {
                           }
                         })
                         .then(res => {
-                          console.log(res.data.listStyleTags.items[0])
                           if(!res.data.listStyleTags.items[0].is_static && !res.data.listStyleTags.items[0].is_weekly && res.data.listStyleTags.items[0].post_list.items.length == 1){
                             API.graphql({
                               query: deleteStyleTag,
@@ -875,7 +873,7 @@ class PostModifyPage extends Component {
 
 
       if (this.state.create_post == true && this.state.create_tag == true && this.state.img_upload == true && this.state.change_tag_delete == true) {
-          window.location.reload();
+        window.location.reload();
       }
 
 		return(
