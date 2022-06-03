@@ -313,7 +313,7 @@ class Post extends Component{
         if(this.state.now_post.tag_list.items.length != 0){
             tag_id_list = [this.state.now_post.tag_list.items[0].tag_id, this.state.now_post.tag_list.items[1].tag_id, this.state.now_post.tag_list.items[2].tag_id]
         }
-        
+
         this.setState({
             now_post_board_type: this.state.now_post.board_type,
         })
@@ -381,8 +381,7 @@ class Post extends Component{
             Storage.remove(this.state.now_post.img)
             .then(this.setState({delete_img: true,}))
         })
-        .then(res => {
-                
+        .then(res => {      
             if(this.state.like_urgent_num == 0){
                 this.setState({
                     deleted_like_urgent: true,
@@ -450,58 +449,59 @@ class Post extends Component{
             }
         })
         .then(res => {
-            //태그 삭제
-            if(this.state.now_post.tag_list.items.length == 0){
-                //tag list가 null
-                this.setState({deleted_tag: true, completely_deleted_tag: true})
-            }
-            else {
-                this.state.now_post.tag_list.items.map((tag, index)=>{
-                    API.graphql({
-                        query: deletePostStyleTag, variables:{input:{id: tag.id}}
-                    })
-                    .then(res=>{
-                        if(index == 2){
-                            //tag last
-                            this.setState({deleted_tag:true,});
-                        }
-                    })
+            this.state.now_post.tag_list.items.map((tag, index)=>{
+                API.graphql({
+                    query: deletePostStyleTag, variables:{input:{id: tag.id}}
                 })
-            }
-        })
-        .then(res => {
-            if(this.state.now_post.tag_list.items.length != 0){
-                tag_id_list.forEach((delete_tag, index)=>{
-                    API.graphql({
-                    query: getStyleTag,
-                    variables: {id: delete_tag}
-                    })
-                    .then(res=>{
-                        if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && (res.data.getStyleTag.post_tag_list.items.length == 0)){
+                .then(res=>{
+                    if(index == 2){
+                        //tag last
+                        this.setState({deleted_tag:true,});
+                    }
+                })
+                .catch((e)=> console.log("onChange error", e))
+                .then(res => {
+                    if(this.state.deleted_tag){
+                        tag_id_list.forEach((delete_tag, index)=>{
                             API.graphql({
-                            query: deleteStyleTag,
-                            variables : {
-                                input : {
-                                    id : delete_tag
-                                }
-                            }
+                            query: getStyleTag,
+                            variables: {id: delete_tag}
                             })
-                        }
-                    })
-                    .then(res=>{
-                        if(index == 2){
-                            //tag 삭제 last
-                            this.setState({completely_deleted_tag:true,});
-                        }
-                    })
-                    .catch((e) => console.log("onChange error", e));
+                            .then(res=>{
+                                if(!res.data.getStyleTag.is_static && !res.data.getStyleTag.is_weekly && res.data.getStyleTag.post_list.items.length === 0){   
+                                    API.graphql({
+                                    query: deleteStyleTag,
+                                    variables : {
+                                        input : {
+                                            id : delete_tag
+                                        }
+                                    }
+                                    })
+                                    .then(res => console.log(res))
+                                    .catch((e)=> console.log("onChange error", e))
+                                }
+                            })
+                            .then(res=>{
+                                if(index == 2){
+                                    //tag 삭제 last
+                                    this.setState({completely_deleted_tag:true,});
+                                }
+                            })
+                            .catch((e) => console.log("onChange error", e))
+                            .then(res => {
+                                if(this.state.completely_deleted_tag){
+                                    this.setState({
+                                        deleted_styletag: true,
+                                        icon_delete_once: true,
+                                    })
+                                }
+                            })
+                        })
+                    }
                 })
-            }
+            })
         })
-        .then(res => this.setState({deleted_styletag: true,}))
-        .then(res => this.setState({icon_delete_once: true,}))
-        
-        
+        .catch((e)=>console.log("error",e))
     }
 
     removePost(){
