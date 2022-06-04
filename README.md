@@ -9,10 +9,12 @@
 - 스타일 취향이 비슷한 사람들을 팔로우하고 서로 교류하고 싶으신 분<br><br>
 착장 공유부터 스타일 조언까지, 프롬웨어와 함께 당신의 하루를 시작하세요😊! </h3>
 
+<br>
 
 ## 📌웹 링크
 
 https://main.d30b7gvovhfaij.amplifyapp.com/
+<br>
 
 ## 📷스크린샷
  ### 메인화면
@@ -46,8 +48,23 @@ https://main.d30b7gvovhfaij.amplifyapp.com/
   ![image](https://user-images.githubusercontent.com/69742775/171994474-a6833537-261c-4a15-b319-7f25d4d7c3d4.png)
   ![image](https://user-images.githubusercontent.com/69742775/171994495-a8b73877-9f39-407c-b803-949cea100011.png)
   ![image](https://user-images.githubusercontent.com/69742775/171994526-f2136cb2-0678-4aa1-b4d4-ad877220ab41.png) 
+<br>
 
+## ⚙️ 개발환경 및 사용한 라이브러리 
+// TODO 수정하기
 
+<p>
+<img src="https://img.shields.io/badge/Xcode-12.5.1-blue">
+<img src="https://img.shields.io/badge/Charts-3.6-orange">
+<img src="https://img.shields.io/badge/FSCalendar-2.8.2-black">
+<img src="https://img.shields.io/badge/Firebase/Auth-8.0.0-yellow">
+<img src="https://img.shields.io/badge/Firebase/Storage-8.0.0-blue">
+<img src="https://img.shields.io/badge/Alamofire-5.4.3-red">
+ <img src="https://img.shields.io/badge/SWXMLHash-5.0.2-pink">
+<img src="https://img.shields.io/badge/SwiftyJSON-5.0.1-green">
+</p>
+
+<br>
 
 ## 👩‍👩‍👦‍👦Team FromWear
 
