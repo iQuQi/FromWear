@@ -64,6 +64,6 @@ https://main.d30b7gvovhfaij.amplifyapp.com/
 <br>
 
 ## 👩‍👩‍👦‍👦Team FromWear
-  <img src='https://user-images.githubusercontent.com/69742775/172057603-1df646ca-23e3-44ee-949f-ab8bf1eb62cb.png' width='100%' margin='auto'>
+  <img src='https://user-images.githubusercontent.com/69742775/172057886-249f3902-4834-485b-a1ec-55db6f91638e.png' width='100%' margin='auto'>
 
 <br>
