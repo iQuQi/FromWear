@@ -38,9 +38,6 @@ https://main.d30b7gvovhfaij.amplifyapp.com/
   ### 마이페이지
   <img src='https://user-images.githubusercontent.com/67469315/157889301-f5fbf07d-20cf-44f9-9b37-aee9e6c96197.PNG' width='400' margin='auto'><img src='https://user-images.githubusercontent.com/67469315/157885073-7d536a8c-9762-49a4-905b-b61cdb0f43ae.png' width='400' margin='auto'>
   
-  ### 유저페이지
-  <img src='https://user-images.githubusercontent.com/67469315/157885484-7afe71dd-eb10-4b78-a6fb-747a620ad2e3.png' width='400' margin='auto'><img src='https://user-images.githubusercontent.com/67469315/157885343-353cedc7-0738-41d2-8d30-29d46f6bbe55.png' width='400' margin='auto'>
-  
   ### 피드
   <img src='https://user-images.githubusercontent.com/67469315/168540040-4086bc35-9395-4a30-b157-8a3a0948c826.png' width='400' margin='auto'>
   
