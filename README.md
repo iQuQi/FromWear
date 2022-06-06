@@ -48,17 +48,13 @@ https://main.d30b7gvovhfaij.amplifyapp.com/
 <br>
 
 ## ⚙️ 개발환경 및 사용한 라이브러리 
-// TODO 수정하기
-
 <p>
-<img src="https://img.shields.io/badge/Xcode-12.5.1-blue">
-<img src="https://img.shields.io/badge/Charts-3.6-orange">
-<img src="https://img.shields.io/badge/FSCalendar-2.8.2-black">
-<img src="https://img.shields.io/badge/Firebase/Auth-8.0.0-yellow">
-<img src="https://img.shields.io/badge/Firebase/Storage-8.0.0-blue">
-<img src="https://img.shields.io/badge/Alamofire-5.4.3-red">
- <img src="https://img.shields.io/badge/SWXMLHash-5.0.2-pink">
-<img src="https://img.shields.io/badge/SwiftyJSON-5.0.1-green">
+<img src="https://img.shields.io/badge/AwsAmplify-4.3.11-orange">
+<img src="https://img.shields.io/badge/Eslint-7.11.0-pink"> 
+<img src="https://img.shields.io/badge/ReactSimpleChatbot-0.6.1-yellow"> 
+<img src="https://img.shields.io/badge/ReactResponsive-9.0.0_beta.6-green"> 
+<img src="https://img.shields.io/badge/Mui-red"> 
+<img src="https://img.shields.io/badge/EmailjsCom-3.2.0-blue"> 
 </p>
 
 <br>
