@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 import Amplify from "aws-amplify";
 import config from "./aws-exports_custom"
@@ -9,8 +9,7 @@ import {Auth} from "aws-amplify";
 Amplify.configure(config);
 Auth.configure(config);
 
-
-
+ 
 ReactDOM.render(
   <React.StrictMode>
   <App />
