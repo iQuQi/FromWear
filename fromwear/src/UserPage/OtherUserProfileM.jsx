@@ -49,7 +49,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
 
 const RecoBtn = styled(Button)(({ theme }) => ({
   //color: theme.palette.getContrastText(grey[500]),
-  backgroundColor: white[500],
+  //111backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
   '&:hover': {
@@ -309,7 +309,7 @@ export default class Profile extends Component {
     if(user.my_post_list){
       postnum = user.my_post_list.items.length;
     }
-    
+  
 
     const settings = {
       dots: false,
