@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import CustomizedDialogs from './ShowFollowers.jsx';
 
 import { grey } from '@mui/material/colors';
-//111import { white } from 'jest-matcher-utils/node_modules/chalk';
+import { white } from 'jest-matcher-utils/node_modules/chalk';
 
 //import searchSameTagUsers from '../PostBoard/searchSameTagUsers.jsx';
 import Slider from 'react-slick';
@@ -35,7 +35,7 @@ const Img = styled('img')({
 
 const EditBtn = styled(Button)(({ theme }) => ({
   //color: theme.palette.getContrastText(grey[500]),
-  //111backgroundColor: white[500],
+  backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
   '&:hover': {
@@ -49,7 +49,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
 
 const RecoBtn = styled(Button)(({ theme }) => ({
   //color: theme.palette.getContrastText(grey[500]),
-  //111backgroundColor: white[500],
+  backgroundColor: white[500],
   borderColor: grey[700],
   color: grey[700],
   '&:hover': {
