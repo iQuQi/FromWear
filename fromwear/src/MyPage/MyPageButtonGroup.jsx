@@ -9,13 +9,13 @@ import Stack from '@mui/material/Stack';
 import MyPostBoard from './MyPostBoard';
 
 import { grey } from '@mui/material/colors';
-//111import { white } from 'jest-matcher-utils/node_modules/chalk';
+import { white } from 'jest-matcher-utils/node_modules/chalk';
 import MyPageComments from './MyPageComments';
 import MyPageBookmark from './MyPageBookmark';
 import MyPostBoard_SOS from './MyPostBoard_SOS';
 const EditBtn = styled(Button)(({ theme }) => ({
     // color: theme.palette.getContrastText(grey[500]),
-    //111backgroundColor: white[500],
+    backgroundColor: white[500],
     
     width: '25%',
     color: grey[700],
@@ -23,7 +23,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
     margin: '0px',
     '&:hover': {
       borderColor: grey[700],
-      //111backgroundColor: white[500],
+      backgroundColor: white[500],
     },
     '&:active': {
 
@@ -39,7 +39,7 @@ const EditBtn = styled(Button)(({ theme }) => ({
 
 const EditBtnGroup = styled(ButtonGroup)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
-    //111backgroundColor: white[500],
+    backgroundColor: white[500],
     borderRight: 'none',
     //color: grey[700],
     borderRadius: '0px',
