@@ -8,7 +8,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Button from '@mui/material/Button';
 
 import { grey } from '@mui/material/colors';
-import { white } from 'jest-matcher-utils/node_modules/chalk';
+import { white } from 'jest-matcher-utils/node_modules/chalk/source';
 
 //import searchSameTagUsers from '../PostBoard/searchSameTagUsers.jsx';
 import Slider from 'react-slick';
