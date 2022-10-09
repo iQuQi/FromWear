@@ -8,7 +8,7 @@ const awsmobile = {
     "aws_cognito_identity_pool_id": "ap-northeast-2:e3390d6e-c5ca-45c4-b304-379ae5344dd2",
     "aws_cognito_region": "ap-northeast-2",
     "aws_user_pools_id": "ap-northeast-2_IMtDgwSU6",
-    "aws_user_pools_web_client_id": "5bpc9fp64b4rcvr97c9kt6rvhr",
+    "aws_user_pools_web_client_id": "6mdpc8hv2pac0kc92uj8r60cu8",
     "oauth": {},
     "aws_cognito_username_attributes": [],
     "aws_cognito_social_providers": [],
