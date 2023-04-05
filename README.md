@@ -11,9 +11,10 @@
 
 <br>
 
-## 📌웹 링크
+### 📌 [웹 페이지 바로가기](https://main.d30b7gvovhfaij.amplifyapp.com/)
 
-https://main.d30b7gvovhfaij.amplifyapp.com/
+### 📌 [노션 바로가기](https://acidic-roundworm-3d2.notion.site/FromWear-c67e8ea80c4e44ff99c1a1fd90be5da6)
+
 <br>
 
 ## 📷스크린샷
